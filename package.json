@@ -1,0 +1,15 @@
+{
+  "name": "2024_1_refugio",
+  "version": "1.0.0",
+  "description": "Frontend проекта \"Почта\" команды Refugio",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "DEBUG=* node server"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "debug": "^4.3.4"
+  }
+}
