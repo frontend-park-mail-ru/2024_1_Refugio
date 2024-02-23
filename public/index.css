@@ -1,0 +1,69 @@
+body {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+#root {
+    display: grid;
+
+    grid-template-areas: 
+    "header header"
+    "menu   content";
+
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 1fr 5fr;
+    column-gap: 20px;
+}
+
+.header {
+    grid-area: header;
+}
+
+.menu {
+    grid-area: menu;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content {
+    grid-area: content;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.list-letter {
+    height: 75px;
+    padding: 5px;
+    display: grid;
+    border: 2px solid #bbbbbb;
+    border-radius: 25px;
+
+    grid-template-areas: 
+    "list-letter__img   list-letter__title"
+    "list-letter__img   list-letter__text";
+
+    grid-template-columns: min-content 1fr;
+    grid-template-rows: 2fr 3fr;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+
+.list-letter__img {
+    grid-area: list-letter__img;
+
+    width: 75px;
+    height: 75px;
+    border: 1px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-letter__title {
+    font-size: 120%;
+    font-weight: 300;
+}
