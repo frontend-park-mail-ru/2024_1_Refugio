@@ -1,5 +1,7 @@
 body {
     font-family: Verdana, Geneva, sans-serif;
+    background-color: black;
+    color: aliceblue;
 }
 
 #root {
@@ -16,14 +18,47 @@ body {
 
 .header {
     grid-area: header;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.header__logo {
+    margin-left: 20px;
+    width: 1fr;
+}
+
+.header__search {
+    flex: auto;
+}
+
+.header__settings {
+    width: 1fr;
+}
+
+.header__profile {
+    margin-right: 20px;
+    width: 1fr;
 }
 
 .menu {
+    background-color: #01012e;
+    border: 2px solid #01012e;
+    border-radius: 8px;
     grid-area: menu;
-    padding-left: 20px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 30px;
+}
+
+.menu__btn {
+    padding: 5px;
+    display: grid;
+    background-color: #210652;
+    border: 2px solid #190341;
+    border-radius: 8px;
 }
 
 .content {
@@ -32,13 +67,18 @@ body {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
+    padding: 20px;
+    background-color: #01012e;
+    border: 2px solid #01012e;
+    border-radius: 8px;
 }
 
 .list-letter {
     height: 75px;
     padding: 5px;
     display: grid;
-    border: 2px solid #bbbbbb;
+    background-color: #210652;
+    border: 2px solid #190341;
     border-radius: 25px;
 
     grid-template-areas: 
