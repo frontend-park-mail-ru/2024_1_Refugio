@@ -1,9 +1,9 @@
-const ajaxWithBody = (method, url, body = null, headers, callback) => {
-    if (body) {
+const ajaxWithBody = (method, url, body = null, contentType, callback) => {
+    if (method === 'POST' || method === 'PUT') {
         const request = new Request(url, {
             method: method,
             body: body,
-            headers: headers
+            headers: {'Content-type': contentType}
         });
     }
     else {
