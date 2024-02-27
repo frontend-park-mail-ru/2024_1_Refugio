@@ -1,5 +1,5 @@
 const ajaxWithBody = (method, url, body = null, contentType, callback) => {
-    if (method === 'POST' || method === 'PUT') {
+    if (method !== 'HEAD' && method !== 'GET') {
         const request = new Request(url, {
             method: method,
             body: body,
