@@ -1,34 +1,49 @@
+'use strict'
+
 const fs = require('fs');
 const http = require('http');
 const debug = require('debug')('http');
 const nodepath = require('node:path');
+const express = require('express');
 
-const PORT = 8001;
+const app = express();
 
-const server = http.createServer(async(req, res) => {
-    const {url} = req;
-    const path = url === '/' ? 
-    nodepath.join(__dirname, '..', 'public', 'index.html') : 
-    nodepath.join(__dirname, '..', 'public', url);
+app.use(express.static(nodepath.resolve(__dirname, '..', 'public')));
+app.use(express.static(nodepath.resolve(__dirname, '..', 'node_modules')));
 
-    if (path === '/favicon.ico') {
-      res.write('404');
-      res.end();
-      return;
-    }
+const PORT = 8080;
 
-    const file = await fs.readFile(`${path}`, (err, data) => {
-      if (err) {
-        debug(err);
-        res.write('404');
-        res.end();
-        return;
-      }
+// app.get('/',async (req, res) => {
 
-      res.write(data);
-      res.end();
-    });
-})
+// });
+
+// const server = http.createServer(async (req, res) => {
+//   const { url } = req;
+//   let path = url === '/' ?
+//     nodepath.join(__dirname, '..', 'public', 'index.html') :
+//     nodepath.join(__dirname, '..', 'public', url);
+//   if (url === '/node_modules/handlebars/dist/handlebars.runtime.js') {
+//     path = nodepath.join(__dirname, '..', url)
+//   }
+
+//   if (path === '/favicon.ico') {
+//     res.write('404');
+//     res.end();
+//     return;
+//   }
+
+//   const file = await fs.readFile(`${path}`, (err, data) => {
+//     if (err) {
+//       debug(err);
+//       res.write('404');
+//       res.end();
+//       return;
+//     }
+
+//     res.write(data);
+//     res.end();
+//   });
+// })
 
 debug(`Server listening on localhost:${PORT}`);
-server.listen(PORT);
+app.listen(PORT);

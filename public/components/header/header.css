@@ -1,0 +1,45 @@
+.header {
+    grid-area: header;
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.header__logo {
+    margin-left: 20px;
+    width: 1fr;
+}
+
+.header__search {
+    flex: auto;
+}
+
+.header__menu {
+    width: 2fr;
+    margin-right: 20px;
+    position: relative;
+    display: inline-block;
+}
+
+.header__dropdown {
+    display: none;
+    position: absolute;
+    background-color: #01012e;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right: 0;
+}
+
+.header__settings {
+    padding: 12px 16px;
+}
+
+.header__profile {
+    padding: 12px 16px;
+}
+
+.header__menu:hover .header__dropdown {
+    display: block;
+}
