@@ -1,4 +1,6 @@
 @import 'components/header/header.css';
+@import 'components/menu/menu.css';
+@import 'components/list-letter/list-letter.css';
 
 body {
     font-family: Verdana, Geneva, sans-serif;
@@ -9,91 +11,22 @@ body {
 #root {
     display: grid;
 
-    grid-template-areas: 
-    "header header"
-    "menu   content";
+    grid-template-areas:
+        "header header"
+        "menu   content";
 
     grid-template-rows: 100px 1fr;
     grid-template-columns: 1fr 5fr;
     column-gap: 20px;
 }
 
-.menu {
-    background-color: #01012e;
-    border: 2px solid #01012e;
-    border-radius: 8px;
-    grid-area: menu;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.menu__btn {
-    padding: 5px 5px 5px 20px;
-    display: grid;
-    background-color: #210652;
-    border: 2px solid #ffffff40;
-    border-radius: 8px;
-}
-
-.menu__btn:hover {
-    box-shadow: 2px 2px 10px 0px #ffffff55;
-}
-
 .content {
     grid-area: content;
-    display: flex;
-    flex-direction: column;
+    display: grid;
     align-items: stretch;
     gap: 15px;
     padding: 20px;
     background-color: #01012e;
     border: 2px solid #01012e;
     border-radius: 8px;
-}
-
-.list-letter {
-    height: 75px;
-    padding: 5px 20px 5px 20px;
-    display: grid;
-    background-color: #210652;
-    border: 2px solid #ffffff40;
-    border-radius: 25px;
-
-    grid-template-areas: 
-    "list-letter__img   list-letter__title"
-    "list-letter__img   list-letter__text";
-
-    grid-template-columns: min-content 1fr;
-    grid-template-rows: 2fr 3fr;
-    row-gap: 10px;
-    column-gap: 20px;
-}
-
-.list-letter:hover {
-    box-shadow: 2px 2px 10px 0px #ffffff55;
-}
-
-.list-letter__img {
-    grid-area: list-letter__img;
-
-    width: 75px;
-    height: 75px;
-    border: 1px;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.list-letter__title {
-    font-size: 120%;
-    font-weight: 300;
-}
-
-.list-letter__text {
-    white-space: nowrap; 
-    overflow: hidden; 
-    text-overflow: ellipsis;
 }

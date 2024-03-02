@@ -1,68 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title></title>
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
-    <div id="root">
-        <div class="aside">
-            <div class="menu">
-                <div class="menu__btn">
-                    Входящие
-                </div>
-                <div class="menu__btn">
-                    Исходящие
-                </div>
-                <div class="menu__btn">
-                    Черновики
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="list-letter">
-                <img class="list-letter__img"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/1200px-User_icon-cp.svg.png"
-                    alt="Img">
-                <div class="list-letter__title">
-                    Title
-                </div>
-                <div class="list-letter__text">
-                    Some text about letter.
-                </div>
-            </div>
-            <div class="list-letter">
-                <img class="list-letter__img"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/1200px-User_icon-cp.svg.png"
-                    alt="Img">
-                <div class="list-letter__title">
-                    Title
-                </div>
-                <div class="list-letter__text">
-                    Some text about letter. Some text about letter.Some text about letter.Some text about letter.Some
-                    text about letter.Some text about letter.
-                </div>
-            </div>
-            <div class="list-letter">
-                <img class="list-letter__img"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/1200px-User_icon-cp.svg.png"
-                    alt="Img">
-                <div class="list-letter__title">
-                    Title
-                </div>
-                <div class="list-letter__text">
-                    Some text about letter.
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="/handlebars/dist/handlebars.runtime.js"></script>
     <script src="./components/header/header.precompiled.js"></script>
+    <script src="./components/menu/menu.precompiled.js"></script>
+    <script src="./components/list-letter/list-letter.precompiled.js"></script>
     <script type="module" src="./index.js"></script>
+    <div id="root"></div>
 </body>
 
 </html>

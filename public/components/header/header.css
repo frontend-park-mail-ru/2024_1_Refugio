@@ -1,22 +1,24 @@
 .header {
     grid-area: header;
     align-items: center;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
+    display: grid;
+    grid-template-areas:
+        'header__logo header__search header__menu';
+    grid-template-columns: min-content 1fr min-content;
+    column-gap: 10px;
 }
 
 .header__logo {
+    grid-area: header__logo;
     margin-left: 20px;
-    width: 1fr;
 }
 
 .header__search {
-    flex: auto;
+    grid-area: header__search;
 }
 
 .header__menu {
-    width: 2fr;
+    grid-area: header__menu;
     margin-right: 20px;
     position: relative;
     display: inline-block;
@@ -27,7 +29,7 @@
     position: absolute;
     background-color: #01012e;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     right: 0;
 }

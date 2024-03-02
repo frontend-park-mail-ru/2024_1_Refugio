@@ -1,4 +1,4 @@
-export default class Header {
+export default class Menu {
     #parent
     #config
 
@@ -8,9 +8,8 @@ export default class Header {
     }
 
     render() {
-        const template = Handlebars.templates['header.hbs'];
+        const template = Handlebars.templates['menu.hbs'];
 
         this.#parent.insertAdjacentHTML('afterbegin', template());
     }
 }
-
