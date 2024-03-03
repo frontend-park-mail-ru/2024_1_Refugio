@@ -13,7 +13,7 @@ app.get('/login', (req, res) => {
     res.sendFile(nodepath.resolve(__dirname, '..', 'public', 'login.html'));
 });
 
-const PORT = 8080;
+const PORT = 8081;
 
 debug(`Server listening on localhost:${PORT}`);
 app.listen(PORT);
