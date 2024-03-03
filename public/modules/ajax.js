@@ -1,4 +1,4 @@
-export const ajax = (method, url, body = null, contentType, callback) => {
+export default async function ajax(method, url, body = null, contentType) {
     let request;
     if (method !== 'HEAD' && method !== 'GET') {
         request = new Request(url, {
@@ -15,15 +15,7 @@ export const ajax = (method, url, body = null, contentType, callback) => {
             credentials: 'include',
         });
     }
-    fetch(request)
-        .then((response) => {
-            if (response.ok) {
-                return response.status, response.json()
-            }
-        })
-        .then((status, data) => {
-            callback(status, data);
-        })
+    return fetch(request);
 }
 
 
