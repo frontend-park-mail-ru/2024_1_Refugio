@@ -1,6 +1,5 @@
 import Main from '../pages/main/main.js'
 import BaseView from './base.js'
-import {ajax} from '../modules/ajax.js'
 
 const config = {
     header: {
@@ -39,12 +38,4 @@ export default class MainView extends BaseView {
         this.render();
     }
 
-    checkAuth(url) {
-        const isAuth = ajax({
-            method: 'GET', url: url, contentType: 'application/json', callback: (status, data) => (status === 200)
-        });
-        if (!isAuth){
-
-        }
-    }
 }

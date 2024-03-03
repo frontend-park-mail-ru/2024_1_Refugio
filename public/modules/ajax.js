@@ -1,6 +1,7 @@
 export const ajax = (method, url, body = null, contentType, callback) => {
+    let request;
     if (method !== 'HEAD' && method !== 'GET') {
-        const request = new Request(url, {
+        request = new Request(url, {
             method: method,
             body: body,
             headers: {'Content-type': contentType},
@@ -8,9 +9,9 @@ export const ajax = (method, url, body = null, contentType, callback) => {
         });
     }
     else {
-        const request = new Request(url, {
+        request = new Request(url, {
             method: method,
-            headers: headers,
+            headers: {'Content-type': contentType},
             credentials: 'include',
         });
     }
