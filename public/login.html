@@ -1,30 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Site Name</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="login.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="login.css">
 </head>
+
 <body>
-<div class="root">
-    <div class="login-box">
-        <h1>Log in</h1>
-        <form action="">
-            <input class="login-box-input" type="email" placeholder="Email">
-            <input class="login-box-input" type="password" placeholder="Password">
-            <div>
-                <button class="login-btn" type="submit">Log in</button>
-            </div>
 
+<script src="/handlebars/dist/handlebars.runtime.js"></script>
+<script src="./components/login-box/login-box.precompiled.js"></script>
+<script src="./pages/login/login.precompiled.js"></script>
+<script type="module" src="./login.js"></script>
 
-            <div class="login-box-refs">
-                <a href="#">Sign up</a>
-                <a href="#">Restore password</a>
-            </div>
-        </form>
-    </div>
-</div>
+    <div id="root"></div>
+
 </body>
+
 </html>
