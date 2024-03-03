@@ -10,6 +10,6 @@ export default class Menu {
     render() {
         const template = Handlebars.templates['menu.hbs'];
 
-        this.#parent.insertAdjacentHTML('afterbegin', template());
+        return template();
     }
 }

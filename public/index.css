@@ -1,6 +1,4 @@
-@import 'components/header/header.css';
-@import 'components/menu/menu.css';
-@import 'components/list-letter/list-letter.css';
+@import 'pages/main/main.css';
 
 body {
     font-family: Verdana, Geneva, sans-serif;
@@ -18,15 +16,4 @@ body {
     grid-template-rows: 100px 1fr;
     grid-template-columns: 1fr 5fr;
     column-gap: 20px;
-}
-
-.content {
-    grid-area: content;
-    display: grid;
-    align-items: stretch;
-    gap: 15px;
-    padding: 20px;
-    background-color: #01012e;
-    border: 2px solid #01012e;
-    border-radius: 8px;
 }

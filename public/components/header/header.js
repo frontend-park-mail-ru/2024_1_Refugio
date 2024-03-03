@@ -9,8 +9,10 @@ export default class Header {
 
     render() {
         const template = Handlebars.templates['header.hbs'];
-
-        this.#parent.insertAdjacentHTML('afterbegin', template());
+        const header = {
+            logo: this.#config.logo,
+        }
+        return template(header);
     }
 }
 
