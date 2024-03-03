@@ -9,9 +9,9 @@ export default class Login_box {
 
     render() {
         const template = Handlebars.templates['login-box.hbs'];
-        const header = {
-            logo: this.#config.logo,
+
+        const login_box = {
         }
-        return template(login-box);
+        return template(login_box);
     }
 }

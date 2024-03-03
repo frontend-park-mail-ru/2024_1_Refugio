@@ -12,7 +12,7 @@ export default class Login {
     render() {
         const template = Handlebars.templates['login.hbs'];
         const elements = {
-            login_box: Login_Box(null, this.#config.login_box).render(),
+            login_box: new Login_Box(null, this.#config).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
