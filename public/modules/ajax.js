@@ -1,4 +1,4 @@
-const ajax = (method, url, body = null, contentType, callback) => {
+export const ajax = (method, url, body = null, contentType, callback) => {
     if (method !== 'HEAD' && method !== 'GET') {
         const request = new Request(url, {
             method: method,
