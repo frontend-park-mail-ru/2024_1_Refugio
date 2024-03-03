@@ -7,41 +7,4 @@ body {
     font-family: Helvetica, Arial, sans-serif;
     background-color: black;
     color: #e6edf3;
-
-}
-.login-box {
-    width: 300px;
-    border: solid 1px #30363d;
-    border-radius: 30px;
-    text-align: center;
-    background-color: #161b22;
-}
-
-.login-box-input {
-    width: 70%;
-    border-radius: 20px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    background-color: #e6edf3;
-}
-
-.login-btn {
-    font-size: 16px;
-    background-color: #1079ea;
-    border-radius: 20px;
-    border-width: 0;
-    color: #e6edf3;
-    padding: 10px 25px;
-    margin: 12px 0 12px;
-}
-
-.login-box-refs {
-    margin-bottom: 12px;
-}
-
-.login-box-refs * {
-    font-size: 14px;
-    color: #e6edf3;
-    margin: 12px 15px 15px;
-    text-decoration: none;
 }
