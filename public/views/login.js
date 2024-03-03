@@ -1,6 +1,5 @@
 import Login from '../pages/login/login.js'
 import BaseView from './base.js'
-import {ajax} from '../modules/ajax.js'
 
 const config = {
     // header: {
