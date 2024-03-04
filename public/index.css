@@ -1,4 +1,5 @@
 @import 'pages/main/main.css';
+@import 'pages/login/login.css';
 
 body {
     font-family: Verdana, Geneva, sans-serif;
@@ -6,14 +7,4 @@ body {
     color: aliceblue;
 }
 
-#root {
-    display: grid;
 
-    grid-template-areas:
-        "header header"
-        "menu   content";
-
-    grid-template-rows: 100px 1fr;
-    grid-template-columns: 1fr 5fr;
-    column-gap: 20px;
-}

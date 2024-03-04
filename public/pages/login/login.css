@@ -1,1 +1,8 @@
 @import '../../components/login-box/login-box.css';
+
+.login-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}

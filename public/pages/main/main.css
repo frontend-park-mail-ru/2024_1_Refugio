@@ -13,3 +13,15 @@
     border: 2px solid #01012e;
     border-radius: 8px;
 }
+
+.main-root {
+    display: grid;
+
+    grid-template-areas:
+        "header header"
+        "menu   content";
+
+    grid-template-rows: 100px 1fr;
+    grid-template-columns: 1fr 5fr;
+    column-gap: 20px;
+}
