@@ -32,11 +32,13 @@ const config = {
 
 export default class MainView extends BaseView {
     renderPage() {
+        this.clear();
         this.#getUserInfo();
         this.#getEmailsInfo();
         const page = new Main(this.root, config);
         this.components.push(page);
         this.render();
+        this.addListeners();
     }
 
     #getUserInfo() {

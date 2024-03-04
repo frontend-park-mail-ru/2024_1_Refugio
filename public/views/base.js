@@ -1,5 +1,5 @@
 export default class BaseView {
-    components=[];
+    components = [];
     root;
 
     constructor() {
@@ -8,5 +8,19 @@ export default class BaseView {
 
     render() {
         this.components.forEach((component) => component.render())
+    }
+
+    addListeners() {
+        this.components.forEach((component) => component.addListeners());
+    }
+
+    removeListeners() {
+        this.components.forEach((component) => component.removeListeners());
+    }
+
+    clear() {
+        this.removeListeners();
+        this.root.innerHTML='';
+        this.components=[];
     }
 }

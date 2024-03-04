@@ -6,9 +6,9 @@ import ajax from '../modules/ajax.js';
     const response = await ajax(
         'GET', 'http://89.208.223.140:8080/api/v1/verify-auth', null, 'application/json'
     );
-    const status = response.status;
+    const status = await response.status;
     const data = await response.json();
-    if (status === 200) {
+    if (status <= 300) {
         const login = new LoginView();
         login.renderPage();
     } else {
