@@ -9,7 +9,7 @@
 }
 
 .menu__btn {
-    padding: 5px 5px 5px 20px;
+    padding: 5px 20px 5px 20px;
     display: grid;
     background-color: #210652;
     border: 2px solid #ffffff40;

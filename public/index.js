@@ -8,7 +8,7 @@ import ajax from '../modules/ajax.js';
     );
     const status = response.status;
     const data = await response.json();
-    if (status !== 200) {
+    if (status === 200) {
         const login = new LoginView();
         login.renderPage();
     } else {
