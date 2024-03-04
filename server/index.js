@@ -13,6 +13,10 @@ app.get('/login', (req, res) => {
     res.sendFile(nodepath.resolve(__dirname, '..', 'public', 'login.html'));
 });
 
+app.get('/signup', (req, res) => {
+    res.sendFile(nodepath.resolve(__dirname, '..', 'public', 'signup.html'));
+});
+
 const PORT = 8081;
 
 debug(`Server listening on localhost:${PORT}`);
