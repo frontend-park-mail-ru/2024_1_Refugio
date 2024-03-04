@@ -10,6 +10,7 @@ export default class LoginView extends BaseView {
         const page = new Login(this.root, config);
         this.components.push(page);
         this.render();
+        this.addListeners();
     }
 
 
