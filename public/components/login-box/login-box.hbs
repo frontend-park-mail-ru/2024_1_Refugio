@@ -1,16 +1,19 @@
-<div class="login-box">
-    <h1>Log in</h1>
+<div class="login-container">
+
+    <h1>Вход</h1>
     <form action="">
-        <input class="login-box__input" type="email" placeholder="Email">
-        <input class="login-box__input" type="password" placeholder="Password">
-        <div>
-            <button class="login-box__login-btn" type="submit">Log in</button>
-        </div>
+        <label>
+            <input class="login-container__input" type="email" placeholder="Email">
+        </label>
+        <label>
+            <input class="login-container__input" type="password" placeholder="Пароль">
+        </label>
 
+        <button class="login-container__login-btn" type="submit">Войти</button>
 
-        <div class="login-box__refs">
-            <a href="#">Sign up</a>
-            <a href="#">Restore password</a>
-        </div>
+        <a class="login-container__signup-ref" href="#">Зарегестрироваться</a>
+        <a class="login-container__restore-ref" href="#">Восстановить</a>
+
     </form>
+
 </div>

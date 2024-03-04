@@ -1,4 +1,4 @@
-.login-container {
+.signup-container {
     background-color: #101419;
 
     text-align: center;
@@ -9,7 +9,7 @@
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
 }
 
-.login-container__input {
+.signup-container__input {
     width: 70%;
     border-radius: 20px;
     padding: 12px 20px;
@@ -17,7 +17,7 @@
     background-color: #e6edf3;
 }
 
-.login-container__login-btn {
+.signup-container__signup-btn {
 
     font-size: 16px;
     background-color: #1079ea;
@@ -31,20 +31,11 @@
     transition: background-color 0.3s ease;
 }
 
-.login-container__login-btn:hover {
+.signup-container__signup-btn:hover {
     background-color: #1262b7;
 }
 
-.login-container__signup-ref {
-    display: block;
-
-    font-size: 14px;
-    color: #e6edf3;
-    text-decoration: none;
-    margin-bottom: 12px;
-}
-
-.login-container__restore-ref {
+.signup-container__login-ref {
     display: block;
 
     font-size: 14px;
