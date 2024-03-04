@@ -13,8 +13,8 @@ export default class Main {
         const result = [];
         letters.forEach((letter) => {
             result.push(new List_letter(null, {
-                img: letter.img,
-                title: letter.title,
+                img: letter.photoId,
+                title: letter.topic,
                 text: letter.text,
             }).render(),)
         });
