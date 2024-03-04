@@ -34,7 +34,7 @@ export default class Main {
                     );
                     const status = response.status;
                     const data = await response.json();
-                    if (status > 300) {
+                    if (status < 300) {
                         const login = new LoginView();
                         login.renderPage();
                     } else {
