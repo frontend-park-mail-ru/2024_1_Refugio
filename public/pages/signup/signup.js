@@ -54,6 +54,11 @@ export default class Signup {
                     'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
                 );
 
+                if (response.ok) {
+                    // registration successful
+                    const login = new LoginView();
+                    login.renderPage();
+                }
 
             }));
 

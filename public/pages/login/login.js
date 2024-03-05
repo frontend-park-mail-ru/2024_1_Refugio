@@ -50,15 +50,11 @@ export default class Login {
                     'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
                 );
 
-                // if (response.ok) {
-                //     // registration successful
-                //     const main = new MainView();
-                //     main.renderPage();
-                // } else {
-                //     // registration failed
-                //     const errorMessage = await response.text();
-                //     alert(`Авторизация не удалась: ${errorMessage}`);
-                // }
+                if (response.ok) {
+                    // registration successful
+                    const main = new MainView();
+                    main.renderPage();
+                }
             }));
 
         this.#parent
