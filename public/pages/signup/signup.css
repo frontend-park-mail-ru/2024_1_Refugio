@@ -1,1 +1,9 @@
 @import '../../components/signup-box/signup-box.css';
+
+.signup-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px;
+}

@@ -1,6 +1,9 @@
 import Login_Box from '../../components/login-box/login-box.js';
+
 import ajax from '../../modules/ajax.js';
-import MainView from '../../views/main.js';
+
+import SignupView from "../../views/signup.js";
+
 
 export default class Login {
     #parent
@@ -47,16 +50,29 @@ export default class Login {
                     'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
                 );
 
-                if (response.ok) {
-                    // registration successful
-                    const main = new MainView();
-                    main.renderPage();
-                } else {
-                    // registration failed
-                    const errorMessage = await response.text();
-                    alert(`Авторизация не удалась: ${errorMessage}`);
-                }
+                // if (response.ok) {
+                //     // registration successful
+                //     const main = new MainView();
+                //     main.renderPage();
+                // } else {
+                //     // registration failed
+                //     const errorMessage = await response.text();
+                //     alert(`Авторизация не удалась: ${errorMessage}`);
+                // }
             }));
+
+        this.#parent
+            .querySelector('.login-container__signup-ref')
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const signupView = new SignupView();
+
+                signupView.renderPage();
+
+            });
+
+
     }
 
     removeListeners() {
@@ -87,14 +103,28 @@ export default class Login {
                     'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
                 );
 
-                if (response.ok) {
-                    // registration successful
-                    alert('Авторизация прошла успешно!');
-                } else {
-                    // registration failed
-                    const errorMessage = await response.text();
-                    alert(`Авторизация не удалась: ${errorMessage}`);
-                }
+                // if (response.ok) {
+                //     // registration successful
+                //     alert('Авторизация прошла успешно!');
+                // } else {
+                //     // registration failed
+                //     const errorMessage = await response.text();
+                //     alert(`Авторизация не удалась: ${errorMessage}`);
+                // }
             }));
+
+        this.#parent
+            .querySelector('.login-container__signup-ref')
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const signupView = new SignupView();
+
+                signupView.renderPage();
+
+            });
+
     }
+
+
 }
