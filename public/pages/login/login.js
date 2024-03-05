@@ -4,6 +4,8 @@ import ajax from '../../modules/ajax.js';
 
 import SignupView from "../../views/signup.js";
 
+import MainView from '../../views/main.js';
+
 
 export default class Login {
     #parent
