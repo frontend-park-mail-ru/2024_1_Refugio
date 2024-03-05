@@ -49,7 +49,6 @@ export default class Login {
 
                 if (response.ok) {
                     // registration successful
-                    alert('Авторизация прошла успешно!');
                     const main = new MainView();
                     main.renderPage();
                 } else {
