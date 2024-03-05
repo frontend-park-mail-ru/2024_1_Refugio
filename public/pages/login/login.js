@@ -1,5 +1,7 @@
 import Login_Box from '../../components/login-box/login-box.js';
+
 import ajax from '../../modules/ajax.js';
+import SignupView from "../../views/signup.js";
 
 export default class Login {
     #parent
@@ -55,6 +57,19 @@ export default class Login {
                     alert(`Авторизация не удалась: ${errorMessage}`);
                 }
             }));
+
+        this.#parent
+            .querySelector('.login-container__signup-ref')
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const signupView = new SignupView();
+
+                signupView.renderPage();
+
+            });
+
+
     }
 
     removeListeners() {
@@ -95,4 +110,6 @@ export default class Login {
                 }
             }));
     }
+
+
 }
