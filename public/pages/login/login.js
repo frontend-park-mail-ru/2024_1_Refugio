@@ -3,6 +3,7 @@ import Login_Box from '../../components/login-box/login-box.js';
 import ajax from '../../modules/ajax.js';
 
 import SignupView from "../../views/signup.js";
+import MainView from "../../views/main.js";
 
 
 export default class Login {
@@ -112,6 +113,18 @@ export default class Login {
                     alert(`Авторизация не удалась: ${errorMessage}`);
                 }
             }));
+
+        this.#parent
+            .querySelector('.login-container__signup-ref')
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const signupView = new SignupView();
+
+                signupView.renderPage();
+
+            });
+
     }
 
 
