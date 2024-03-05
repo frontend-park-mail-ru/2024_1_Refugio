@@ -27,21 +27,27 @@ export default class Signup {
 
                 e.preventDefault();
 
+
+                const nameInput = document.querySelector('.signup-container__input[type="text"][placeholder="Имя"]');
+                const surnameInput = document.querySelector('.signup-container__input[type="text"][placeholder="Фамилия"]');
                 const emailInput = document.querySelector('.signup-container__input[type="email"]');
                 const passwordInput = document.querySelector('.signup-container__input[type="password"][placeholder="Пароль"]');
 
+
+                const name = nameInput.value.trim();
+                const surname = surnameInput.value.trim();
                 const email = emailInput.value.trim();
                 const password = passwordInput.value.trim();
 
-                if (!email || !password) {
-                    alert('Все поля должны быть заполнены.');
-                    return;
-                }
+
 
                 // create JSON object with user data
                 const newUser = {
                     login: email,
+                    name: name,
                     password: password,
+                    surname: surname,
+
                 };
 
                 const response = await ajax(
