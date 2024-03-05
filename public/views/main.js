@@ -48,7 +48,7 @@ export default class MainView extends BaseView {
             );
             const status = response.status;
             const data = await response.json();
-            config.header.logo = data.body.user.name;
+            config.header.username = data.body.user.name;
         })()
     }
 
