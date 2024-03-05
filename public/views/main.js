@@ -31,6 +31,10 @@ export default class MainView extends BaseView {
         },
     };
 
+    constructor() {
+        super();
+    }
+
     async renderPage() {
         this.clear();
         this.#config.header.username = await this.#getUserInfo();
