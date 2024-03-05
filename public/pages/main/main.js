@@ -17,8 +17,6 @@ export default class Main {
     render() {
         const template = Handlebars.templates['main.hbs'];
         const config = this.#config;
-        console.log(config);
-        console.log(config.header);
         const elements = {
             header: new Header(null, config.header).render(),
             menu: new Menu(null, config.menu).render(),
