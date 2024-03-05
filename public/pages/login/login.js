@@ -1,5 +1,6 @@
 import Login_Box from '../../components/login-box/login-box.js';
 import ajax from '../../modules/ajax.js';
+import MainView from '../../views/main.js';
 
 export default class Login {
     #parent
@@ -48,7 +49,8 @@ export default class Login {
 
                 if (response.ok) {
                     // registration successful
-                    alert('Авторизация прошла успешно!');
+                    const main = new MainView();
+                    main.renderPage();
                 } else {
                     // registration failed
                     const errorMessage = await response.text();
