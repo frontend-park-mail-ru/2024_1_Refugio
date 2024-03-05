@@ -1,5 +1,6 @@
 import Signup_Box from "../../components/signup-box/signup-box.js";
 import ajax from "../../modules/ajax.js";
+import LoginView from "../../views/login.js";
 
 export default class Signup {
     #parent
@@ -47,15 +48,19 @@ export default class Signup {
                     'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
                 );
 
-                if (response.ok) {
-                    // registration successful
-                    alert('Регистрация прошла успешно!');
-                } else {
-                    // registration failed
-                    const errorMessage = await response.text();
-                    alert(`Регистрация не удалась: ${errorMessage}`);
-                }
+
             }));
+
+        this.#parent
+            .querySelector('.signup-container__login-ref')
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const loginView = new LoginView();
+
+                loginView.renderPage();
+
+            });
     }
 
     removeListeners() {
@@ -86,15 +91,19 @@ export default class Signup {
                     'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
                 );
 
-                if (response.ok) {
-                    // registration successful
-                    alert('Регистрация прошла успешно!');
-                } else {
-                    // registration failed
-                    const errorMessage = await response.text();
-                    alert(`Регистрация не удалась: ${errorMessage}`);
-                }
+
             }));
+
+        this.#parent
+            .querySelector('.signup-container__login-ref')
+            .addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const loginView = new LoginView();
+
+                loginView.renderPage();
+
+            });
     }
 
 }
