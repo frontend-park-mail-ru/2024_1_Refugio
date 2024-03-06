@@ -59,7 +59,7 @@ export default class Login {
                 if (response.ok) {
                     // registration successful
                     const main = new MainView();
-                    main.renderPage();
+                    await main.renderPage();
                 } else {
                     const errorSign = this.#parent
                         .querySelector('.login-container__error-sign');
