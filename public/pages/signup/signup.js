@@ -41,7 +41,7 @@ export default class Signup {
                 const password = passwordInput.value.trim();
                 const passwordConfirmation = passwordConfirmationInput.value.trim();
 
-                if (!name || !surname || !email || !password) {
+                if (!name || !surname || !email || !password || !passwordConfirmation) {
 
                     const error = this.#parent
                         .querySelector('.signup-container__error');

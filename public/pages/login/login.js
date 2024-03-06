@@ -37,10 +37,14 @@ export default class Login {
                 const email = emailInput.value.trim();
                 const password = passwordInput.value.trim();
 
-                if (!email || !password) {
-                    alert('Все поля должны быть заполнены.');
-                    return;
+                if( !email || !password) {
+                    const error = this.#parent
+                        .querySelector('.login-container__error-sign');
+                    error.textContent = "Все поля должны быть заполнены";
+                    error.classList.add('login-container__error-sign_show');
+                    return
                 }
+
 
                 // create JSON object with user data
                 const newUser = {
@@ -60,6 +64,8 @@ export default class Login {
                     const errorSign = this.#parent
                         .querySelector('.login-container__error-sign');
                     errorSign.classList.add('login-container__error-sign_show');
+                    errorSign.textContent = "Логин и пароль некорректны";
+
                 }
             }));
 
@@ -74,16 +80,6 @@ export default class Login {
 
             });
 
-        // this.#parent
-        //     .querySelector('.login-container__restore-ref')
-        //     .addEventListener('click', (e) => {
-        //         e.preventDefault();
-
-        //         const errorSign = this.#parent
-        //             .querySelector('.login-container__error-sign');
-        //         errorSign.classList.add('login-container__error-sign_show')
-
-        //     });
     }
 
     removeListeners() {
@@ -99,10 +95,7 @@ export default class Login {
                 const email = emailInput.value.trim();
                 const password = passwordInput.value.trim();
 
-                if (!email || !password) {
-                    alert('Все поля должны быть заполнены.');
-                    return;
-                }
+
 
                 // create JSON object with user data
                 const newUser = {
@@ -114,14 +107,7 @@ export default class Login {
                     'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
                 );
 
-                // if (response.ok) {
-                //     // registration successful
-                //     alert('Авторизация прошла успешно!');
-                // } else {
-                //     // registration failed
-                //     const errorMessage = await response.text();
-                //     alert(`Авторизация не удалась: ${errorMessage}`);
-                // }
+
             }));
 
         this.#parent
