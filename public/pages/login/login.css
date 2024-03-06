@@ -1,0 +1,9 @@
+@import '../../components/login-box/login-box.css';
+
+.login-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 30px;
+}

@@ -1,0 +1,11 @@
+@import 'pages/main/main.css';
+@import 'pages/login/login.css';
+@import 'pages/signup/signup.css';
+
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    background-color: black;
+    color: aliceblue;
+}
+
+
