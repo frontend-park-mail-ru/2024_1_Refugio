@@ -56,6 +56,10 @@ export default class Login {
                     // registration successful
                     const main = new MainView();
                     main.renderPage();
+                } else {
+                    const errorSign = this.#parent
+                        .querySelector('.login-container__error-sign');
+                    errorSign.classList.add('login-container__error-sign_show');
                 }
             }));
 
@@ -70,7 +74,16 @@ export default class Login {
 
             });
 
+        // this.#parent
+        //     .querySelector('.login-container__restore-ref')
+        //     .addEventListener('click', (e) => {
+        //         e.preventDefault();
 
+        //         const errorSign = this.#parent
+        //             .querySelector('.login-container__error-sign');
+        //         errorSign.classList.add('login-container__error-sign_show')
+
+        //     });
     }
 
     removeListeners() {
