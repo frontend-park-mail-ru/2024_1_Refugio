@@ -16,3 +16,7 @@ Frontend проекта "Почта" команды Refugio
 
 # Полезные ссылки
 * [Miro](https://miro.com/app/board/uXjVNq0P_Ys=/)
+
+# Наш проект
+* http://89.208.223.140:8080/swagger/index.html
+* http://89.208.223.140:8081
