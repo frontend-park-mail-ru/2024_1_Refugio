@@ -43,3 +43,14 @@
     text-decoration: none;
     margin-bottom: 12px;
 }
+
+
+
+.signup-container__error {
+    color: red;
+    display: none;
+}
+
+.signup-container__error-show {
+    display: block;
+}
