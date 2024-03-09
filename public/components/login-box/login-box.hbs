@@ -1,14 +1,16 @@
 <div class="login-container">
 
-    <h1>Вход</h1>
-    <form action="">
-        <p class="login-container__error-sign">Ошибка! Неверный логин или пароль!</p>
-        <label>
-            <input class="login-container__input" type="email" placeholder="Email">
+    <h1 class="login-container__sign">Вход</h1>
+    <form action="" class="login-container__form">
+        <div class="login-container__error-sign">Ошибка! Неверный логин или пароль!</div>
+        <label class="login-container__label" for="email">
+            Email
         </label>
-        <label>
-            <input class="login-container__input" type="password" placeholder="Пароль">
+        <input class="login-container__input" type="email" placeholder="Email" id="email">
+        <label class="login-container__label" for="" password>
+            Password
         </label>
+        <input class="login-container__input" type="password" placeholder="Пароль" id="password">
 
         <button id="loginBtn" class="login-container__login-btn" type="submit">Войти</button>
 

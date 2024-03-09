@@ -1,24 +1,30 @@
 <div class="signup-container">
 
-    <h1>Регистрация</h1>
-    <form action="">
-            <p class="signup-container__error">Error</p>
-        <label>
-            <input class="signup-container__input" type="text" placeholder="Имя">
+    <h1 class="signup-container__sign">Регистрация</h1>
+    <form action="" class="signup-container__form">
+        <div class="signup-container__error-sign">
+            <p>Все поля доложны быть заполнены</p>
+        </div>
+        <label class="signup-container__label" for="name">
+            Имя
         </label>
-        <label>
-            <input class="signup-container__input" type="text" placeholder="Фамилия">
-
+        <input class="signup-container__input" type="text" placeholder="Имя" id="name">
+        <label class="signup-container__label" for="surname">
+            Фамилия
         </label>
-        <label>
-            <input class="signup-container__input" type="email" placeholder="Email">
+        <input class="signup-container__input" type="text" placeholder="Фамилия" id="surname">
+        <label class="signup-container__label" for="email">
+            Почтовый адрес
         </label>
-        <label>
-            <input class="signup-container__input" type="password" placeholder="Пароль">
+        <input class="signup-container__input" type="email" placeholder="Email" id="email">
+        <label class="signup-container__label" for="password">
+            Пароль
         </label>
-        <label>
-            <input class="signup-container__input" type="password" placeholder="Повторите пароль">
+        <input class="signup-container__input" type="password" placeholder="Пароль" id="password">
+        <label class="signup-container__label" for="repeat">
+            Повторите пароль
         </label>
+        <input class="signup-container__input" type="password" placeholder="Повторите пароль" id="repeat">
 
         <button id="signupBtn" class="signup-container__signup-btn" type="submit">Зарегистрироваться</button>
 
