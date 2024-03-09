@@ -44,25 +44,25 @@ export default class Signup {
                 if (!name || !surname || !email || !password || !passwordConfirmation) {
 
                     const error = this.#parent
-                        .querySelector('.signup-container__error');
+                        .querySelector('.signup-container__error-sign');
                     error.textContent = "Все поля должны быть заполнены";
-                    error.classList.add('signup-container__error-show');
+                    error.classList.add('signup-container__error-sign_show');
                     return
                 }
 
                 if (email.indexOf('@') === -1) {
                     const error = this.#parent
-                        .querySelector('.signup-container__error');
+                        .querySelector('.signup-container__error-sign');
                     error.textContent = "Некорректный ввод адреса почты";
-                    error.classList.add('signup-container__error-show');
+                    error.classList.add('signup-container__error-sign_show');
                     return
                 }
 
                 if (password !== passwordConfirmation) {
                     const error = this.#parent
-                        .querySelector('.signup-container__error');
+                        .querySelector('.signup-container__error-sign');
                     error.textContent = "Пароли не совпадают";
-                    error.classList.add('signup-container__error-show');
+                    error.classList.add('signup-container__error-sign_show');
                     return
                 }
 
@@ -124,28 +124,28 @@ export default class Signup {
                 const password = passwordInput.value.trim();
                 const passwordConfirmation = passwordConfirmationInput.value.trim();
 
-                if (!name || !surname || !email || !password) {
+                if (!name || !surname || !email || !password || !passwordConfirmation) {
 
                     const error = this.#parent
-                        .querySelector('.signup-container__error');
+                        .querySelector('.signup-container__error-sign');
                     error.textContent = "Все поля должны быть заполнены";
-                    error.classList.add('signup-container__error-show');
+                    error.classList.add('signup-container__error-sign_show');
                     return
                 }
 
                 if (email.indexOf('@') === -1) {
                     const error = this.#parent
-                        .querySelector('.signup-container__error');
+                        .querySelector('.signup-container__error-sign');
                     error.textContent = "Некорректный ввод адреса почты";
-                    error.classList.add('signup-container__error-show');
+                    error.classList.add('signup-container__error-sign_show');
                     return
                 }
 
                 if (password !== passwordConfirmation) {
                     const error = this.#parent
-                        .querySelector('.signup-container__error');
+                        .querySelector('.signup-container__error-sign');
                     error.textContent = "Пароли не совпадают";
-                    error.classList.add('signup-container__error-show');
+                    error.classList.add('signup-container__error-sign_show');
                     return
                 }
 

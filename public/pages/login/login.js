@@ -44,6 +44,13 @@ export default class Login {
                     error.classList.add('login-container__error-sign_show');
                     return
                 }
+                if (email.indexOf('@') === -1) {
+                    const error = this.#parent
+                        .querySelector('.login-container__error-sign');
+                    error.textContent = "Некорректный ввод адреса почты";
+                    error.classList.add('login-container__error-sign_show');
+                    return
+                }
 
 
                 // create JSON object with user data

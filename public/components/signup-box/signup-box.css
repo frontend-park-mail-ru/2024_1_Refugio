@@ -1,6 +1,10 @@
 .signup-container {
     background-color: #101419;
 
+    display: grid;
+    grid-template-areas: 'signup-container__sign'
+    'signup-container__form';
+
     text-align: center;
 
     width: 300px;
@@ -9,23 +13,53 @@
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
 }
 
+.signup-container__sign{
+    margin: 15px;
+}
+
+.signup-container__form{
+    display: grid;
+    grid-template-areas: 'signup-container__error-sign'
+    'signup-container__label'
+    'signup-container__input'
+    'signup-container__label'
+    'signup-container__input'
+    'signup-container__label'
+    'signup-container__input'
+    'signup-container__label'
+    'signup-container__input'
+    'signup-container__label'
+    'signup-container__input'
+    'signup-container__signup-btn'
+    'signup-container__login-ref';
+    row-gap: 10px;
+    justify-items: center;
+}
+
+.signup-container__label {
+    justify-self: start;
+    margin-left:15%;
+}
+
 .signup-container__input {
     width: 70%;
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 12px 20px;
     margin: 8px 0;
     background-color: #e6edf3;
 }
 
 .signup-container__signup-btn {
-
+    justify-self: center;
+    width:75%;
     font-size: 16px;
     background-color: #1079ea;
     border-radius: 40px;
     border-width: 1px;
     color: #e6edf3;
     padding: 15px 25px;
-    margin: 25px 0 25px;
+    margin: 20px 0 20px;
+    text-align: center;
 
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -46,11 +80,13 @@
 
 
 
-.signup-container__error {
-    color: red;
-    display: none;
+.signup-container__error-sign {
+    visibility: hidden;
+    color:#a54343;
+    padding: 0 5px;
+    height:40px;
 }
 
-.signup-container__error-show {
-    display: block;
+.signup-container__error-sign_show {
+    visibility: visible;
 }
