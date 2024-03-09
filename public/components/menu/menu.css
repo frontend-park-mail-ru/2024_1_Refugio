@@ -14,6 +14,7 @@
     background-color: #210652;
     border: 2px solid #ffffff40;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .menu__btn:hover {
