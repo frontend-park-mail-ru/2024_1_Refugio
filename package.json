@@ -17,6 +17,9 @@
     "handlebars": "^4.7.8"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.57.0",
     "jsdoc": "^4.0.2"
   }
 }
