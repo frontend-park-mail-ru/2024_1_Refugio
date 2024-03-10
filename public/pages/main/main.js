@@ -45,19 +45,19 @@ export default class Main {
         this.#parent
             .querySelector('.header__exit')
             .addEventListener('click', (e) => {
+                e.preventDefault();
                 (async () => {
                     const response = await ajax(
                         'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
                     );
                     const status = response.status;
-                    const data = await response.json();
                     if (status < 300) {
                         const login = new LoginView();
                         login.renderPage();
                     } else {
                         const main = new MainView();
                         main.renderPage();
-                    };
+                    }
                 })()
             })
     }
@@ -69,19 +69,19 @@ export default class Main {
         this.#parent
             .querySelector('.header__exit')
             .removeEventListener('click', (e) => {
+                e.preventDefault();
                 (async () => {
                     const response = await ajax(
                         'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
                     );
                     const status = response.status;
-                    const data = await response.json();
                     if (status > 300) {
                         const login = new LoginView();
                         login.renderPage();
                     } else {
                         const main = new MainView();
                         main.renderPage();
-                    };
+                    }
                 })()
             })
     }

@@ -15,7 +15,16 @@
     "plugins": [
         "@typescript-eslint"
     ],
+    "ignorePatterns": ["*.precompiled.js"],
     "rules": {
-        
+        "no-console":"off",
+        "no-unused-vars": ["error", { "argsIgnorePattern": "_" }],
+        "no-restricted-syntax": ["error", "WithStatement"],
+        "no-param-reassign": "off",
+        "prefer-promise-reject-errors": ["error", {"allowEmptyReject": true}],
+        "no-restricted-globals": ["error", "event", "fdescribe"]
+    },
+    "globals": {
+        "Handlebars": "readonly"
     }
 }
