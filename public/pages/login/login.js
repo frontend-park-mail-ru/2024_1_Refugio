@@ -128,7 +128,7 @@ export default class Login {
                     password: password,
                 };
 
-                const response = await ajax(
+                await ajax(
                     'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
                 );
 
