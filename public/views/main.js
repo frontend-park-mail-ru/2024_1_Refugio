@@ -2,6 +2,10 @@ import Main from '../pages/main/main.js'
 import BaseView from './base.js'
 import ajax from '../modules/ajax.js'
 
+/**
+ * Класс для рендера страницы списка писем
+ * @class
+ */
 export default class MainView extends BaseView {
     #config = {
         header: {
@@ -31,10 +35,17 @@ export default class MainView extends BaseView {
         },
     };
 
+    /**
+     * Конструктор класса
+     * @constructor
+     */
     constructor() {
         super();
     }
 
+    /**
+     * Функция рендера страницы
+     */
     async renderPage() {
         this.clear();
         this.#config.header.username = await this.#getUserInfo();
@@ -50,6 +61,10 @@ export default class MainView extends BaseView {
         this.addListeners();
     }
 
+    /**
+     * Запрашивает у сервера имя пользователя
+     * @returns {string} имя пользователя
+     */
     async #getUserInfo() {
         const response = await ajax(
             'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
@@ -59,6 +74,10 @@ export default class MainView extends BaseView {
         return data.body.user.name;
     }
 
+    /**
+     * Запрашивает у сервера список писем пользователся
+     * @returns {Array<object>} список писем
+     */
     async #getEmailsInfo() {
         const response = await ajax(
             'GET', 'http://89.208.223.140:8080/api/v1/emails', null, 'application/json'
