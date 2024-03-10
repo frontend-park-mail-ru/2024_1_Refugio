@@ -2,15 +2,28 @@ import Signup_Box from "../../components/signup-box/signup-box.js";
 import ajax from "../../modules/ajax.js";
 import LoginView from "../../views/login.js";
 
+/**
+ * Класс обертки страницы
+ * @class
+ */
 export default class Signup {
     #parent
     #config
 
+    /**
+     * Конструктор класса
+     * @constructor
+     * @param {Element} parent 
+     * @param {object} config 
+     */
     constructor(parent, config) {
         this.#config = config;
         this.#parent = parent;
     }
 
+    /**
+     * Рендер компонента в DOM
+     */
     render() {
         const template = Handlebars.templates['signup.hbs'];
         const elements = {
@@ -19,7 +32,9 @@ export default class Signup {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
-
+    /**
+     * Добавляет листенеры на компоненты
+     */
     addListeners() {
         this.#parent
             .querySelector('.signup-container__signup-btn')
@@ -103,6 +118,9 @@ export default class Signup {
 
     }
 
+    /**
+     * Удаляет листенеры
+     */
     removeListeners() {
         this.#parent
             .querySelector('.signup-container__signup-btn')

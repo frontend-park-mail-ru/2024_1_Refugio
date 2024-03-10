@@ -6,16 +6,28 @@ import SignupView from "../../views/signup.js";
 
 import MainView from '../../views/main.js';
 
-
+/**
+ * Класс обертки страницы
+ * @class
+ */
 export default class Login {
     #parent
     #config
 
+    /**
+     * Конструктор класса
+     * @constructor
+     * @param {Element} parent 
+     * @param {object} config 
+     */
     constructor(parent, config) {
         this.#config = config;
         this.#parent = parent;
     }
 
+    /**
+     * Рендер компонента в DOM
+     */
     render() {
         const template = Handlebars.templates['login.hbs'];
         const elements = {
@@ -24,6 +36,9 @@ export default class Login {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
+    /**
+     * Добавляет листенеры на компоненты
+     */
     addListeners() {
         this.#parent
             .querySelector('.login-container__login-btn')
@@ -89,6 +104,9 @@ export default class Login {
 
     }
 
+    /**
+     * Удаляет листенеры
+     */
     removeListeners() {
         this.#parent
             .querySelector('.login-container__login-btn')

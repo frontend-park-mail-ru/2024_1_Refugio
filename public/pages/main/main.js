@@ -5,15 +5,28 @@ import ajax from '../../modules/ajax.js';
 import LoginView from '../../views/login.js';
 import MainView from '../../views/main.js';
 
+/**
+ * Класс обертки страницы
+ * @class
+ */
 export default class Main {
     #parent
     #config
 
+    /**
+     * Конструктор класса
+     * @constructor
+     * @param {Element} parent 
+     * @param {object} config 
+     */
     constructor(parent, config) {
         this.#config = config;
         this.#parent = parent;
     }
 
+    /**
+     * Рендер компонента в DOM
+     */
     render() {
         const template = Handlebars.templates['main.hbs'];
         const config = this.#config;
@@ -25,6 +38,9 @@ export default class Main {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
+    /**
+     * Добавляет листенеры на компоненты
+     */
     addListeners() {
         this.#parent
             .querySelector('.header__exit')
@@ -46,6 +62,9 @@ export default class Main {
             })
     }
 
+    /**
+     * Удаляет листенеры
+     */
     removeListeners() {
         this.#parent
             .querySelector('.header__exit')
