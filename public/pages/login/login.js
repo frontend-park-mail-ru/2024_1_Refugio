@@ -6,6 +6,8 @@ import SignupView from '../../views/signup.js';
 
 import MainView from '../../views/main.js';
 
+const MAX_INPUT_LENGTH = 64;
+
 /**
  * Класс обертки страницы
  * @class
@@ -55,11 +57,22 @@ export default class Login {
             error.classList.add('login-container__error-sign_show');
             return;
         }
-        if (email.indexOf('@') === -1) {
+
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-z0-9-]+\.[a-z]+$/;
+        if (!emailRegex.test(email) || email.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.login-container__error-sign');
+                .querySelector('.signup-container__error-sign');
             error.textContent = 'Некорректный ввод адреса почты';
-            error.classList.add('login-container__error-sign_show');
+            error.classList.add('signup-container__error-sign_show');
+            return;
+        }
+
+        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),.;'\[\]<>?:"{}|\\\/]+$/;
+        if (!passwordRegex.test(password) || password.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-sign');
+            error.textContent = 'Некорректный ввод пароля';
+            error.classList.add('signup-container__error-sign_show');
             return;
         }
 
