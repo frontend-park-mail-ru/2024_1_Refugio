@@ -18,7 +18,7 @@ export default class BaseView {
      * Функция рендера каждого элемента страницы
      */
     render() {
-        this.components.forEach((component) => component.render())
+        this.components.forEach((component) => component.render());
     }
 
     /**

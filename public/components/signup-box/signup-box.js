@@ -3,8 +3,8 @@
  * @class
  */
 export default class Signup_box {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -24,7 +24,7 @@ export default class Signup_box {
         const template = Handlebars.templates['signup-box.hbs'];
 
         const signup_box = {
-        }
+        };
         return template(signup_box);
     }
 }

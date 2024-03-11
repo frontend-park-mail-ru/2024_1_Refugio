@@ -10,14 +10,14 @@ import MainView from '../../views/main.js';
  * @class
  */
 export default class Main {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
      * @constructor
-     * @param {Element} parent 
-     * @param {object} config 
+     * @param {Element} parent
+     * @param {object} config
      */
     constructor(parent, config) {
         this.#config = config;
@@ -39,27 +39,32 @@ export default class Main {
     }
 
     /**
+     * Функция выхода из ящика
+     */
+    handleExit = async (e) => {
+        e.preventDefault();
+        await (async () => {
+            const response = await ajax(
+                'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
+            );
+            const status = response.status;
+            if (status > 300) {
+                const login = new LoginView();
+                login.renderPage();
+            } else {
+                const main = new MainView();
+                await main.renderPage();
+            }
+        })();
+    };
+
+    /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
         this.#parent
             .querySelector('.header__exit')
-            .addEventListener('click', (e) => {
-                e.preventDefault();
-                (async () => {
-                    const response = await ajax(
-                        'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
-                    );
-                    const status = response.status;
-                    if (status < 300) {
-                        const login = new LoginView();
-                        login.renderPage();
-                    } else {
-                        const main = new MainView();
-                        main.renderPage();
-                    }
-                })()
-            })
+            .addEventListener('click', this.handleExit);
     }
 
     /**
@@ -68,21 +73,6 @@ export default class Main {
     removeListeners() {
         this.#parent
             .querySelector('.header__exit')
-            .removeEventListener('click', (e) => {
-                e.preventDefault();
-                (async () => {
-                    const response = await ajax(
-                        'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
-                    );
-                    const status = response.status;
-                    if (status > 300) {
-                        const login = new LoginView();
-                        login.renderPage();
-                    } else {
-                        const main = new MainView();
-                        main.renderPage();
-                    }
-                })()
-            })
+            .removeEventListener('click', this.handleExit);
     }
 }

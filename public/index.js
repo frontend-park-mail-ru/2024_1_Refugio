@@ -15,7 +15,7 @@ import ajax from '../modules/ajax.js';
         main.renderPage();
     }
 
-})()
+})();
 
 // let isAuth;
 // ajax(

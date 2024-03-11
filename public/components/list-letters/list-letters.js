@@ -4,8 +4,8 @@ import List_letter from '../../components/list-letter/list-letter.js';
  * @class
  */
 export default class Main {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -30,9 +30,9 @@ export default class Main {
                 img: letter.photoId,
                 title: letter.topic,
                 text: letter.text,
-            }).render(),)
+            }).render(),);
         });
-        return result
+        return result;
     }
 
     /**
@@ -41,6 +41,6 @@ export default class Main {
     render() {
         const template = Handlebars.templates['list-letters.hbs'];
         const list_letters = this.#renderConfig(this.#config?.list_letters ? this.#config.list_letters : []);
-        return template({ list_letters })
+        return template({ list_letters });
     }
 }
