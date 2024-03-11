@@ -61,36 +61,80 @@ export default class Signup {
             error.classList.add('signup-container__error-sign_show');
             return;
         }
-        if (name.length > MAX_INPUT_LENGTH || name.length === 0) {
+        
+        if (name.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
-            error.textContent = 'Некорректный ввод имени';
+            error.textContent = 'Имя должно быть меньше 65 символов';
             error.classList.add('signup-container__error-sign_show');
             return;
         }
-        if (surname.length > MAX_INPUT_LENGTH || surname.length === 0) {
+        if (name.length === 0) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
-            error.textContent = 'Некорректный ввод фамилии';
+            error.textContent = 'Введите имя';
+            error.classList.add('signup-container__error-sign_show');
+            return;
+        }
+
+        if (surname.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-sign');
+            error.textContent = 'Фамилия должна быть меньше 65 символов';
+            error.classList.add('signup-container__error-sign_show');
+            return;
+        }
+        if (surname.length === 0) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-sign');
+            error.textContent = 'Введите фамилию';
             error.classList.add('signup-container__error-sign_show');
             return;
         }
 
         const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
-        if (!emailRegex.test(email) || email.length > MAX_INPUT_LENGTH || email.indexOf('@') === 1 ||
-            email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
+        if (email.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+            .querySelector('.signup-container__error-sign');
+            error.textContent = 'Адрес должен быть меньше 65 символов';
+            error.classList.add('signup-container__error-sign_show');
+            return;
+        }
+        if (email.indexOf('@') === 0 ||
+        email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
+            const error = this.#parent
+            .querySelector('.signup-container__error-sign');
+            error.textContent = 'Адрес должен иметь вид: name@mail.ru';
+            error.classList.add('signup-container__error-sign_show');
+            return;
+        }
+        if (!emailRegex.test(email)) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
-            error.textContent = 'Некорректный ввод адреса почты';
+            error.textContent = 'Адрес должен содержать только латинские буквы и символы ._-';
             error.classList.add('signup-container__error-sign_show');
             return;
         }
 
         const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
-        if (!passwordRegex.test(password) || password.length > MAX_INPUT_LENGTH || password.length < 8) {
+        if (!passwordRegex.test(password)) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
-            error.textContent = 'Некорректный ввод пароля';
+            error.textContent = "В пароле только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
+            error.classList.add('signup-container__error-sign_show');
+            return;
+        }
+        if (password.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-sign');
+            error.textContent = "Пароль должен быть меньше 65 символов";
+            error.classList.add('signup-container__error-sign_show');
+            return;
+        }
+        if (password.length < 8) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-sign');
+            error.textContent = "Пароль должен быть больше 7 символов";
             error.classList.add('signup-container__error-sign_show');
             return;
         }
