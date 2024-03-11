@@ -5,15 +5,28 @@ import ajax from '../../modules/ajax.js';
 import LoginView from '../../views/login.js';
 import MainView from '../../views/main.js';
 
+/**
+ * Класс обертки страницы
+ * @class
+ */
 export default class Main {
-    #parent
-    #config
+    #parent;
+    #config;
 
+    /**
+     * Конструктор класса
+     * @constructor
+     * @param {Element} parent
+     * @param {object} config
+     */
     constructor(parent, config) {
         this.#config = config;
         this.#parent = parent;
     }
 
+    /**
+     * Рендер компонента в DOM
+     */
     render() {
         const template = Handlebars.templates['main.hbs'];
         const config = this.#config;
@@ -25,45 +38,41 @@ export default class Main {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
+    /**
+     * Функция выхода из ящика
+     */
+    handleExit = async (e) => {
+        e.preventDefault();
+        await (async () => {
+            const response = await ajax(
+                'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
+            );
+            const status = await response.status;
+            if (status < 300) {
+                const login = new LoginView();
+                login.renderPage();
+            } else {
+                const main = new MainView();
+                await main.renderPage();
+            }
+        })();
+    };
+
+    /**
+     * Добавляет листенеры на компоненты
+     */
     addListeners() {
         this.#parent
             .querySelector('.header__exit')
-            .addEventListener('click', (e) => {
-                (async () => {
-                    const response = await ajax(
-                        'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
-                    );
-                    const status = response.status;
-                    const data = await response.json();
-                    if (status < 300) {
-                        const login = new LoginView();
-                        login.renderPage();
-                    } else {
-                        const main = new MainView();
-                        main.renderPage();
-                    };
-                })()
-            })
+            .addEventListener('click', this.handleExit);
     }
 
+    /**
+     * Удаляет листенеры
+     */
     removeListeners() {
         this.#parent
             .querySelector('.header__exit')
-            .removeEventListener('click', (e) => {
-                (async () => {
-                    const response = await ajax(
-                        'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
-                    );
-                    const status = response.status;
-                    const data = await response.json();
-                    if (status > 300) {
-                        const login = new LoginView();
-                        login.renderPage();
-                    } else {
-                        const main = new MainView();
-                        main.renderPage();
-                    };
-                })()
-            })
+            .removeEventListener('click', this.handleExit);
     }
 }

@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "ignorePatterns": ["*.precompiled.js"],
+    "rules": {
+        "no-console":"off",
+        "no-unused-vars": ["error", { "argsIgnorePattern": "_" }],
+        "no-restricted-syntax": ["error", "WithStatement"],
+        "no-param-reassign": "off",
+        "prefer-promise-reject-errors": ["error", {"allowEmptyReject": true}],
+        "no-restricted-globals": ["error", "event", "fdescribe"],
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"],
+        "no-alert": "error",
+        "no-var": "error",
+        "no-debugger": "error",
+        "eqeqeq": ["error", "always"]
+    },
+    "globals": {
+        "Handlebars": "readonly",
+        "__dirname": "readonly"
+    }
+}

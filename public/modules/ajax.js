@@ -1,3 +1,11 @@
+/**
+ * sends request
+ * @param {string} method http method ('GET','POST', etc.)
+ * @param {string} url url for our request
+ * @param {string} body body for our request
+ * @param {string} contentType contentType header
+ * @returns {Promise} response for request
+ */
 export default async function ajax(method, url, body = null, contentType) {
     let request;
     if (method !== 'HEAD' && method !== 'GET') {
