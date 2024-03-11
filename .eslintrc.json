@@ -28,7 +28,8 @@
         "no-alert": "error",
         "no-var": "error",
         "no-debugger": "error",
-        "eqeqeq": ["error", "always"]
+        "eqeqeq": ["error", "always"],
+        "no-useless-escape":"off"
     },
     "globals": {
         "Handlebars": "readonly",

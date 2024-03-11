@@ -59,19 +59,33 @@ export default class Login {
         }
 
         const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
-        if (!emailRegex.test(email) || email.length > MAX_INPUT_LENGTH) {
+        if (!emailRegex.test(email)) {
             const error = this.#parent
                 .querySelector('.login-container__error-sign');
-            error.textContent = 'Некорректный ввод адреса почты';
+            error.textContent = 'Email не содержит @ и . или использует недопустимые символы';
+            error.classList.add('login-container__error-sign_show');
+            return;
+        }
+        if (email.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.login-container__error-sign');
+            error.textContent = 'Email должен быть меньше 65 символов';
             error.classList.add('login-container__error-sign_show');
             return;
         }
 
         const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
-        if (!passwordRegex.test(password) || password.length > MAX_INPUT_LENGTH) {
+        if (!passwordRegex.test(password)) {
             const error = this.#parent
                 .querySelector('.login-container__error-sign');
-            error.textContent = 'Некорректный ввод пароля';
+            error.textContent = "В пароле только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
+            error.classList.add('login-container__error-sign_show');
+            return;
+        }
+        if (password.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.login-container__error-sign');
+            error.textContent = "Пароль должен быть меньше 65 символов";
             error.classList.add('login-container__error-sign_show');
             return;
         }
@@ -96,7 +110,7 @@ export default class Login {
             const errorSign = this.#parent
                 .querySelector('.login-container__error-sign');
             errorSign.classList.add('login-container__error-sign_show');
-            errorSign.textContent = 'Логин и пароль некорректны';
+            errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
 
         }
     };
