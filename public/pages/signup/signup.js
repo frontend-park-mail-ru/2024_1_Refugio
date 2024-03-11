@@ -48,8 +48,8 @@ export default class Signup {
         const passwordConfirmationInput = document.querySelector('.signup-container__input[type="password"][placeholder="Повторите пароль"]');
 
 
-        const name = nameInput.value.trim().toLowerCase().charAt(0).toUpperCase();
-        const surname = surnameInput.value.trim().toLowerCase().charAt(0).toUpperCase();
+        const name = nameInput.value.trim();
+        const surname = surnameInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const passwordConfirmation = passwordConfirmationInput.value;
