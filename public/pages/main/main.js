@@ -47,8 +47,8 @@ export default class Main {
             const response = await ajax(
                 'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
             );
-            const status = response.status;
-            if (status > 300) {
+            const status = await response.status;
+            if (status < 300) {
                 const login = new LoginView();
                 login.renderPage();
             } else {
