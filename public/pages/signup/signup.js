@@ -61,16 +61,14 @@ export default class Signup {
             error.classList.add('signup-container__error-sign_show');
             return;
         }
-
-        const nameAndSurnameRegex = /^[A-Z][a-z]+$/;
-        if (!nameAndSurnameRegex.test(name) || name.length > MAX_INPUT_LENGTH || name.length === 0) {
+        if (name.length > MAX_INPUT_LENGTH || name.length === 0) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
             error.textContent = 'Некорректный ввод имени';
             error.classList.add('signup-container__error-sign_show');
             return;
         }
-        if (!nameAndSurnameRegex.test(surname) || surname.length > MAX_INPUT_LENGTH || surname.length === 0) {
+        if (surname.length > MAX_INPUT_LENGTH || surname.length === 0) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
             error.textContent = 'Некорректный ввод фамилии';
@@ -78,7 +76,7 @@ export default class Signup {
             return;
         }
 
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-z0-9-]+\.[a-z]+$/;
+        const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
         if (!emailRegex.test(email) || email.length > MAX_INPUT_LENGTH || email.indexOf('@') === 1 ||
             email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
             const error = this.#parent
@@ -88,7 +86,7 @@ export default class Signup {
             return;
         }
 
-        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),.;'\[\]<>?:"{}|\\\/]+$/;
+        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
         if (!passwordRegex.test(password) || password.length > MAX_INPUT_LENGTH || password.length < 8) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
