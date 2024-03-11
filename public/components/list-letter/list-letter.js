@@ -3,8 +3,8 @@
  * @class
  */
 export default class List_letter {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -26,7 +26,7 @@ export default class List_letter {
             img: this.#config.img,
             title: this.#config.title,
             text: this.#config.text,
-        }
+        };
         return template(letter);
     }
 }

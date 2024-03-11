@@ -3,8 +3,8 @@
  * @class
  */
 export default class Login_box {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -24,7 +24,7 @@ export default class Login_box {
         const template = Handlebars.templates['login-box.hbs'];
 
         const login_box = {
-        }
+        };
         return template(login_box);
     }
 }

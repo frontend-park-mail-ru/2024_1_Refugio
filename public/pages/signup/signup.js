@@ -1,14 +1,14 @@
-import Signup_Box from "../../components/signup-box/signup-box.js";
-import ajax from "../../modules/ajax.js";
-import LoginView from "../../views/login.js";
+import Signup_Box from '../../components/signup-box/signup-box.js';
+import ajax from '../../modules/ajax.js';
+import LoginView from '../../views/login.js';
 
 /**
  * Класс обертки страницы
  * @class
  */
 export default class Signup {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -49,32 +49,31 @@ export default class Signup {
         const name = nameInput.value.trim();
         const surname = surnameInput.value.trim();
         const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-        const passwordConfirmation = passwordConfirmationInput.value.trim();
+        const password = passwordInput.value;
+        const passwordConfirmation = passwordConfirmationInput.value;
 
         if (!name || !surname || !email || !password || !passwordConfirmation) {
-
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
-            error.textContent = "Все поля должны быть заполнены";
+            error.textContent = 'Все поля должны быть заполнены';
             error.classList.add('signup-container__error-sign_show');
-            return
+            return;
         }
 
         if (email.indexOf('@') === -1) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
-            error.textContent = "Некорректный ввод адреса почты";
+            error.textContent = 'Некорректный ввод адреса почты';
             error.classList.add('signup-container__error-sign_show');
-            return
+            return;
         }
 
         if (password !== passwordConfirmation) {
             const error = this.#parent
                 .querySelector('.signup-container__error-sign');
-            error.textContent = "Пароли не совпадают";
+            error.textContent = 'Пароли не совпадают';
             error.classList.add('signup-container__error-sign_show');
-            return
+            return;
         }
 
 
@@ -96,7 +95,7 @@ export default class Signup {
             const login = new LoginView();
             login.renderPage();
         }
-    }
+    };
 
     /**
      * Функция рендера страницы авторизации
@@ -107,7 +106,7 @@ export default class Signup {
         const loginView = new LoginView();
 
         loginView.renderPage();
-    }
+    };
 
     /**
      * Добавляет листенеры на компоненты

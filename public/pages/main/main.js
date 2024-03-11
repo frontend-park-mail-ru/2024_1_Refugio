@@ -10,8 +10,8 @@ import MainView from '../../views/main.js';
  * @class
  */
 export default class Main {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -55,8 +55,8 @@ export default class Main {
                 const main = new MainView();
                 await main.renderPage();
             }
-        })()
-    }
+        })();
+    };
 
     /**
      * Добавляет листенеры на компоненты
@@ -64,7 +64,7 @@ export default class Main {
     addListeners() {
         this.#parent
             .querySelector('.header__exit')
-            .addEventListener('click', this.handleExit)
+            .addEventListener('click', this.handleExit);
     }
 
     /**
@@ -73,6 +73,6 @@ export default class Main {
     removeListeners() {
         this.#parent
             .querySelector('.header__exit')
-            .removeEventListener('click', this.handleExit)
+            .removeEventListener('click', this.handleExit);
     }
 }

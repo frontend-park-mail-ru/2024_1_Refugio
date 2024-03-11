@@ -3,8 +3,8 @@
  * @class
  */
 export default class Menu {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса

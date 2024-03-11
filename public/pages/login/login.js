@@ -2,7 +2,7 @@ import Login_Box from '../../components/login-box/login-box.js';
 
 import ajax from '../../modules/ajax.js';
 
-import SignupView from "../../views/signup.js";
+import SignupView from '../../views/signup.js';
 
 import MainView from '../../views/main.js';
 
@@ -11,8 +11,8 @@ import MainView from '../../views/main.js';
  * @class
  */
 export default class Login {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -46,21 +46,21 @@ export default class Login {
         const passwordInput = document.querySelector('.login-container__input[type="password"][placeholder="Пароль"]');
 
         const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
+        const password = passwordInput.value;
 
         if (!email || !password) {
             const error = this.#parent
                 .querySelector('.login-container__error-sign');
-            error.textContent = "Все поля должны быть заполнены";
+            error.textContent = 'Все поля должны быть заполнены';
             error.classList.add('login-container__error-sign_show');
-            return
+            return;
         }
         if (email.indexOf('@') === -1) {
             const error = this.#parent
                 .querySelector('.login-container__error-sign');
-            error.textContent = "Некорректный ввод адреса почты";
+            error.textContent = 'Некорректный ввод адреса почты';
             error.classList.add('login-container__error-sign_show');
-            return
+            return;
         }
 
 
@@ -83,10 +83,10 @@ export default class Login {
             const errorSign = this.#parent
                 .querySelector('.login-container__error-sign');
             errorSign.classList.add('login-container__error-sign_show');
-            errorSign.textContent = "Логин и пароль некорректны";
+            errorSign.textContent = 'Логин и пароль некорректны';
 
         }
-    }
+    };
 
     /**
      * Функция рендера страницы регистрации
@@ -98,7 +98,7 @@ export default class Login {
         const signupView = new SignupView();
 
         signupView.renderPage();
-    }
+    };
 
 
     /**

@@ -1,6 +1,6 @@
-import Main from '../pages/main/main.js'
-import BaseView from './base.js'
-import ajax from '../modules/ajax.js'
+import Main from '../pages/main/main.js';
+import BaseView from './base.js';
+import ajax from '../modules/ajax.js';
 
 /**
  * Класс для рендера страницы списка писем

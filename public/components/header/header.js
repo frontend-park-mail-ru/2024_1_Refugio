@@ -3,8 +3,8 @@
  * @class
  */
 export default class Header {
-    #parent
-    #config
+    #parent;
+    #config;
 
     /**
      * Конструктор класса
@@ -25,7 +25,7 @@ export default class Header {
         const header = {
             logo: this.#config.logo,
             username: this.#config.username,
-        }
+        };
         return template(header);
     }
 }
