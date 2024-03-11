@@ -1,15 +1,13 @@
-const fs = require('fs');
-const http = require('http');
-const debug = require('debug')('http');
-const nodepath = require('node:path');
-const express = require('express');
+import debug from 'debug';
+import path from 'path';
+import express from 'express';
 
 const app = express();
 
-app.use(express.static(nodepath.resolve(__dirname, '..', 'public')));
-app.use(express.static(nodepath.resolve(__dirname, '..', 'node_modules')));
+const dirname = path.dirname(new URL(import.meta.url).pathname);
 
-
+app.use(express.static(path.resolve(dirname, '..', 'public')));
+app.use(express.static(path.resolve(dirname, '..', 'node_modules')));
 
 const PORT = 8081;
 

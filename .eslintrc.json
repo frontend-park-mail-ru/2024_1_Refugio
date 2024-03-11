@@ -25,6 +25,7 @@
         "no-restricted-globals": ["error", "event", "fdescribe"]
     },
     "globals": {
-        "Handlebars": "readonly"
+        "Handlebars": "readonly",
+        "__dirname": "readonly"
     }
 }

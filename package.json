@@ -1,6 +1,7 @@
 {
   "name": "2024_1_refugio",
   "version": "1.0.0",
+  "type": "module",
   "description": "Frontend проекта \"Почта\" команды Refugio",
   "main": "index.js",
   "scripts": {
@@ -23,3 +24,4 @@
     "jsdoc": "^4.0.2"
   }
 }
+
