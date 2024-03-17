@@ -2,8 +2,40 @@
 @import 'pages/login/login.css';
 @import 'pages/signup/signup.css';
 
+@font-face {
+    font-family: 'Roboto';
+    src: url(static/fonts/Roboto-Regular.ttf);
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url(static/fonts/Roboto-Medium.ttf);
+    font-weight: 500;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url(static/fonts/Roboto-Italic.ttf);
+    font-weight: normal;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Roboto';
+    src: url(static/fonts/Roboto-Bold.ttf);
+    font-weight: bold;
+    font-style: normal;
+}
+ 
+@font-face {
+    font-family: 'Roboto';
+    src: url(static/fonts/Roboto-BoldItalic.ttf);
+    font-weight: bold;
+    font-style: italic;
+}
+
 body {
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: Roboto;
     background-color: black;
     color: aliceblue;
 }
