@@ -25,4 +25,6 @@
     text-align: end;
     letter-spacing: 15px;
     line-height: 68px;
+
+    cursor: default;
 }

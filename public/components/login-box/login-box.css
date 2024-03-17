@@ -4,14 +4,14 @@
 
     display: grid;
     grid-template-areas: 'login-container__sign'
-    'login-container__form';
+        'login-container__form';
 
     padding: 32px 16px 6px 16px;
     border-radius: 8px;
     max-width: 354px;
 }
 
-.login-container__sign{
+.login-container__sign {
     display: grid;
     grid-area: login-container__sign;
     padding: 0px 16px 24px;
@@ -33,14 +33,16 @@
     padding: 10px 16px;
 
     border-radius: 8px;
-    background-color: #323232;
+    background-color: #4B4B4B;
 
     line-height: 20px;
     font-size: 15px;
     font-weight: 500;
-    color: #757575;
+    color: #EDEDED;
     text-align: center;
     white-space: nowrap;
+
+    cursor: default;
 }
 
 .login-container__signup-ref {
@@ -51,32 +53,34 @@
     padding: 10px 16px;
 
     border-radius: 8px;
-    background-color: #4B4B4B;
+    background-color: #323232;
 
     line-height: 20px;
     font-size: 15px;
     font-weight: 500;
-    color: #EDEDED;
+    color: #757575;
     white-space: nowrap;
+
+    cursor: pointer;
 }
 
-.login-container__form{
+.login-container__form {
     grid-area: login-container__form;
     display: grid;
     grid-template-areas:
-    'login-container__email'
-    'login-container__password'
-    'login-container__login-btn'
-    'login-container__error-sign';
+        'login-container__email'
+        'login-container__password'
+        'login-container__login-btn'
+        'login-container__error-sign';
 }
 
 .login-container__email {
     grid-area: login-container__email;
     display: grid;
-    grid-template-areas: 
-    'label'
-    'input'
-    'error';
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
 
     padding: 18px 16px 0px 16px;
 }
@@ -84,10 +88,10 @@
 .login-container__password {
     grid-area: login-container__password;
     display: grid;
-    grid-template-areas: 
-    'label'
-    'input'
-    'error';
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
 
     padding: 18px 16px 0px 16px;
 }
@@ -141,7 +145,7 @@
 .login-container__error-sign {
     grid-area: login-container__error-sign;
     visibility: hidden;
-    color:#FF4747;
+    color: #FF4747;
     font-size: 13px;
     text-align: start;
     padding: 0px 16px;
@@ -150,7 +154,7 @@
 .login-container__error-email {
     grid-area: error;
     visibility: hidden;
-    color:#FF4747;
+    color: #FF4747;
     font-size: 13px;
     text-align: start;
 }
@@ -158,7 +162,7 @@
 .login-container__error-password {
     grid-area: error;
     visibility: hidden;
-    color:#FF4747;
+    color: #FF4747;
     font-size: 13px;
     text-align: start;
 }
