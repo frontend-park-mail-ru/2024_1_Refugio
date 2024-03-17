@@ -58,7 +58,7 @@ export default class Login {
             return;
         }
 
-        const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(email)) {
             const error = this.#parent
                 .querySelector('.login-container__error-sign');
@@ -74,18 +74,18 @@ export default class Login {
             return;
         }
 
-        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
+        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),.;'\[\]<>?:"{}|\\\/]+$/;
         if (!passwordRegex.test(password)) {
             const error = this.#parent
                 .querySelector('.login-container__error-sign');
-            error.textContent = "В пароле только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
+            error.textContent = 'В пароле только латинские буквы и символы:`~!@#$%^&*(),.;\'[]<>?:"{}|\/\\';
             error.classList.add('login-container__error-sign_show');
             return;
         }
         if (password.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
                 .querySelector('.login-container__error-sign');
-            error.textContent = "Пароль должен быть меньше 65 символов";
+            error.textContent = 'Пароль должен быть меньше 65 символов';
             error.classList.add('login-container__error-sign_show');
             return;
         }
