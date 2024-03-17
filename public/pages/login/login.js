@@ -49,44 +49,65 @@ export default class Login {
 
         const email = emailInput.value.trim();
         const password = passwordInput.value;
+        let oldError=this.#parent
+            .querySelector('.login-container__error-email');
+        oldError.classList.remove('login-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.login-container__error-password');
+        oldError.classList.remove('login-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.login-container__error-sign');
+        oldError.classList.remove('login-container__error-sign_show');
+        let err = false;
 
-        if (!email || !password) {
-            const error = this.#parent
-                .querySelector('.login-container__error-sign');
-            error.textContent = 'Все поля должны быть заполнены';
-            error.classList.add('login-container__error-sign_show');
-            return;
-        }
-
+        
         const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
         if (!emailRegex.test(email)) {
             const error = this.#parent
-                .querySelector('.login-container__error-sign');
+                .querySelector('.login-container__error-email');
             error.textContent = 'Email не содержит @ и . или использует недопустимые символы';
             error.classList.add('login-container__error-sign_show');
-            return;
+            err = true;
         }
         if (email.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.login-container__error-sign');
-            error.textContent = 'Email должен быть меньше 65 символов';
+                .querySelector('.login-container__error-email');
+                error.textContent = 'Email должен быть меньше 65 символов';
             error.classList.add('login-container__error-sign_show');
-            return;
+            err = true;
         }
 
         const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
         if (!passwordRegex.test(password)) {
             const error = this.#parent
-                .querySelector('.login-container__error-sign');
+                .querySelector('.login-container__error-password');
             error.textContent = "В пароле только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
             error.classList.add('login-container__error-sign_show');
-            return;
+            err = true;
         }
         if (password.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.login-container__error-sign');
+            .querySelector('.login-container__error-password');
             error.textContent = "Пароль должен быть меньше 65 символов";
             error.classList.add('login-container__error-sign_show');
+            err = true;
+        }
+        if (!email) {
+            const error = this.#parent
+                .querySelector('.login-container__error-email');
+            error.textContent = 'Поле должно быть заполнено';
+            error.classList.add('login-container__error-sign_show');
+            err = true;
+        }
+
+        if (!password) {
+            const error = this.#parent
+                .querySelector('.login-container__error-password');
+            error.textContent = 'Поле должно быть заполнено';
+            error.classList.add('login-container__error-sign_show');
+            err = true;
+        }
+        if (err) {
             return;
         }
 
@@ -96,7 +117,7 @@ export default class Login {
             login: email,
             password: password,
         };
-
+        
         const response = await ajax(
             'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
         );
