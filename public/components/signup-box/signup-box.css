@@ -8,6 +8,8 @@
 
     padding: 32px 16px 6px 16px;
     border-radius: 8px;
+
+    max-width: 392px;
 }
 
 .signup-container__sign {
@@ -119,7 +121,7 @@
 }
 
 .signup-container__slider-sex {
-    display:inline-block;
+    display: inline-block;
 }
 
 .signup-container__switch {
@@ -169,6 +171,14 @@
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
+}
+
+.signup-container__man {
+    color: #EDEDED;
+}
+
+.signup-container__woman {
+    color: #757575;
 }
 
 .signup-container__label {
