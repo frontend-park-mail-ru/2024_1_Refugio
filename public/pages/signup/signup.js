@@ -54,100 +54,154 @@ export default class Signup {
         const password = passwordInput.value;
         const passwordConfirmation = passwordConfirmationInput.value;
 
-        if (!name || !surname || !email || !password || !passwordConfirmation) {
-            const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Все поля должны быть заполнены';
-            error.classList.add('signup-container__error-sign_show');
-            return;
-        }
-
+        let oldError=this.#parent
+            .querySelector('.signup-container__error-email');
+        oldError.classList.remove('signup-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.signup-container__error-name');
+        oldError.classList.remove('signup-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.signup-container__error-surname');
+        oldError.classList.remove('signup-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.signup-container__error-password');
+        oldError.classList.remove('signup-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.signup-container__error-repeat');
+        oldError.classList.remove('signup-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.signup-container__error-sign');
+        oldError.classList.remove('signup-container__error-sign_show');
+        let err = false;
+        
         if (name.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Максимальная длина 64 символа';
+                .querySelector('.signup-container__error-name');
+            error.textContent = 'Имя должно быть меньше 65 символов';
             error.classList.add('signup-container__error-sign_show');
-            return;
+            err = true;
+        }
+        if (name.length === 0) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-name');
+            error.textContent = 'Введите имя';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
         }
 
         if (surname.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Максимальная длина 64 символа';
+                .querySelector('.signup-container__error-surname');
+            error.textContent = 'Фамилия должна быть меньше 65 символов';
             error.classList.add('signup-container__error-sign_show');
-            return;
+            err = true;
+        }
+        if (surname.length === 0) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-surname');
+            error.textContent = 'Введите фамилию';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
         }
 
+        const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
         if (email.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Максимальная длина 64 символа';
+                .querySelector('.signup-container__error-email');
+            error.textContent = 'Адрес должен быть меньше 65 символов';
             error.classList.add('signup-container__error-sign_show');
-            return;
+            err = true;
         }
-
-        if (email.indexOf('@') === -1) {
+        if (email.indexOf('@') === 0 ||
+            email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
             const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Забыли "@"';
+                .querySelector('.signup-container__error-email');
+            error.textContent = 'Адрес должен иметь вид: name@mail.ru';
             error.classList.add('signup-container__error-sign_show');
-            return;
+            err = true;
         }
-
-        if (email.indexOf('.') === -1) {
-            const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Забыли "."';
-            error.classList.add('signup-container__error-sign_show');
-            return;
-        }
-
-        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(email)) {
             const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Некорректный формат адреса';
+                .querySelector('.signup-container__error-email');
+            error.textContent = 'Адрес должен содержать только латинские буквы и символы ._-';
             error.classList.add('signup-container__error-sign_show');
-            return;
+            err = true;
         }
 
-        if (password.length < 8) {
-            const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Минимальная длина 8 символов';
-            error.classList.add('signup-container__error-sign_show');
-            return;
-        }
-
-        if (password.length > MAX_INPUT_LENGTH * 4) {
-            const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Максимальная длина 256 символов';
-            error.classList.add('signup-container__error-sign_show');
-            return;
-        }
-
-
-        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),.;'\[\]<>?:"{}|\\\/]+$/;
-
+        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
         if (!passwordRegex.test(password)) {
             const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Допустимы латинские буквы, цифры и спецсимволы';
+                .querySelector('.signup-container__error-password');
+                error.textContent = "Допускаются только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
             error.classList.add('signup-container__error-sign_show');
-            return;
+            err = true;
         }
-
+        if (password.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-password');
+            error.textContent = "Пароль должен быть меньше 65 символов";
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+        if (password.length < 8) {
+            const error = this.#parent
+            .querySelector('.signup-container__error-password');
+            error.textContent = "Пароль должен быть больше 7 символов";
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
 
         if (password !== passwordConfirmation) {
             const error = this.#parent
-                .querySelector('.signup-container__error-sign');
+                .querySelector('.signup-container__error-repeat');
             error.textContent = 'Пароли не совпадают';
             error.classList.add('signup-container__error-sign_show');
-            return;
+            err = true;
         }
 
+        if (!name) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-name');
+            error.textContent = 'Заполните поле';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
 
+        if (!surname) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-surname');
+            error.textContent = 'Заполните поле';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+
+        if (!email) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-email');
+            error.textContent = 'Поле должно быть заполнено';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+
+        if (!password) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-password');
+            error.textContent = 'Поле должно быть заполнено';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+
+        if (!passwordConfirmation) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-repeat');
+            error.textContent = 'Поле должно быть заполнено';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+        if (err) {
+            return;
+        }
+        
         // create JSON object with user data
         const newUser = {
             login: email,
@@ -159,12 +213,18 @@ export default class Signup {
 
         const response = await ajax(
             'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
-        );
+            );
 
         if (response.ok) {
             // registration successful
             const login = new LoginView();
             login.renderPage();
+        }else{
+            const error = this.#parent
+                .querySelector('.signup-container__error-sign');
+            error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+            error.classList.add('signup-container__error-sign_show');
+            return;
         }
     };
 
@@ -179,6 +239,13 @@ export default class Signup {
         loginView.renderPage();
     };
 
+    handleCheckbox (e) {
+        e.preventDefault();
+        document.querySelector('.signup-container__woman').style.color = this.checked ? "#EDEDED" : "#757575";
+        document.querySelector('.signup-container__man').style.color = this.checked ? "#757575" : "#EDEDED";
+        console.log(this);
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -190,6 +257,9 @@ export default class Signup {
         this.#parent
             .querySelector('.signup-container__login-ref')
             .addEventListener('click', this.renderLogin);
+        this.#parent
+            .querySelector('.signup-container__checkbox')
+            .addEventListener('change', this.handleCheckbox, false);
     }
 
     /**
@@ -203,6 +273,8 @@ export default class Signup {
         this.#parent
             .querySelector('.signup-container__login-ref')
             .addEventListener('click', this.renderLogin);
-
+        this.#parent
+            .querySelector('.signup-container__checkbox')
+            .addEventListener('change', this.handleCheckbox);
     }
 }

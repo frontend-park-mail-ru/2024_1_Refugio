@@ -1,34 +1,75 @@
 <div class="signup-container">
 
-    <h1 class="signup-container__sign">Регистрация</h1>
-    <form action="" class="signup-container__form">
-        <div class="signup-container__error-sign">
-            <p>Все поля доложны быть заполнены</p>
+    <div class="signup-container__sign">
+        <div class="signup-container__obertka">
+            <div class="signup-container__login-ref">
+                <span>Вход в аккаунт</span>
+            </div>
+            <div class="signup-container__current">
+                <span>Создание ящика</span>
+            </div>
         </div>
-        <label class="signup-container__label" for="name">
-            Имя
-        </label>
-        <input class="signup-container__input" type="text" placeholder="Имя" id="name">
-        <label class="signup-container__label" for="surname">
-            Фамилия
-        </label>
-        <input class="signup-container__input" type="text" placeholder="Фамилия" id="surname">
-        <label class="signup-container__label" for="email">
-            Email
-        </label>
-        <input class="signup-container__input" type="email" placeholder="Email" id="email">
-        <label class="signup-container__label" for="password">
-            Пароль
-        </label>
-        <input class="signup-container__input" type="password" placeholder="Пароль" id="password">
-        <label class="signup-container__label" for="repeat">
-            Повторите пароль
-        </label>
-        <input class="signup-container__input" type="password" placeholder="Повторите пароль" id="repeat">
-
-        <button id="signupBtn" class="signup-container__signup-btn" type="submit">Зарегистрироваться</button>
-
-        <a class="signup-container__login-ref" href="#">Уже есть аккаунт</a>
+    </div>
+    <form action="" class="signup-container__form">
+        <div class="signup-container__form-element_name signup-container__form-element">
+            <label class="signup-container__label" for="name">
+                Имя
+            </label>
+            <input class="signup-container__input signup-container__input_name" type="text" placeholder="Имя" id="name">
+            <div class="signup-container__error-name">Недопустимые символы</div>
+        </div>
+        <div class="signup-container__form-element_surname signup-container__form-element">
+            <label class="signup-container__label" for="surname">
+                Фамилия
+            </label>
+            <input class="signup-container__input signup-container__input_name" type="text" placeholder="Фамилия"
+                id="surname">
+            <div class="signup-container__error-surname">Недопустимые символы</div>
+        </div>
+        <div class="signup-container__form-element_date signup-container__form-element">
+            <label class="signup-container__label" for="date">
+                Дата рождения
+            </label>
+            <input class="signup-container__input" type="date" id="date">
+        </div>
+        <div class="signup-container__form-element_sex signup-container__form-element">
+            <label class="signup-container__label" for="sex">
+                Пол
+            </label>
+            <div class="signup-container__slider-sex" id="sex">
+                <span class="signup-container__man">Мужской</span>
+                <label class="signup-container__switch">
+                    <input type="checkbox" class="signup-container__checkbox">
+                    <span class="signup-container__slider"></span>
+                </label>
+                <span class="signup-container__woman">Женский</span>
+            </div>
+        </div>
+        <div class="signup-container__form-element_email signup-container__form-element">
+            <label class="signup-container__label" for="email">
+                Email
+            </label>
+            <input class="signup-container__input" type="email" placeholder="Email" id="email">
+            <div class="signup-container__error-email">Ошибка на нашей стороне. Уже исправляем!</div>
+        </div>
+        <div class="signup-container__form-element_password signup-container__form-element">
+            <label class="signup-container__label" for="password">
+                Пароль
+            </label>
+            <input class="signup-container__input" type="password" placeholder="Пароль" id="password">
+            <div class="signup-container__error-password">Ошибка на нашей стороне. Уже исправляем!</div>
+        </div>
+        <div class="signup-container__form-element_repeat signup-container__form-element">
+            <label class="signup-container__label" for="repeat">
+                Повторите пароль
+            </label>
+            <input class="signup-container__input" type="password" placeholder="Повторите пароль" id="repeat">
+            <div class="signup-container__error-repeat">Ошибка на нашей стороне. Уже исправляем!</div>
+        </div>
+        <div class="signup-container__signup">
+            <button id="signupBtn" class="signup-container__signup-btn" type="submit">Зарегистрироваться</button>
+        </div>
+        <div class="signup-container__error-sign">Ошибка на нашей стороне. Уже исправляем!</div>
     </form>
 
 </div>

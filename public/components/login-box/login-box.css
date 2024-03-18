@@ -121,6 +121,7 @@
 
 .login-container__login {
     grid-area: login-container__login-btn;
+    display: grid;
     padding: 26px 16px 8px;
 }
 
