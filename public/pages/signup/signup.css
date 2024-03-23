@@ -7,3 +7,24 @@
     min-height: 100vh;
     padding: 30px;
 }
+
+.signup-grid {
+    display: grid;
+    grid-template-areas:
+    'mailhub signup-box .';
+    grid-template-columns: 1fr auto 1fr;
+    justify-self: center;
+}
+
+.signup-mailhub {
+    grid-area: mailhub;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 60px;
+    font-weight: 900;
+    text-align: end;
+    letter-spacing: 15px;
+    line-height: 68px;
+
+    cursor: default;
+}

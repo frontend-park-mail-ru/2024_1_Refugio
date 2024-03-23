@@ -1,9 +1,30 @@
 @import '../../components/login-box/login-box.css';
 
 .login-root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
     min-height: 100vh;
     padding: 30px;
+    justify-items: center;
+    align-items: center;
+}
+
+.login-grid {
+    display: grid;
+    grid-template-areas:
+    'mailhub login-box .';
+    grid-template-columns: 1fr auto 1fr;
+    justify-self: center;
+}
+
+.login-mailhub {
+    grid-area: mailhub;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 60px;
+    font-weight: 900;
+    text-align: end;
+    letter-spacing: 15px;
+    line-height: 68px;
+
+    cursor: default;
 }
