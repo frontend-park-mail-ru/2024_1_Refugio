@@ -163,10 +163,6 @@
     transition: .4s;
 }
 
-.signup-container__checkbox:checked+.signup-container__slider {
-    background-color: #EDEDED80;
-}
-
 .signup-container__checkbox:checked+.signup-container__slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
@@ -231,53 +227,35 @@
     background-color: #EDEDED;
 }
 
-.signup-container__error-sign {
-    grid-area: signup-container__error-sign;
+.signup-container__error {
     visibility: hidden;
     color: #FF4747;
     font-size: 13px;
     text-align: start;
-    padding: 0px 16px;
+}
+
+.signup-container__error-sign {
+    grid-area: signup-container__error-sign;
 }
 
 .signup-container__error-name {
     grid-area: error;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
 }
 
 .signup-container__error-surname {
     grid-area: error;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
 }
 
 .signup-container__error-email {
     grid-area: error;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
 }
 
 .signup-container__error-password {
     grid-area: error;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
 }
 
 .signup-container__error-repeat {
     grid-area: error;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
 }
 
 .signup-container__error-sign_show {
