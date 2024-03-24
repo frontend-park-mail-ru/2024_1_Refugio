@@ -43,6 +43,7 @@ export default class Signup {
 
         const nameInput = document.querySelector('.signup-container__input[type="text"][placeholder="Имя"]');
         const surnameInput = document.querySelector('.signup-container__input[type="text"][placeholder="Фамилия"]');
+        const dateInput = document.querySelector('.signup-container__input[type="date"]');
         const emailInput = document.querySelector('.signup-container__input[type="email"]');
         const passwordInput = document.querySelector('.signup-container__input[type="password"][placeholder="Пароль"]');
         const passwordConfirmationInput = document.querySelector('.signup-container__input[type="password"][placeholder="Повторите пароль"]');
@@ -50,9 +51,11 @@ export default class Signup {
 
         const name = nameInput.value.trim();
         const surname = surnameInput.value.trim();
+        const date = dateInput.value.trim();
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const passwordConfirmation = passwordConfirmationInput.value;
+        const dateParsed = new Date(date);
 
         let oldError=this.#parent
             .querySelector('.signup-container__error-email');
@@ -62,6 +65,9 @@ export default class Signup {
         oldError.classList.remove('signup-container__error-sign_show');
         oldError=this.#parent
             .querySelector('.signup-container__error-surname');
+        oldError.classList.remove('signup-container__error-sign_show');
+        oldError=this.#parent
+            .querySelector('.signup-container__error-date');
         oldError.classList.remove('signup-container__error-sign_show');
         oldError=this.#parent
             .querySelector('.signup-container__error-password');
@@ -81,13 +87,6 @@ export default class Signup {
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
-        if (name.length === 0) {
-            const error = this.#parent
-                .querySelector('.signup-container__error-name');
-            error.textContent = 'Введите имя';
-            error.classList.add('signup-container__error-sign_show');
-            err = true;
-        }
 
         if (surname.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
@@ -96,15 +95,39 @@ export default class Signup {
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
-        if (surname.length === 0) {
+
+        let today = new Date();
+        if (dateParsed.getTime() > today.getTime()) {
             const error = this.#parent
-                .querySelector('.signup-container__error-surname');
-            error.textContent = 'Введите фамилию';
+                .querySelector('.signup-container__error-date');
+            error.textContent = 'Введите реальную дату';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+        if (dateParsed.getFullYear() < 1900) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-date');
+            error.textContent = 'Введите дату после 1900';
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
 
-        const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
+        const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        if (!emailRegex.test(email)) {
+            const error = this.#parent
+            .querySelector('.signup-container__error-email');
+            error.textContent = 'Адрес должен содержать только латинские буквы и символы ._-';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+        if (email.indexOf('@') === 0 || email.indexOf('@') === -1 || email.indexOf('.') === -1 ||
+        email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
+            const error = this.#parent
+            .querySelector('.signup-container__error-email');
+            error.textContent = 'Адрес должен иметь вид: name@mail.ru';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
         if (email.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
                 .querySelector('.signup-container__error-email');
@@ -112,27 +135,12 @@ export default class Signup {
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
-        if (email.indexOf('@') === 0 ||
-            email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
-            const error = this.#parent
-                .querySelector('.signup-container__error-email');
-            error.textContent = 'Адрес должен иметь вид: name@mail.ru';
-            error.classList.add('signup-container__error-sign_show');
-            err = true;
-        }
-        if (!emailRegex.test(email)) {
-            const error = this.#parent
-                .querySelector('.signup-container__error-email');
-            error.textContent = 'Адрес должен содержать только латинские буквы и символы ._-';
-            error.classList.add('signup-container__error-sign_show');
-            err = true;
-        }
-
+        
         const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
         if (!passwordRegex.test(password)) {
             const error = this.#parent
                 .querySelector('.signup-container__error-password');
-                error.textContent = "Допускаются только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
+                error.textContent = "Допускаются только латинские буквы, цифры и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
@@ -171,6 +179,14 @@ export default class Signup {
             const error = this.#parent
                 .querySelector('.signup-container__error-surname');
             error.textContent = 'Заполните поле';
+            error.classList.add('signup-container__error-sign_show');
+            err = true;
+        }
+
+        if (!date) {
+            const error = this.#parent
+                .querySelector('.signup-container__error-date');
+            error.textContent = 'Поле должно быть заполнено';
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
