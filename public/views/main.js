@@ -12,6 +12,7 @@ export default class MainView extends BaseView {
             logo: 'MailHub',
             search: 'Поиск',
             username: 'Профиль',
+            avatar: '',
         },
         menu: {},
         content: {

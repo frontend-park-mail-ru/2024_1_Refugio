@@ -46,11 +46,13 @@
     margin-right: 20px;
     position: relative;
     display: inline-block;
+    cursor: pointer;
 }
 
 .header__img {
     grid-area: list-letter__img;
 
+    background-color: #808080;
     width: 36px;
     height: 36px;
     border-radius: 100%;
@@ -73,6 +75,7 @@
 .dropdown-element {
     padding: 5px 8px;
     border-radius: 8px;
+    white-space: nowrap;
 }
 
 .header__menu:hover .header__dropdown {
