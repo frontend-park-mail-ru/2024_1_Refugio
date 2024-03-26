@@ -12,6 +12,7 @@ export default class MainView extends BaseView {
             logo: 'MailHub',
             search: 'Поиск',
             username: 'Профиль',
+            avatar: '',
         },
         menu: {},
         content: {
@@ -52,7 +53,7 @@ export default class MainView extends BaseView {
         this.#config.content.list_letters = await this.#getEmailsInfo();
         this.#config.content.list_letters.forEach((letter) => {
             if (!letter.photoId) {
-                letter.photoId = 'static/img/1200px-User_icon-cp.svg.png';
+                letter.photoId = '../static/img/1200px-User_icon-cp.svg.png';
             }
         });
         const page = new Main(this.root, this.#config);
