@@ -1,30 +1,30 @@
 @import '../../components/login-box/login-box.css';
 
-.login-root {
+.login__root {
     display: grid;
-    min-height: 100vh;
-    padding: 30px;
-    justify-items: center;
-    align-items: center;
+    place-items: center;
+    height: 100%;
 }
 
-.login-grid {
+.login__wrapper {
     display: grid;
     grid-template-areas:
-    'mailhub login-box .';
+        'logo login-box .';
     grid-template-columns: 1fr auto 1fr;
     justify-self: center;
 }
 
-.login-mailhub {
-    grid-area: mailhub;
+.login__logo {
+    grid-area: logo;
+
     writing-mode: vertical-rl;
     transform: rotate(180deg);
+
     font-size: 60px;
     font-weight: 900;
-    text-align: end;
     letter-spacing: 15px;
     line-height: 68px;
+    text-align: center;
 
     cursor: default;
 }
