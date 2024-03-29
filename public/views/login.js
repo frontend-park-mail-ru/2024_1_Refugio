@@ -8,7 +8,7 @@ const config = {
  * Класс для рендера страницы логина
  * @class
  */
-export default class LoginView extends BaseView {
+class LoginView extends BaseView {
     /**
          * Конструктор класса
          * @constructor
@@ -27,6 +27,6 @@ export default class LoginView extends BaseView {
         this.render();
         this.addListeners();
     }
-
-
 }
+
+export default new LoginView();

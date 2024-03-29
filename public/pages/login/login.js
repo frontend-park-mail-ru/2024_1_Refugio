@@ -6,6 +6,9 @@ import SignupView from '../../views/signup.js';
 
 import MainView from '../../views/main.js';
 
+import mediator from '../../modules/mediator.js';
+import dispathcher from '../../modules/dispathcher.js';
+
 const MAX_INPUT_LENGTH = 64;
 
 /**
@@ -49,18 +52,18 @@ export default class Login {
 
         const email = emailInput.value.trim();
         const password = passwordInput.value;
-        let oldError=this.#parent
+        let oldError = this.#parent
             .querySelector('.login-container__error-email');
         oldError.classList.remove('login-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.login-container__error-password');
         oldError.classList.remove('login-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.login-container__error-sign');
         oldError.classList.remove('login-container__error-sign_show');
         let err = false;
 
-        
+
         const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
         if (!emailRegex.test(email)) {
             const error = this.#parent
@@ -72,7 +75,7 @@ export default class Login {
         if (email.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
                 .querySelector('.login-container__error-email');
-                error.textContent = 'Email должен быть меньше 65 символов';
+            error.textContent = 'Email должен быть меньше 65 символов';
             error.classList.add('login-container__error-sign_show');
             err = true;
         }
@@ -87,7 +90,7 @@ export default class Login {
         }
         if (password.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-            .querySelector('.login-container__error-password');
+                .querySelector('.login-container__error-password');
             error.textContent = "Пароль должен быть меньше 65 символов";
             error.classList.add('login-container__error-sign_show');
             err = true;
@@ -117,23 +120,8 @@ export default class Login {
             login: email,
             password: password,
         };
-        
-        const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
-        );
 
-        if (response.ok) {
-            console.log(response.text());
-            // registration successful
-            const main = new MainView();
-            await main.renderPage();
-        } else {
-            const errorSign = this.#parent
-                .querySelector('.login-container__error-sign');
-            errorSign.classList.add('login-container__error-sign_show');
-            errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
-
-        }
+        await dispathcher.do({type: 'login', value: newUser});
     };
 
     /**
@@ -161,11 +149,12 @@ export default class Login {
             .querySelector('.login-container__signup-ref')
             .addEventListener('click', this.renderSignup);
 
+        mediator.on('signin', this.handleLoginResponse);
     }
 
     /**
      * Удаляет листенеры
-     */
+    */
     removeListeners() {
         this.#parent
             .querySelector('.login-container__login-btn')
@@ -175,6 +164,21 @@ export default class Login {
             .querySelector('.login-container__signup-ref')
             .addEventListener('click', this.renderSignup);
 
+        mediator.off('signin', this.handleLoginResponse);
     }
 
+    handleLoginResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do({type: 'open', value: {path: '/main', pushstate: true}})
+            case 401:
+                const errorSign = this.#parent
+                    .querySelector('.login-container__error-sign');
+                errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
+                errorSign.classList.add('login-container__error-sign_show');
+                break;
+            default:
+                break;
+        }
+    }
 }

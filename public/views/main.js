@@ -6,7 +6,7 @@ import ajax from '../modules/ajax.js';
  * Класс для рендера страницы списка писем
  * @class
  */
-export default class MainView extends BaseView {
+class MainView extends BaseView {
     #config = {
         header: {
             logo: 'MailHub',
@@ -86,3 +86,5 @@ export default class MainView extends BaseView {
         return data.body.emails;
     }
 }
+
+export default new MainView();
