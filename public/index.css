@@ -55,6 +55,7 @@
     --text: #ededed;
 
     --negative: #ff4747;
+    --error-input-placeholder: #522e2e;
 }
 
 * {
@@ -81,6 +82,14 @@ input:autofill {
     filter: brightness(86%) grayscale(100%) invert(1);
 }
 
-.show {
-    visibility: visible !important;
+.show-error {
+    visibility: visible;
+}
+
+.input-backgroud-error {
+    background-color: var(--error-input-placeholder);
+}
+
+.input-backgroud-error::placeholder {
+    visibility: hidden;
 }

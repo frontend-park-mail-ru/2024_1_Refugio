@@ -4,9 +4,9 @@
     display: grid;
     grid-template-areas:
         'login__switch-authorization-method'
-        'login__input_group__email'
-        'login__input_group__password'
-        'login__button';
+        'login__email__input-group'
+        'login__password__input-group'
+        'login__button-group';
 
     padding: 32px 16px 6px 16px;
 
@@ -59,26 +59,32 @@
     transform: scale(0.99);
 }
 
-.login__input-group__email {
-    grid-area: login__input_group__email;
-}
-
-.login__input-group__password {
-    grid-area: login__input_group__password;
-}
-
-.login__input-group {
+.login__email__input-group {
+    grid-area: login__email__input-group;
     display: grid;
     grid-template-areas:
         'label'
         'input'
-        'input-error';
+        'error';
     grid-row-gap: 2px;
 
     padding: 2px 16px 0 16px;
 }
 
-.login__input-group label {
+.login__password__input-group {
+    grid-area: login__password__input-group;
+    display: grid;
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
+    grid-row-gap: 2px;
+
+    padding: 2px 16px 0 16px;
+}
+
+.login__email__input-group label,
+.login__password__input-group label {
     grid-area: label;
 
     margin-top: 2px;
@@ -90,7 +96,8 @@
     line-height: 18px;
 }
 
-.login__input-group input {
+.login__email__input,
+.login__password__input {
     grid-area: input;
 
     padding: 12px;
@@ -105,7 +112,8 @@
     line-height: 20px;
 }
 
-.login__input-group input::placeholder {
+.login__email__input::placeholder,
+.login__password__input::placeholder {
     color: var(--input-placeholder);
     font-size: 16px;
     font-weight: 400;
@@ -113,12 +121,15 @@
     line-height: 20px;
 }
 
-.login__input-group input:focus {
+.login__email__input:focus,
+.login__password__input:focus {
     outline: none;
 }
 
-.login__input-group p {
-    grid-area: input-error;
+.login__email__error,
+.login__password__error,
+.login__button__error {
+    grid-area: error;
 
     color: var(--negative);
     font-size: 13px;
@@ -129,16 +140,15 @@
     visibility: hidden;
 
     overflow-wrap: anywhere;
-
 }
 
 .login__button-group {
-    grid-area: login__button;
+    grid-area: login__button-group;
 
     display: grid;
     grid-template-areas:
         'button'
-        'button-error';
+        'error';
 
     margin-top: 26px;
     padding: 0 16px 0 16px;
@@ -173,7 +183,7 @@
 
 .login__button input {
     background-color: white;
-    
+
     color: var(--main-button-secondary);
     font-size: 15px;
     font-weight: 500;
@@ -181,18 +191,4 @@
     line-height: 20px;
 
     cursor: pointer;
-}
-
-#button-error {
-    grid-area: button-error;
-
-    color: var(--negative);
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 18px;
-
-    visibility: hidden;
-
-    overflow-wrap: anywhere;
 }

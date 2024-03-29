@@ -44,96 +44,71 @@ export default class Login {
     handleLogin = async (e) => {
         e.preventDefault();
 
-        const emailInput = document.querySelector('#email');
-        const passwordInput = document.querySelector('#password');
+        const emailInput = document.querySelector('.login__email__input');
+        const passwordInput = document.querySelector('.login__password__input');
 
         const email = emailInput.value.trim();
         const password = passwordInput.value;
 
         let oldError = this.#parent
-            .querySelector('#login__input__error-email');
-        if (oldError) {
-            oldError.classList.remove('show');
-        }
+            .querySelector('.login__email__error');
+        oldError.classList.remove('show-error');
+        oldError = emailInput;
+        oldError.classList.remove('input-backgroud-error');
         oldError = this.#parent
-            .querySelector('#login__input__error-password');
-        if (oldError) {
-            oldError.classList.remove('show');
-        }
+            .querySelector('.login__password__error');
+        oldError.classList.remove('show-error');
+        oldError = passwordInput;
+        oldError.classList.remove('input-backgroud-error');
         oldError = this.#parent
-            .querySelector('#login__button_error');
-        if (oldError) {
-            oldError.classList.remove('show');
-        }
-
-        let err = false;
+            .querySelector('.login__button__error');
+        oldError.classList.remove('show-error');
 
         if (!email) {
             const error = this.#parent
-                .querySelector('#login__input__error-email');
+                .querySelector('.login__email__error');
             error.textContent = 'Введите имя ящика';
-            error.classList.add('show');
-            err = true;
-        }
-
-        if (!password) {
-            const error = this.#parent
-                .querySelector('#login__input__error-password');
-            error.textContent = 'Введите пароль';
-            error.classList.add('show');
-            err = true;
-        }
-
-        const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
-        if (!emailRegex.test(email)) {
-            const error = this.#parent
-                .querySelector('#email-error');
-            error.textContent = 'Email не содержит @ и . или использует недопустимые символы';
-            error.classList.add('show');
-            err = true;
-        }
-        if (email.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('#email-error');
-            error.textContent = 'Email должен быть меньше 65 символов';
-            error.classList.add('show');
-            err = true;
-        }
-
-        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
-        if (!passwordRegex.test(password)) {
-            const error = this.#parent
-                .querySelector('#password-error');
-            error.textContent = "В пароле только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
-            error.classList.add('show');
-            err = true;
-        }
-        if (password.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('#password-error');
-            error.textContent = "Пароль должен быть меньше 65 символов";
-            error.classList.add('show');
-            err = true;
-        }
-        if (!email) {
-            const error = this.#parent
-                .querySelector('#email-error');
-            error.textContent = 'Поле должно быть заполнено';
-            error.classList.add('show');
-            err = true;
-        }
-
-        if (!password) {
-            const error = this.#parent
-                .querySelector('#password-error');
-            error.textContent = 'Поле должно быть заполнено';
-            error.classList.add('show');
-            err = true;
-        }
-        if (err) {
+            error.classList.add('show-error');
+            emailInput.classList.add('input-backgroud-error');
             return;
         }
 
+        if (!password) {
+            const error = this.#parent
+                .querySelector('.login__password__error');
+            error.textContent = 'Введите пароль';
+            error.classList.add('show-error');
+            passwordInput.classList.add('input-backgroud-error');
+            return;
+        }
+
+        if (email.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.login__email__error');
+            error.textContent = 'Слишком длинное имя ящика';
+            error.classList.add('show-error');
+            emailInput.classList.add('input-backgroud-error');
+            return;
+        }
+
+        if (password.length > 4 * MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.login__password__error');
+            error.textContent = 'Слишком длинный пароль';
+            error.classList.add('show-error');
+            passwordInput.classList.add('input-backgroud-error');
+            return;
+        }
+
+        const emailRegex = /^[a-zA-Z0-9!@\$%\^&\*\(\)-_=\+`~,.<>;:'"\/?\[\]{}\\\|]*$/;
+        if (!emailRegex.test(email)) {
+            const error = this.#parent
+                .querySelector('.login__email__error');
+            error.textContent = 'Недопустимые символы';
+            error.classList.add('show-error');
+            emailInput.classList.add('input-backgroud-error');
+            return
+        }
 
         // create JSON object with user data
         const newUser = {
@@ -147,16 +122,14 @@ export default class Login {
         );
 
         if (response.ok) {
-            console.log(response.text());
             // registration successful
             const main = new MainView();
             await main.renderPage();
         } else {
             const errorSign = this.#parent
-                .querySelector('#button-error');
-            errorSign.classList.add('show');
-            errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
-
+                .querySelector('.login__button__error');
+            errorSign.classList.add('show-error');
+            errorSign.textContent = 'Неверные имя ящика и/или пароль';
         }
     };
 
