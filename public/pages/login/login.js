@@ -52,24 +52,24 @@ export default class Login {
 
         let oldError = this.#parent
             .querySelector('.login__email__error');
-        oldError.classList.remove('show-error');
+        oldError.classList.remove('show');
         oldError = emailInput;
-        oldError.classList.remove('input-backgroud-error');
+        oldError.classList.remove('auth__input-backgroud-error');
         oldError = this.#parent
             .querySelector('.login__password__error');
-        oldError.classList.remove('show-error');
+        oldError.classList.remove('show');
         oldError = passwordInput;
-        oldError.classList.remove('input-backgroud-error');
+        oldError.classList.remove('auth__input-backgroud-error');
         oldError = this.#parent
             .querySelector('.login__button__error');
-        oldError.classList.remove('show-error');
+        oldError.classList.remove('show');
 
         if (!email) {
             const error = this.#parent
                 .querySelector('.login__email__error');
             error.textContent = 'Введите имя ящика';
-            error.classList.add('show-error');
-            emailInput.classList.add('input-backgroud-error');
+            error.classList.add('show');
+            emailInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
@@ -77,8 +77,8 @@ export default class Login {
             const error = this.#parent
                 .querySelector('.login__password__error');
             error.textContent = 'Введите пароль';
-            error.classList.add('show-error');
-            passwordInput.classList.add('input-backgroud-error');
+            error.classList.add('show');
+            passwordInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
@@ -86,8 +86,8 @@ export default class Login {
             const error = this.#parent
                 .querySelector('.login__email__error');
             error.textContent = 'Слишком длинное имя ящика';
-            error.classList.add('show-error');
-            emailInput.classList.add('input-backgroud-error');
+            error.classList.add('show');
+            emailInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
@@ -95,8 +95,8 @@ export default class Login {
             const error = this.#parent
                 .querySelector('.login__password__error');
             error.textContent = 'Слишком длинный пароль';
-            error.classList.add('show-error');
-            passwordInput.classList.add('input-backgroud-error');
+            error.classList.add('show');
+            passwordInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
@@ -105,8 +105,8 @@ export default class Login {
             const error = this.#parent
                 .querySelector('.login__email__error');
             error.textContent = 'Недопустимые символы';
-            error.classList.add('show-error');
-            emailInput.classList.add('input-backgroud-error');
+            error.classList.add('show');
+            emailInput.classList.add('auth__input-backgroud-error');
             return
         }
 
@@ -128,7 +128,7 @@ export default class Login {
         } else {
             const errorSign = this.#parent
                 .querySelector('.login__button__error');
-            errorSign.classList.add('show-error');
+            errorSign.classList.add('show');
             errorSign.textContent = 'Неверные имя ящика и/или пароль';
         }
     };

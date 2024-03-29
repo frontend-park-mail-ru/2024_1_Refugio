@@ -1,76 +1,57 @@
-<div class="signup-container">
+<div class="signup__box">
 
-    <div class="signup-container__sign">
-        <div class="signup-container__obertka">
-            <div class="signup-container__login-ref">
-                <span>Вход в аккаунт</span>
-            </div>
-            <div class="signup-container__current">
-                <span>Создание ящика</span>
-            </div>
+    <div class="signup__switch-authorization-method">
+        <p class="signup__switch-authorization-method__passive">Вход в аккаунт</p>
+        <p class="signup__switch-authorization-method__active">Создание ящика</p>
+    </div>
+
+    <div class="signup__first-last-names__block">
+        <div class="signup__first-name__input-group">
+            <label>Имя</label>
+            <input type="text" class="signup__first-name__input" placeholder="Иван">
+            <p class="signup__first-name__error">Ошибка</p>
+        </div>
+        <div class="signup__last-name__input-group">
+            <label>Фамилия</label>
+            <input type="text" class="signup__last-name__input" placeholder="Иванов">
+            <p class="signup__last-name__error">Ошибка</p>
         </div>
     </div>
-    <form action="" class="signup-container__form">
-        <div class="signup-container__form-element_name signup-container__form-element">
-            <label class="signup-container__label" for="name">
-                Имя
-            </label>
-            <input class="signup-container__input signup-container__input_name" type="text" placeholder="Имя" id="name">
-            <div class="signup-container__error-name signup-container__error">Недопустимые символы</div>
+
+    <div class="signup__birthday__input-group">
+        qwer
+    </div>
+
+    <div class="signup__gender__input-group">
+        <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="signup__email__input-group">
+        <label>Имя ящика</label>
+        <input type="email" class="signup__email__input" placeholder="ivanovivan@mail.ru">
+        <p class="signup__email__error">Ошибка</p>
+    </div>
+
+    <div class="signup__password__input-group">
+        <label>Пароль</label>
+        <input type="password" class="signup__password__input" placeholder="●●●●●●●●">
+        <p class="signup__password__error">Ошибка</p>
+    </div>
+
+    <div class="signup__password-confirm__input-group">
+        <label>Пароль ещё раз</label>
+        <input type="password" class="signup__password-confirm__input" placeholder="●●●●●●●●">
+        <p class="signup__password-confirm__error">Ошибка</p>
+    </div>
+
+    <div class="signup__button-group">
+        <div class="signup__button">
+            <input type="button" value="Создать">
         </div>
-        <div class="signup-container__form-element_surname signup-container__form-element">
-            <label class="signup-container__label" for="surname">
-                Фамилия
-            </label>
-            <input class="signup-container__input signup-container__input_name" type="text" placeholder="Фамилия"
-                id="surname">
-            <div class="signup-container__error-surname signup-container__error">Недопустимые символы</div>
-        </div>
-        <div class="signup-container__form-element_date signup-container__form-element">
-            <label class="signup-container__label" for="date">
-                Дата рождения
-            </label>
-            <input class="signup-container__input" type="date" id="date">
-            <div class="signup-container__error-date signup-container__error">Введите реальную дату</div>
-        </div>
-        <div class="signup-container__form-element_sex signup-container__form-element">
-            <label class="signup-container__label" for="sex">
-                Пол
-            </label>
-            <div class="signup-container__slider-sex" id="sex">
-                <span class="signup-container__man">Мужской</span>
-                <label class="signup-container__switch">
-                    <input type="checkbox" class="signup-container__checkbox">
-                    <span class="signup-container__slider"></span>
-                </label>
-                <span class="signup-container__woman">Женский</span>
-            </div>
-        </div>
-        <div class="signup-container__form-element_email signup-container__form-element">
-            <label class="signup-container__label" for="email">
-                Email
-            </label>
-            <input class="signup-container__input" type="email" placeholder="Email" id="email">
-            <div class="signup-container__error-email signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
-        </div>
-        <div class="signup-container__form-element_password signup-container__form-element">
-            <label class="signup-container__label" for="password">
-                Пароль
-            </label>
-            <input class="signup-container__input" type="password" placeholder="Пароль" id="password">
-            <div class="signup-container__error-password signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
-        </div>
-        <div class="signup-container__form-element_repeat signup-container__form-element">
-            <label class="signup-container__label" for="repeat">
-                Повторите пароль
-            </label>
-            <input class="signup-container__input" type="password" placeholder="Повторите пароль" id="repeat">
-            <div class="signup-container__error-repeat signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
-        </div>
-        <div class="signup-container__signup">
-            <button id="signupBtn" class="signup-container__signup-btn" type="submit">Зарегистрироваться</button>
-        </div>
-        <div class="signup-container__error-sign signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
-    </form>
+        <p class="signup__button__error">Ошибка</p>
+    </div>
 
 </div>

@@ -61,18 +61,14 @@
 
 .login__email__input-group {
     grid-area: login__email__input-group;
-    display: grid;
-    grid-template-areas:
-        'label'
-        'input'
-        'error';
-    grid-row-gap: 2px;
-
-    padding: 2px 16px 0 16px;
 }
 
 .login__password__input-group {
     grid-area: login__password__input-group;
+}
+
+.login__email__input-group,
+.login__password__input-group {
     display: grid;
     grid-template-areas:
         'label'

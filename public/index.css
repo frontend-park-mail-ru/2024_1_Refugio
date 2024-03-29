@@ -82,14 +82,14 @@ input:autofill {
     filter: brightness(86%) grayscale(100%) invert(1);
 }
 
-.show-error {
+.show {
     visibility: visible;
 }
 
-.input-backgroud-error {
+.auth__input-backgroud-error {
     background-color: var(--error-input-placeholder);
 }
 
-.input-backgroud-error::placeholder {
+.auth__input-backgroud-error::placeholder {
     visibility: hidden;
 }
