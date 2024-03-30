@@ -49,6 +49,9 @@ class Router {
     }
 
     open({path, state='', pushState}) {
+        if (this.#currentView) {
+            this.#currentView.clear();
+        }
         this.#currentView = this.#views.get(path) || this.#authViews.get(path);
         this.navigate(path, state, pushState);
         this.#currentView.renderPage();

@@ -21,7 +21,6 @@ class SignupView extends BaseView {
      * Функция рендера страницы
      */
     renderPage() {
-        this.clear();
         const page = new Signup(this.root, config);
         this.components.push(page);
         this.render();
