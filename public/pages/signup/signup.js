@@ -1,6 +1,7 @@
+import { actionRedirect, actionSignup } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
-import ajax from '../../modules/ajax.js';
-import LoginView from '../../views/login.js';
+import dispathcher from '../../modules/dispathcher.js';
+import mediator from '../../modules/mediator.js';
 
 const MAX_INPUT_LENGTH = 64;
 
@@ -57,29 +58,29 @@ export default class Signup {
         const passwordConfirmation = passwordConfirmationInput.value;
         const dateParsed = new Date(date);
 
-        let oldError=this.#parent
+        let oldError = this.#parent
             .querySelector('.signup-container__error-email');
         oldError.classList.remove('signup-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.signup-container__error-name');
         oldError.classList.remove('signup-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.signup-container__error-surname');
         oldError.classList.remove('signup-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.signup-container__error-date');
         oldError.classList.remove('signup-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.signup-container__error-password');
         oldError.classList.remove('signup-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.signup-container__error-repeat');
         oldError.classList.remove('signup-container__error-sign_show');
-        oldError=this.#parent
+        oldError = this.#parent
             .querySelector('.signup-container__error-sign');
         oldError.classList.remove('signup-container__error-sign_show');
         let err = false;
-        
+
         if (name.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
                 .querySelector('.signup-container__error-name');
@@ -115,15 +116,15 @@ export default class Signup {
         const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (!emailRegex.test(email)) {
             const error = this.#parent
-            .querySelector('.signup-container__error-email');
+                .querySelector('.signup-container__error-email');
             error.textContent = 'Адрес должен содержать только латинские буквы и символы ._-';
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
         if (email.indexOf('@') === 0 || email.indexOf('@') === -1 || email.indexOf('.') === -1 ||
-        email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
+            email.indexOf('.') - email.indexOf('@') === 1 || email.indexOf('.') === email.length - 1) {
             const error = this.#parent
-            .querySelector('.signup-container__error-email');
+                .querySelector('.signup-container__error-email');
             error.textContent = 'Адрес должен иметь вид: name@mail.ru';
             error.classList.add('signup-container__error-sign_show');
             err = true;
@@ -135,12 +136,12 @@ export default class Signup {
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
-        
+
         const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
         if (!passwordRegex.test(password)) {
             const error = this.#parent
                 .querySelector('.signup-container__error-password');
-                error.textContent = "Допускаются только латинские буквы, цифры и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
+            error.textContent = "Допускаются только латинские буквы, цифры и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
             error.classList.add('signup-container__error-sign_show');
             err = true;
         }
@@ -153,7 +154,7 @@ export default class Signup {
         }
         if (password.length < 8) {
             const error = this.#parent
-            .querySelector('.signup-container__error-password');
+                .querySelector('.signup-container__error-password');
             error.textContent = "Пароль должен быть больше 7 символов";
             error.classList.add('signup-container__error-sign_show');
             err = true;
@@ -217,7 +218,7 @@ export default class Signup {
         if (err) {
             return;
         }
-        
+
         // create JSON object with user data
         const newUser = {
             login: email,
@@ -227,21 +228,7 @@ export default class Signup {
 
         };
 
-        const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
-            );
-
-        if (response.ok) {
-            // registration successful
-            const login = new LoginView();
-            login.renderPage();
-        }else{
-            const error = this.#parent
-                .querySelector('.signup-container__error-sign');
-            error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
-            error.classList.add('signup-container__error-sign_show');
-            return;
-        }
+        dispathcher.do(actionSignup(newUser));
     };
 
     /**
@@ -250,16 +237,13 @@ export default class Signup {
     renderLogin = async (e) => {
         e.preventDefault();
 
-        const loginView = new LoginView();
-
-        loginView.renderPage();
+        dispathcher.do(actionRedirect('/login', true));
     };
 
-    handleCheckbox (e) {
+    handleCheckbox(e) {
         e.preventDefault();
         document.querySelector('.signup-container__woman').style.color = this.checked ? "#EDEDED" : "#757575";
         document.querySelector('.signup-container__man').style.color = this.checked ? "#757575" : "#EDEDED";
-        console.log(this);
     }
 
     /**
@@ -276,6 +260,7 @@ export default class Signup {
         this.#parent
             .querySelector('.signup-container__checkbox')
             .addEventListener('change', this.handleCheckbox, false);
+        mediator.on('signup', this.handleSignupResponse);
     }
 
     /**
@@ -292,5 +277,20 @@ export default class Signup {
         this.#parent
             .querySelector('.signup-container__checkbox')
             .addEventListener('change', this.handleCheckbox);
+        mediator.off('signup', this.handleSignupResponse);
+    }
+
+    handleSignupResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                const error = this.#parent
+                    .querySelector('.signup-container__error-sign');
+                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.classList.add('signup-container__error-sign_show');
+                break;
+        }
     }
 }

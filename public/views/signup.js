@@ -21,6 +21,7 @@ class SignupView extends BaseView {
      * Функция рендера страницы
      */
     renderPage() {
+        document.title = 'Создание ящика';
         const page = new Signup(this.root, config);
         this.components.push(page);
         this.render();

@@ -1,9 +1,9 @@
 import Header from '../../components/header/header.js';
 import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
-import ajax from '../../modules/ajax.js';
-import LoginView from '../../views/login.js';
-import MainView from '../../views/main.js';
+import mediator from '../../modules/mediator.js';
+import dispathcher from '../../modules/dispathcher.js';
+import { actionLogout, actionRedirect } from '../../actions/userActions.js';
 
 /**
  * Класс обертки страницы
@@ -43,19 +43,7 @@ export default class Main {
      */
     handleExit = async (e) => {
         e.preventDefault();
-        await (async () => {
-            const response = await ajax(
-                'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
-            );
-            const status = await response.status;
-            if (status < 300) {
-                const login = LoginView;
-                login.renderPage();
-            } else {
-                const main = MainView;
-                await main.renderPage();
-            }
-        })();
+        await dispathcher.do(actionLogout());
     };
 
     /**
@@ -65,6 +53,7 @@ export default class Main {
         this.#parent
             .querySelector('.header__exit')
             .addEventListener('click', this.handleExit);
+        mediator.on('logout', this.handleExitResponse)
     }
 
     /**
@@ -74,5 +63,16 @@ export default class Main {
         this.#parent
             .querySelector('.header__exit')
             .removeEventListener('click', this.handleExit);
+        mediator.off('logout', this.handleExitResponse)
+    }
+
+    handleExitResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -15,14 +15,16 @@ class Router {
 
         this.#views.set('/login', LoginView)
         this.#views.set('/signup', SignupView)
-        
+
         this.#authViews.set('/main', MainView)
     }
 
-    navigate({path, state='', pushState}) {
+    navigate({ path, state = '', pushState }) {
         if (pushState) {
-            window.history.pushState(state, '', `${window.location.origin}${path}`)
-        } 
+            window.history.pushState(state, '', `${path}`)
+        } else {
+            window.history.replaceState(state, '', `${path}`)
+        }
     }
 
     async redirect(href) {
@@ -35,7 +37,7 @@ class Router {
                 return '/login';
             }
         }
-        if (href==='' || href==='/' || href==='/login' || href==='/signup'){
+        if (href === '' || href === '/' || href === '/login' || href === '/signup') {
             return '/main';
         } else {
             if (this.#redirectView) {
@@ -48,19 +50,22 @@ class Router {
         }
     }
 
-    open({path, state='', pushState}) {
+    open({ path, state = '', pushState }) {
         if (this.#currentView) {
             this.#currentView.clear();
         }
         this.#currentView = this.#views.get(path) || this.#authViews.get(path);
-        this.navigate(path, state, pushState);
+        this.navigate({ path, state, pushState });
         this.#currentView.renderPage();
     }
 
     async start() {
-        const path = window.location.pathname;
+        window.addEventListener('popstate', async () => {
+            const path = await this.redirect(window.location.pathname);
+            this.open({ path: path, pushState: false });
+        });
         const redirectPath = await this.redirect(window.location.pathname);
-        this.open({path: redirectPath, state: '', pushState: true})
+        this.open({ path: redirectPath, state: '', pushState: true })
     }
 }
 

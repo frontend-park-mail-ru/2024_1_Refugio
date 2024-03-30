@@ -21,6 +21,7 @@ class LoginView extends BaseView {
      * Функция рендера страницы
      */
     renderPage() {
+        document.title = 'Вход';
         const page = new Login(this.root, config);
         this.components.push(page);
         this.render();

@@ -4,7 +4,7 @@ import mediator from "../modules/mediator.js";
 class UserStore {
     #body
     isAuth
-    
+
     constructor() {
         this.#body = undefined;
         this.isAuth = false;
@@ -16,6 +16,17 @@ class UserStore {
         );
         this.isAuth = await response.status < 300;
         return this.isAuth;
+    }
+
+    async logout() {
+        const response = await ajax(
+            'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
+        );
+        const status = await response.status;
+        if (status < 300) {
+            this.isAuth = false;
+        }
+        mediator.emit('logout', status);
     }
 
     async login(newUser) {
@@ -30,6 +41,17 @@ class UserStore {
         mediator.emit('login', status);
     }
 
+    async signup(newUser) {
+        const response = await ajax(
+            'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
+        );
+        const status = await response.status;
+        if (status < 300) {
+            this.isAuth = true;
+        }
+        mediator.emit('signup', status);
+    }
+
     async getUser() {
         const response = await ajax(
             'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
@@ -39,8 +61,8 @@ class UserStore {
             let data = await response.json();
             this.body = data.body.user;
         }
-        console.log(this.body);
     }
+
 }
 
 export default new UserStore();

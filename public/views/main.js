@@ -51,6 +51,7 @@ class MainView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
+        document.title = 'Входящие';
         this.#config.header.username = await this.#getUserInfo();
         this.#config.content.list_letters = await this.#getEmailsInfo();
         this.#config.content.list_letters.forEach((letter) => {
