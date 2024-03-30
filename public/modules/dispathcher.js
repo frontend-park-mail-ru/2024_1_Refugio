@@ -13,7 +13,7 @@ class Dispatcher {
     async do(action) {
         const func = this.#handlers.get(action.type);
         if (func) {
-            if (Object.prototype.hasOwnProperty.call(action, 'data')) {
+            if (Object.prototype.hasOwnProperty.call(action, 'value')) {
                 await func(action.value);
             } 
             else {

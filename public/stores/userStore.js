@@ -28,7 +28,7 @@ class UserStore {
             this.isAuth = true;
             this.#body = await response.json();
         }
-        mediator.emit('signin', status);
+        mediator.emit('login', status);
     }
 }
 

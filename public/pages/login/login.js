@@ -8,6 +8,7 @@ import MainView from '../../views/main.js';
 
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
+import { actionLogin } from '../../actions/userActions.js';
 
 const MAX_INPUT_LENGTH = 64;
 
@@ -121,7 +122,7 @@ export default class Login {
             password: password,
         };
 
-        await dispathcher.do({type: 'login', value: newUser});
+        await dispathcher.do(actionLogin(newUser));
     };
 
     /**
@@ -131,7 +132,7 @@ export default class Login {
 
         e.preventDefault();
 
-        const signupView = new SignupView();
+        const signupView = SignupView;
 
         signupView.renderPage();
     };
@@ -149,7 +150,7 @@ export default class Login {
             .querySelector('.login-container__signup-ref')
             .addEventListener('click', this.renderSignup);
 
-        mediator.on('signin', this.handleLoginResponse);
+        mediator.on('login', this.handleLoginResponse);
     }
 
     /**
@@ -164,13 +165,14 @@ export default class Login {
             .querySelector('.login-container__signup-ref')
             .addEventListener('click', this.renderSignup);
 
-        mediator.off('signin', this.handleLoginResponse);
+        mediator.off('login', this.handleLoginResponse);
     }
 
     handleLoginResponse = (status) => {
         switch (status) {
             case 200:
-                dispathcher.do({type: 'open', value: {path: '/main', pushstate: true}})
+                dispathcher.do(actionRedirect('/main', true));
+                break;
             case 401:
                 const errorSign = this.#parent
                     .querySelector('.login-container__error-sign');

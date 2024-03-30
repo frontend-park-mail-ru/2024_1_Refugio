@@ -49,10 +49,10 @@ export default class Main {
             );
             const status = await response.status;
             if (status < 300) {
-                const login = new LoginView();
+                const login = LoginView;
                 login.renderPage();
             } else {
-                const main = new MainView();
+                const main = MainView;
                 await main.renderPage();
             }
         })();
