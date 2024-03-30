@@ -1,6 +1,9 @@
 import Main from '../pages/main/main.js';
 import BaseView from './base.js';
 import ajax from '../modules/ajax.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetUser } from '../actions/userActions.js';
+import userStore from '../stores/userStore.js';
 
 /**
  * Класс для рендера страницы списка писем
@@ -66,11 +69,8 @@ class MainView extends BaseView {
      * @returns {string} имя пользователя
      */
     async #getUserInfo() {
-        const response = await ajax(
-            'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
-        );
-        const data = await response.json();
-        return data.body.user.name;
+        await dispathcher.do(actionGetUser());
+        return userStore.body.name;
     }
 
     /**

@@ -7,6 +7,7 @@ const handlers = [
     {type: 'open', method: router.open.bind(router)},
     {type: 'login', method: userStore.login.bind(userStore)},
     {type: 'start', method: router.start.bind(router)},
+    {type: 'getUser', method: userStore.getUser.bind(userStore)},
 ];
 
 export default handlers;

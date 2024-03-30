@@ -12,3 +12,8 @@ export const actionRedirect = (path, pushState) => ({
     type: 'open', 
     value: {path: '/main', pushState: true},
 })
+
+export const actionGetUser = () => ({
+    type: 'getUser',
+    value: {},
+})

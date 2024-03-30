@@ -26,9 +26,20 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
-            this.#body = await response.json();
         }
         mediator.emit('login', status);
+    }
+
+    async getUser() {
+        const response = await ajax(
+            'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
+        );
+        const status = await response.status;
+        if (status < 300) {
+            let data = await response.json();
+            this.body = data.body.user;
+        }
+        console.log(this.body);
     }
 }
 
