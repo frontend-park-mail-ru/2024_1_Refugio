@@ -8,7 +8,7 @@ import MainView from '../../views/main.js';
 
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogin } from '../../actions/userActions.js';
+import { actionLogin, actionRedirect } from '../../actions/userActions.js';
 
 const MAX_INPUT_LENGTH = 64;
 
