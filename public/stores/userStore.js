@@ -2,11 +2,11 @@ import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
 
 class UserStore {
-    #body
+    body
     isAuth
 
     constructor() {
-        this.#body = undefined;
+        this.body = undefined;
         this.isAuth = false;
     }
 
@@ -25,6 +25,7 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = false;
+            this.body = undefined;
         }
         mediator.emit('logout', status);
     }
