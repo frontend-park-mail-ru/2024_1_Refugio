@@ -1,6 +1,4 @@
-import Login from '../pages/login/login.js';
 import Profile from '../pages/profile/profile.js';
-
 import BaseView from './base.js';
 
 const config = {
@@ -10,7 +8,7 @@ const config = {
  * Класс для рендера страницы логина
  * @class
  */
-export default class LoginView extends BaseView {
+export default class ProfileView extends BaseView {
     /**
          * Конструктор класса
          * @constructor

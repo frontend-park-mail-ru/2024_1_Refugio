@@ -1,136 +1,163 @@
-.signup__box {
-    grid-area: signup-box;
-
+.profile__root {
     display: grid;
     grid-template-areas:
-    
-        'signup__switch-authorization-method'
-        'signup__first-last-names__block'
-        'signup__birthday__input-group'
-        'signup__gender__select-group'
-        'signup__email__input-group'
-        'signup__password__input-group'
-        'signup__password-confirm__input-group'
-        'signup__button-group';
+        'header header'
+        'menu content';
 
-    padding: 32px 16px 6px 16px;
+    background-color: black;
 
-    max-height: 764px;
-    width: 392px;
+    height: 100%;
+}
+
+.profile__header {
+    grid-area: header;
+
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(1, 1fr);
+    justify-content: space-between;
+    align-content: start;
+
+    padding: 4px 12px 4px 12px;
+}
+
+.profile__header__logo-search {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: repeat(1, 1fr);
+    justify-content: start;
+    align-content: start;
+
+    padding-left: 4px;
+}
+
+.profile__header__logo {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    justify-content: center;
+    align-content: center;
+
+    p {
+        color: white;
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: 7px;
+        line-height: 54px;
+    }
+}
+
+.profile__header__search {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    justify-content: center;
+    align-content: center;
+}
+
+.profile__header__avatar {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    justify-content: center;
+    align-content: center;
+}
+
+.profile__menu {
+    grid-area: menu;
+
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: minmax(0, auto);
+    gap: 1px;
+    justify-content: left;
+    align-content: start;
+
+    padding: 0 16px 8px 16px;
+}
+
+.profile__content__wrapper {
+    grid-area: content;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    justify-content: left;
+    align-content: start;
+}
+
+.profile__content {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, auto);
+    justify-content: center;
+    align-content: start;
 
     background-color: var(--box-background);
     border-radius: 8px;
 }
 
-.signup__switch-authorization-method {
-    grid-area: signup__switch-authorization-method;
-
+.profile__content__header {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 2px;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    justify-content: center;
+    align-content: start;
 
-    margin: 0 16px 24px 16px;
-    padding: 2px;
+    padding: 20px 32px 20px 32px;
 
-    height: 44px;
-
-    background-color: var(--input-background);
-    border-radius: 10px;
+    text-align: left;
 
     p {
-        display: grid;
-        place-items: center;
-
-        border-radius: 8px;
-
-        font-size: 15px;
+        color: var(--text);
+        font-size: 24px;
         font-weight: 500;
         letter-spacing: 0;
-        line-height: 20px;
+        line-height: 28;
     }
 }
 
-.signup__switch-authorization-method__active {
-    background-color: var(--secondary-button-onhover-selected);
-}
-
-.signup__switch-authorization-method__passive {
-    color: var(--input-placeholder);
-
-    cursor: pointer;
-}
-
-.signup__switch-authorization-method__passive:active {
-    transform: scale(0.99);
-}
-
-.signup__first-last-names__block {
-    grid-area: signup__first-last-names__block;
-
+.profile__content__form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, auto);
+    justify-content: left;
+    align-content: start;
+}
+
+.profile__content__form__first-middle-names__block {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
 
     align-items: start;
 }
 
-.signup__email__input-group {
-    grid-area: signup__email__input-group;
-}
-
-.signup__password__input-group {
-    grid-area: signup__password__input-group;
-}
-
-.signup__password-confirm__input-group {
-    grid-area: signup__password-confirm__input-group;
-}
-
-.signup__email__input-group,
-.signup__password__input-group,
-.signup__password-confirm__input-group,
-.signup__first-name__input-group,
-.signup__last-name__input-group {
+.profile__content__form__first-name__input-group,
+.profile__content__form__middle-name__input-group,
+.profile__content__form__last-name__input-group {
     display: grid;
     grid-template-areas:
         'label'
         'input'
         'error';
     grid-row-gap: 2px;
+    padding: 18px 16px 0 16px;
+
+    label {
+        grid-area: label;
+
+        margin-top: 2px;
+
+        color: var(--input-label-counter-icon);
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 18px;
+    }
 }
 
-.signup__email__input-group,
-.signup__password__input-group,
-.signup__password-confirm__input-group {
-    padding: 2px 16px 0 16px;
-}
-
-.signup__first-name__input-group {
-    padding: 2px 8px 0 16px;
-}
-
-.signup__last-name__input-group {
-    padding: 2px 16px 0 8px;
-}
-
-.signup__email__input-group label,
-.signup__password__input-group label,
-.signup__password-confirm__input-group label,
-.signup__first-name__input-group label,
-.signup__last-name__input-group label {
-    grid-area: label;
-
-    margin-top: 2px;
-
-    color: var(--input-label-counter-icon);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 18px;
-}
-
-.signup__email__input,
-.signup__first-name__input,
-.signup__last-name__input {
+.profile__content__form__first-name__input,
+.profile__content__form__middle-name__input,
+.profile__content__form__last-name__input {
     grid-area: input;
 
     padding: 12px;
@@ -143,39 +170,16 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
-}
 
-.signup__password__input,
-.signup__password-confirm__input {
-    grid-area: input;
-
-    padding: 12px;
-
-    height: 44px;
-    width: 328px;
-
-    background-color: var(--input-background);
-    border-radius: 8px;
-
-    color: var(--text);
-    font-size: 25px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    line-height: 20px;
-}
-
-.signup__first-name__input,
-.signup__last-name__input {
     box-sizing: border-box;
 
     width: 100%;
 }
 
-.signup__email__input::placeholder,
-.signup__first-name__input::placeholder,
-.signup__password__input::placeholder,
-.signup__password-confirm__input::placeholder,
-.signup__last-name__input::placeholder {
+
+.profile__content__form__first-name__input::placeholder,
+.profile__content__form__middle-name__input::placeholder,
+.profile__content__form__last-name__input::placeholder {
     color: var(--input-placeholder);
     font-size: 16px;
     font-weight: 400;
@@ -183,20 +187,15 @@
     line-height: 20px;
 }
 
-.signup__email__input:focus,
-.signup__password__input:focus,
-.signup__password-confirm__input:focus,
-.signup__first-name__input:focus,
-.signup__last-name__input:focus {
+.profile__content__form__first-name__input:focus,
+.profile__content__form__middle-name__input:focus,
+.profile__content__form__last-name__input:focus {
     outline: none;
 }
 
-.signup__email__error,
-.signup__password__error,
-.signup__password-confirm__error,
-.signup__first-name__error,
-.signup__last-name__error,
-.signup__button__error {
+.profile__content__form__first-name__error,
+.profile__content__form__middle-name__error,
+.profile__content__form__last-name__error  {
     grid-area: error;
 
     color: var(--negative);
@@ -210,58 +209,19 @@
     overflow-wrap: anywhere;
 }
 
-.signup__button-group {
-    grid-area: signup__button-group;
-
+.profile__content__form__avatar-birthday-gender-last-name__block {
     display: grid;
-    grid-template-areas:
-        'button'
-        'error';
-
-    margin-top: 26px;
-    padding: 0 16px 0 16px;
-
-    text-align: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
 }
 
-.signup__button {
-    grid-area: button;
-
-    margin-bottom: 8px;
-    padding: 10px 16px 10px 16px;
-
-    height: 36px;
-
-    background-color: white;
-    border-radius: 8px;
-
-    color: var(--main-button-secondary);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 20px;
-
-    cursor: pointer;
+.profile__content__form__birthday-gender-last-name-group {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
 }
 
-.signup__button:active {
-    transform: scale(0.99);
-}
 
-.signup__button input {
-    background-color: white;
-
-    color: var(--main-button-secondary);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 20px;
-
-    cursor: pointer;
-}
-
-.signup__birthday__input-group {
-    grid-area: signup__birthday__input-group;
+.profile__content__form__birthday__input-group {
 
     display: grid;
     grid-template-rows: auto, auto;
@@ -281,7 +241,7 @@
 }
 
 
-.signup__birthday__input-block {
+.profile__content__form__birthday__input-block {
     display: grid;
     grid-template-columns: repeat(3, auto);
 
@@ -289,9 +249,9 @@
 
 }
 
-.signup__birthday__input__day,
-.signup__birthday__input__month,
-.signup__birthday__input__year {
+.profile__content__form__birthday__input__day,
+.profile__content__form__birthday__input__month,
+.profile__content__form__birthday__input__year {
     display: grid;
     grid-row: auto auto;
 
@@ -316,22 +276,22 @@
     }
 }
 
-.signup__birthday__input__day__value-img,
-.signup__birthday__input__month__value-img,
-.signup__birthday__input__year__value-img {
+.profile__content__form__birthday__input__day__value-img,
+.profile__content__form__birthday__input__month__value-img,
+.profile__content__form__birthday__input__year__value-img {
     display: grid;
     grid-template-columns: auto 48px;
 }
 
-.signup__birthday__input__day__value-img p {
+.profile__content__form__birthday__input__day__value-img p {
     width: 18px;
 }
 
-.signup__birthday__input__month__value-img p {
+.profile__content__form__birthday__input__month__value-img p {
     width: 72px;
 }
 
-.signup__birthday__input__year__value-img p {
+.profile__content__form__birthday__input__year__value-img p {
     width: 36px;
 }
 
@@ -434,13 +394,7 @@
 
 
 
-
-
-
-
-
-.signup__gender__select-group {
-    grid-area: signup__gender__select-group;
+.profile__content__form__gender__select-group {
 
     display: grid;
     grid-template-rows: auto auto;
@@ -449,7 +403,7 @@
     padding: 20px 16px 16px 16px;
 }
 
-.signup__gender__select__label {
+.profile__content__form__gender__select__label {
     margin-top: 2px;
 
     color: var(--input-label-counter-icon);
@@ -459,7 +413,7 @@
     line-height: 18px;
 }
 
-.signup__gender__select {
+.profile__content__form__gender__select {
     display: grid;
     grid-template-columns: repeat(3, auto);
     justify-content: start;
@@ -468,7 +422,7 @@
     padding: 0 12px 0 12px;
 }
 
-.signup__gender__select__passive {
+.profile__content__form__gender__select__passive {
     color: var(--input-placeholder);
 }
 
