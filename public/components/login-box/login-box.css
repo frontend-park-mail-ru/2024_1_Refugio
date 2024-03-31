@@ -10,7 +10,7 @@
 
     padding: 32px 16px 6px 16px;
 
-    max-height: 440px;
+    max-height: 764px;
     width: 392px;
 
     background-color: var(--box-background);
@@ -31,18 +31,18 @@
 
     background-color: var(--input-background);
     border-radius: 10px;
-}
 
-.login__switch-authorization-method p {
-    display: grid;
-    place-items: center;
+    p {
+        display: grid;
+        place-items: center;
 
-    border-radius: 8px;
+        border-radius: 8px;
 
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 20px;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 20px;
+    }
 }
 
 .login__switch-authorization-method__active {
@@ -58,6 +58,7 @@
 .login__switch-authorization-method__passive:active {
     transform: scale(0.99);
 }
+
 
 .login__email__input-group {
     grid-area: login__email__input-group;
@@ -75,7 +76,10 @@
         'input'
         'error';
     grid-row-gap: 2px;
+}
 
+.login__email__input-group,
+.login__password__input-group {
     padding: 2px 16px 0 16px;
 }
 
@@ -92,8 +96,7 @@
     line-height: 18px;
 }
 
-.login__email__input,
-.login__password__input {
+.login__email__input {
     grid-area: input;
 
     padding: 12px;
@@ -105,6 +108,24 @@
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0;
+    line-height: 20px;
+}
+
+.login__password__input {
+    grid-area: input;
+
+    padding: 12px;
+
+    height: 44px;
+    width: 328px;
+
+    background-color: var(--input-background);
+    border-radius: 8px;
+
+    color: var(--text);
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 1px;
     line-height: 20px;
 }
 
@@ -150,7 +171,6 @@
     padding: 0 16px 0 16px;
 
     text-align: center;
-
 }
 
 .login__button {

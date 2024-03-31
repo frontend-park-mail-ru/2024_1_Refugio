@@ -100,8 +100,8 @@ export default class Login {
             return;
         }
 
-        const emailRegex = /^[a-zA-Z0-9!@\$%\^&\*\(\)-_=\+`~,.<>;:'"\/?\[\]{}\\\|]*$/;
-        if (!emailRegex.test(email)) {
+        const emailLoginRegex = /^[a-zA-Z0-9!@\$%\^&\*\(\)-_=\+`~,.<>;:'"\/?\[\]{}\\\|]*$/;
+        if (!emailLoginRegex.test(email)) {
             const error = this.#parent
                 .querySelector('.login__email__error');
             error.textContent = 'Недопустимые символы';
