@@ -6,15 +6,67 @@
             </div>
             <div class="profile__header__search"></div>
         </div>
-        <div class="profile__header__avatart"></div>
+        <div class="profile__header__avatar">
+            <img class="profile__header__avatar-img" src="../../static/img/avatar_36_36.svg" alt="">
+            <div class="dropdown__wrapper__profile-menu hide__dropdown__wrapper">
+                <div class="dropdown__profile-menu">
+                    <div class="dropdown__profile-menu__profile__button">
+                        <input type="button" value="Личные данные">
+                    </div>
+                    <div class="dropdown__profile-menu__logout__button">
+                        <input type="button" value="Выйти">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="profile__menu"></div>
+    <div class="profile__menu">
+        <div class="profile__menu__write-letter__button">
+            <input type="button" value="Написать письмо">
+        </div>
+        <div class="profile__menu__standard__counter__button profile__menu__incoming__button">
+            <input type="button" value="Входящие">
+            <span>1</span>
+        </div>
+        <div class="profile__menu__standard__counter__button profile__menu__sent__button">
+            <input type="button" value="Отравленные">
+            <span>1</span>
+        </div>
+        <div class="profile__menu__standard__counter__button profile__menu__drafts__button">
+            <input type="button" value="Черновики">
+            <span>1</span>
+        </div>
+        <div class="profile__menu__standard__counter__button profile__menu__spam__button">
+            <input type="button" value="Спам">
+            <span>1</span>
+        </div>
+        <div class="profile__menu__trash__button">
+            <input type="button" value="Корзина">
+            <a href="">Очистить</a>
+        </div>
+        <div class="profile__menu__standard__counter__button profile__menu__unread__button">
+            <input type="button" value="Непрочитанные">
+            <span>1</span>
+        </div>
+        <div class="profile__menu__standard__counter__button profile__menu__with-attachments__button">
+            <input type="button" value="С вложениями">
+            <span>1</span>
+        </div>
+        <div class="profile__menu__custom__button">
+            <input type="button" value="Кастомная папка">
+            <span>1</span>
+        </div>
+        <div class="profile__menu__new-folder__button">
+            <input type="button" value="Новая папка">
+        </div>
+
+    </div>
     <div class="profile__content__wrapper">
         <div class="profile__content">
             <div class="profile__content__header">
                 <p>Личные данные</p>
             </div>
-            <div class="prfile__content__form">
+            <div class="profile__content__form">
                 <div class="profile__content__form__first-middle-names__block">
                     <div class="profile__content__form__first-name__input-group">
                         <label>Имя</label>
@@ -251,19 +303,57 @@
                                         <span></span>
                                     </label>
                                 </div>
-                                <p class="profile__content__form__gender__select__female profile__content__form__gender__select__passive">Женский</p>
+                                <p
+                                    class="profile__content__form__gender__select__female profile__content__form__gender__select__passive">
+                                    Женский</p>
                             </div>
                         </div>
 
                     </div>
                     <div class="profile__content__form__avatar-group">
-
+                        <div>
+                            <img src="../../static/img/avatat_166_166.svg" alt="">
+                        </div>
+                        <div class="profile__content__form__load-avatar__button">
+                            <input type="button" value="Загрузить фото">
+                        </div>
                     </div>
 
                 </div>
-                <div class="profile__content__form__bio-phone-number__block"></div>
-                <div class="profile__content__form__password-password-confirm__block"></div>
-                <div class="profile__content__form__button-group"></div>
+                <div class="profile__content__form__bio-phone-number__block">
+                    <div class="profile__content__form__bio__input-group">
+                        <label>О себе</label>
+                        <input type="text" class="profile__content__form__bio__input" placeholder="Веб-разработчик">
+                        <p class="profile__content__form__bio__error">Ошибка</p>
+                    </div>
+                    <div class="profile__content__form__phone-number__input-group">
+                        <label>Номер телефона</label>
+                        <input type="text" class="profile__content__form__phone-number__input"
+                            placeholder="88001234567">
+                        <p class="profile__content__form__phone-number__error">Ошибка</p>
+                    </div>
+                </div>
+                <div class="profile__content__form__password-password-confirm__block">
+                    <div class="profile__content__form__password__input-group">
+                        <label>Пароль</label>
+                        <input type="password" class="profile__content__form__password__input" placeholder="●●●●●●●●">
+                        <p class="profile__content__form__password__error">Ошибка</p>
+                    </div>
+                    <div class="profile__content__form__password-confirm__input-group">
+                        <label>Пароль ещё раз</label>
+                        <input type="password" class="profile__content__form__password-confirm__input"
+                            placeholder="●●●●●●●●">
+                        <p class="profile__content__form__password-confirm__error">Ошибка</p>
+                    </div>
+                </div>
+
+
+                <div class="profile__content__form__save__button-group">
+                    <div class="profile__content__form__save__button">
+                        <input type="button" value="Сохранить">
+                    </div>
+                    <p class="profile__content__form__save__button__error">Ошибка</p>
+                </div>
             </div>
         </div>
     </div>

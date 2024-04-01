@@ -2,16 +2,7 @@
     grid-area: signup-box;
 
     display: grid;
-    grid-template-areas:
-    
-        'signup__switch-authorization-method'
-        'signup__first-last-names__block'
-        'signup__birthday__input-group'
-        'signup__gender__select-group'
-        'signup__email__input-group'
-        'signup__password__input-group'
-        'signup__password-confirm__input-group'
-        'signup__button-group';
+    grid-template-rows: repeat(8, auto);
 
     padding: 32px 16px 6px 16px;
 
@@ -23,7 +14,6 @@
 }
 
 .signup__switch-authorization-method {
-    grid-area: signup__switch-authorization-method;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -65,24 +55,11 @@
 }
 
 .signup__first-last-names__block {
-    grid-area: signup__first-last-names__block;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
 
     align-items: start;
-}
-
-.signup__email__input-group {
-    grid-area: signup__email__input-group;
-}
-
-.signup__password__input-group {
-    grid-area: signup__password__input-group;
-}
-
-.signup__password-confirm__input-group {
-    grid-area: signup__password-confirm__input-group;
 }
 
 .signup__email__input-group,
@@ -211,8 +188,6 @@
 }
 
 .signup__button-group {
-    grid-area: signup__button-group;
-
     display: grid;
     grid-template-areas:
         'button'
@@ -244,6 +219,13 @@
     cursor: pointer;
 }
 
+.signup__button:hover {
+    background-color: var(--main-button-hover);
+    input {
+        background-color: var(--main-button-hover);
+    }
+}
+
 .signup__button:active {
     transform: scale(0.99);
 }
@@ -261,8 +243,6 @@
 }
 
 .signup__birthday__input-group {
-    grid-area: signup__birthday__input-group;
-
     display: grid;
     grid-template-rows: auto, auto;
     grid-row-gap: 2px;
@@ -377,9 +357,11 @@
 .dropdown__wrapper__day {
     min-width: 78px;
 }
+
 .dropdown__wrapper__month {
     min-width: 132px;
 }
+
 .dropdown__wrapper__year {
     min-width: 96px;
 }
@@ -437,11 +419,7 @@
 
 
 
-
-
 .signup__gender__select-group {
-    grid-area: signup__gender__select-group;
-
     display: grid;
     grid-template-rows: auto auto;
     grid-row-gap: 2px;

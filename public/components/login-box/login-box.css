@@ -2,11 +2,7 @@
     grid-area: login-box;
 
     display: grid;
-    grid-template-areas:
-        'login__switch-authorization-method'
-        'login__email__input-group'
-        'login__password__input-group'
-        'login__button-group';
+    grid-template-rows: repeat(4, auto);
 
     padding: 32px 16px 6px 16px;
 
@@ -18,7 +14,6 @@
 }
 
 .login__switch-authorization-method {
-    grid-area: login__switch-authorization-method;
 
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -59,14 +54,6 @@
     transform: scale(0.99);
 }
 
-
-.login__email__input-group {
-    grid-area: login__email__input-group;
-}
-
-.login__password__input-group {
-    grid-area: login__password__input-group;
-}
 
 .login__email__input-group,
 .login__password__input-group {
@@ -160,8 +147,6 @@
 }
 
 .login__button-group {
-    grid-area: login__button-group;
-
     display: grid;
     grid-template-areas:
         'button'
@@ -191,6 +176,13 @@
     line-height: 20px;
 
     cursor: pointer;
+}
+
+.login__button:hover {
+    background-color: var(--main-button-hover);
+    input {
+        background-color: var(--main-button-hover);
+    }
 }
 
 .login__button:active {

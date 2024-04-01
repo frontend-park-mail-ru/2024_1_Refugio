@@ -1,5 +1,4 @@
 import Login from '../pages/login/login.js';
-import Profile from '../pages/profile/profile.js';
 
 import BaseView from './base.js';
 
@@ -24,11 +23,9 @@ export default class LoginView extends BaseView {
      */
     renderPage() {
         this.clear();
-        const page = new Profile(this.root, config);
+        const page = new Login(this.root, config);
         this.components.push(page);
         this.render();
         this.addListeners();
     }
-
-
 }
