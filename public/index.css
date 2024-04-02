@@ -2,6 +2,7 @@
 @import 'pages/login/login.css';
 @import 'pages/signup/signup.css';
 @import 'pages/profile/profile.css';
+@import 'pages/letter/letter.css';
 
 @font-face {
     font-family: 'Roboto';

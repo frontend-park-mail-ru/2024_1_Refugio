@@ -11,7 +11,7 @@ const MAX_INPUT_LENGTH = 64;
  * Класс обертки страницы
  * @class
  */
-export default class Profile {
+export default class Letter {
     #parent;
     #config;
 
@@ -30,7 +30,7 @@ export default class Profile {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['profile.hbs'];
+        const template = Handlebars.templates['letter.hbs'];
         const config = this.#config;
 
         const elements = {
@@ -402,10 +402,9 @@ export default class Profile {
                     }
                 }
             }
-
-        }
-        if (!hasTarget) {
-            hideAllDropdowns();
+            if (!hasTarget) {
+                hideAllDropdowns();
+            }
         }
     };
 

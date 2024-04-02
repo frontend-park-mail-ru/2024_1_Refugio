@@ -1,6 +1,7 @@
 import MainView from './views/main.js';
 import LoginView from './views/login.js';
 import ProfileView from './views/profile.js';
+import LetterView from './views/letter.js';
 import ajax from '../modules/ajax.js';
 
 (async () => {
