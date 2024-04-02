@@ -277,14 +277,10 @@
 
     position: relative;
 
-    padding-left: 12px;
-
-    height: 44px;
     width: fit-content;
 
     background-color: var(--input-background);
 
-    align-content: center;
 
     color: var(--text);
     border-radius: 8px;
@@ -293,27 +289,31 @@
 
     p {
         align-content: center;
+        padding-left: 12px;
     }
 }
 
 .signup__birthday__input__day__value-img,
 .signup__birthday__input__month__value-img,
 .signup__birthday__input__year__value-img {
+    height: 44px;
     display: grid;
     grid-template-columns: auto 48px;
+    align-content: center;
 }
 
 .signup__birthday__input__day__value-img p {
-    width: 18px;
+    width: 30px;
 }
 
 .signup__birthday__input__month__value-img p {
-    width: 72px;
+    width: 84px;
 }
 
 .signup__birthday__input__year__value-img p {
-    width: 36px;
+    width: 48px;
 }
+
 
 .dropdown__wrapper__day,
 .dropdown__wrapper__month,
