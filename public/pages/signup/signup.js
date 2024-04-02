@@ -296,93 +296,68 @@ export default class Signup {
     }
 
     handleDropdowns(e) {
-
         const target = event.target;
 
-        const dropdown__day = document.querySelector('.dropdown__wrapper__day');
-        const dropdown__month = document.querySelector('.dropdown__wrapper__month');
-        const dropdown__year = document.querySelector('.dropdown__wrapper__year');
-        const button__day = document.querySelector('.signup__birthday__input__day__value-img');
-        if (button__day === null) { return; }
-        const button__month = document.querySelector('.signup__birthday__input__month__value-img');
-        const button__year = document.querySelector('.signup__birthday__input__year__value-img');
+        if (document.querySelector('.signup__birthday__input__day__value-img') === null) { return; }
 
+        const elements = {
+            day: {
+                button: document.querySelector('.signup__birthday__input__day__value-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__day'),
+            },
+            month: {
+                button: document.querySelector('.signup__birthday__input__month__value-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__month'),
 
-        if (button__day.contains(target)) {
-            if (dropdown__day.classList.contains('hide__dropdown__wrapper')) {
-                dropdown__day.classList.remove('hide__dropdown__wrapper');
-                dropdown__day.classList.add('show__dropdown__wrapper');
-            } else {
-                dropdown__day.classList.remove('show__dropdown__wrapper');
-                dropdown__day.classList.add('hide__dropdown__wrapper');
+            },
+            year: {
+                button: document.querySelector('.signup__birthday__input__year__value-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__year'),
             }
-            dropdown__month.classList.remove('show__dropdown__wrapper');
-            dropdown__month.classList.add('hide__dropdown__wrapper');
-            dropdown__year.classList.remove('show__dropdown__wrapper');
-            dropdown__year.classList.add('hide__dropdown__wrapper');
+        }
+
+        const hideAllDropdowns = () => {
+            Object.values(elements).forEach(value => {
+                value.dropdown.classList.remove('show__dropdown__wrapper');
+                value.dropdown.classList.add('hide__dropdown__wrapper');
+            });
+        }
+
+        let hasTarget = false;
+        Object.keys(elements).forEach(key => {
+            if (elements[key].button.contains(target)) {
+                hasTarget = true;
+                let showDropdown = true;
+                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                    showDropdown = false;
+                }
+                hideAllDropdowns();
+                if (showDropdown) {
+                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                }
+            }
+        })
+
+        if (elements.day.dropdown.contains(target) && target.tagName === 'P') {
+            document.querySelector('.signup__birthday__input__day__value-img p').textContent = target.textContent;
 
         } else {
-            if (button__month.contains(target)) {
-                if (dropdown__month.classList.contains('hide__dropdown__wrapper')) {
-                    dropdown__month.classList.remove('hide__dropdown__wrapper');
-                    dropdown__month.classList.add('show__dropdown__wrapper');
-                } else {
-                    dropdown__month.classList.remove('show__dropdown__wrapper');
-                    dropdown__month.classList.add('hide__dropdown__wrapper');
-                }
-                dropdown__day.classList.remove('show__dropdown__wrapper');
-                dropdown__day.classList.add('hide__dropdown__wrapper');
-                dropdown__year.classList.remove('show__dropdown__wrapper');
-                dropdown__year.classList.add('hide__dropdown__wrapper');
+            if (elements.month.dropdown.contains(target) && target.tagName === 'P') {
+                document.querySelector('.signup__birthday__input__month__value-img p').textContent = target.textContent;
+
             } else {
-                if (button__year.contains(target)) {
-                    if (dropdown__year.classList.contains('hide__dropdown__wrapper')) {
-                        dropdown__year.classList.remove('hide__dropdown__wrapper');
-                        dropdown__year.classList.add('show__dropdown__wrapper');
-                    } else {
-                        dropdown__year.classList.remove('show__dropdown__wrapper');
-                        dropdown__year.classList.add('hide__dropdown__wrapper');
-                    }
-                    dropdown__day.classList.remove('show__dropdown__wrapper');
-                    dropdown__day.classList.add('hide__dropdown__wrapper');
-                    dropdown__month.classList.remove('show__dropdown__wrapper');
-                    dropdown__month.classList.add('hide__dropdown__wrapper');
-                } else {
-
-
-                    if (dropdown__day.contains(target) && target.tagName === 'P') {
-                        document.querySelector('.signup__birthday__input__day__value-img p').textContent = target.textContent;
-                    } else {
-                        if (dropdown__month.contains(target) && target.tagName === 'P') {
-                            document.querySelector('.signup__birthday__input__month__value-img p').textContent = target.textContent;
-
-                        } else {
-                            if (dropdown__year.contains(target) && target.tagName === 'P') {
-                                document.querySelector('.signup__birthday__input__year__value-img p').textContent = target.textContent;
-
-                            }
-                        }
-                    }
-
-
-                    if (dropdown__day.classList.contains('show__dropdown__wrapper')) {
-                        dropdown__day.classList.remove('show__dropdown__wrapper');
-                        dropdown__day.classList.add('hide__dropdown__wrapper');
-                    }
-                    if (dropdown__month.classList.contains('show__dropdown__wrapper')) {
-                        dropdown__month.classList.remove('show__dropdown__wrapper');
-                        dropdown__month.classList.add('hide__dropdown__wrapper');
-                    }
-                    if (dropdown__year.classList.contains('show__dropdown__wrapper')) {
-                        dropdown__year.classList.remove('show__dropdown__wrapper');
-                        dropdown__year.classList.add('hide__dropdown__wrapper');
-
-                    }
+                if (elements.year.dropdown.contains(target) && target.tagName === 'P') {
+                    document.querySelector('.signup__birthday__input__year__value-img p').textContent = target.textContent;
 
 
                 }
             }
         }
+        if (!hasTarget) {
+            hideAllDropdowns();
+        }
+
     };
 
     /**

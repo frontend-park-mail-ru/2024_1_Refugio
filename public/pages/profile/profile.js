@@ -1,4 +1,7 @@
 import ajax from '../../modules/ajax.js';
+import LoginView from '../../views/login.js';
+
+const MAX_INPUT_LENGTH = 64;
 
 
 /**
@@ -34,68 +37,84 @@ export default class Profile {
      * Функция авторизации
      */
 
-    handleSignup = async (e) => {
+    handleSaveForm = async (e) => {
         e.preventDefault();
 
-        const firstNameInput = document.querySelector('.signup__first-name__input');
-        const lastNameInput = document.querySelector('.signup__last-name__input');
-        const birthdayDay = document.querySelector('.signup__birthday__input__day__value-img p').textContent;
-        const birthdayMonth = document.querySelector('.signup__birthday__input__month__value-img p').textContent;
-        const birthdayYear = document.querySelector('.signup__birthday__input__year__value-img p').textContent;
+        const firstNameInput = document.querySelector('.profile__content__form__first-name__input');
+        const middleNameInput = document.querySelector('.profile__content__form__middle-name__input');
+        const lastNameInput = document.querySelector('.profile__content__form__last-name__input');
+        const birthdayDay = document.querySelector('.profile__content__form__birthday__input__day__value-img p').textContent;
+        const birthdayMonth = document.querySelector('.profile__content__form__birthday__input__month__value-img p').textContent;
+        const birthdayYear = document.querySelector('.profile__content__form__birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
-        const emailInput = document.querySelector('.signup__email__input');
-        const passwordInput = document.querySelector('.signup__password__input');
-        const passwordConfirmInput = document.querySelector('.signup__password-confirm__input');
+        // const avatarInput;
+        const bioInput = document.querySelector('.profile__content__form__bio__input');
+        const phoneNumberInput = document.querySelector('.profile__content__form__phone-number__input');
+        const passwordInput = document.querySelector('.profile__content__form__password__input');
+        const passwordConfirmInput = document.querySelector('.profile__content__form__password-confirm__input');
 
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
         const firstName = firstNameInput.value.trim();
+        const middleName = middleNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
         const birthday = new Date(birthdayYear, monthIndex, birthdayDay);
-
         const gender = genderInput.checked ? 'female' : 'male';
-        const email = emailInput.value.trim();
+        //avatar
+        const bio = bioInput.value.trim();
+        let phoneNumber = phoneNumberInput.value.trim();
         const password = passwordInput.value;
         const passwordConfirm = passwordConfirmInput.value;
 
         let oldError = this.#parent
-            .querySelector('.signup__first-name__error');
+            .querySelector('.profile__content__form__first-name__error');
         oldError.classList.remove('show');
         oldError = firstNameInput;
         oldError.classList.remove('auth__input-backgroud-error');
 
         oldError = this.#parent
-            .querySelector('.signup__last-name__error');
+            .querySelector('.profile__content__form__middle-name__error');
+        oldError.classList.remove('show');
+        oldError = middleNameInput;
+        oldError.classList.remove('auth__input-backgroud-error');
+
+        oldError = this.#parent
+            .querySelector('.profile__content__form__last-name__error');
         oldError.classList.remove('show');
         oldError = lastNameInput;
         oldError.classList.remove('auth__input-backgroud-error');
 
         oldError = this.#parent
-            .querySelector('.signup__email__error');
+            .querySelector('.profile__content__form__bio__error');
         oldError.classList.remove('show');
-        oldError = emailInput;
+        oldError = bioInput;
+        oldError.classList.remove('auth__input-backgroud-error');
+        oldError = this.#parent
+            .querySelector('.profile__content__form__phone-number__error');
+        oldError.classList.remove('show');
+        oldError = phoneNumberInput;
         oldError.classList.remove('auth__input-backgroud-error');
 
         oldError = this.#parent
-            .querySelector('.signup__password__error');
+            .querySelector('.profile__content__form__password__error');
         oldError.classList.remove('show');
         oldError = passwordInput;
         oldError.classList.remove('auth__input-backgroud-error');
 
         oldError = this.#parent
-            .querySelector('.signup__password-confirm__error');
+            .querySelector('.profile__content__form__password-confirm__error');
         oldError.classList.remove('show');
         oldError = passwordConfirmInput;
         oldError.classList.remove('auth__input-backgroud-error');
 
         oldError = this.#parent
-            .querySelector('.signup__button__error');
+            .querySelector('.profile__content__form__save__button__error');
         oldError.classList.remove('show');
 
 
         if (!firstName) {
             const error = this.#parent
-                .querySelector('.signup__first-name__error');
+                .querySelector('.profile__content__form__first-name__error');
             error.textContent = 'Введите имя';
             error.classList.add('show');
             firstNameInput.classList.add('auth__input-backgroud-error');
@@ -104,34 +123,25 @@ export default class Profile {
 
         if (!lastName) {
             const error = this.#parent
-                .querySelector('.signup__last-name__error');
+                .querySelector('.profile__content__form__last-name__error');
             error.textContent = 'Введите фамилию';
             error.classList.add('show');
             lastNameInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
-        if (!email) {
+        if (!password && passwordConfirm) {
             const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Введите имя ящика';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (!password) {
-            const error = this.#parent
-                .querySelector('.signup__password__error');
+                .querySelector('.profile__content__form__password__error');
             error.textContent = 'Введите пароль';
             error.classList.add('show');
             passwordInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
-        if (!passwordConfirm) {
+        if (!passwordConfirm && password) {
             const error = this.#parent
-                .querySelector('.signup__password-confirm__error');
+                .querySelector('.profile__content__form__password-confirm__error');
             error.textContent = 'Введите пароль ещё раз';
             error.classList.add('show');
             passwordConfirmInput.classList.add('auth__input-backgroud-error');
@@ -142,34 +152,53 @@ export default class Profile {
 
         if (firstName.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup__first-name__error');
+                .querySelector('.profile__content__form__first-name__error');
             error.textContent = 'Слишком длинное имя';
             error.classList.add('show');
             firstNameInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
+        if (middleName.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.profile__content__form__middle-name__error');
+            error.textContent = 'Слишком длинное отчество';
+            error.classList.add('show');
+            middleNameInput.classList.add('auth__input-backgroud-error');
+            return;
+        }
+
         if (lastName.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup__last-name__error');
+                .querySelector('.profile__content__form__last-name__error');
             error.textContent = 'Слишком длинная фамилия';
             error.classList.add('show');
             lastNameInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
-        if (email.length > MAX_INPUT_LENGTH) {
+        if (bio.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Слишком длинное имя ящика';
+                .querySelector('.profile__content__form__bio__error');
+            error.textContent = 'Слишком много текста';
             error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
+            bioInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
+        if (phoneNumber.length > 32) {
+            const error = this.#parent
+                .querySelector('.profile__content__form__phone-number__error');
+            error.textContent = 'Слишком длинный номер';
+            error.classList.add('show');
+            phoneNumberInput.classList.add('auth__input-backgroud-error');
+            return;
+        }
+
+
         if (password.length > 4 * MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup__password__error');
+                .querySelector('.profile__content__form__password__error');
             error.textContent = 'Слишком длинный пароль';
             error.classList.add('show');
             passwordInput.classList.add('auth__input-backgroud-error');
@@ -178,44 +207,28 @@ export default class Profile {
 
         if (passwordConfirm.length > 4 * MAX_INPUT_LENGTH) {
             const error = this.#parent
-                .querySelector('.signup__password-confirm__error');
+                .querySelector('.profile__content__form__password-confirm__error');
             error.textContent = 'Слишком длинный пароль';
             error.classList.add('show');
             passwordConfirmInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
-        if (email.indexOf('@') === -1) {
+        const phoneNumberRegex = /^[0-9+\-().\s]+$/;
+        if (!phoneNumberRegex.test(phoneNumber)) {
             const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Забыли "@"';
+                .querySelector('.profile__content__form__phone-number__error');
+            error.textContent = 'Некорректный номер';
             error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return
+            phoneNumberInput.classList.add('auth__input-backgroud-error');
+            return;
         }
 
-        if (email.indexOf('.') === -1) {
-            const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Забыли "."';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return
-        }
 
-        const emailSignupRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!emailSignupRegex.test(email)) {
-            const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Некорректное имя ящика';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return
-        }
 
-        if (password.length < 8) {
+        if (password && password.length < 8) {
             const error = this.#parent
-                .querySelector('.signup__password__error');
+                .querySelector('.profile__content__form__password__error');
             error.textContent = 'Минимальная длина 8 символов';
             error.classList.add('show');
             passwordInput.classList.add('auth__input-backgroud-error');
@@ -223,9 +236,9 @@ export default class Profile {
         }
 
         const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
-        if (!passwordRegex.test(password)) {
+        if (password && !passwordRegex.test(password)) {
             const error = this.#parent
-                .querySelector('.signup__password__error');
+                .querySelector('.profile__content__form__password__error');
             error.textContent = 'Недопустимые символы';
             error.classList.add('show');
             passwordInput.classList.add('auth__input-backgroud-error');
@@ -233,18 +246,23 @@ export default class Profile {
         }
 
 
-        if (password !== passwordConfirm) {
+        if (password && password !== passwordConfirm) {
             const error = this.#parent
-                .querySelector('.signup__password-confirm__error');
+                .querySelector('.profile__content__form__password-confirm__error');
             error.textContent = 'Пароли не совпадают';
             error.classList.add('show');
             passwordConfirmInput.classList.add('auth__input-backgroud-error');
             return
         }
 
+
+        phoneNumber = phoneNumber.indexOf('+') === 0 ? '+'.concat(phoneNumber.replace(/\D+/g, '')) : phoneNumber.replace(/\D+/g, '');
+       
+
+
+        console.log(phoneNumber);
         // create JSON object with user data
-        const newUser = {
-            login: email,
+        const editedUser = {
             name: firstName,
             password: password,
             surname: lastName,
@@ -253,7 +271,7 @@ export default class Profile {
         };
 
         const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
+            'POST', 'http://89.208.223.140:8080/api/v1/profile__content__form', JSON.stringify(editedUser), 'application/json'
         );
 
         if (response.ok) {
@@ -262,7 +280,7 @@ export default class Profile {
             login.renderPage();
         } else {
             const errorSign = this.#parent
-                .querySelector('.signup__button__error');
+                .querySelector('.profile__content__form__save__button__error');
             errorSign.classList.add('show');
             errorSign.textContent = 'Проблемы на нашей стороне. Уже исправляем';
         }
@@ -295,122 +313,76 @@ export default class Profile {
     handleDropdowns(e) {
         const target = event.target;
 
-        if (button__day === null) { return; }
-        
-        const button__day = document.querySelector('.profile__content__form__birthday__input__day__value-img');
-        const button__month = document.querySelector('.profile__content__form__birthday__input__month__value-img');
-        const button__year = document.querySelector('.profile__content__form__birthday__input__year__value-img');
-        const button__avatar = document.querySelector('.profile__header__avatar-img');
+        if (document.querySelector('.profile__content__form__birthday__input__day__value-img') === null) { return; }
 
-        const dropdown__day = document.querySelector('.dropdown__wrapper__day');
-        const dropdown__month = document.querySelector('.dropdown__wrapper__month');
-        const dropdown__year = document.querySelector('.dropdown__wrapper__year');
-        const dropdown__profile = document.querySelector('.dropdown__wrapper__profile-menu');
+        const elements = {
+            day: {
+                button: document.querySelector('.profile__content__form__birthday__input__day__value-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__day'),
+            },
+            month: {
+                button: document.querySelector('.profile__content__form__birthday__input__month__value-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__month'),
 
-
-
-        if (button__day.contains(target)) {
-            if (dropdown__day.classList.contains('hide__dropdown__wrapper')) {
-                dropdown__day.classList.remove('hide__dropdown__wrapper');
-                dropdown__day.classList.add('show__dropdown__wrapper');
-            } else {
-                dropdown__day.classList.remove('show__dropdown__wrapper');
-                dropdown__day.classList.add('hide__dropdown__wrapper');
+            },
+            year: {
+                button: document.querySelector('.profile__content__form__birthday__input__year__value-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__year'),
+            },
+            profile: {
+                button: document.querySelector('.profile__header__avatar-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__profile-menu'),
             }
-            dropdown__month.classList.remove('show__dropdown__wrapper');
-            dropdown__month.classList.add('hide__dropdown__wrapper');
-            dropdown__year.classList.remove('show__dropdown__wrapper');
-            dropdown__year.classList.add('hide__dropdown__wrapper');
-            dropdown__profile.classList.remove('show__dropdown__wrapper');
-            dropdown__profile.classList.add('hide__dropdown__wrapper');
+        }
+
+        const hideAllDropdowns = () => {
+            Object.values(elements).forEach(value => {
+                value.dropdown.classList.remove('show__dropdown__wrapper');
+                value.dropdown.classList.add('hide__dropdown__wrapper');
+            });
+        }
+
+        let hasTarget = false;
+        Object.keys(elements).forEach(key => {
+            if (elements[key].button.contains(target)) {
+                hasTarget = true;
+                let showDropdown = true;
+                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                    showDropdown = false;
+                }
+                hideAllDropdowns();
+                if (showDropdown) {
+                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                }
+            }
+        })
+
+        if (elements.day.dropdown.contains(target) && target.tagName === 'P') {
+            document.querySelector('.profile__content__form__birthday__input__day__value-img p').textContent = target.textContent;
 
         } else {
-            if (button__month.contains(target)) {
-                if (dropdown__month.classList.contains('hide__dropdown__wrapper')) {
-                    dropdown__month.classList.remove('hide__dropdown__wrapper');
-                    dropdown__month.classList.add('show__dropdown__wrapper');
-                } else {
-                    dropdown__month.classList.remove('show__dropdown__wrapper');
-                    dropdown__month.classList.add('hide__dropdown__wrapper');
-                }
-                dropdown__day.classList.remove('show__dropdown__wrapper');
-                dropdown__day.classList.add('hide__dropdown__wrapper');
-                dropdown__year.classList.remove('show__dropdown__wrapper');
-                dropdown__year.classList.add('hide__dropdown__wrapper');
-                dropdown__profile.classList.remove('show__dropdown__wrapper');
-                dropdown__profile.classList.add('hide__dropdown__wrapper');
+            if (elements.month.dropdown.contains(target) && target.tagName === 'P') {
+                document.querySelector('.profile__content__form__birthday__input__month__value-img p').textContent = target.textContent;
+
             } else {
-                if (button__year.contains(target)) {
-                    if (dropdown__year.classList.contains('hide__dropdown__wrapper')) {
-                        dropdown__year.classList.remove('hide__dropdown__wrapper');
-                        dropdown__year.classList.add('show__dropdown__wrapper');
-                    } else {
-                        dropdown__year.classList.remove('show__dropdown__wrapper');
-                        dropdown__year.classList.add('hide__dropdown__wrapper');
-                    }
-                    dropdown__day.classList.remove('show__dropdown__wrapper');
-                    dropdown__day.classList.add('hide__dropdown__wrapper');
-                    dropdown__month.classList.remove('show__dropdown__wrapper');
-                    dropdown__month.classList.add('hide__dropdown__wrapper');
-                    dropdown__profile.classList.remove('show__dropdown__wrapper');
-                    dropdown__profile.classList.add('hide__dropdown__wrapper');
+                if (elements.year.dropdown.contains(target) && target.tagName === 'P') {
+                    document.querySelector('.profile__content__form__birthday__input__year__value-img p').textContent = target.textContent;
+
+
                 } else {
+                    if (document.querySelector('.dropdown__profile-menu__profile__button').contains(target)) {
+                        console.log('profile');
+                    } else {
+                        if (document.querySelector('.dropdown__profile-menu__logout__button').contains(target)) {
+                            console.log('logout');
 
-
-                    if (button__avatar.contains(target)) {
-                        if (dropdown__profile.classList.contains('hide__dropdown__wrapper')) {
-                            dropdown__profile.classList.remove('hide__dropdown__wrapper');
-                            dropdown__profile.classList.add('show__dropdown__wrapper');
-                        } else {
-                            dropdown__profile.classList.remove('show__dropdown__wrapper');
-                            dropdown__profile.classList.add('hide__dropdown__wrapper');
                         }
-                        dropdown__day.classList.remove('show__dropdown__wrapper');
-                        dropdown__day.classList.add('hide__dropdown__wrapper');
-                        dropdown__month.classList.remove('show__dropdown__wrapper');
-                        dropdown__month.classList.add('hide__dropdown__wrapper');
-                        dropdown__year.classList.remove('show__dropdown__wrapper');
-                        dropdown__year.classList.add('hide__dropdown__wrapper');
-                    }
-                    else {
-
-
-                        if (dropdown__day.contains(target) && target.tagName === 'P') {
-                            document.querySelector('.profile__content__form__birthday__input__day__value-img p').textContent = target.textContent;
-                        } else {
-                            if (dropdown__month.contains(target) && target.tagName === 'P') {
-                                document.querySelector('.profile__content__form__birthday__input__month__value-img p').textContent = target.textContent;
-
-                            } else {
-                                if (dropdown__year.contains(target) && target.tagName === 'P') {
-                                    document.querySelector('.profile__content__form__birthday__input__year__value-img p').textContent = target.textContent;
-
-                                }
-                            }
-                        }
-
-
-                        if (dropdown__day.classList.contains('show__dropdown__wrapper')) {
-                            dropdown__day.classList.remove('show__dropdown__wrapper');
-                            dropdown__day.classList.add('hide__dropdown__wrapper');
-                        }
-                        if (dropdown__month.classList.contains('show__dropdown__wrapper')) {
-                            dropdown__month.classList.remove('show__dropdown__wrapper');
-                            dropdown__month.classList.add('hide__dropdown__wrapper');
-                        }
-                        if (dropdown__year.classList.contains('show__dropdown__wrapper')) {
-                            dropdown__year.classList.remove('show__dropdown__wrapper');
-                            dropdown__year.classList.add('hide__dropdown__wrapper');
-                        }
-                        if (dropdown__profile.classList.contains('show__dropdown__wrapper')) {
-                            dropdown__profile.classList.remove('show__dropdown__wrapper');
-                            dropdown__profile.classList.add('hide__dropdown__wrapper');
-                        }
-
-
-
                     }
                 }
+            }
+            if (!hasTarget) {
+                hideAllDropdowns();
             }
         }
     };
@@ -419,12 +391,12 @@ export default class Profile {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-        // this.#parent
-        //     .querySelector('.signup__button')
-        //     .addEventListener('click', this.handleSignup);
+        this.#parent
+            .querySelector('.profile__content__form__save__button')
+            .addEventListener('click', this.handleSaveForm);
 
         // this.#parent
-        //     .querySelector('.signup__switch-authorization-method__passive')
+        //     .querySelector('.profile__content__form__switch-authorization-method__passive')
         //     .addEventListener('click', this.renderLogin);
         this.#parent
             .querySelector('.cl-switch input')
@@ -438,12 +410,12 @@ export default class Profile {
      * Удаляет листенеры
      */
     removeListeners() {
-        // this.#parent
-        //     .querySelector('.signup__button')
-        //     .addEventListener('click', this.handleSignup);
+        this.#parent
+            .querySelector('.profile__content__form__save__button')
+            .addEventListener('click', this.handleSaveForm);
 
         // this.#parent
-        //     .querySelector('.signup__switch-authorization-method__passive')
+        //     .querySelector('.profile__content__form__switch-authorization-method__passive')
         //     .addEventListener('click', this.renderLogin);
         this.#parent
             .querySelector('.cl-switch input')
