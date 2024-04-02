@@ -25,34 +25,24 @@
 </div> --}}
 
 
-<div class="profile__header">
-    <div class="profile__header__logo-search">
-        <div class="profile__header__logo">
-            <p>MAILHUB</p>
+ <div class="profile__header">
+        <div class="profile__header__logo-search">
+            <div class="profile__header__logo">
+                <p>MAILHUB</p>
+            </div>
+            <div class="profile__header__search"></div>
         </div>
-        <div class="profile__header__search"></div>
-    </div>
-    <div class="profile__header__avatar">
-        {{#if avatar}}
-        <img class="header__img" alt="Img" src='static/img/1200px-User_icon-cp.svg.png'>
-
-
-        {{else}}
-
-        <img class="profile__header__avatar-img" src="../../static/img/avatar_36_36.svg" alt="">
-
-        {{/if}}
-
-
-        <div class="dropdown__wrapper__profile-menu hide__dropdown__wrapper">
-            <div class="dropdown__profile-menu">
-                <div class="dropdown__profile-menu__profile__button">
-                    <input type="button" value="Личные данные">
-                </div>
-                <div class="dropdown__profile-menu__logout__button">
-                    <input type="button" value="Выйти">
+        <div class="profile__header__avatar">
+            <img class="profile__header__avatar-img" src="../../static/img/avatar_36_36.svg" alt="">
+            <div class="dropdown__wrapper__profile-menu hide__dropdown__wrapper">
+                <div class="dropdown__profile-menu">
+                    <div class="dropdown__profile-menu__profile__button">
+                        <input type="button" value={{username}}>
+                    </div>
+                    <div class="dropdown__profile-menu__logout__button">
+                        <input type="button" value="Выйти">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
