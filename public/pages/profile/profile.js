@@ -337,7 +337,7 @@ export default class Profile {
                 dropdown: document.querySelector('.dropdown__wrapper__year'),
             },
             profile: {
-                button: document.querySelector('.profile__header__avatar-img'),
+                button: document.querySelector('.header__avatar-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__profile-menu'),
             }
         }

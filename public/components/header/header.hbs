@@ -1,48 +1,25 @@
-{{!-- <div class="header">
-    <div class="header__logo">
-        MAILHUB
-    </div>
-    <div class="header__search">
-        <input class="header__input" type="text" placeholder="Поиск по почте">
-    </div>
-    <div class="header__menu">
-        {{#if avatar}}
-        <img class="header__img" alt="Img" src='static/img/1200px-User_icon-cp.svg.png'>
-        {{else}}
-        <div class="header__img">
-            {{usernameLetter}}
+<div class="header">
+    <div class="header__logo-search">
+        <div class="header__logo">
+            <p>MAILHUB</p>
         </div>
-        {{/if}}
-        <div class="header__dropdown">
-            <div class="header__settings dropdown-element">
-                Личные данные
-            </div>
-            <div class="header__exit dropdown-element">
-                Выйти
-            </div>
-        </div>
+        <div class="header__search"></div>
     </div>
-</div> --}}
-
-
- <div class="profile__header">
-        <div class="profile__header__logo-search">
-            <div class="profile__header__logo">
-                <p>MAILHUB</p>
-            </div>
-            <div class="profile__header__search"></div>
-        </div>
-        <div class="profile__header__avatar">
-            <img class="profile__header__avatar-img" src="../../static/img/avatar_36_36.svg" alt="">
-            <div class="dropdown__wrapper__profile-menu hide__dropdown__wrapper">
-                <div class="dropdown__profile-menu">
-                    <div class="dropdown__profile-menu__profile__button">
-                        <input type="button" value={{username}}>
-                    </div>
-                    <div class="dropdown__profile-menu__logout__button">
-                        <input type="button" value="Выйти">
-                    </div>
+    <div class="header__avatar">
+        {{!-- {{#if avatar}}
+        <div>avatar</div>
+        {{else}} --}}
+        <img class="header__avatar-img" src="../../static/img/avatar_36_36.svg" alt="">
+        {{!-- {{/if}} --}}
+        <div class="dropdown__wrapper__profile-menu hide__dropdown__wrapper">
+            <div class="dropdown__profile-menu">
+                <div class="dropdown__profile-menu__profile__button">
+                    <input type="button" value="Личные данные">
+                </div>
+                <div class="dropdown__profile-menu__logout__button">
+                    <input type="button" value="Выйти">
                 </div>
             </div>
         </div>
     </div>
+</div>

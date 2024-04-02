@@ -10,7 +10,6 @@ export default class ProfileView extends BaseView {
     #config = {
         menu: {},
         header: {
-            username: 'Профиль',
             avatar: '',
         },
     }
@@ -28,7 +27,7 @@ export default class ProfileView extends BaseView {
      */
     async renderPage() {
         this.clear();
-        this.#config.header.username = await this.#getUserInfo();
+        this.#config.header.avatar = await this.#getUserAvatar();
         const page = new Profile(this.root, this.#config);
         this.components.push(page);
         this.render();
@@ -39,13 +38,13 @@ export default class ProfileView extends BaseView {
      * Запрашивает у сервера имя пользователя
      * @returns {string} имя пользователя
      */
-    async #getUserInfo() {
+    async #getUserAvatar() {
         // const response = await ajax(
         //     'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
         // );
         // const data = await response.json();
         // return data.body.user.name;
-        return "user1234"
+        return "avatar path";
 
     }
 
