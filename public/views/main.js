@@ -1,12 +1,15 @@
 import Main from '../pages/main/main.js';
 import BaseView from './base.js';
 import ajax from '../modules/ajax.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetUser } from '../actions/userActions.js';
+import userStore from '../stores/userStore.js';
 
 /**
  * Класс для рендера страницы списка писем
  * @class
  */
-export default class MainView extends BaseView {
+class MainView extends BaseView {
     #config = {
         header: {
             logo: 'MailHub',
@@ -48,7 +51,7 @@ export default class MainView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
-        this.clear();
+        document.title = 'Входящие';
         this.#config.header.username = await this.#getUserInfo();
         this.#config.content.list_letters = await this.#getEmailsInfo();
         this.#config.content.list_letters.forEach((letter) => {
@@ -67,11 +70,8 @@ export default class MainView extends BaseView {
      * @returns {string} имя пользователя
      */
     async #getUserInfo() {
-        const response = await ajax(
-            'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
-        );
-        const data = await response.json();
-        return data.body.user.name;
+        await dispathcher.do(actionGetUser());
+        return userStore.body.name;
     }
 
     /**
@@ -86,3 +86,5 @@ export default class MainView extends BaseView {
         return data.body.emails;
     }
 }
+
+export default new MainView();

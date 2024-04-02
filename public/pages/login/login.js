@@ -1,10 +1,7 @@
 import Login_Box from '../../components/login-box/login-box.js';
-
-import ajax from '../../modules/ajax.js';
-
-import SignupView from '../../views/signup.js';
-
-import MainView from '../../views/main.js';
+import mediator from '../../modules/mediator.js';
+import dispathcher from '../../modules/dispathcher.js';
+import { actionLogin, actionRedirect } from '../../actions/userActions.js';
 
 const MAX_INPUT_LENGTH = 64;
 
@@ -116,21 +113,7 @@ export default class Login {
             password: password,
         };
 
-
-        const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
-        );
-
-        if (response.ok) {
-            // registration successful
-            const main = new MainView();
-            await main.renderPage();
-        } else {
-            const errorSign = this.#parent
-                .querySelector('.login__button__error');
-            errorSign.classList.add('show');
-            errorSign.textContent = 'Неверные имя ящика и/или пароль';
-        }
+        await dispathcher.do(actionLogin(newUser));
     };
 
     /**
@@ -140,9 +123,7 @@ export default class Login {
 
         e.preventDefault();
 
-        const signupView = new SignupView();
-
-        signupView.renderPage();
+        dispathcher.do(actionRedirect('/signup', true));
     };
 
 
@@ -158,11 +139,12 @@ export default class Login {
             .querySelector('.login__switch-authorization-method__passive')
             .addEventListener('click', this.renderSignup);
 
+        mediator.on('login', this.handleLoginResponse);
     }
 
     /**
      * Удаляет листенеры
-     */
+    */
     removeListeners() {
         this.#parent
             .querySelector('.login__button')
@@ -172,6 +154,23 @@ export default class Login {
             .querySelector('.login__switch-authorization-method__passive')
             .addEventListener('click', this.renderSignup);
 
+        mediator.off('login', this.handleLoginResponse);
     }
 
+
+    handleLoginResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/main', true));
+                break;
+            case 401:
+                const errorSign = this.#parent
+                    .querySelector('.login-container__error-sign');
+                errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
+                errorSign.classList.add('login-container__error-sign_show');
+                break;
+            default:
+                break;
+        }
+    }
 }

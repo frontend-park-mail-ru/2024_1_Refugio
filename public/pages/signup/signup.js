@@ -1,6 +1,7 @@
+import { actionRedirect, actionSignup } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
-import ajax from '../../modules/ajax.js';
-import LoginView from '../../views/login.js';
+import dispathcher from '../../modules/dispathcher.js';
+import mediator from '../../modules/mediator.js';
 
 const MAX_INPUT_LENGTH = 64;
 
@@ -95,7 +96,6 @@ export default class Signup {
             .querySelector('.signup__button__error');
         oldError.classList.remove('show');
 
-
         if (!firstName) {
             const error = this.#parent
                 .querySelector('.signup__first-name__error');
@@ -151,7 +151,6 @@ export default class Signup {
             firstNameInput.classList.add('auth__input-backgroud-error');
             return;
         }
-
         if (lastName.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
                 .querySelector('.signup__last-name__error');
@@ -255,21 +254,7 @@ export default class Signup {
             birthday: birthday
         };
 
-        const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
-        );
-
-        if (response.ok) {
-            // registration successful
-            const login = new LoginView();
-            login.renderPage();
-        } else {
-            const errorSign = this.#parent
-                .querySelector('.signup__button__error');
-            errorSign.classList.add('show');
-            errorSign.textContent = 'Проблемы на нашей стороне. Уже исправляем';
-        }
-
+        dispathcher.do(actionSignup(newUser));
     };
 
     /**
@@ -279,9 +264,7 @@ export default class Signup {
 
         e.preventDefault();
 
-        const loginView = new LoginView();
-
-        loginView.renderPage();
+        dispathcher.do(actionRedirect('/login', true));
     };
 
     handleCheckbox(e) {
@@ -377,6 +360,7 @@ export default class Signup {
 
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
+        mediator.on('signup', this.handleSignupResponse);
     }
 
     /**
@@ -393,8 +377,22 @@ export default class Signup {
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
-
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
+        mediator.off('signup', this.handleSignupResponse);
+    }
+
+    handleSignupResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                const error = this.#parent
+                    .querySelector('.signup-container__error-sign');
+                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.classList.add('signup-container__error-sign_show');
+                break;
+        }
     }
 }
