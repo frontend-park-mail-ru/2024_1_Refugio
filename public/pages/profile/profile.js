@@ -1,5 +1,6 @@
 import ajax from '../../modules/ajax.js';
 import LoginView from '../../views/login.js';
+import Menu from '../../components/menu/menu.js';
 
 const MAX_INPUT_LENGTH = 64;
 
@@ -28,7 +29,10 @@ export default class Profile {
      */
     render() {
         const template = Handlebars.templates['profile.hbs'];
+        const config = this.#config;
+
         const elements = {
+            menu: new Menu(null, config.menu).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -257,7 +261,7 @@ export default class Profile {
 
 
         phoneNumber = phoneNumber.indexOf('+') === 0 ? '+'.concat(phoneNumber.replace(/\D+/g, '')) : phoneNumber.replace(/\D+/g, '');
-       
+
 
 
         console.log(phoneNumber);
@@ -375,7 +379,21 @@ export default class Profile {
                         console.log('profile');
                     } else {
                         if (document.querySelector('.dropdown__profile-menu__logout__button').contains(target)) {
-                            console.log('logout');
+                            (async () => {
+                                await (async () => {
+                                    const response = await ajax(
+                                        'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
+                                    );
+                                    const status = await response.status;
+                                    if (status < 300) {
+                                        const login = new LoginView();
+                                        login.renderPage();
+                                    } else {
+                                        const main = new MainView();
+                                        await main.renderPage();
+                                    }
+                                })();
+                            })();
 
                         }
                     }
