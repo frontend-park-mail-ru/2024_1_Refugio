@@ -4,10 +4,10 @@ import LetterView from './views/letter.js';
 import ProfileView from './views/profile.js';
 import WriteLetterView from './views/write-letter.js';
 
-// dispathcher.do(actionStart());
+dispathcher.do(actionStart());
 
-const view = new WriteLetterView();
-view.renderPage();
+// const view = new LetterView();
+// view.renderPage();
 
 
 // let isAuth;
