@@ -2,10 +2,11 @@ import dispathcher from './modules/dispathcher.js';
 import { actionStart } from './actions/userActions.js';
 import LetterView from './views/letter.js';
 import ProfileView from './views/profile.js';
+import WriteLetterView from './views/write-letter.js';
 
 // dispathcher.do(actionStart());
 
-const view = new ProfileView();
+const view = new WriteLetterView();
 view.renderPage();
 
 

@@ -3,6 +3,7 @@
 @import 'pages/signup/signup.css';
 @import 'pages/profile/profile.css';
 @import 'pages/letter/letter.css';
+@import 'pages/write-letter/write-letter.css';
 
 @font-face {
     font-family: 'Roboto';
