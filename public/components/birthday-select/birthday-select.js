@@ -13,8 +13,8 @@ export default class Birthday_Select {
      * @param {object} config 
      */
     constructor(parent, config) {
-        this.#config=config;
-        this.#parent=parent;
+        this.#config = config;
+        this.#parent = parent;
     }
 
     /**
@@ -22,7 +22,6 @@ export default class Birthday_Select {
      */
     render() {
         const template = Handlebars.templates['birthday-select.hbs'];
-
         return template();
     }
 }

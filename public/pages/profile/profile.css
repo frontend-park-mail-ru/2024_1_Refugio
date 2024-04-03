@@ -1,3 +1,5 @@
+@import '../birthday-select/birthday-select.css';
+
 .profile__root {
     display: grid;
     grid-template-areas:

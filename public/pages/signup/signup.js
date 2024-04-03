@@ -43,9 +43,9 @@ export default class Signup {
 
         const firstNameInput = document.querySelector('.signup__first-name__input');
         const lastNameInput = document.querySelector('.signup__last-name__input');
-        const birthdayDay = document.querySelector('.signup__birthday__input__day__value-img p').textContent;
-        const birthdayMonth = document.querySelector('.signup__birthday__input__month__value-img p').textContent;
-        const birthdayYear = document.querySelector('.signup__birthday__input__year__value-img p').textContent;
+        const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent;
+        const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent;
+        const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
         const emailInput = document.querySelector('.signup__email__input');
         const passwordInput = document.querySelector('.signup__password__input');
@@ -281,20 +281,20 @@ export default class Signup {
     handleDropdowns(e) {
         const target = event.target;
 
-        if (document.querySelector('.signup__birthday__input__day__value-img') === null) { return; }
+        if (document.querySelector('.birthday__input__day__value-img') === null) { return; }
 
         const elements = {
             day: {
-                button: document.querySelector('.signup__birthday__input__day__value-img'),
+                button: document.querySelector('.birthday__input__day__value-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__day'),
             },
             month: {
-                button: document.querySelector('.signup__birthday__input__month__value-img'),
+                button: document.querySelector('.birthday__input__month__value-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__month'),
 
             },
             year: {
-                button: document.querySelector('.signup__birthday__input__year__value-img'),
+                button: document.querySelector('.birthday__input__year__value-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__year'),
             },
         }
@@ -323,15 +323,15 @@ export default class Signup {
         })
 
         if (elements.day.dropdown.contains(target) && target.tagName === 'P') {
-            document.querySelector('.signup__birthday__input__day__value-img p').textContent = target.textContent;
+            document.querySelector('.birthday__input__day__value-img p').textContent = target.textContent;
 
         } else {
             if (elements.month.dropdown.contains(target) && target.tagName === 'P') {
-                document.querySelector('.signup__birthday__input__month__value-img p').textContent = target.textContent;
+                document.querySelector('.birthday__input__month__value-img p').textContent = target.textContent;
 
             } else {
                 if (elements.year.dropdown.contains(target) && target.tagName === 'P') {
-                    document.querySelector('.signup__birthday__input__year__value-img p').textContent = target.textContent;
+                    document.querySelector('.birthday__input__year__value-img p').textContent = target.textContent;
                 }
             }
 

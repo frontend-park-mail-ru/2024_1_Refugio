@@ -1,0 +1,151 @@
+.birthday__input-block {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+
+    justify-content: space-between;
+}
+
+.birthday__input__day,
+.birthday__input__month,
+.birthday__input__year {
+    display: grid;
+    grid-row: auto auto;
+
+    position: relative;
+
+    width: fit-content;
+
+    background-color: var(--input-background);
+
+
+    color: var(--text);
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    p {
+        align-content: center;
+        padding-left: 12px;
+    }
+}
+
+.birthday__input__day__value-img,
+.birthday__input__month__value-img,
+.birthday__input__year__value-img {
+    height: 44px;
+    display: grid;
+    grid-template-columns: auto 48px;
+    align-content: center;
+}
+
+.birthday__input__day__value-img p {
+    width: 30px;
+}
+
+.birthday__input__month__value-img p {
+    width: 84px;
+}
+
+.birthday__input__year__value-img p {
+    width: 48px;
+}
+
+
+.dropdown__wrapper__day,
+.dropdown__wrapper__month,
+.dropdown__wrapper__year {
+    position: absolute;
+    padding-left: 0;
+    left: 0;
+    background: var(--input-background);
+    border-radius: 8px;
+    z-index: 1;
+
+    padding-top: 12px;
+    padding-right: 2px;
+
+    max-height: 168px;
+    overflow: hidden;
+
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    margin-top: 32px;
+}
+
+.show__dropdown__wrapper {
+    visibility: visible;
+    opacity: 1;
+    display: block;
+}
+
+.hide__dropdown__wrapper {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+}
+
+.dropdown__wrapper__day {
+    min-width: 78px;
+}
+
+.dropdown__wrapper__month {
+    min-width: 132px;
+}
+
+.dropdown__wrapper__year {
+    min-width: 96px;
+}
+
+.dropdown__day,
+.dropdown__month,
+.dropdown__year {
+    max-height: 168px;
+    overflow: auto;
+}
+
+.dropdown__day::-webkit-scrollbar,
+.dropdown__month::-webkit-scrollbar,
+.dropdown__year::-webkit-scrollbar {
+    width: 8px;
+    height: 168px;
+}
+
+.dropdown__day::-webkit-scrollbar-track,
+.dropdown__month::-webkit-scrollbar-track,
+.dropdown__year::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.dropdown__day::-webkit-scrollbar-thumb,
+.dropdown__month::-webkit-scrollbar-thumb,
+.dropdown__year::-webkit-scrollbar-thumb {
+    height: 36px;
+    background-color: var(--input-label-counter-icon);
+    border-radius: 12px;
+}
+
+.dropdown__wrapper__day p,
+.dropdown__wrapper__month p,
+.dropdown__wrapper__year p {
+    padding: 8px 12px 8px 12px;
+
+    clear: both;
+    width: 100%;
+    text-align: left;
+    border-style: none;
+
+    transition: all 0.1s ease;
+}
+
+.dropdown__wrapper__day p:hover,
+.dropdown__wrapper__month p:hover,
+.dropdown__wrapper__year p:hover {
+    background-color: var(--secondary-button-onhover-selected);
+    border-radius: 8px;
+}
