@@ -21,14 +21,13 @@
     grid-area: content;
     display: grid;
     justify-content: center;
-
 }
 
 .profile__content {
     display: grid;
     grid-template-rows: auto auto;
 
-    width: fit-content;
+    width: 752px;
     height: fit-content;
 
     background-color: var(--box-background);
@@ -94,11 +93,14 @@
 
 .profile__content__form__first-name__input-group,
 .profile__content__form__middle-name__input-group,
-.profile__content__form__last-name__input-group,
-.profile__content__form__bio__input-group,
-.profile__content__form__phone-number__input-group {
+.profile__content__form__last-name__input-group {
     padding: 18px 16px 0 16px;
 
+}
+
+.profile__content__form__bio__input-group,
+.profile__content__form__phone-number__input-group {
+    padding: 10px 16px 0 16px;
 }
 
 .profile__content__form__password__input-group,
@@ -176,6 +178,7 @@
 .profile__content__form__first-name__error,
 .profile__content__form__middle-name__error,
 .profile__content__form__last-name__error,
+.profile__content__form__load-avatar__error,
 .profile__content__form__bio__error,
 .profile__content__form__phone-number__error,
 .profile__content__form__password__error,
@@ -203,6 +206,7 @@
 .profile__content__form__birthday-gender-last-name-group {
     display: grid;
     grid-template-rows: repeat(3, auto);
+    align-content: start;
 }
 
 
@@ -211,7 +215,10 @@
 
 .profile__content__form__avatar-group {
     display: grid;
-    grid-template-rows: repeat(2, auto);
+    grid-template-areas:
+        'avatar'
+        'button'
+        'error';
     justify-content: center;
     justify-items: center;
     align-content: space-between;
@@ -219,9 +226,13 @@
     padding-top: 18px;
 }
 
+.profile__content__form__avatar {
+    grid-area: avatar;
+}
+
 
 .profile__content__form__load-avatar__button {
-
+    grid-area: button;
     padding: 10px 14px 10px 14px;
 
     height: 36px;
