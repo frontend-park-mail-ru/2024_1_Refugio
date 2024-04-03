@@ -296,7 +296,7 @@ export default class Signup {
             year: {
                 button: document.querySelector('.signup__birthday__input__year__value-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__year'),
-            }
+            },
         }
 
         const hideAllDropdowns = () => {
@@ -332,15 +332,13 @@ export default class Signup {
             } else {
                 if (elements.year.dropdown.contains(target) && target.tagName === 'P') {
                     document.querySelector('.signup__birthday__input__year__value-img p').textContent = target.textContent;
-
-
                 }
             }
+
         }
         if (!hasTarget) {
             hideAllDropdowns();
         }
-
     };
 
     /**

@@ -1,7 +1,11 @@
 import dispathcher from './modules/dispathcher.js';
 import { actionStart } from './actions/userActions.js';
+import LetterView from './views/letter.js';
 
-dispathcher.do(actionStart());
+//dispathcher.do(actionStart());
+
+const view = new LetterView();
+view.renderPage();
 
 
 // let isAuth;

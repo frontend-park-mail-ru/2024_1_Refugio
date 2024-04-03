@@ -2,11 +2,11 @@ import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
 
 class UserStore {
-    #body
+    body
     isAuth
 
     constructor() {
-        this.#body = undefined;
+        this.body = undefined;
         this.isAuth = false;
     }
 
