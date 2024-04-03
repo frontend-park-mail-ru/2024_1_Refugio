@@ -270,11 +270,11 @@ export default class Signup {
     handleCheckbox(e) {
         e.preventDefault();
         if (this.checked) {
-            document.querySelector('.signup__gender__select__female').classList.remove('signup__gender__select__passive');
-            document.querySelector('.signup__gender__select__male').classList.add('signup__gender__select__passive');
+            document.querySelector('.gender__select__female').classList.remove('gender__select__passive');
+            document.querySelector('.gender__select__male').classList.add('gender__select__passive');
         } else {
-            document.querySelector('.signup__gender__select__male').classList.remove('signup__gender__select__passive');
-            document.querySelector('.signup__gender__select__female').classList.add('signup__gender__select__passive');
+            document.querySelector('.gender__select__male').classList.remove('gender__select__passive');
+            document.querySelector('.gender__select__female').classList.add('gender__select__passive');
         }
     }
 

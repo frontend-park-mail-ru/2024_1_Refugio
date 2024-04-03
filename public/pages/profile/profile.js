@@ -3,6 +3,7 @@ import LoginView from '../../views/login.js';
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import Birthday_Select from '../../components/birthday-select/birthday-select.js';
+import Gender_Select from '../../components/gender-select/gender-select.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -38,7 +39,7 @@ export default class Profile {
             header: new Header(null, config).render(),
             menu: new Menu(null, config).render(),
             birthday_select: new Birthday_Select(null, config).render(),
-
+            gender_select: new Gender_Select(null, config).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -312,11 +313,11 @@ export default class Profile {
     handleCheckbox(e) {
         e.preventDefault();
         if (this.checked) {
-            document.querySelector('.profile__content__form__gender__select__female').classList.remove('profile__content__form__gender__select__passive');
-            document.querySelector('.profile__content__form__gender__select__male').classList.add('profile__content__form__gender__select__passive');
+            document.querySelector('.gender__select__female').classList.remove('gender__select__passive');
+            document.querySelector('.gender__select__male').classList.add('gender__select__passive');
         } else {
-            document.querySelector('.profile__content__form__gender__select__male').classList.remove('profile__content__form__gender__select__passive');
-            document.querySelector('.profile__content__form__gender__select__female').classList.add('profile__content__form__gender__select__passive');
+            document.querySelector('.gender__select__male').classList.remove('gender__select__passive');
+            document.querySelector('.gender__select__female').classList.add('gender__select__passive');
         }
     }
 

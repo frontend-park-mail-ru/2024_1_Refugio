@@ -1,3 +1,22 @@
+.birthday__input-group {
+
+    display: grid;
+    grid-template-rows: auto, auto;
+    grid-row-gap: 2px;
+
+    padding: 2px 16px 0 16px;
+
+    label {
+        margin-top: 2px;
+
+        color: var(--input-label-counter-icon);
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 18px;
+    }
+}
+
 .birthday__input-block {
     display: grid;
     grid-template-columns: repeat(3, auto);
