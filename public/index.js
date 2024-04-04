@@ -3,12 +3,13 @@ import { actionStart } from './actions/userActions.js';
 import LetterView from './views/letter.js';
 import ProfileView from './views/profile.js';
 import WriteLetterView from './views/write-letter.js';
+import MainView from './views/main.js';
 
 // dispathcher.do(actionStart());
 
-const view = new WriteLetterView();
+const view = MainView;
+console.log(view);
 view.renderPage();
-
 
 // let isAuth;
 // ajax(

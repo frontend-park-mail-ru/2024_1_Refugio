@@ -52,8 +52,8 @@ class MainView extends BaseView {
      */
     async renderPage() {
         document.title = 'Входящие';
-        this.#config.header.username = await this.#getUserInfo();
-        this.#config.content.list_letters = await this.#getEmailsInfo();
+        //this.#config.header.username = await this.#getUserInfo();
+        //this.#config.content.list_letters = await this.#getEmailsInfo();
         this.#config.content.list_letters.forEach((letter) => {
             if (!letter.photoId) {
                 letter.photoId = '../static/img/1200px-User_icon-cp.svg.png';
