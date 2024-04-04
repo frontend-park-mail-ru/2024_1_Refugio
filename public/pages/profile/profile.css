@@ -242,6 +242,8 @@
     border-radius: 8px;
 
     text-align: center;
+    align-content: center;
+
 
     cursor: pointer;
 
@@ -292,6 +294,7 @@
 
     background-color: white;
     border-radius: 8px;
+    align-content: center;
 
     color: var(--main-button-secondary);
     font-size: 15px;

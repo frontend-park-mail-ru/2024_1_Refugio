@@ -38,6 +38,7 @@
 .letter__content__header__button {
     padding: 4px 16px;
     height: 30px;
+    align-content: center;
     background-color: transparent;
     border-radius: 8px;
     cursor: pointer;
@@ -189,6 +190,7 @@
     width: fit-content;
     background-color: transparent;
     border-radius: 8px;
+    align-content: center;
 
     cursor: pointer;
     transition: all 0.1s ease;
