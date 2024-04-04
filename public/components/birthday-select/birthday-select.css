@@ -81,7 +81,7 @@
     z-index: 1;
 
     padding-top: 12px;
-    padding-right: 2px;
+    padding-right: 4px;
 
     max-height: 168px;
     overflow: hidden;
@@ -131,7 +131,7 @@
 .dropdown__day::-webkit-scrollbar,
 .dropdown__month::-webkit-scrollbar,
 .dropdown__year::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
     height: 168px;
 }
 

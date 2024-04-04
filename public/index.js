@@ -6,7 +6,7 @@ import WriteLetterView from './views/write-letter.js';
 
 // dispathcher.do(actionStart());
 
-const view = new LetterView();
+const view = new WriteLetterView();
 view.renderPage();
 
 

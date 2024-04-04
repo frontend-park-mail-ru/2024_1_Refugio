@@ -90,6 +90,11 @@ input:autofill {
     visibility: visible;
 }
 
+.remove {
+    visibility: hidden;
+    position: absolute;
+}
+
 .auth__input-backgroud-error {
     background-color: var(--error-input-placeholder);
 }

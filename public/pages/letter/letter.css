@@ -23,7 +23,6 @@
     grid-template-rows: auto auto;
 
     margin-right: 16px;
-    padding-right: 2px;
 
     background-color: var(--box-background);
     border-radius: 8px;
@@ -133,14 +132,18 @@
 
 .letter__content__body__attachments {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-areas:
+        'view download-all'
+        'error error';
     justify-content: start;
-    gap: 8px;
+    grid-column-gap: 8px;
 
     padding: 8px 0 8px 68px;
 }
 
 .letter__content__body__attachments__view-button {
+    grid-area: view;
+
     display: grid;
     grid-template-columns: auto auto;
     align-content: center;
@@ -169,7 +172,7 @@
     }
 
     span {
-        padding: 3px 0 0 8px;
+        padding: 2px 0 0 8px;
         color: var(--input-label-counter-icon);
         font-size: 10px;
         font-weight: 500;
@@ -179,6 +182,8 @@
 }
 
 .letter__content__body__attachments__download-all-button {
+    grid-area: download-all;
+
     padding: 4px 8px;
     height: 30px;
     width: fit-content;
@@ -202,17 +207,39 @@
     }
 }
 
+.letter__content__body__attachments__error {
+    grid-area: error;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+
+    overflow-wrap: anywhere;
+}
+
 
 .letter__content__body__text {
-    padding: 8px 24px 8px 24px;
+    margin: 8px 4px 0 4px;
+    padding: 0 20px 8px 20px;
     overflow: auto;
-    max-height: 400px;
+    max-height: 500px;
+
+    p {
+        color: var(--text);
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 20px;
+    }
 }
 
 
 .letter__content__body__text::-webkit-scrollbar {
-    width: 8px;
-    height: 168px;
+    width: 6px;
 }
 
 .letter__content__body__text::-webkit-scrollbar-track {
@@ -220,9 +247,6 @@
 }
 
 .letter__content__body__text::-webkit-scrollbar-thumb {
-    height: 36px;
     background-color: var(--input-label-counter-icon);
     border-radius: 12px;
 }
-
-.letter__content__body__process-buttons-block {}
