@@ -21,7 +21,7 @@ class MainView extends BaseView {
         content: {
             list_letters: [
                 {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -29,30 +29,7 @@ class MainView extends BaseView {
                     date: '12/12/2012'
                 },
                 {
-                    status: 'unread',
-                    photoId: '/static/img/avatar_32_32.svg',
-                    from: 'ivanovii@mail.ru',
-                    subject: 'Subject',
-                    text: 'Some text about fish',
-                    date: '12/12/2012'
-                },
-                {
-                    status: 'read',
-                    photoId: '/static/img/avatar_32_32.svg',
-                    from: 'ivanovii@mail.ru',
-                    subject: 'Subject',
-                    text: 'Some text about fish',
-                    date: '12/12/2012'
-                },{
-                    status: 'unread',
-                    photoId: '/static/img/avatar_32_32.svg',
-                    from: 'ivanovii@mail.ru',
-                    subject: 'Subject',
-                    text: 'Some text about fish',
-                    date: '12/12/2012'
-                },
-                {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -66,8 +43,8 @@ class MainView extends BaseView {
                     subject: 'Subject',
                     text: 'Some text about fish',
                     date: '12/12/2012'
-                },{
-                    status: 'unread',
+                }, {
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -75,7 +52,7 @@ class MainView extends BaseView {
                     date: '12/12/2012'
                 },
                 {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -89,9 +66,8 @@ class MainView extends BaseView {
                     subject: 'Subject',
                     text: 'Some text about fish',
                     date: '12/12/2012'
-                },
-                {
-                    status: 'unread',
+                }, {
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -99,7 +75,7 @@ class MainView extends BaseView {
                     date: '12/12/2012'
                 },
                 {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -115,7 +91,7 @@ class MainView extends BaseView {
                     date: '12/12/2012'
                 },
                 {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -123,7 +99,7 @@ class MainView extends BaseView {
                     date: '12/12/2012'
                 },
                 {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -139,7 +115,7 @@ class MainView extends BaseView {
                     date: '12/12/2012'
                 },
                 {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
@@ -147,13 +123,53 @@ class MainView extends BaseView {
                     date: '12/12/2012'
                 },
                 {
-                    status: 'unread',
+                    status: undefined,
                     photoId: '/static/img/avatar_32_32.svg',
                     from: 'ivanovii@mail.ru',
                     subject: 'Subject',
                     text: 'Some text about fish',
                     date: '12/12/2012'
                 },
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: undefined,
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: undefined,
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                }, 
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                }, 
                 {
                     status: 'read',
                     photoId: '/static/img/avatar_32_32.svg',
