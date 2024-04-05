@@ -1,9 +1,49 @@
-<div class="main-root">
+<div class="main__root">
     {{{header}}}
-    <div class="aside">
-        {{{menu}}}
-    </div>
-    <div class="content">
-        {{{list_letters}}}
+    {{{menu}}}
+    <div class="main__content__wrapper">
+        <div class="main__content">
+            <div class="main__content__header">
+
+                <div class="main__content__header__button-icon">
+                    <img src="../../static/icons/read_off.svg" alt="">
+                    <input class="main__content__header__button-input" type="button" value="Выделить все">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="Отметить все прочитанными">
+                </div>
+
+
+                <div class="main__content__header__button-icon-span">
+                    <img src="../../static/icons/done.svg" alt="">
+                    <span>1</span>
+                    <input class="main__content__header__button-input" type="button" value="Снять выделение">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="Удалить">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="В папку">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="Спам">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="Пометить прочитанными">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="Пометить непрочитанными">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="Пометить прочитанным">
+                </div>
+                <div class="main__content__header__button">
+                    <input class="main__content__header__button-input" type="button" value="Пометить непрочитанным">
+                </div>
+            </div>
+            <div class="main__content__body">
+                {{{list_letters}}}
+            </div>
+        </div>
     </div>
 </div>

@@ -1,100 +1,163 @@
-<div class="profile__root">
+<div class="letter__root">
     {{{header}}}
     {{{menu}}}
-    <div class="profile__content__wrapper">
-        <div class="profile__content">
-            <div class="profile__content__header">
-                <p>Личные данные</p>
+    <div class="letter__content__wrapper">
+        <div class="letter__content">
+            <div class="letter__content__header">
+                <div class="letter__content__header__button">
+                    <img src="../../static/icons/arrow-previous.svg" alt="">
+                </div>
+                <div class="letter__content__header__button">
+                    <input type="button" value="Удалить">
+                </div>
+                <div class="letter__content__header__button">
+                    <input type="button" value="В папку">
+                </div>
+                <div class="letter__content__header__button">
+                    <input type="button" value="Спам">
+                </div>
+                <div class="letter__content__header__button">
+                    <input type="button" value="Пометить прочитанным">
+                </div>
+                <div class="letter__content__header__button">
+                    <input type="button" value="Помететить непрочитанным">
+                </div>
+                <div class="letter__content__header__button">
+                    <input type="button" value="Ответить">
+                </div>
+                <div class="letter__content__header__button">
+                    <input type="button" value="Переслать">
+                </div>
             </div>
-            <div class="profile__content__form">
-                <div class="profile__content__form__first-middle-names__block">
-                    <div class="profile__content__form__first-name__input-group">
-                        <label>Имя</label>
-                        <input type="text" class="profile__content__form__first-name__input" placeholder="Иван">
-                        <p class="profile__content__form__first-name__error">Ошибка</p>
-                    </div>
-                    <div class="profile__content__form__middle-name__input-group">
-                        <label>Отчество</label>
-                        <input type="text" class="profile__content__form__middle-name__input" placeholder="Иванович">
-                        <p class="profile__content__form__middle-name__error">Ошибка</p>
-                    </div>
+            <div class="letter__content__body">
+                <div class="letter__content__body__subject">
+                    <span>Тема письма</span>
                 </div>
-                <div class="profile__content__form__avatar-birthday-gender-last-name__block">
-                    <div class="profile__content__form__birthday-gender-last-name-group">
-                        <div class="profile__content__form__last-name__input-group">
-                            <label>Фамилия</label>
-                            <input type="text" class="profile__content__form__last-name__input" placeholder="Иванов">
-                            <p class="profile__content__form__last-name__error">Ошибка</p>
-                        </div>
-                        <div class="profile__content__form__birthday__input-group">
-                            <label>Дата рождения</label>
-                            
-                        </div>
-
-
-                        <div class="profile__content__form__gender__select-group">
-                            <label class="profile__content__form__gender__select__label">Пол</label>
-                            <div class="profile__content__form__gender__select">
-                                <p class="profile__content__form__gender__select__male">Мужской</p>
-                                <div class="cl-toggle-switch">
-                                    <label class="cl-switch">
-                                        <input type="checkbox">
-                                        <span></span>
-                                    </label>
-                                </div>
-                                <p
-                                    class="profile__content__form__gender__select__female profile__content__form__gender__select__passive">
-                                    Женский</p>
-                            </div>
-                        </div>
-
+                <div class="letter__content__body__info">
+                    <div class="letter__content__body__info__icon-avatar-name">
+                        <img class="letter__content__body__info__icon" src="../../static/icons/circle-read.svg" alt="">
+                        <img src="../../static/img/avatar_32_32.svg" alt="">
+                        <span>Разработчики Mailhub</span>
                     </div>
-                    <div class="profile__content__form__avatar-group">
-                        <div>
-                            <img src="../../static/img/avatat_166_166.svg" alt="">
-                        </div>
-                        <div class="profile__content__form__load-avatar__button">
-                            <input type="button" value="Загрузить фото">
-                        </div>
+                    <span>12/12/2012 00:00</span>
+                </div>
+                <div class="letter__content__body__attachments">
+                    <div class="letter__content__body__attachments__view-button">
+                        <input type="button" value="5 файлов">
+                        <span>255 КБ</span>
                     </div>
+                    <div class="letter__content__body__attachments__download-all-button">
+                        <input type="button" value="Скачать все">
+                    </div>
+                    <p class="letter__content__body__attachments__error remove">Ошибка</p>
+
 
                 </div>
-                <div class="profile__content__form__bio-phone-number__block">
-                    <div class="profile__content__form__bio__input-group">
-                        <label>О себе</label>
-                        <input type="text" class="profile__content__form__bio__input" placeholder="Веб-разработчик">
-                        <p class="profile__content__form__bio__error">Ошибка</p>
-                    </div>
-                    <div class="profile__content__form__phone-number__input-group">
-                        <label>Номер телефона</label>
-                        <input type="text" class="profile__content__form__phone-number__input"
-                            placeholder="88001234567">
-                        <p class="profile__content__form__phone-number__error">Ошибка</p>
-                    </div>
-                </div>
-                <div class="profile__content__form__password-password-confirm__block">
-                    <div class="profile__content__form__password__input-group">
-                        <label>Новый пароль</label>
-                        <input type="password" class="profile__content__form__password__input" placeholder="●●●●●●●●">
-                        <p class="profile__content__form__password__error">Ошибка</p>
-                    </div>
-                    <div class="profile__content__form__password-confirm__input-group">
-                        <label>Новый пароль ещё раз</label>
-                        <input type="password" class="profile__content__form__password-confirm__input"
-                            placeholder="●●●●●●●●">
-                        <p class="profile__content__form__password-confirm__error">Ошибка</p>
-                    </div>
+                <div class="letter__content__body__text">
+                    <p>In my knowledge,In my knowledge,In my knowledge,In my knowledge,In my knowledge,In my
+                        knowledge,In my knowledge,
+                        I am so filled that I seem to have lived for 100 trillion billion years on trillions and
+                        trillions of the same planets, do you understand? Like this Earth.
+                        This world is already absolutely clear3. to me, and here I am looking for only one thing: peace,
+                        tranquility and this harmony from merging with the infinitely eternal. In my knowledge, I am so
+                        filled that I seem to have lived for 100 trillion billion years on trillions and trillions of
+                        the same planets, do you understand? Like this Earth. This world is already absolutely clear3.
+                        to me, and here I am looking for only one thing: peace, tranquility and this harmony from
+                        merging with the infinitely eternal.In my knowledge, I am so filled that I seem to have lived
+                        for 100 trillion billion years on trillions and trillions of theааа, same planets, do you
+                        understand? Like this Earth. This world is already absolutely clear3. to me, and here I am
+                        looking for only one thing: peace, tranquility and this harmony from merging with the infinitely
+                        eternal.In my knowledge, I am so filled that I seem to have lived for 100 trillion billion years
+                        on trillions and trillions of the same planets, do you understand? Like this Earth. This world
+                        is already absolutely clear3. to me, and here I am looking for only one thing: peace,
+                        tranquility and this harmony from merging with the infinitely eternal.In my knowledge, I am so
+                        filled that I seem to have lived for 100 trillion billion years on trillions and trillions of
+                        the same planets, do you understand? Like this Earth. This world is already absolutely clear3.
+                        to me, and here Ibillion years on trillions and trillions of the same planets, do you
+                        understand? Like this Earth. This world is already absolutely clear3. to me, and here I am
+                        looking for only one thing: peace, tranquility and this years on trillions and trillions of the
+                        same planets, do you understand? Like this am looking for only one thing: peace, tranquility and
+                        this harmony from merging with the infinitely eternal.In my knowledge, I am so filled that I
+                        seem to have lived for 100 trillion billion years on trillions and trillions of the same
+                        planets, do yod is already absolutely clear3. to me, and here I am looking for only one thing:
+                        peace, tranquility and this years on trillions and trillions of the same planets, do you
+                        understand? Like this Earth. This world is already absolutely clear3. to me, and here I am
+                        looking for only one thing: peace, tranquility and this years on trillions and trillions of the
+                        same planets, do you understanbillion years on trillions and trillions of the same planets, do
+                        you understand? Like this Earth. This world is already absolutely clear3. to me, and here I am
+                        looking for only one thing: peace, tranquility and this years on trillions and trillions of the
+                        same planets, do you understand? Like this d? Like this Earth. This world is already absolutely
+                        clear3. to me, and here I am looking for only one thing: peace, tranquility and this years on
+                        trillions and trillions of the same planets, do you understand? Like this Earth. This world is
+                        already absolutely clear3. to me, and here I am looking for only one thing: peace, tranquility
+                        and this years on trillions and trillions of the same planets, do you understand? Like this
+                        Earth. This world is already absolutely clear3. to me, and here I am looking for only one thing:
+                        peace, tranquility and this harmony from merging with the infinitely eternal.This world is
+                        already absolutely clear3. to me, and here I am looking for only one thingbillion years on
+                        trillions and trillions of the same planets, do you understand? Like this Earth. This world is
+                        already absolutely clear3. to me, and here I am looking for only one thing: peace, tranquility
+                        and this years on trillions and trillions of the same planets, do you understand? Like this :
+                        peace, tranquility and this harmony from merging with the infinitely eternal.In my knowledge, I
+                        am so filled that I seem to have lived for 100 trillion billion years on trillions and trillions
+                        of the same planets, do you understand? Like this Earth. This world is already absolutely
+                        clear3. to me, and here I am looking for only one thing: peace, tranquility and this harmony
+                        from merging with the infinitely eternal.In my knowledge, I am so filled that I seem to have
+                        livedpeace, you understand? Like this Earth. This world is already absolutely clear3. to me, and
+                        here I am looking for only one thing: peace, tranquility and this harmony from merging with the
+                        infinitely eternal.In my knowledge, I am so filled that I seem to have livedpeace, tranquility
+                        and this harmony from merging with the infinitely eternal.In my knowledge, I am so filled that I
+                        seem to have livedа lived for 10m so filled that I seem to have lived for 100 trillion billion
+                        years on trillions and trillions of the same planets, do you understand? Like this Earth. This
+                        world is already absolutely clear3. to me, and here Ibillion years on trillions and trillions of
+                        the same planets, do you understand? Like this Earth. This world is already absolutely clear3.
+                        to me, and here I am looking for only one thing: peace, tranquility and this years on trillions
+                        and trillions of the same planets, do you understand? Like this am looking for only one thing:
+                        peace, tranquility and this harmony from merging with the infinitely eternal.In my knowledge, I
+                        am so filled that I seem to have lived for 100 trillion billion years on trillions and trillions
+                        of the same planets, do yod is already absolutely clear3. to me, and here I am looking for only
+                        one thing: peace, tranquility and this years on trillions and trillions of the same planets, do
+                        you understand? Like this Earth. This world is already absolutely clear3. to me, and here I am
+                        looking for only one thing: peace, tranquility and this years on trillions and trillions of the
+                        same planets, do you understanbillion years on trillions and trillions of the same planets, do
+                        you understand? Like this Earth. This world is already absolutely clear3. to me, and here I am
+                        looking for only one thing: peace, tranquility and this years on trillions and trillions of the
+                        same planets, do you understand? Like this d? Like this Earth. This world is already absolutely
+                        clear3. to me, and here I am looking for only one thing: peace, tranquility and this years on
+                        trillions and trillions of the same planets, do you understand? Like this Earth. This world is
+                        already absolutely clear3. to me, and here I am looking for only one thing: peace, tranquility
+                        and this years on trillions and trillions of the same planets, do you understand? Like this
+                        Earth. This world is already absolutely clear3. to me, and here I am looking for only one thing:
+                        peace, tranquility and this harmony from merging with the infinitely eternal.This world is
+                        already absolutely clear3. to me, and here I am looking for only one thingbillion years on
+                        trillions and trillions of the same planets, do you understand? Like this Earth. This world is
+                        already absolutely clear3. to me, and here I am looking for only one thing: peace, tranquility
+                        and this years on trillions and trillions of the same planets, do you understand? Like this :
+                        peace, tranquility and this harmony from merging with the infinitely eternal.In my knowledge, I
+                        am so filled that I seem to have lived for 100 trillion billion years on trillions and trillions
+                        of the same planets, do you understand? Like this Earth. This world is already absolutely
+                        clear3. to me, and here I am looking for only one thing: peace, tranquility and this harmony
+                        from merging with the infinitely eternal.In my knowledge, I am so filled that I seem to have
+                        livedpeace, you understand? Like this Earth. This world is already absolutely clear3. to me, and
+                        here I am looking for only one thing: peace, tranquility and this harmony from merging with the
+                        infinitely eternal.In my knowledge, I am so filled that I seem to have livedpeace, tranquility
+                        and this harmony from merging with the infinitely eternal.In my knowledge, I am so filled that I
+                        seem to have livedа lived for 1 on trillions and trillions of the same planets, do you
+                        understand? Like this Earth. This world is already absolutely clear3. to me, and here I am
+                        looking for only one thing: peace, tranquility and this harmony from merging with the infinitely
+                        eternal.In my knowledge, I am so filled that I seem to have livedpeace, you understand? Like
+                        this Earth. This world is already absolutely clear3. to me, and here I am looking for only one
+                        thing: peace, tranquility and this harmony from merging with the infinitely eternal.In my
+                        knowledge, I am so filled that I seem to have livedpeace, tranquility and this harmony from
+                        merging with the infinitely eternal.In my knowledge, I am so filled that I seem to have livedа
+                        lived for 100 trillion billion years on trillions and trillions of the same planets, do you
+                        understand? Like this Earth. This world is already from merging with the infinitely eternal.In
+                        my knowledge, I am so filled that I seem to have livedаlived for 100 trillion billion years on
+                        trillions and trillions of the same planets, do you understand? Like this Earth. This world is
+                        already from merging with the infinitely eternal.In my knowledge, I am so filled that I seem to
+                        have livedа</p>
                 </div>
 
-
-                <div class="profile__content__form__save__button-group">
-                    <div class="profile__content__form__save__button">
-                        <input type="button" value="Сохранить">
-                    </div>
-                    <p class="profile__content__form__save__button__error">Ошибка</p>
-                </div>
             </div>
         </div>
     </div>
-    <div class="profile__popup"></div>
 </div>

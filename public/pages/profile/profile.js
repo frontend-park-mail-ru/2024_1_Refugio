@@ -2,6 +2,8 @@ import ajax from '../../modules/ajax.js';
 import LoginView from '../../views/login.js';
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
+import Birthday_Select from '../../components/birthday-select/birthday-select.js';
+import Gender_Select from '../../components/gender-select/gender-select.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -34,8 +36,10 @@ export default class Profile {
         const config = this.#config;
 
         const elements = {
-            header: new Header(null, config.header).render(),
-            menu: new Menu(null, config.menu).render(),
+            header: new Header(null, config).render(),
+            menu: new Menu(null, config).render(),
+            birthday_select: new Birthday_Select(null, config).render(),
+            gender_select: new Gender_Select(null, config).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -50,9 +54,9 @@ export default class Profile {
         const firstNameInput = document.querySelector('.profile__content__form__first-name__input');
         const middleNameInput = document.querySelector('.profile__content__form__middle-name__input');
         const lastNameInput = document.querySelector('.profile__content__form__last-name__input');
-        const birthdayDay = document.querySelector('.profile__content__form__birthday__input__day__value-img p').textContent;
-        const birthdayMonth = document.querySelector('.profile__content__form__birthday__input__month__value-img p').textContent;
-        const birthdayYear = document.querySelector('.profile__content__form__birthday__input__year__value-img p').textContent;
+        const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent;
+        const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent;
+        const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
         // const avatarInput;
         const bioInput = document.querySelector('.profile__content__form__bio__input');
@@ -309,31 +313,31 @@ export default class Profile {
     handleCheckbox(e) {
         e.preventDefault();
         if (this.checked) {
-            document.querySelector('.profile__content__form__gender__select__female').classList.remove('profile__content__form__gender__select__passive');
-            document.querySelector('.profile__content__form__gender__select__male').classList.add('profile__content__form__gender__select__passive');
+            document.querySelector('.gender__select__female').classList.remove('gender__select__passive');
+            document.querySelector('.gender__select__male').classList.add('gender__select__passive');
         } else {
-            document.querySelector('.profile__content__form__gender__select__male').classList.remove('profile__content__form__gender__select__passive');
-            document.querySelector('.profile__content__form__gender__select__female').classList.add('profile__content__form__gender__select__passive');
+            document.querySelector('.gender__select__male').classList.remove('gender__select__passive');
+            document.querySelector('.gender__select__female').classList.add('gender__select__passive');
         }
     }
 
     handleDropdowns(e) {
         const target = event.target;
 
-        if (document.querySelector('.profile__content__form__birthday__input__day__value-img') === null) { return; }
+        if (document.querySelector('.birthday__input__day__value-img') === null) { return; }
 
         const elements = {
             day: {
-                button: document.querySelector('.profile__content__form__birthday__input__day__value-img'),
+                button: document.querySelector('.birthday__input__day__value-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__day'),
             },
             month: {
-                button: document.querySelector('.profile__content__form__birthday__input__month__value-img'),
+                button: document.querySelector('.birthday__input__month__value-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__month'),
 
             },
             year: {
-                button: document.querySelector('.profile__content__form__birthday__input__year__value-img'),
+                button: document.querySelector('.birthday__input__year__value-img'),
                 dropdown: document.querySelector('.dropdown__wrapper__year'),
             },
             profile: {
@@ -366,15 +370,15 @@ export default class Profile {
         })
 
         if (elements.day.dropdown.contains(target) && target.tagName === 'P') {
-            document.querySelector('.profile__content__form__birthday__input__day__value-img p').textContent = target.textContent;
+            document.querySelector('.birthday__input__day__value-img p').textContent = target.textContent;
 
         } else {
             if (elements.month.dropdown.contains(target) && target.tagName === 'P') {
-                document.querySelector('.profile__content__form__birthday__input__month__value-img p').textContent = target.textContent;
+                document.querySelector('.birthday__input__month__value-img p').textContent = target.textContent;
 
             } else {
                 if (elements.year.dropdown.contains(target) && target.tagName === 'P') {
-                    document.querySelector('.profile__content__form__birthday__input__year__value-img p').textContent = target.textContent;
+                    document.querySelector('.birthday__input__year__value-img p').textContent = target.textContent;
 
 
                 } else {
