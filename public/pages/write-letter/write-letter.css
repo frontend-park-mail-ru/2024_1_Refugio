@@ -1,113 +1,113 @@
-.signup__box {
-    grid-area: signup-box;
-
+.profile__root {
     display: grid;
-    grid-template-rows: repeat(8, auto);
+    grid-template-areas:
+        'header header header'
+        'menu content .';
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto 1fr;
+    justify-content: left;
+    align-content: start;
 
-    padding: 32px 16px 6px 16px;
+    background-color: black;
 
-    max-height: 764px;
-    width: 392px;
+    height: 100%;
+}
+
+
+.profile__content__wrapper {
+    grid-area: content;
+    display: grid;
+    justify-content: center;
+
+}
+
+.profile__content {
+    display: grid;
+    grid-template-rows: auto auto;
+
+    width: fit-content;
+    height: fit-content;
 
     background-color: var(--box-background);
     border-radius: 8px;
 }
 
-.signup__switch-authorization-method {
+.profile__content__header {
+    padding: 20px 32px 20px 32px;
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 2px;
-
-    margin: 0 16px 24px 16px;
-    padding: 2px;
-
-    height: 44px;
-
-    background-color: var(--input-background);
-    border-radius: 10px;
+    text-align: left;
 
     p {
-        display: grid;
-        place-items: center;
-
-        border-radius: 8px;
-
-        font-size: 15px;
+        color: var(--text);
+        font-size: 24px;
         font-weight: 500;
         letter-spacing: 0;
-        line-height: 20px;
+        line-height: 28px;
     }
 }
 
-.signup__switch-authorization-method__active {
-    background-color: var(--secondary-button-onhover-selected);
-}
-
-.signup__switch-authorization-method__passive {
-    color: var(--input-placeholder);
-
-    cursor: pointer;
-}
-
-.signup__switch-authorization-method__passive:active {
-    transform: scale(0.99);
-}
-
-.signup__first-last-names__block {
-
+.profile__content__form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    padding: 0 16px 6px 16px;
+    grid-template-rows: repeat(5, auto);
+}
+
+.profile__content__form__first-middle-names__block,
+.profile__content__form__bio-phone-number__block,
+.profile__content__form__password-password-confirm__block {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 
     align-items: start;
 }
 
-.signup__email__input-group,
-.signup__password__input-group,
-.signup__password-confirm__input-group,
-.signup__first-name__input-group,
-.signup__last-name__input-group {
+.profile__content__form__first-name__input-group,
+.profile__content__form__middle-name__input-group,
+.profile__content__form__last-name__input-group,
+.profile__content__form__bio__input-group,
+.profile__content__form__phone-number__input-group,
+.profile__content__form__password__input-group,
+.profile__content__form__password-confirm__input-group {
     display: grid;
     grid-template-areas:
         'label'
         'input'
         'error';
     grid-row-gap: 2px;
+
+    label {
+        grid-area: label;
+
+        margin-top: 2px;
+
+        color: var(--input-label-counter-icon);
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 18px;
+    }
 }
 
-.signup__email__input-group,
-.signup__password__input-group,
-.signup__password-confirm__input-group {
+.profile__content__form__first-name__input-group,
+.profile__content__form__middle-name__input-group,
+.profile__content__form__last-name__input-group,
+.profile__content__form__bio__input-group,
+.profile__content__form__phone-number__input-group {
+    padding: 18px 16px 0 16px;
+
+}
+
+.profile__content__form__password__input-group,
+.profile__content__form__password-confirm__input-group {
     padding: 2px 16px 0 16px;
 }
 
-.signup__first-name__input-group {
-    padding: 2px 8px 0 16px;
-}
-
-.signup__last-name__input-group {
-    padding: 2px 16px 0 8px;
-}
-
-.signup__email__input-group label,
-.signup__password__input-group label,
-.signup__password-confirm__input-group label,
-.signup__first-name__input-group label,
-.signup__last-name__input-group label {
-    grid-area: label;
-
-    margin-top: 2px;
-
-    color: var(--input-label-counter-icon);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 18px;
-}
-
-.signup__email__input,
-.signup__first-name__input,
-.signup__last-name__input {
+.profile__content__form__first-name__input,
+.profile__content__form__middle-name__input,
+.profile__content__form__last-name__input,
+.profile__content__form__bio__input,
+.profile__content__form__phone-number__input {
     grid-area: input;
 
     padding: 12px;
@@ -120,10 +120,14 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
+
+    box-sizing: border-box;
+
+    width: 100%;
 }
 
-.signup__password__input,
-.signup__password-confirm__input {
+.profile__content__form__password__input,
+.profile__content__form__password-confirm__input {
     grid-area: input;
 
     padding: 12px;
@@ -141,18 +145,14 @@
     line-height: 20px;
 }
 
-.signup__first-name__input,
-.signup__last-name__input {
-    box-sizing: border-box;
 
-    width: 100%;
-}
-
-.signup__email__input::placeholder,
-.signup__first-name__input::placeholder,
-.signup__password__input::placeholder,
-.signup__password-confirm__input::placeholder,
-.signup__last-name__input::placeholder {
+.profile__content__form__first-name__input::placeholder,
+.profile__content__form__middle-name__input::placeholder,
+.profile__content__form__last-name__input::placeholder,
+.profile__content__form__bio__input::placeholder,
+.profile__content__form__phone-number__input::placeholder,
+.profile__content__form__password__input::placeholder,
+.profile__content__form__password-confirm__input::placeholder {
     color: var(--input-placeholder);
     font-size: 16px;
     font-weight: 400;
@@ -160,20 +160,24 @@
     line-height: 20px;
 }
 
-.signup__email__input:focus,
-.signup__password__input:focus,
-.signup__password-confirm__input:focus,
-.signup__first-name__input:focus,
-.signup__last-name__input:focus {
+.profile__content__form__first-name__input:focus,
+.profile__content__form__middle-name__input:focus,
+.profile__content__form__last-name__input:focus,
+.profile__content__form__bio__input:focus,
+.profile__content__form__phone-number__input:focus,
+.profile__content__form__password__input:focus,
+.profile__content__form__password-confirm__input:focus {
     outline: none;
 }
 
-.signup__email__error,
-.signup__password__error,
-.signup__password-confirm__error,
-.signup__first-name__error,
-.signup__last-name__error,
-.signup__button__error {
+.profile__content__form__first-name__error,
+.profile__content__form__middle-name__error,
+.profile__content__form__last-name__error,
+.profile__content__form__bio__error,
+.profile__content__form__phone-number__error,
+.profile__content__form__password__error,
+.profile__content__form__password-confirm__error,
+.profile__content__form__save__button__error {
     grid-area: error;
 
     color: var(--negative);
@@ -187,62 +191,20 @@
     overflow-wrap: anywhere;
 }
 
-.signup__button-group {
+.profile__content__form__avatar-birthday-gender-last-name__block {
     display: grid;
-    grid-template-areas:
-        'button'
-        'error';
-
-    margin-top: 26px;
-    padding: 0 16px 0 16px;
-
-    text-align: center;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 1fr);
 }
 
-.signup__button {
-    grid-area: button;
-
-    margin-bottom: 8px;
-    padding: 10px 16px 10px 16px;
-
-    height: 36px;
-
-    background-color: white;
-    border-radius: 8px;
-
-    color: var(--main-button-secondary);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 20px;
-
-    cursor: pointer;
+.profile__content__form__birthday-gender-last-name-group {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
 }
 
-.signup__button:hover {
-    background-color: var(--main-button-hover);
-    input {
-        background-color: var(--main-button-hover);
-    }
-}
 
-.signup__button:active {
-    transform: scale(0.99);
-}
+.profile__content__form__birthday__input-group {
 
-.signup__button input {
-    background-color: white;
-
-    color: var(--main-button-secondary);
-    font-size: 15px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 20px;
-
-    cursor: pointer;
-}
-
-.signup__birthday__input-group {
     display: grid;
     grid-template-rows: auto, auto;
     grid-row-gap: 2px;
@@ -261,7 +223,7 @@
 }
 
 
-.signup__birthday__input-block {
+.profile__content__form__birthday__input-block {
     display: grid;
     grid-template-columns: repeat(3, auto);
 
@@ -269,9 +231,9 @@
 
 }
 
-.signup__birthday__input__day,
-.signup__birthday__input__month,
-.signup__birthday__input__year {
+.profile__content__form__birthday__input__day,
+.profile__content__form__birthday__input__month,
+.profile__content__form__birthday__input__year {
     display: grid;
     grid-row: auto auto;
 
@@ -296,22 +258,22 @@
     }
 }
 
-.signup__birthday__input__day__value-img,
-.signup__birthday__input__month__value-img,
-.signup__birthday__input__year__value-img {
+.profile__content__form__birthday__input__day__value-img,
+.profile__content__form__birthday__input__month__value-img,
+.profile__content__form__birthday__input__year__value-img {
     display: grid;
     grid-template-columns: auto 48px;
 }
 
-.signup__birthday__input__day__value-img p {
+.profile__content__form__birthday__input__day__value-img p {
     width: 18px;
 }
 
-.signup__birthday__input__month__value-img p {
+.profile__content__form__birthday__input__month__value-img p {
     width: 72px;
 }
 
-.signup__birthday__input__year__value-img p {
+.profile__content__form__birthday__input__year__value-img p {
     width: 36px;
 }
 
@@ -416,18 +378,16 @@
 
 
 
+.profile__content__form__gender__select-group {
 
-
-
-.signup__gender__select-group {
     display: grid;
     grid-template-rows: auto auto;
     grid-row-gap: 2px;
 
-    padding: 20px 16px 16px 16px;
+    padding: 20px 16px 0 16px;
 }
 
-.signup__gender__select__label {
+.profile__content__form__gender__select__label {
     margin-top: 2px;
 
     color: var(--input-label-counter-icon);
@@ -437,7 +397,7 @@
     line-height: 18px;
 }
 
-.signup__gender__select {
+.profile__content__form__gender__select {
     display: grid;
     grid-template-columns: repeat(3, auto);
     justify-content: start;
@@ -446,7 +406,7 @@
     padding: 0 12px 0 12px;
 }
 
-.signup__gender__select__passive {
+.profile__content__form__gender__select__passive {
     color: var(--input-placeholder);
 }
 
@@ -573,4 +533,111 @@
 
 .cl-switch>input:checked:disabled+span::after {
     background-color: var(--text);
+}
+
+
+.profile__content__form__avatar-group {
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    justify-content: center;
+    justify-items: center;
+    align-content: space-between;
+
+    padding-top: 18px;
+}
+
+
+.profile__content__form__load-avatar__button {
+
+    padding: 10px 14px 10px 14px;
+
+    height: 36px;
+    width: fit-content;
+
+    background-color: transparent;
+    border-radius: 8px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    transition: all 0.1s ease;
+    outline: none;
+
+
+    input {
+        background-color: transparent;
+
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 20px;
+
+        cursor: pointer;
+    }
+}
+
+.profile__content__form__load-avatar__button:hover {
+    background-color: var(--secondary-button-onhover-selected)
+}
+
+.profile__content__form__load-avatar__button:active {
+    transform: scale(0.99);
+}
+
+.profile__content__form__save__button-group {
+    display: grid;
+    grid-template-areas:
+        'button'
+        'error';
+
+    margin-top: 26px;
+    padding: 0 16px 0 16px;
+
+    text-align: center;
+}
+
+.profile__content__form__save__button {
+    grid-area: button;
+
+    margin-bottom: 8px;
+    padding: 10px 16px 10px 16px;
+
+    height: 36px;
+
+    background-color: white;
+    border-radius: 8px;
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+}
+
+.profile__content__form__save__button:hover {
+    background-color: var(--main-button-hover);
+
+    input {
+        background-color: var(--main-button-hover);
+    }
+}
+
+.profile__content__form__save__button:active {
+    transform: scale(0.99);
+}
+
+.profile__content__form__save__button input {
+    background-color: white;
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
 }

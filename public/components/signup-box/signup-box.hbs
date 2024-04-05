@@ -1,76 +1,267 @@
-<div class="signup-container">
+<div class="signup__box">
 
-    <div class="signup-container__sign">
-        <div class="signup-container__obertka">
-            <div class="signup-container__login-ref">
-                <span>Вход в аккаунт</span>
+    <div class="signup__switch-authorization-method">
+        <p class="signup__switch-authorization-method__passive">Вход в аккаунт</p>
+        <p class="signup__switch-authorization-method__active">Создание ящика</p>
+    </div>
+
+    <div class="signup__first-last-names__block">
+        <div class="signup__first-name__input-group">
+            <label>Имя</label>
+            <input type="text" class="signup__first-name__input" placeholder="Иван">
+            <p class="signup__first-name__error">Ошибка</p>
+        </div>
+        <div class="signup__last-name__input-group">
+            <label>Фамилия</label>
+            <input type="text" class="signup__last-name__input" placeholder="Иванов">
+            <p class="signup__last-name__error">Ошибка</p>
+        </div>
+    </div>
+
+
+    <div class="signup__birthday__input-group">
+        <label>Дата рождения</label>
+        <div class="signup__birthday__input-block">
+
+
+            <div class="signup__birthday__input__day">
+                <div class="signup__birthday__input__day__value-img">
+                    <p>1</p>
+                    <img src="../../static/icons/arrow_dropdown.svg" alt="">
+                </div>
+                <div class="dropdown__wrapper__day hide__dropdown__wrapper">
+                    <div class="dropdown__day">
+                        <p>1</p>
+                        <p>2</p>
+                        <p>3</p>
+                        <p>4</p>
+                        <p>5</p>
+                        <p>6</p>
+                        <p>7</p>
+                        <p>8</p>
+                        <p>9</p>
+                        <p>10</p>
+                        <p>11</p>
+                        <p>12</p>
+                        <p>13</p>
+                        <p>14</p>
+                        <p>15</p>
+                        <p>16</p>
+                        <p>17</p>
+                        <p>18</p>
+                        <p>19</p>
+                        <p>20</p>
+                        <p>21</p>
+                        <p>22</p>
+                        <p>23</p>
+                        <p>24</p>
+                        <p>25</p>
+                        <p>26</p>
+                        <p>27</p>
+                        <p>28</p>
+                        <p>29</p>
+                        <p>30</p>
+                        <p>31</p>
+                    </div>
+                </div>
             </div>
-            <div class="signup-container__current">
-                <span>Создание ящика</span>
+            <div class="signup__birthday__input__month">
+                <div class="signup__birthday__input__month__value-img">
+                    <p>Январь</p>
+                    <img src="../../static/icons/arrow_dropdown.svg" alt="">
+                </div>
+                <div class="dropdown__wrapper__month hide__dropdown__wrapper">
+                    <div class="dropdown__month">
+                        <p>Январь</p>
+                        <p>Февраль</p>
+                        <p>Март</p>
+                        <p>Апрель</p>
+                        <p>Май</p>
+                        <p>Июнь</p>
+                        <p>Июль</p>
+                        <p>Август</p>
+                        <p>Сентябрь</p>
+                        <p>Октябрь</p>
+                        <p>Ноябрь</p>
+                        <p>Декабрь</p>
+                    </div>
+                </div>
+            </div>
+            <div class="signup__birthday__input__year">
+                <div class="signup__birthday__input__year__value-img">
+                    <p>2024</p>
+                    <img src="../../static/icons/arrow_dropdown.svg" alt="">
+                </div>
+                <div class="dropdown__wrapper__year hide__dropdown__wrapper">
+                    <div class="dropdown__year">
+                        <p>2024</p>
+                        <p>2023</p>
+                        <p>2022</p>
+                        <p>2021</p>
+                        <p>2020</p>
+                        <p>2019</p>
+                        <p>2018</p>
+                        <p>2017</p>
+                        <p>2016</p>
+                        <p>2015</p>
+                        <p>2014</p>
+                        <p>2013</p>
+                        <p>2012</p>
+                        <p>2011</p>
+                        <p>2010</p>
+                        <p>2009</p>
+                        <p>2008</p>
+                        <p>2007</p>
+                        <p>2006</p>
+                        <p>2005</p>
+                        <p>2004</p>
+                        <p>2003</p>
+                        <p>2002</p>
+                        <p>2001</p>
+                        <p>2000</p>
+                        <p>1999</p>
+                        <p>1998</p>
+                        <p>1997</p>
+                        <p>1996</p>
+                        <p>1995</p>
+                        <p>1994</p>
+                        <p>1993</p>
+                        <p>1992</p>
+                        <p>1991</p>
+                        <p>1990</p>
+                        <p>1989</p>
+                        <p>1988</p>
+                        <p>1987</p>
+                        <p>1986</p>
+                        <p>1985</p>
+                        <p>1984</p>
+                        <p>1983</p>
+                        <p>1982</p>
+                        <p>1981</p>
+                        <p>1980</p>
+                        <p>1979</p>
+                        <p>1978</p>
+                        <p>1977</p>
+                        <p>1976</p>
+                        <p>1975</p>
+                        <p>1974</p>
+                        <p>1973</p>
+                        <p>1972</p>
+                        <p>1971</p>
+                        <p>1970</p>
+                        <p>1969</p>
+                        <p>1968</p>
+                        <p>1967</p>
+                        <p>1966</p>
+                        <p>1965</p>
+                        <p>1964</p>
+                        <p>1963</p>
+                        <p>1962</p>
+                        <p>1961</p>
+                        <p>1960</p>
+                        <p>1959</p>
+                        <p>1958</p>
+                        <p>1957</p>
+                        <p>1956</p>
+                        <p>1955</p>
+                        <p>1954</p>
+                        <p>1953</p>
+                        <p>1952</p>
+                        <p>1951</p>
+                        <p>1950</p>
+                        <p>1949</p>
+                        <p>1948</p>
+                        <p>1947</p>
+                        <p>1946</p>
+                        <p>1945</p>
+                        <p>1944</p>
+                        <p>1943</p>
+                        <p>1942</p>
+                        <p>1941</p>
+                        <p>1940</p>
+                        <p>1939</p>
+                        <p>1938</p>
+                        <p>1937</p>
+                        <p>1936</p>
+                        <p>1935</p>
+                        <p>1934</p>
+                        <p>1933</p>
+                        <p>1932</p>
+                        <p>1931</p>
+                        <p>1930</p>
+                        <p>1929</p>
+                        <p>1928</p>
+                        <p>1927</p>
+                        <p>1926</p>
+                        <p>1925</p>
+                        <p>1924</p>
+                        <p>1923</p>
+                        <p>1922</p>
+                        <p>1921</p>
+                        <p>1920</p>
+                        <p>1919</p>
+                        <p>1918</p>
+                        <p>1917</p>
+                        <p>1916</p>
+                        <p>1915</p>
+                        <p>1914</p>
+                        <p>1913</p>
+                        <p>1912</p>
+                        <p>1911</p>
+                        <p>1910</p>
+                        <p>1909</p>
+                        <p>1908</p>
+                        <p>1907</p>
+                        <p>1906</p>
+                        <p>1905</p>
+                        <p>1904</p>
+                        <p>1903</p>
+                        <p>1902</p>
+                        <p>1901</p>
+                        <p>1900</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <form action="" class="signup-container__form">
-        <div class="signup-container__form-element_name signup-container__form-element">
-            <label class="signup-container__label" for="name">
-                Имя
-            </label>
-            <input class="signup-container__input signup-container__input_name" type="text" placeholder="Имя" id="name">
-            <div class="signup-container__error-name signup-container__error">Недопустимые символы</div>
-        </div>
-        <div class="signup-container__form-element_surname signup-container__form-element">
-            <label class="signup-container__label" for="surname">
-                Фамилия
-            </label>
-            <input class="signup-container__input signup-container__input_name" type="text" placeholder="Фамилия"
-                id="surname">
-            <div class="signup-container__error-surname signup-container__error">Недопустимые символы</div>
-        </div>
-        <div class="signup-container__form-element_date signup-container__form-element">
-            <label class="signup-container__label" for="date">
-                Дата рождения
-            </label>
-            <input class="signup-container__input" type="date" id="date">
-            <div class="signup-container__error-date signup-container__error">Введите реальную дату</div>
-        </div>
-        <div class="signup-container__form-element_sex signup-container__form-element">
-            <label class="signup-container__label" for="sex">
-                Пол
-            </label>
-            <div class="signup-container__slider-sex" id="sex">
-                <span class="signup-container__man">Мужской</span>
-                <label class="signup-container__switch">
-                    <input type="checkbox" class="signup-container__checkbox">
-                    <span class="signup-container__slider"></span>
+
+    <div class="signup__gender__select-group">
+        <label class="signup__gender__select__label">Пол</label>
+        <div class="signup__gender__select">
+            <p class="signup__gender__select__male">Мужской</p>
+            <div class="cl-toggle-switch">
+                <label class="cl-switch">
+                    <input type="checkbox">
+                    <span></span>
                 </label>
-                <span class="signup-container__woman">Женский</span>
             </div>
+            <p class="signup__gender__select__female signup__gender__select__passive">Женский</p>
         </div>
-        <div class="signup-container__form-element_email signup-container__form-element">
-            <label class="signup-container__label" for="email">
-                Email
-            </label>
-            <input class="signup-container__input" type="email" placeholder="Email" id="email">
-            <div class="signup-container__error-email signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
+    </div>
+
+    <div class="signup__email__input-group">
+        <label>Имя ящика</label>
+        <input type="email" class="signup__email__input" placeholder="ivanovivan@mail.ru">
+        <p class="signup__email__error">Ошибка</p>
+    </div>
+
+    <div class="signup__password__input-group">
+        <label>Пароль</label>
+        <input type="password" class="signup__password__input" placeholder="●●●●●●●●">
+        <p class="signup__password__error">Ошибка</p>
+    </div>
+
+    <div class="signup__password-confirm__input-group">
+        <label>Пароль ещё раз</label>
+        <input type="password" class="signup__password-confirm__input" placeholder="●●●●●●●●">
+        <p class="signup__password-confirm__error">Ошибка</p>
+    </div>
+
+    <div class="signup__button-group">
+        <div class="signup__button">
+            <input type="button" value="Создать">
         </div>
-        <div class="signup-container__form-element_password signup-container__form-element">
-            <label class="signup-container__label" for="password">
-                Пароль
-            </label>
-            <input class="signup-container__input" type="password" placeholder="Пароль" id="password">
-            <div class="signup-container__error-password signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
-        </div>
-        <div class="signup-container__form-element_repeat signup-container__form-element">
-            <label class="signup-container__label" for="repeat">
-                Повторите пароль
-            </label>
-            <input class="signup-container__input" type="password" placeholder="Повторите пароль" id="repeat">
-            <div class="signup-container__error-repeat signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
-        </div>
-        <div class="signup-container__signup">
-            <button id="signupBtn" class="signup-container__signup-btn" type="submit">Зарегистрироваться</button>
-        </div>
-        <div class="signup-container__error-sign signup-container__error">Ошибка на нашей стороне. Уже исправляем!</div>
-    </form>
+        <p class="signup__button__error">Ошибка</p>
+    </div>
 
 </div>

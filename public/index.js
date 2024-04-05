@@ -3,6 +3,7 @@ import { actionStart } from './actions/userActions.js';
 
 dispathcher.do(actionStart());
 
+
 // let isAuth;
 // ajax(
 //     'GET', 'http://89.208.223.140:8080/api/v1/verify-auth', null, 'application/json', (status, data) => (isAuth = status)
