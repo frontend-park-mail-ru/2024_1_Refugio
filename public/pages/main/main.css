@@ -116,20 +116,7 @@
 
 
 .main__content__body {
-    display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(0, auto));
-    overflow: auto;
-}
-
-.main__content__body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.main__content__body::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-.main__content__body::-webkit-scrollbar-thumb {
-    background-color: var(--input-label-counter-icon);
-    border-radius: 12px;
+    padding-right: 4px;
+    /* height: 800px;
+    overflow: hidden; */
 }

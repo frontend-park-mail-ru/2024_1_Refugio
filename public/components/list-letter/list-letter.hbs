@@ -1,9 +1,25 @@
 <div class="list-letter">
-    <img class="list-letter__img" alt="Img" src={{avatar}}>
-    <div class="list-letter__title">
-        {{subject}}
+    <div class="list-letter__status-avatar-from-subject-text-group">
+        <div class="list-letter__status">
+            {{#if status}}
+            <img src="../../static/icons/read-on__256.svg">
+            {{/if}}
+            </div>
+        <div class="list-letter__avatar">
+
+            <img src="{{avatar}}">
+        </div>
+        <div class="list-letter__text list-letter__white-text">
+            {{from}}
+        </div>
+        <div class="list-letter__text list-letter__white-text">
+            {{subject}}
+        </div>
+        <div class="list-letter__text list-letter__gray-text">
+            {{text}}
+        </div>
     </div>
-    <div class="list-letter__text">
-        {{text}}
+    <div class="list-letter_date list-letter__text list-letter__gray-text">
+        {{date}}
     </div>
 </div>
