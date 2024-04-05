@@ -318,6 +318,7 @@ export default class Letter {
     }
 
     handleDropdowns(e) {
+        console.log('yes');
         const target = event.target;
 
         if (document.querySelector('.profile__content__form__birthday__input__day__value-img') === null) { return; }
@@ -412,16 +413,16 @@ export default class Letter {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-        this.#parent
-            .querySelector('.profile__content__form__save__button')
-            .addEventListener('click', this.handleSaveForm);
+        // this.#parent
+        //     .querySelector('.profile__content__form__save__button')
+        //     .addEventListener('click', this.handleSaveForm);
 
         // this.#parent
         //     .querySelector('.profile__content__form__switch-authorization-method__passive')
         //     .addEventListener('click', this.renderLogin);
-        this.#parent
-            .querySelector('.cl-switch input')
-            .addEventListener('change', this.handleCheckbox);
+        // this.#parent
+        //     .querySelector('.cl-switch input')
+        //     .addEventListener('change', this.handleCheckbox);
 
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
@@ -431,16 +432,16 @@ export default class Letter {
      * Удаляет листенеры
      */
     removeListeners() {
-        this.#parent
-            .querySelector('.profile__content__form__save__button')
-            .addEventListener('click', this.handleSaveForm);
+        // this.#parent
+        //     .querySelector('.profile__content__form__save__button')
+        //     .addEventListener('click', this.handleSaveForm);
 
         // this.#parent
         //     .querySelector('.profile__content__form__switch-authorization-method__passive')
         //     .addEventListener('click', this.renderLogin);
-        this.#parent
-            .querySelector('.cl-switch input')
-            .addEventListener('change', this.handleCheckbox);
+        // this.#parent
+        //     .querySelector('.cl-switch input')
+        //     .addEventListener('change', this.handleCheckbox);
 
         this.#parent
         document.addEventListener('click', this.handleDropdowns);

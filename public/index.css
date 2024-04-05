@@ -3,6 +3,7 @@
 @import 'pages/signup/signup.css';
 @import 'pages/profile/profile.css';
 @import 'pages/letter/letter.css';
+@import 'pages/write-letter/write-letter.css';
 
 @font-face {
     font-family: 'Roboto';
@@ -87,6 +88,11 @@ input:autofill {
 
 .show {
     visibility: visible;
+}
+
+.remove {
+    visibility: hidden;
+    position: absolute;
 }
 
 .auth__input-backgroud-error {

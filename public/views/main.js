@@ -21,19 +21,146 @@ class MainView extends BaseView {
         content: {
             list_letters: [
                 {
-                    photoId: 'static/img/1200px-User_icon-cp.svg.png',
-                    topic: 'Письмо',
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
                     text: 'Some text about fish',
+                    date: '12/12/2012'
                 },
                 {
-                    photoId: 'static/img/1200px-User_icon-cp.svg.png',
-                    topic: 'Письмо',
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
                     text: 'Some text about fish',
+                    date: '12/12/2012'
                 },
                 {
-                    photoId: 'static/img/1200px-User_icon-cp.svg.png',
-                    topic: 'Письмо',
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
                     text: 'Some text about fish',
+                    date: '12/12/2012'
+                },{
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },{
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'unread',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
+                },
+                {
+                    status: 'read',
+                    photoId: '/static/img/avatar_32_32.svg',
+                    from: 'ivanovii@mail.ru',
+                    subject: 'Subject',
+                    text: 'Some text about fish',
+                    date: '12/12/2012'
                 },
             ],
         },
@@ -52,11 +179,11 @@ class MainView extends BaseView {
      */
     async renderPage() {
         document.title = 'Входящие';
-        this.#config.header.username = await this.#getUserInfo();
-        this.#config.content.list_letters = await this.#getEmailsInfo();
+        //this.#config.header.username = await this.#getUserInfo();
+        //this.#config.content.list_letters = await this.#getEmailsInfo();
         this.#config.content.list_letters.forEach((letter) => {
             if (!letter.photoId) {
-                letter.photoId = '../static/img/1200px-User_icon-cp.svg.png';
+                letter.photoId = '../static/img/avatar_32_32.svg';
             }
         });
         const page = new Main(this.root, this.#config);

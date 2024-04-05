@@ -27,9 +27,13 @@ export default class Main {
         const result = [];
         letters.forEach((letter) => {
             result.push(new List_letter(null, {
-                img: letter.photoId,
-                title: letter.topic,
+            
+                status: letter.status,
+                avatar: letter.photoId,
+                from: letter.from,
+                subject: letter.subject,
                 text: letter.text,
+                date: letter.date,
             }).render(),);
         });
         return result;
