@@ -10,6 +10,8 @@ import MainView from './views/main.js';
 const view = MainView;
 console.log(view);
 view.renderPage();
+// const view = new LetterView();
+// view.renderPage();
 
 // let isAuth;
 // ajax(
