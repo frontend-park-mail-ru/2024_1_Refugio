@@ -169,6 +169,10 @@
     transform: scale(0.99);
 }
 
+.menu__custom__button__wrapper {
+    position: relative;
+}
+
 .menu__custom__button {
     display: grid;
     grid-template-columns: auto auto;
@@ -221,6 +225,59 @@
 
 .menu__custom__button:active {
     transform: scale(0.99);
+}
+
+
+
+.dropdown__wrapper__edit-folder {
+    position: absolute;
+    right: 0;
+    top: 100%;
+
+    background: var(--input-background);
+    border-radius: 8px;
+    z-index: 1;
+
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+
+    margin-top: 0px;
+}
+
+.dropdown__edit-folder {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 2px;
+
+    padding: 8px;
+}
+
+.dropdown__edit-folder__profile__button,
+.dropdown__edit-folder__logout__button {
+    padding: 5px 8px 5px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.dropdown__edit-folder__profile__button:hover,
+.dropdown__edit-folder__logout__button:hover {
+    background-color: var(--secondary-button-onhover-selected);
+
+    input {
+        background-color: var(--secondary-button-onhover-selected);
+    }
+}
+
+.dropdown__edit-folder__profile__button input,
+.dropdown__edit-folder__logout__button input {
+    background-color: transparent;
+
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
 }
 
 .menu__new-folder__button {
