@@ -10,7 +10,7 @@ import MainView from './views/main.js';
 // const view = MainView;
 // console.log(view);
 // view.renderPage();
-const view = new WriteLetterView();
+const view = new ProfileView();
 view.renderPage();
 
 // let isAuth;
