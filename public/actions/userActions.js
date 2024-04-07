@@ -23,6 +23,16 @@ export const actionGetUser = () => ({
     value: {},
 })
 
+export const actionUpdateUser = (value) => ({
+    type: 'updateUser',
+    value: value,
+})
+
+export const actionGetIncoming = () => ({
+    type: 'getIncoming',
+    value: {},
+})
+
 export const actionLogout = () => ({
     type: 'logout',
     value: {},

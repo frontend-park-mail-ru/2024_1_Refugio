@@ -387,9 +387,9 @@ export default class Signup {
                 break;
             default:
                 const error = this.#parent
-                    .querySelector('.signup-container__error-sign');
+                    .querySelector('.signup__button_error');
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
-                error.classList.add('signup-container__error-sign_show');
+                error.classList.add('show');
                 break;
         }
     }

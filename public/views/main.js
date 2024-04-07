@@ -2,8 +2,9 @@ import Main from '../pages/main/main.js';
 import BaseView from './base.js';
 import ajax from '../modules/ajax.js';
 import dispathcher from '../modules/dispathcher.js';
-import { actionGetUser } from '../actions/userActions.js';
+import { actionGetUser, actionGetIncoming } from '../actions/userActions.js';
 import userStore from '../stores/userStore.js';
+import emailStore from '../stores/emailStore.js';
 
 /**
  * Класс для рендера страницы списка писем
@@ -195,8 +196,8 @@ class MainView extends BaseView {
      */
     async renderPage() {
         document.title = 'Входящие';
-        //this.#config.header.username = await this.#getUserInfo();
-        //this.#config.content.list_letters = await this.#getEmailsInfo();
+        this.#config.header.username = await this.#getUserInfo();
+        this.#config.content.list_letters = await this.#getEmailsInfo();
         this.#config.content.list_letters.forEach((letter) => {
             if (!letter.photoId) {
                 letter.photoId = '../static/img/avatar_32_32.svg';
@@ -222,11 +223,8 @@ class MainView extends BaseView {
      * @returns {Array<object>} список писем
      */
     async #getEmailsInfo() {
-        const response = await ajax(
-            'GET', 'http://89.208.223.140:8080/api/v1/emails', null, 'application/json'
-        );
-        const data = await response.json();
-        return data.body.emails;
+        await dispathcher.do(actionGetIncoming());
+        return emailStore.incoming;
     }
 }
 

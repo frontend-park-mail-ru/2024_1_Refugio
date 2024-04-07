@@ -6,20 +6,26 @@
  * @param {string} contentType contentType header
  * @returns {Promise} response for request
  */
-export default async function ajax(method, url, body = null, contentType) {
+export default async function ajax(method, url, body = null, contentType, csrf) {
     let request;
     if (method !== 'HEAD' && method !== 'GET') {
         request = new Request(url, {
             method: method,
             body: body,
-            headers: {'Content-type': contentType},
+            headers: {
+                'Content-type': contentType,
+                'X-CSRF-Token': csrf,
+            },
             credentials: 'include',
         });
     }
     else {
         request = new Request(url, {
             method: method,
-            headers: {'Content-type': contentType},
+            headers: {
+                'Content-type': contentType,
+                'X-CSRF-Token': csrf,
+            },
             credentials: 'include',
         });
     }

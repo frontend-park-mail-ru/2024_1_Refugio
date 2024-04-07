@@ -1,4 +1,5 @@
 import userStore from "../stores/userStore.js";
+import emailStore from "../stores/emailStore.js";
 import router from "../modules/router.js";
 
 const handlers = [
@@ -9,7 +10,9 @@ const handlers = [
     {type: 'signup', method: userStore.signup.bind(userStore)},
     {type: 'start', method: router.start.bind(router)},
     {type: 'getUser', method: userStore.getUser.bind(userStore)},
+    {type: 'updateUser', method: userStore.updateUser.bind(userStore)},
     {type: 'logout', method: userStore.logout.bind(userStore)},
+    {type: 'getIncoming', method: emailStore.getIncoming.bind(emailStore)},
 ];
 
 export default handlers;
