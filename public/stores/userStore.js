@@ -1,18 +1,21 @@
 import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
+import emailStore from "./emailStore.js";
 
 class UserStore {
     body
     isAuth
-
+    #csrf
+    
     constructor() {
         this.body = undefined;
         this.isAuth = false;
+        this.#csrf = undefined;
     }
 
     async verifyAuth() {
         const response = await ajax(
-            'GET', 'http://89.208.223.140:8080/api/v1/verify-auth', null, 'application/json'
+            'GET', 'http://mailhub.su:8080/api/v1/verify-auth', null, 'application/json', this.#csrf
         );
         this.isAuth = await response.status < 300;
         return this.isAuth;
@@ -20,42 +23,49 @@ class UserStore {
 
     async logout() {
         const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
+            'POST', 'http://89.208.223.140:8080/api/v1/auth/logout', null, 'application/json', this.#csrf
         );
         const status = await response.status;
         if (status < 300) {
             this.isAuth = false;
             this.body = undefined;
         }
+        emailStore.clean();
         mediator.emit('logout', status);
     }
 
     async login(newUser) {
         const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/login', JSON.stringify(newUser), 'application/json'
+            'POST', 'http://89.208.223.140:8080/api/v1/auth/login', JSON.stringify(newUser), 'application/json', this.#csrf
         );
 
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
         }
+        this.#csrf = response.headers.get('X-Csrf-Token');
         mediator.emit('login', status);
     }
 
     async signup(newUser) {
         const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/signup', JSON.stringify(newUser), 'application/json'
+            'POST', 'http://89.208.223.140:8080/api/v1/auth/signup', JSON.stringify(newUser), 'application/json', this.#csrf
         );
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
         }
+        this.#csrf = await response.headers.get('X-Csrf-Token');
         mediator.emit('signup', status);
+    }
+
+    getCsrf() {
+        return this.#csrf
     }
 
     async getUser() {
         const response = await ajax(
-            'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
+            'GET', 'http://89.208.223.140:8080/api/v1/user/get', null, 'application/json', this.#csrf
         );
         const status = await response.status;
         if (status < 300) {
@@ -64,6 +74,13 @@ class UserStore {
         }
     }
 
+    async updateUser(newUser) {
+        const response = await ajax(
+            'PUT', 'http://89.208.223.140:8080/api/v1/user/update', JSON.stringify(newUser), 'application/json', this.#csrf
+        );
+        const status = await response.status;
+        mediator.emit('updateUser', status);
+    }
 }
 
 export default new UserStore();

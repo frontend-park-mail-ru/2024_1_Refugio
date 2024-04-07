@@ -54,7 +54,7 @@
     height: 44px;
     display: grid;
     grid-template-columns: auto 48px;
-    align-content: center;
+    align-items: center;
 }
 
 .birthday__input__day__value-img p {

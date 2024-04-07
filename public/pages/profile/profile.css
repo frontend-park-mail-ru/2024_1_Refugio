@@ -1,4 +1,4 @@
-@import '../birthday-select/birthday-select.css';
+@import '../../components/birthday-select/birthday-select.css';
 @import '../../components/gender-select/gender-select.css';
 
 .profile__root {

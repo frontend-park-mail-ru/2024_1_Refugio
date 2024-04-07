@@ -123,7 +123,7 @@ export default class Login {
 
         e.preventDefault();
 
-        dispathcher.do(actionRedirect('/signup', true));
+        await dispathcher.do(actionRedirect('/signup', true));
     };
 
 
@@ -159,17 +159,19 @@ export default class Login {
 
 
     handleLoginResponse = (status) => {
+        let errorSign = this.#parent
+            .querySelector('.login__button__error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             case 401:
-                const errorSign = this.#parent
-                    .querySelector('.login-container__error-sign');
                 errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
-                errorSign.classList.add('login-container__error-sign_show');
+                errorSign.classList.add('show');
                 break;
             default:
+                errorSign.textContent = 'Ошибка на нашей стороне, уже исправляем';
+                errorSign.classList.add('show');
                 break;
         }
     }

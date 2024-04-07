@@ -5,6 +5,7 @@
     grid-row-gap: 2px;
 
     padding: 20px 16px 0 16px;
+    cursor: default;
 }
 
 .gender__select__label {
@@ -35,14 +36,16 @@
 
     height: 20px;
     width: 38px;
+
 }
 
 .cl-switch {
     position: relative;
     display: inline-block;
-
+    
     height: 100%;
     width: 100%;
+    cursor: pointer;
 }
 
 /* Input */
@@ -71,13 +74,12 @@
 .cl-switch>span::before {
     content: "";
     float: right;
-    display: inline-block;
+    display: block;
     margin: 5px 0 5px 10px;
     border-radius: 7px;
     width: 32px;
     height: 12px;
     background-color: rgb(238, 238, 238, 0.8);
-    vertical-align: top;
     transition: background-color 0.2s, opacity 0.2s;
 }
 

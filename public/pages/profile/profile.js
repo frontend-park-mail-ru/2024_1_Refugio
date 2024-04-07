@@ -4,6 +4,8 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import Birthday_Select from '../../components/birthday-select/birthday-select.js';
 import Gender_Select from '../../components/gender-select/gender-select.js';
+import dispathcher from '../../modules/dispathcher.js';
+import { actionRedirect, actionUpdateUser } from '../../actions/userActions.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -281,33 +283,7 @@ export default class Profile {
             birthday: birthday
         };
 
-        const response = await ajax(
-            'POST', 'http://89.208.223.140:8080/api/v1/profile__content__form', JSON.stringify(editedUser), 'application/json'
-        );
-
-        if (response.ok) {
-            // registration successful
-            const login = new LoginView();
-            login.renderPage();
-        } else {
-            const errorSign = this.#parent
-                .querySelector('.profile__content__form__save__button__error');
-            errorSign.classList.add('show');
-            errorSign.textContent = 'Проблемы на нашей стороне. Уже исправляем';
-        }
-
-    };
-
-    /**
-     * Функция рендера страницы авторизации
-     */
-    renderLogin = async (e) => {
-
-        e.preventDefault();
-
-        const loginView = new LoginView();
-
-        loginView.renderPage();
+        dispathcher.do(actionUpdateUser(editedUser))
     };
 
     handleCheckbox(e) {
@@ -386,22 +362,7 @@ export default class Profile {
                         console.log('profile');
                     } else {
                         if (document.querySelector('.dropdown__profile-menu__logout__button').contains(target)) {
-                            (async () => {
-                                await (async () => {
-                                    const response = await ajax(
-                                        'POST', 'http://89.208.223.140:8080/api/v1/logout', null, 'application/json'
-                                    );
-                                    const status = await response.status;
-                                    if (status < 300) {
-                                        const login = new LoginView();
-                                        login.renderPage();
-                                    } else {
-                                        const main = new MainView();
-                                        await main.renderPage();
-                                    }
-                                })();
-                            })();
-
+                            this.handleExit();
                         }
                     }
                 }
@@ -411,6 +372,11 @@ export default class Profile {
         if (!hasTarget) {
             hideAllDropdowns();
         }
+    };
+
+    handleExit = async (e) => {
+        e.preventDefault();
+        await dispathcher.do(actionLogout());
     };
 
     /**
@@ -430,6 +396,8 @@ export default class Profile {
 
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
+        mediator.on('logout', this.handleExitResponse);
+        mediator.on('updateUser', this.handleUpdateResponse);
     }
 
     /**
@@ -449,5 +417,30 @@ export default class Profile {
 
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
+        mediator.on('logout', this.handleExitResponse)
+    }
+
+    handleExitResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                break;
+        }
+    }
+
+    handleUpdateResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/main', true));
+                break;
+            default:
+                const error = this.#parent
+                    .querySelector('.profile__content__form__save__button__error');
+                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.classList.add('show');
+                break;
+        }
     }
 }
