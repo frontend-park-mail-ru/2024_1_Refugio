@@ -1,49 +1,60 @@
 .list-letter {
-    height: min-content;
-    padding: 5px 20px 5px 20px;
     display: grid;
-    background-color: #210652;
-    border: 2px solid #ffffff40;
-    border-radius: 25px;
+    grid-template-columns: repeat(2, auto);
+    justify-content: space-between;
+    align-content: center;
 
-    grid-template-areas:
-        "list-letter__img   list-letter__title"
-        "list-letter__img   list-letter__text";
-
-    grid-template-columns: min-content 1fr;
-    grid-template-rows: 2fr 3fr;
-    row-gap: 10px;
-    column-gap: 20px;
+    padding: 0 8px;
+    height: 48px;
 
     cursor: pointer;
+    transition: all 0.1s ease;
 }
 
 .list-letter:hover {
-    box-shadow: 2px 2px 10px 0px #ffffff55;
+    background-color: var(--main-button-secondary);
+    border-radius: 8px;
 }
 
-.list-letter__img {
-    grid-area: list-letter__img;
+.list-letter:active {
+    transform: scale(0.99);
+}
 
-    width: 75px;
-    height: 75px;
-    border: 1px;
-    border-radius: 100%;
-    display: flex;
+.list-letter__status-avatar-from-subject-text-group {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    gap: 8px;
+    justify-content: start;
     align-items: center;
-    justify-content: center;
 }
 
-.list-letter__title {
-    font-size: 120%;
-    font-weight: 300;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.list-letter__status {
+    width: 16px;
+    height: 16px;
+    transition: all 0.1s ease;
+}
+
+.list-letter__status:hover {
+    background-color: var(--main-button-secondary);
+    border-radius: 100px;
 }
 
 .list-letter__text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.list-letter__white-text {
+    color: var(--text);
+
+}
+
+.list-letter__gray-text {
+    color: var(--input-placeholder);
+}
+
+.list-letter_date {
+    align-content: center;
 }

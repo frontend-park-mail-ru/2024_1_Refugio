@@ -1,0 +1,413 @@
+.write__letter__root {
+    display: grid;
+    grid-template-areas:
+        'header header'
+        'menu content';
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+    align-content: start;
+
+    background-color: black;
+
+    height: 100%;
+}
+
+
+.write__letter__content__wrapper {
+    grid-area: content;
+}
+
+.write__letter__content {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+
+    margin-right: 16px;
+
+    background-color: var(--box-background);
+    border-radius: 8px;
+}
+
+
+.write__letter__content__header {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+}
+
+.write__letter__content__header__to {
+    display: grid;
+    grid-template-areas:
+        'label input'
+        'error error';
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 8px;
+    justify-content: start;
+    align-items: center;
+
+    margin: 8px 16px 0;
+}
+
+.write__letter__content__header__to__label {
+    grid-area: label;
+
+    color: var(--input-label-counter-icon);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.write__letter__content__header__to__input {
+    grid-area: input;
+
+    background-color: var(--input-background);
+    border-radius: 8px;
+
+    padding: 8px 12px;
+
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    line-height: 20px;
+
+}
+
+.write__letter__content__header__to__input::placeholder {
+    color: text(--input-placeholder);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    line-height: 20px;
+}
+
+.write__letter__content__header__to__input:focus {
+    outline: none;
+}
+
+.write__letter__content__header__to__error {
+    grid-area: error;
+    margin-left: 52px;
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+
+    overflow-wrap: anywhere;
+}
+
+.write__letter__content__header__subject {
+    display: grid;
+    grid-template-areas:
+        'label input'
+        'error error';
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 8px;
+    justify-content: start;
+    align-items: center;
+
+    margin: 8px 16px 0;
+}
+
+.write__letter__content__header__subject__label {
+    grid-area: label;
+
+    color: var(--input-label-counter-icon);
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.write__letter__content__header__subject__input {
+    grid-area: input;
+
+    background-color: var(--input-background);
+    border-radius: 8px;
+
+    padding: 8px 12px;
+
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    line-height: 20px;
+
+}
+
+.write__letter__content__header__subject__input::placeholder {
+    color: text(--input-placeholder);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0px;
+    line-height: 20px;
+}
+
+.write__letter__content__header__subject__input:focus {
+    outline: none;
+}
+
+.write__letter__content__header__subject__error {
+    grid-area: error;
+    margin-left: 52px;
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+
+    overflow-wrap: anywhere;
+}
+
+.write__letter__content__header__attachments {
+    display: grid;
+    grid-template-areas:
+        'attach view delete-all'
+        'error error error';
+    justify-content: start;
+    grid-column-gap: 8px;
+
+    padding: 8px 0 8px 68px;
+}
+
+.write__letter__content__header__attachments__attach-button {
+    grid-area: attach;
+
+    padding: 4px 16px;
+    height: 30px;
+    width: fit-content;
+    background-color: transparent;
+    border-radius: 8px;
+    align-content: center;
+
+    cursor: pointer;
+    transition: all 0.1s ease;
+
+    input {
+        background-color: transparent;
+
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 18px;
+
+        cursor: pointer;
+        transition: all 0.1s ease;
+    }
+}
+
+.write__letter__content__header__attachments__view-button {
+    grid-area: view;
+
+    display: grid;
+    grid-template-columns: auto auto;
+    align-content: center;
+
+    margin-left: 68px;
+    padding: 4px 16px;
+    height: 30px;
+    width: fit-content;
+    background-color: transparent;
+    border-radius: 8px;
+    align-content: center;
+
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.1s ease;
+
+    input {
+        background-color: transparent;
+
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 18px;
+
+        cursor: pointer;
+        transition: all 0.1s ease;
+    }
+
+    span {
+        padding: 2px 0 0 8px;
+        color: var(--input-label-counter-icon);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 18px;
+    }
+}
+
+.write__letter__content__header__attachments__delete-all-button {
+    grid-area: delete-all;
+    margin-left: 8px;
+    padding: 4px 8px;
+    height: 30px;
+    width: fit-content;
+    background-color: transparent;
+    border-radius: 8px;
+    align-content: center;
+
+    cursor: pointer;
+    transition: all 0.1s ease;
+
+    input {
+        background-color: transparent;
+
+        color: var(--input-placeholder);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 18px;
+
+        cursor: pointer;
+        transition: all 0.1s ease;
+    }
+}
+
+.write__letter__content__header__attachments__error {
+    grid-area: error;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+
+    overflow-wrap: anywhere;
+}
+
+.write__letter__content__header__attachments__attach-button:hover,
+.write__letter__content__header__attachments__view-button:hover,
+.write__letter__content__header__attachments__delete-all-button:hover,
+.write__letter__content__process-buttons__save-draft-button:hover,
+.write__letter__content__process-buttons__cancel-button:hover {
+    background-color: var(--main-button-secondary)
+}
+
+.write__letter__content__header__attachments__attach-button:active,
+.write__letter__content__header__attachments__view-button:active,
+.write__letter__content__header__attachments__delete-all-button:active,
+.write__letter__content__process-button:active {
+    transform: scale(0.99);
+}
+
+
+.write__letter__content__text__wrapper {
+    margin: 0 4px;
+    /* overflow: auto; */
+    max-height: 620px;
+}
+
+/* .write__letter__content__text {
+    padding: 8px 20px 8px 20px;
+    background-color: var(--input-background);
+} */
+
+.write__letter__content__text__textarea {
+
+    padding: 8px 20px 8px 20px;
+    background-color: var(--input-background);
+
+    resize: ver;
+    width: 100%;
+    overflow:auto;
+    resize: none;
+
+    height: 610px;
+
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.write__letter__content__text__textarea::placeholder {
+    color: var(--input-placeholder);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.write__letter__content__text__textarea:focus {
+    outline: none;
+}
+
+
+.write__letter__content__text__textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+.write__letter__content__text__textarea::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.write__letter__content__text__textarea::-webkit-scrollbar-thumb {
+    max-width: 2px;
+    background-color: var(--input-label-counter-icon);
+    border-radius: 12px;
+}
+
+.write__letter__content__process-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 8px;
+    justify-content: left;
+
+    padding: 16px 20px;
+}
+
+.write__letter__content__process-button {
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.1s ease;
+    align-content: center;
+
+    input {
+        background-color: transparent;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 20px;
+        cursor: pointer;
+        transition: all 0.1s ease;
+    }
+}
+
+.write__letter__content__process-buttons__send-button {
+    margin-right: 16px;
+    padding: 10px 20px;
+    background-color: white;
+
+    input {
+        color: var(--main-button-secondary);
+    }
+
+
+}
+
+.write__letter__content__process-buttons__save-draft-button,
+.write__letter__content__process-buttons__cancel-button {
+    padding: 10px 12px;
+    background-color: transparent;
+
+    input {
+        color: var(--text);
+    }
+}
+
+.write__letter__content__process-buttons__send-button:hover {
+    background-color: var(--main-button-hover);
+}

@@ -41,73 +41,71 @@ export default class Login {
     handleLogin = async (e) => {
         e.preventDefault();
 
-        const emailInput = document.querySelector('.login-container__input[type="email"]');
-        const passwordInput = document.querySelector('.login-container__input[type="password"][placeholder="Пароль"]');
+        const emailInput = document.querySelector('.login__email__input');
+        const passwordInput = document.querySelector('.login__password__input');
 
         const email = emailInput.value.trim();
         const password = passwordInput.value;
+
         let oldError = this.#parent
-            .querySelector('.login-container__error-email');
-        oldError.classList.remove('login-container__error-sign_show');
+            .querySelector('.login__email__error');
+        oldError.classList.remove('show');
+        oldError = emailInput;
+        oldError.classList.remove('auth__input-backgroud-error');
         oldError = this.#parent
-            .querySelector('.login-container__error-password');
-        oldError.classList.remove('login-container__error-sign_show');
+            .querySelector('.login__password__error');
+        oldError.classList.remove('show');
+        oldError = passwordInput;
+        oldError.classList.remove('auth__input-backgroud-error');
         oldError = this.#parent
-            .querySelector('.login-container__error-sign');
-        oldError.classList.remove('login-container__error-sign_show');
-        let err = false;
+            .querySelector('.login__button__error');
+        oldError.classList.remove('show');
 
-
-        const emailRegex = /^[a-zA-Z0-9\._-]+@[a-z0-9-]+\.[a-z]+$/;
-        if (!emailRegex.test(email)) {
-            const error = this.#parent
-                .querySelector('.login-container__error-email');
-            error.textContent = 'Email не содержит @ и . или использует недопустимые символы';
-            error.classList.add('login-container__error-sign_show');
-            err = true;
-        }
-        if (email.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.login-container__error-email');
-            error.textContent = 'Email должен быть меньше 65 символов';
-            error.classList.add('login-container__error-sign_show');
-            err = true;
-        }
-
-        const passwordRegex = /^[a-zA-Z0-9`~!@#$%^&*(),\.;'\[\]<>?:"{}|\\\/]+$/;
-        if (!passwordRegex.test(password)) {
-            const error = this.#parent
-                .querySelector('.login-container__error-password');
-            error.textContent = "В пароле только латинские буквы и символы:`~!@#$%^&*(),.;'[]<>?:\"{}|\/\\";
-            error.classList.add('login-container__error-sign_show');
-            err = true;
-        }
-        if (password.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.login-container__error-password');
-            error.textContent = "Пароль должен быть меньше 65 символов";
-            error.classList.add('login-container__error-sign_show');
-            err = true;
-        }
         if (!email) {
             const error = this.#parent
-                .querySelector('.login-container__error-email');
-            error.textContent = 'Поле должно быть заполнено';
-            error.classList.add('login-container__error-sign_show');
-            err = true;
+                .querySelector('.login__email__error');
+            error.textContent = 'Введите имя ящика';
+            error.classList.add('show');
+            emailInput.classList.add('auth__input-backgroud-error');
+            return;
         }
 
         if (!password) {
             const error = this.#parent
-                .querySelector('.login-container__error-password');
-            error.textContent = 'Поле должно быть заполнено';
-            error.classList.add('login-container__error-sign_show');
-            err = true;
-        }
-        if (err) {
+                .querySelector('.login__password__error');
+            error.textContent = 'Введите пароль';
+            error.classList.add('show');
+            passwordInput.classList.add('auth__input-backgroud-error');
             return;
         }
 
+        if (email.length > MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.login__email__error');
+            error.textContent = 'Слишком длинное имя ящика';
+            error.classList.add('show');
+            emailInput.classList.add('auth__input-backgroud-error');
+            return;
+        }
+
+        if (password.length > 4 * MAX_INPUT_LENGTH) {
+            const error = this.#parent
+                .querySelector('.login__password__error');
+            error.textContent = 'Слишком длинный пароль';
+            error.classList.add('show');
+            passwordInput.classList.add('auth__input-backgroud-error');
+            return;
+        }
+
+        const emailLoginRegex = /^[a-zA-Z0-9!@\$%\^&\*\(\)-_=\+`~,.<>;:'"\/?\[\]{}\\\|]*$/;
+        if (!emailLoginRegex.test(email)) {
+            const error = this.#parent
+                .querySelector('.login__email__error');
+            error.textContent = 'Недопустимые символы';
+            error.classList.add('show');
+            emailInput.classList.add('auth__input-backgroud-error');
+            return
+        }
 
         // create JSON object with user data
         const newUser = {
@@ -134,11 +132,11 @@ export default class Login {
      */
     addListeners() {
         this.#parent
-            .querySelector('.login-container__login-btn')
+            .querySelector('.login__button')
             .addEventListener('click', this.handleLogin);
 
         this.#parent
-            .querySelector('.login-container__signup-ref')
+            .querySelector('.login__switch-authorization-method__passive')
             .addEventListener('click', this.renderSignup);
 
         mediator.on('login', this.handleLoginResponse);
@@ -149,15 +147,16 @@ export default class Login {
     */
     removeListeners() {
         this.#parent
-            .querySelector('.login-container__login-btn')
-            .removeEventListener('click', this.handleLogin);
+            .querySelector('.login__button')
+            .addEventListener('click', this.handleLogin);
 
         this.#parent
-            .querySelector('.login-container__signup-ref')
+            .querySelector('.login__switch-authorization-method__passive')
             .addEventListener('click', this.renderSignup);
 
         mediator.off('login', this.handleLoginResponse);
     }
+
 
     handleLoginResponse = (status) => {
         switch (status) {

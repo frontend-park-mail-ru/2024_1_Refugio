@@ -1,43 +1,66 @@
 @import 'pages/main/main.css';
 @import 'pages/login/login.css';
 @import 'pages/signup/signup.css';
+@import 'pages/profile/profile.css';
+@import 'pages/letter/letter.css';
+@import 'pages/write-letter/write-letter.css';
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(static/fonts/Roboto-Thin.ttf);
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url(static/fonts/Roboto-Light.ttf);
+    font-weight: 300;
+    font-style: normal;
+}
 
 @font-face {
     font-family: 'Roboto';
     src: url(static/fonts/Roboto-Regular.ttf);
-    font-weight: normal;
+    font-weight: 400;
     font-style: normal;
 }
+
 @font-face {
     font-family: 'Roboto';
     src: url(static/fonts/Roboto-Medium.ttf);
     font-weight: 500;
     font-style: normal;
 }
-@font-face {
-    font-family: 'Roboto';
-    src: url(static/fonts/Roboto-Italic.ttf);
-    font-weight: normal;
-    font-style: italic;
-}
+
 @font-face {
     font-family: 'Roboto';
     src: url(static/fonts/Roboto-Bold.ttf);
-    font-weight: bold;
+    font-weight: 700;
     font-style: normal;
 }
- 
+
 @font-face {
     font-family: 'Roboto';
-    src: url(static/fonts/Roboto-BoldItalic.ttf);
-    font-weight: bold;
-    font-style: italic;
+    src: url(static/fonts/Roboto-Black.ttf);
+    font-weight: 900;
+    font-style: normal;
 }
 
-body {
-    font-family: Roboto;
-    background-color: black;
-    color: white;
+:root {
+    --background: black;
+    --box-background: #191919;
+    --main-button-secondary: #2d2d2d;
+    --input-background: #323232;
+    --mail-selected: #393939;
+    --secondary-button-onhover-selected: #4b4b4b;
+    --input-placeholder: #757575;
+    --input-label-counter-icon: #808080;
+    --text: #ededed;
+    --main-button-hover: #ededed;
+
+    --negative: #ff4747;
+    --error-input-placeholder: #522e2e;
 }
 
 * {
@@ -45,4 +68,38 @@ body {
     padding: 0;
     border: none;
     box-sizing: border-box;
+}
+
+body {
+    font-family: Roboto;
+    background-color: var(--background);
+    color: var(--text);
+    /*line-height: 1.6;*/
+}
+
+#root {
+    height: 100vh;
+}
+
+input:-webkit-autofill,
+input:autofill {
+    filter: invert(1);
+    filter: brightness(86%) grayscale(100%) invert(1);
+}
+
+.show {
+    visibility: visible;
+}
+
+.remove {
+    visibility: hidden;
+    position: absolute;
+}
+
+.auth__input-backgroud-error {
+    background-color: var(--error-input-placeholder);
+}
+
+.auth__input-backgroud-error::placeholder {
+    visibility: hidden;
 }

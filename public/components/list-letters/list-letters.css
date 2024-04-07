@@ -1,4 +1,24 @@
-.no-letters-banner {
+.list-letters {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(48px, auto));
+    height: 800px;
+    overflow-y: auto;
+}
+
+.list-letters::-webkit-scrollbar {
+    width: 6px;
+}
+
+.list-letters::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.list-letters::-webkit-scrollbar-thumb {
+    background-color: var(--input-label-counter-icon);
+    border-radius: 12px;
+}
+
+.list-letters_empty-banner {
     display: grid;
     align-items: center;
     justify-items: center;

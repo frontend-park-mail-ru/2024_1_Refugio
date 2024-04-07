@@ -1,34 +1,28 @@
-<div class="login-container">
+<div class="login__box">
 
-    <div class="login-container__sign">
-        <div class="login-container__obertka">
-            <div class="login-container__current">
-                <span>Вход в аккаунт</span>
-            </div>
-            <div class="login-container__signup-ref">
-                <span>Создание ящика</span>
-            </div>
-        </div>
+    <div class="login__switch-authorization-method">
+        <p class="login__switch-authorization-method__active">Вход в аккаунт</p>
+        <p class="login__switch-authorization-method__passive">Создание ящика</p>
     </div>
-    <form action="" class="login-container__form">
-        <div class="login-container__email">
-            <label class="login-container__label" for="email">
-                Имя ящика
-            </label>
-            <input class="login-container__input" type="email" placeholder="Email" id="email">
-            <div class="login-container__error-email">Ошибка на нашей стороне. Уже исправляем!</div>
+
+
+    <div class="login__email__input-group">
+        <label>Имя ящика</label>
+        <input type="email" class="login__email__input" placeholder="ivanovivan@mail.ru">
+        <p class="login__email__error">Ошибка</p>
+    </div>
+
+    <div class="login__password__input-group">
+        <label>Пароль</label>
+        <input type="password" class="login__password__input" placeholder="●●●●●●●●">
+        <p class="login__password__error">Ошибка</p>
+    </div>
+
+    <div class="login__button-group">
+        <div class="login__button">
+            <input type="button" value="Войти">
         </div>
-        <div class="login-container__password">
-            <label class="login-container__label" for="password">
-                Пароль
-            </label>
-            <input class="login-container__input" type="password" placeholder="Пароль" id="password">
-            <div class="login-container__error-password">Ошибка на нашей стороне. Уже исправляем!</div>
-        </div>
-        <div class="login-container__login">
-            <div id="loginBtn" class="login-container__login-btn" type="submit">Войти</div>
-        </div>
-        <div class="login-container__error-sign">Ошибка на нашей стороне. Уже исправляем!</div>
-    </form>
+        <p class="login__button__error">Ошибка</p>
+    </div>
 
 </div>

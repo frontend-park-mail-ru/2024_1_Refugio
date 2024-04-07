@@ -1,173 +1,202 @@
-.login-container {
+.login__box {
     grid-area: login-box;
-    background-color: #191919;
 
     display: grid;
-    grid-template-areas: 'login-container__sign'
-        'login-container__form';
+    grid-template-rows: repeat(4, auto);
 
     padding: 32px 16px 6px 16px;
-    border-radius: 8px;
-    max-width: 354px;
-}
 
-.login-container__sign {
-    display: grid;
-    grid-area: login-container__sign;
-    padding: 0px 16px 24px;
-}
+    max-height: 764px;
+    width: 392px;
 
-.login-container__obertka {
-    justify-self: stretch;
-    display: grid;
-    grid-template-areas: 'cur reg';
-    background-color: #323232;
+    background-color: var(--box-background);
     border-radius: 8px;
 }
 
-.login-container__current {
-    grid-area: cur;
+.login__switch-authorization-method {
+
     display: grid;
-    align-items: center;
-    justify-items: center;
-    padding: 10px 16px;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2px;
 
-    border-radius: 8px;
-    background-color: #4B4B4B;
+    margin: 0 16px 40px 16px;
+    padding: 2px;
 
-    line-height: 20px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #EDEDED;
-    text-align: center;
-    white-space: nowrap;
+    height: 44px;
 
-    cursor: default;
+    background-color: var(--input-background);
+    border-radius: 10px;
+
+    p {
+        display: grid;
+        place-items: center;
+
+        border-radius: 8px;
+
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 20px;
+    }
 }
 
-.login-container__signup-ref {
-    grid-area: reg;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    padding: 10px 16px;
+.login__switch-authorization-method__active {
+    background-color: var(--secondary-button-onhover-selected);
+}
 
-    border-radius: 8px;
-    background-color: #323232;
-
-    line-height: 20px;
-    font-size: 15px;
-    font-weight: 500;
-    color: #757575;
-    white-space: nowrap;
+.login__switch-authorization-method__passive {
+    color: var(--input-placeholder);
 
     cursor: pointer;
 }
 
-.login-container__form {
-    grid-area: login-container__form;
-    display: grid;
-    grid-template-areas:
-        'login-container__email'
-        'login-container__password'
-        'login-container__login-btn'
-        'login-container__error-sign';
+.login__switch-authorization-method__passive:active {
+    transform: scale(0.99);
 }
 
-.login-container__email {
-    grid-area: login-container__email;
+
+.login__email__input-group,
+.login__password__input-group {
     display: grid;
     grid-template-areas:
         'label'
         'input'
         'error';
-
-    padding: 18px 16px 0px 16px;
+    grid-row-gap: 2px;
 }
 
-.login-container__password {
-    grid-area: login-container__password;
-    display: grid;
-    grid-template-areas:
-        'label'
-        'input'
-        'error';
-
-    padding: 18px 16px 0px 16px;
+.login__email__input-group,
+.login__password__input-group {
+    padding: 2px 16px 0 16px;
 }
 
-.login-container__label {
+.login__email__input-group label,
+.login__password__input-group label {
     grid-area: label;
+
+    margin-top: 2px;
+
+    color: var(--input-label-counter-icon);
     font-size: 14px;
-    color: #808080;
-    justify-self: start;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
 }
 
-.login-container__input {
+.login__email__input {
     grid-area: input;
-    border-radius: 8px;
+
     padding: 12px;
-    background-color: #323232;
 
+    background-color: var(--input-background);
+    border-radius: 8px;
+
+    color: var(--text);
     font-size: 16px;
-    color: #EDEDED;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
 }
 
-.login-container__input::placeholder {
-    color: #757575;
-    font-family: Roboto;
-    font-size: 16px;
+.login__password__input {
+    grid-area: input;
+
+    padding: 12px;
+
+    height: 44px;
+    width: 328px;
+
+    background-color: var(--input-background);
+    border-radius: 8px;
+
+    color: var(--text);
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 20px;
 }
 
-.login-container__login {
-    grid-area: login-container__login-btn;
+.login__email__input::placeholder,
+.login__password__input::placeholder {
+    color: var(--input-placeholder);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.login__email__input:focus,
+.login__password__input:focus {
+    outline: none;
+}
+
+.login__email__error,
+.login__password__error,
+.login__button__error {
+    grid-area: error;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+
+    overflow-wrap: anywhere;
+}
+
+.login__button-group {
     display: grid;
-    padding: 26px 16px 8px;
+    grid-template-areas:
+        'button'
+        'error';
+
+    margin-top: 26px;
+    padding: 0 16px 0 16px;
+
+    text-align: center;
 }
 
-.login-container__login-btn {
+.login__button {
+    grid-area: button;
+
+    margin-bottom: 8px;
+    padding: 10px 16px 10px 16px;
+
+    height: 36px;
+
+    background-color: white;
+    border-radius: 8px;
+
+    color: var(--main-button-secondary);
     font-size: 15px;
     font-weight: 500;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    color: #2D2D2D;
-    padding: 10px 16px;
-    text-align: center;
+    letter-spacing: 0;
+    line-height: 20px;
 
     cursor: pointer;
-    transition: background-color 0.1s ease;
 }
 
-.login-container__login-btn:hover {
-    background-color: #EDEDED;
+.login__button:hover {
+    background-color: var(--main-button-hover);
+    input {
+        background-color: var(--main-button-hover);
+    }
 }
 
-
-.login-container__error-sign {
-    grid-area: login-container__error-sign;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
-    padding: 0px 16px;
+.login__button:active {
+    transform: scale(0.99);
 }
 
-.login-container__error-email {
-    grid-area: error;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
-}
+.login__button input {
+    background-color: white;
 
-.login-container__error-password {
-    grid-area: error;
-    visibility: hidden;
-    color: #FF4747;
-    font-size: 13px;
-    text-align: start;
-}
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
 
-.login-container__error-sign_show {
-    visibility: visible;
+    cursor: pointer;
 }
