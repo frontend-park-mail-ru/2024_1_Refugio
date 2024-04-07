@@ -304,8 +304,8 @@
 
 .write__letter__content__text__wrapper {
     margin: 0 4px;
-    overflow: auto;
-    max-height: 520px;
+    /* overflow: auto; */
+    max-height: 620px;
 }
 
 /* .write__letter__content__text {
@@ -320,10 +320,10 @@
 
     resize: ver;
     width: 100%;
-    overflow:hidden;
+    overflow:auto;
     resize: none;
 
-    height: 72px;
+    height: 610px;
 
     color: var(--text);
     font-size: 16px;
@@ -345,15 +345,15 @@
 }
 
 
-.write__letter__content__text__wrapper::-webkit-scrollbar {
+.write__letter__content__text__textarea::-webkit-scrollbar {
     width: 6px;
 }
 
-.write__letter__content__text__wrapper::-webkit-scrollbar-track {
+.write__letter__content__text__textarea::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-.write__letter__content__text__wrapper::-webkit-scrollbar-thumb {
+.write__letter__content__text__textarea::-webkit-scrollbar-thumb {
     max-width: 2px;
     background-color: var(--input-label-counter-icon);
     border-radius: 12px;

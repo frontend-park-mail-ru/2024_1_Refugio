@@ -7,11 +7,11 @@ import MainView from './views/main.js';
 
 // dispathcher.do(actionStart());
 
-const view = MainView;
-console.log(view);
-view.renderPage();
-// const view = new LetterView();
+// const view = MainView;
+// console.log(view);
 // view.renderPage();
+const view = new ProfileView();
+view.renderPage();
 
 // let isAuth;
 // ajax(
