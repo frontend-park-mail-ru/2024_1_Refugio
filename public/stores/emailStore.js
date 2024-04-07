@@ -14,7 +14,7 @@ class emaillStore {
 
     async getIncoming() {
         const response = await ajax(
-            'GET', 'http://89.208.223.140:8080/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
+            'GET', 'http://mailhub.su:8080/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
         this.incoming = data.body.emails;
