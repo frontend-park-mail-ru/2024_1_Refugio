@@ -1,11 +1,10 @@
-import ajax from '../../modules/ajax.js';
-import LoginView from '../../views/login.js';
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import Birthday_Select from '../../components/birthday-select/birthday-select.js';
 import Gender_Select from '../../components/gender-select/gender-select.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionRedirect, actionUpdateUser } from '../../actions/userActions.js';
+import mediator from '../../modules/mediator.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -417,7 +416,8 @@ export default class Profile {
 
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
+        mediator.off('logout', this.handleExitResponse)
+        mediator.off('updateUser', this.handleUpdateResponse);
     }
 
     handleExitResponse = (status) => {
