@@ -3,7 +3,7 @@ import Header from '../../components/header/header.js';
 import Birthday_Select from '../../components/birthday-select/birthday-select.js';
 import Gender_Select from '../../components/gender-select/gender-select.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionRedirect, actionUpdateUser } from '../../actions/userActions.js';
+import { actionRedirect, actionUpdateUser, actionLogout } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 
 
@@ -297,7 +297,7 @@ export default class Profile {
     }
 
     handleDropdowns(e) {
-        const target = event.target;
+        const target = e.target;
 
         if (document.querySelector('.birthday__input__day__value-img') === null) { return; }
 
@@ -359,10 +359,6 @@ export default class Profile {
                 } else {
                     if (document.querySelector('.dropdown__profile-menu__profile__button').contains(target)) {
                         console.log('profile');
-                    } else {
-                        if (document.querySelector('.dropdown__profile-menu__logout__button').contains(target)) {
-                            this.handleExit();
-                        }
                     }
                 }
             }
@@ -385,7 +381,9 @@ export default class Profile {
         this.#parent
             .querySelector('.profile__content__form__save__button')
             .addEventListener('click', this.handleSaveForm);
-
+        this.#parent
+            .querySelector('.dropdown__profile-menu__logout__button')
+            .addEventListener('click', this.handleExit);
         // this.#parent
         //     .querySelector('.profile__content__form__switch-authorization-method__passive')
         //     .addEventListener('click', this.renderLogin);

@@ -51,6 +51,10 @@ export default class Main {
         dispathcher.do(actionRedirect('/profile', true));
     };
 
+    handleWriteLetter = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/write_letter', true));
+    };
     /**
      * Добавляет листенеры на компоненты
      */
@@ -61,6 +65,9 @@ export default class Main {
         this.#parent
             .querySelector('.dropdown__profile-menu__profile__button')
             .addEventListener('click', this.handleProfile);
+        this.#parent
+            .querySelector('.menu__write-letter__button')
+            .addEventListener('click', this.handleWriteLetter);
         mediator.on('logout', this.handleExitResponse)
     }
 

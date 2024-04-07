@@ -57,7 +57,7 @@ export default class Signup {
         const lastName = lastNameInput.value.trim();
         const birthday = new Date(birthdayYear, monthIndex, birthdayDay);
 
-        const gender = genderInput.checked ? 'female' : 'male';
+        const gender = genderInput.checked ? 'Female' : 'Male';
         const email = emailInput.value.trim();
         const password = passwordInput.value;
         const passwordConfirm = passwordConfirmInput.value;
