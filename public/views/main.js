@@ -1,6 +1,5 @@
 import Main from '../pages/main/main.js';
 import BaseView from './base.js';
-import ajax from '../modules/ajax.js';
 import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser, actionGetIncoming } from '../actions/userActions.js';
 import userStore from '../stores/userStore.js';

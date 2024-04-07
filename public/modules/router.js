@@ -2,6 +2,8 @@ import LoginView from "../views/login.js";
 import MainView from "../views/main.js";
 import SignupView from "../views/signup.js";
 import userStore from "../stores/userStore.js";
+import ProfileView from "../views/profile.js";
+import writeLetter from "../views/write-letter.js";
 
 class Router {
     #views
@@ -17,6 +19,8 @@ class Router {
         this.#views.set('/signup', SignupView)
 
         this.#authViews.set('/main', MainView)
+        this.#authViews.set('/profile', ProfileView)
+        this.#authViews.set('/write_letter', writeLetter)
     }
 
     navigate({ path, state = '', pushState }) {

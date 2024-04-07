@@ -1,12 +1,11 @@
 import Profile from '../pages/profile/profile.js';
 import BaseView from './base.js';
-import ajax from '../modules/ajax.js';
 
 /**
  * Класс для рендера страницы логина
  * @class
  */
-export default class ProfileView extends BaseView {
+class ProfileView extends BaseView {
     #config = {
         menu: {},
         header: {
@@ -26,7 +25,7 @@ export default class ProfileView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
-        this.clear();
+        document.title = 'Профиль';
         this.#config.header.avatar = await this.#getUserAvatar();
         const page = new Profile(this.root, this.#config);
         this.components.push(page);
@@ -49,3 +48,5 @@ export default class ProfileView extends BaseView {
     }
 
 }
+
+export default new ProfileView();

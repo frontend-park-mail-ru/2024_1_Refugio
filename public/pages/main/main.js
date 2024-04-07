@@ -46,13 +46,28 @@ export default class Main {
         await dispathcher.do(actionLogout());
     };
 
+    handleProfile = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/profile', true));
+    };
+
+    handleWriteLetter = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/write_letter', true));
+    };
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
         this.#parent
-            .querySelector('.header__exit')
+            .querySelector('.dropdown__profile-menu__logout__button')
             .addEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.dropdown__profile-menu__profile__button')
+            .addEventListener('click', this.handleProfile);
+        this.#parent
+            .querySelector('.menu__write-letter__button')
+            .addEventListener('click', this.handleWriteLetter);
         mediator.on('logout', this.handleExitResponse)
     }
 
@@ -61,7 +76,7 @@ export default class Main {
      */
     removeListeners() {
         this.#parent
-            .querySelector('.header__exit')
+            .querySelector('.dropdown__profile-menu__logout__button')
             .removeEventListener('click', this.handleExit);
         mediator.off('logout', this.handleExitResponse)
     }

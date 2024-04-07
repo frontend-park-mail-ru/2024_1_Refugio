@@ -1,13 +1,11 @@
-import Letter from '../pages/letter/letter.js';
 import BaseView from './base.js';
-import ajax from '../modules/ajax.js';
 import Write__Letter from '../pages/write-letter/write-letter.js';
 
 /**
  * Класс для рендера страницы логина
  * @class
  */
-export default class WriteLetterView extends BaseView {
+class WriteLetterView extends BaseView {
     #config = {
         menu: {},
         header: {
@@ -50,3 +48,5 @@ export default class WriteLetterView extends BaseView {
     }
 
 }
+
+export default new WriteLetterView();
