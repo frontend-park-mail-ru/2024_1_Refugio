@@ -25,7 +25,7 @@ class WriteLetterView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
-        this.clear();
+        document.title = 'Новое письмо';
         this.#config.header.avatar = await this.#getUserAvatar();
         const page = new Write__Letter(this.root, this.#config);
         this.components.push(page);

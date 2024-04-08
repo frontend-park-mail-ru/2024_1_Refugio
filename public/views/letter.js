@@ -1,6 +1,8 @@
 import Letter from '../pages/letter/letter.js';
 import BaseView from './base.js';
-import ajax from '../modules/ajax.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetEmail } from '../actions/userActions.js';
+import emailStore from '../stores/emailStore.js';
 
 /**
  * Класс для рендера страницы логина
@@ -12,22 +14,24 @@ export default class LetterView extends BaseView {
         header: {
             avatar: '',
         },
+        letterNumber: undefined,
     }
 
     /**
          * Конструктор класса
          * @constructor
          */
-    constructor() {
+    constructor(letterNumber) {
         super();
+        this.#config.letterNumber = letterNumber;
     }
 
     /**
      * Функция рендера страницы
      */
     async renderPage() {
-        this.clear();
-        this.#config.header.avatar = await this.#getUserAvatar();
+        this.#config.email = await this.#getEmailInfo();
+        document.title = this.#config.email.topic;
         const page = new Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
@@ -46,6 +50,11 @@ export default class LetterView extends BaseView {
         // return data.body.user.name;
         return "avatar path";
 
+    }
+
+    async #getEmailInfo() {
+        await dispathcher.do(actionGetEmail(this.#config.letterNumber));
+        return emailStore.email;
     }
 
 }

@@ -29,6 +29,7 @@ export default class List_letter {
             subject: this.#config.subject,
             text: this.#config.text,
             date: this.#config.date,
+            id: this.#config.id,
         };
         return template(letter);
     }

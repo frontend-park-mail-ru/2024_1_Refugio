@@ -28,12 +28,13 @@ export default class Main {
         letters.forEach((letter) => {
             result.push(new List_letter(null, {
             
-                status: letter.status,
+                status: letter.readStatus,
                 avatar: letter.photoId,
-                from: letter.from,
-                subject: letter.subject,
+                from: letter.senderEmail,
+                subject: letter.topic,
                 text: letter.text,
-                date: letter.date,
+                date: letter.dateOfDispatch,
+                id: letter.id,
             }).render(),);
         });
         return result;

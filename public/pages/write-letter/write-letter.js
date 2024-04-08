@@ -1,7 +1,8 @@
-import ajax from '../../modules/ajax.js';
-import LoginView from '../../views/login.js';
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
+import dispathcher from '../../modules/dispathcher.js';
+import { actionLogout, actionRedirect } from '../../actions/userActions.js';
+import mediator from '../../modules/mediator.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -50,28 +51,62 @@ export default class Write__Letter {
     };
 
     /**
-     * Функция рендера страницы авторизации
+     * Функция вызова logout действия
      */
-    renderLogin = async (e) => {
-
+    handleExit = async (e) => {
         e.preventDefault();
+        await dispathcher.do(actionLogout());
+    };
 
-        const loginView = new LoginView();
+    handleProfile = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/profile', true));
+    };
 
-        loginView.renderPage();
+    handleMain = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/main', true));
     };
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-        
+        this.#parent
+            .querySelector('.dropdown__profile-menu__logout__button')
+            .addEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.dropdown__profile-menu__profile__button')
+            .addEventListener('click', this.handleProfile);
+        this.#parent
+            .querySelector('.menu__incoming__button')
+            .addEventListener('click', this.handleMain);
+        mediator.on('logout', this.handleExitResponse)
     }
 
     /**
      * Удаляет листенеры
      */
     removeListeners() {
-        
+        this.#parent
+            .querySelector('.dropdown__profile-menu__logout__button')
+            .removeEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.dropdown__profile-menu__profile__button')
+            .removeEventListener('click', this.handleProfile);
+        this.#parent
+            .querySelector('.menu__incoming__button')
+            .removeEventListener('click', this.handleMain);
+        mediator.off('logout', this.handleExitResponse)
+    }
+
+    handleExitResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                break;
+        }
     }
 }

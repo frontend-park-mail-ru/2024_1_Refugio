@@ -4,6 +4,7 @@ import SignupView from "../views/signup.js";
 import userStore from "../stores/userStore.js";
 import ProfileView from "../views/profile.js";
 import writeLetter from "../views/write-letter.js";
+import LetterView from "../views/letter.js";
 
 class Router {
     #views
@@ -63,13 +64,30 @@ class Router {
         this.#currentView.renderPage();
     }
 
+    openLetter({ id, pushState }) {
+        if (this.#currentView) {
+            this.#currentView.clear();
+        }
+        this.#currentView = new LetterView(id);
+        this.navigate({ path: `/letter?id=${id}`, state: '', pushState });
+        this.#currentView.renderPage();
+    }
+
     async start() {
         window.addEventListener('popstate', async () => {
-            const path = await this.redirect(window.location.pathname);
-            this.open({ path: path, pushState: false });
+            let path = await this.redirect(window.location.pathname + window.location.search);
+            if (path.indexOf('/letter?') !== -1) {
+                this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
+            } else {
+                this.open({ path: path, pushState: false });
+            }
         });
-        const redirectPath = await this.redirect(window.location.pathname);
-        this.open({ path: redirectPath, state: '', pushState: true })
+        let path = await this.redirect(window.location.pathname + window.location.search);
+        if (path.indexOf('/letter?') !== -1) {
+            this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
+        } else {
+            this.open({ path: path, pushState: false });
+        }
     }
 }
 
