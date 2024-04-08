@@ -64,8 +64,19 @@
 
 .header__avatar {
     position: relative;
-    align-content: center;
+    display: grid;
+    align-items: center;
     cursor: pointer;
+}
+
+.header__avatar-img {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--input-background);
 }
 
 

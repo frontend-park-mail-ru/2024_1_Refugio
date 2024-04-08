@@ -230,6 +230,17 @@
     grid-area: avatar;
 }
 
+.profile__avatar-img {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width: 166px;
+    height: 166px;
+    border-radius: 50%;
+    background-color: var(--input-background);
+    font-size: 24px;
+}
+
 
 .profile__content__form__load-avatar__button {
     grid-area: button;

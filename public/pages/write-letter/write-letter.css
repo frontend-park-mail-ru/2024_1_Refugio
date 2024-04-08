@@ -318,14 +318,14 @@
     padding: 8px 20px 8px 20px;
     background-color: var(--input-background);
 
-    resize: ver;
     width: 100%;
     overflow:auto;
     resize: none;
 
-    height: 610px;
+    min-height: 410px;
 
     color: var(--text);
+    font-family: Roboto;
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0;

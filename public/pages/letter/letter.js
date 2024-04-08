@@ -47,6 +47,44 @@ export default class Letter {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
+    handleDropdowns(e) {
+        const target = e.target;
+
+        const elements = {
+            profile: {
+                button: document.querySelector('.header__avatar-img'),
+                dropdown: document.querySelector('.dropdown__wrapper__profile-menu'),
+            }
+        }
+
+        const hideAllDropdowns = () => {
+            Object.values(elements).forEach(value => {
+                value.dropdown.classList.remove('show__dropdown__wrapper');
+                value.dropdown.classList.add('hide__dropdown__wrapper');
+            });
+        }
+
+        let hasTarget = false;
+        Object.keys(elements).forEach(key => {
+            if (elements[key].button.contains(target)) {
+                hasTarget = true;
+                let showDropdown = true;
+                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                    showDropdown = false;
+                }
+                hideAllDropdowns();
+                console.log(showDropdown);
+                if (showDropdown) {
+                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                }
+            }
+        })
+        if (!hasTarget) {
+            hideAllDropdowns();
+        }
+    };
+
     /**
      * Функция авторизации
      */
@@ -85,7 +123,8 @@ export default class Letter {
         this.#parent
             .querySelector('.menu__incoming__button')
             .addEventListener('click', this.handleMain);
-        mediator.on('logout', this.handleExitResponse)
+        this.#parent.addEventListener('click', this.handleDropdowns);
+        mediator.on('logout', this.handleExitResponse);
     }
 
     /**
@@ -104,7 +143,8 @@ export default class Letter {
         this.#parent
             .querySelector('.menu__incoming__button')
             .removeEventListener('click', this.handleMain);
-        mediator.off('logout', this.handleExitResponse)
+        this.#parent.removeEventListener('click', this.handleDropdowns);
+        mediator.off('logout', this.handleExitResponse);
     }
 
     handleExitResponse = (status) => {

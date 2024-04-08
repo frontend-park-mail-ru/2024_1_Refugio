@@ -55,7 +55,7 @@ export default class Signup {
 
         const firstName = firstNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const birthday = new Date(birthdayYear, monthIndex, birthdayDay);
+        const birthday = new Date(birthdayYear, monthIndex, birthdayDay).toISOString();
 
         const gender = genderInput.checked ? 'Female' : 'Male';
         const email = emailInput.value.trim();
@@ -247,7 +247,7 @@ export default class Signup {
         // create JSON object with user data
         const newUser = {
             login: email,
-            name: firstName,
+            firstname: firstName,
             password: password,
             surname: lastName,
             gender: gender,
@@ -387,7 +387,7 @@ export default class Signup {
                 break;
             default:
                 const error = this.#parent
-                    .querySelector('.signup__button_error');
+                    .querySelector('.signup__button__error');
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
                 break;

@@ -1,15 +1,16 @@
 import Main from '../pages/main/main.js';
 import BaseView from './base.js';
 import dispathcher from '../modules/dispathcher.js';
-import { actionGetUser, actionGetIncoming } from '../actions/userActions.js';
+import { actionGetUser, actionGetSent } from '../actions/userActions.js';
 import userStore from '../stores/userStore.js';
 import emailStore from '../stores/emailStore.js';
+import Sent from '../pages/sent/sent.js';
 
 /**
  * Класс для рендера страницы списка писем
  * @class
  */
-class MainView extends BaseView {
+class SentView extends BaseView {
     #config = {
         header: {
             logo: 'MailHub',
@@ -194,10 +195,10 @@ class MainView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
-        document.title = 'Входящие';
+        document.title = 'Отправленные';
         this.#config.header.username = await this.#getUserInfo();
         this.#config.content.list_letters = await this.#getEmailsInfo();
-        const page = new Main(this.root, this.#config);
+        const page = new Sent(this.root, this.#config);
         this.components.push(page);
         this.render();
         this.addListeners();
@@ -217,9 +218,9 @@ class MainView extends BaseView {
      * @returns {Array<object>} список писем
      */
     async #getEmailsInfo() {
-        await dispathcher.do(actionGetIncoming());
-        return emailStore.incoming;
+        await dispathcher.do(actionGetSent());
+        return emailStore.sent;
     }
 }
 
-export default new MainView();
+export default new SentView();

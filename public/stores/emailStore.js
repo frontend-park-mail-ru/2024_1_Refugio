@@ -1,8 +1,10 @@
 import userStore from "./userStore.js";
 import ajax from "../modules/ajax.js";
+import mediator from "../modules/mediator.js";
 
 class emaillStore {
     incoming
+    sent
 
     constructor() {
         this.incoming = undefined
@@ -20,12 +22,29 @@ class emaillStore {
         this.incoming = data.body.emails;
     }
 
+    async getSent() {
+        const response = await ajax(
+            'GET', 'http://mailhub.su:8080/api/v1/emails/sent', null, 'application/json', userStore.getCsrf()
+        );
+        const data = await response.json();
+        this.sent = data.body.emails;
+    }
+
+
     async getEmail(id) {
         const response = await ajax(
             'GET', `http://mailhub.su:8080/api/v1/email/${id}`, null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
         this.email = data.body.email;
+    }
+
+    async send(newEmail) {
+        const response = await ajax(
+            'POST', 'http://mailhub.su:8080/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('send', status);
     }
 }
 

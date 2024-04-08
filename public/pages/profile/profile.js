@@ -37,8 +37,14 @@ export default class Profile {
         const config = this.#config;
 
         const elements = {
-            header: new Header(null, config).render(),
-            menu: new Menu(null, config).render(),
+            userLetter: this.#config.header.username.charAt(0),
+            firstname: this.#config.user.firstname,
+            lastname: this.#config.user.surname,
+            middlename: this.#config.user.middlename,
+            description: this.#config.user.description,
+            phonenumber: this.#config.user.phonenumber,
+            header: new Header(null, config.header).render(),
+            menu: new Menu(null, config.menu).render(),
             birthday_select: new Birthday_Select(null, config).render(),
             gender_select: new Gender_Select(null, config).render(),
         };
@@ -70,8 +76,8 @@ export default class Profile {
         const firstName = firstNameInput.value.trim();
         const middleName = middleNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const birthday = new Date(birthdayYear, monthIndex, birthdayDay);
-        const gender = genderInput.checked ? 'female' : 'male';
+        const birthday = new Date(birthdayYear, monthIndex, birthdayDay).toISOString();
+        const gender = genderInput.checked ? 'Female' : 'Male';
         //avatar
         const bio = bioInput.value.trim();
         let phoneNumber = phoneNumberInput.value.trim();
@@ -159,8 +165,6 @@ export default class Profile {
             passwordConfirmInput.classList.add('auth__input-backgroud-error');
             return;
         }
-
-
 
         if (firstName.length > MAX_INPUT_LENGTH) {
             const error = this.#parent
@@ -275,11 +279,14 @@ export default class Profile {
         console.log(phoneNumber);
         // create JSON object with user data
         const editedUser = {
-            name: firstName,
-            password: password,
+            firstname: firstName,
             surname: lastName,
+            middlename: middleName,
             gender: gender,
-            birthday: birthday
+            birthday: birthday,
+            phonenumber: phoneNumber,
+            description: bio,
+            id: this.#config.user.id,
         };
 
         dispathcher.do(actionUpdateUser(editedUser))
@@ -354,15 +361,9 @@ export default class Profile {
             } else {
                 if (elements.year.dropdown.contains(target) && target.tagName === 'P') {
                     document.querySelector('.birthday__input__year__value-img p').textContent = target.textContent;
-
-
-                } else {
-                    if (document.querySelector('.dropdown__profile-menu__profile__button').contains(target)) {
-                        console.log('profile');
-                    }
                 }
-            }
 
+            }
         }
         if (!hasTarget) {
             hideAllDropdowns();
@@ -402,8 +403,7 @@ export default class Profile {
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
-        this.#parent
-        document.addEventListener('click', this.handleDropdowns);
+        this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateUser', this.handleUpdateResponse);
     }
@@ -427,7 +427,7 @@ export default class Profile {
         this.#parent
             .querySelector('.dropdown__profile-menu__logout__button')
             .removeEventListener('click', this.handleExit);
-        document.removeEventListener('click', this.handleDropdowns);
+        this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateUser', this.handleUpdateResponse);
     }

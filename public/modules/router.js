@@ -5,6 +5,7 @@ import userStore from "../stores/userStore.js";
 import ProfileView from "../views/profile.js";
 import writeLetter from "../views/write-letter.js";
 import LetterView from "../views/letter.js";
+import SentView from "../views/sent.js";
 
 class Router {
     #views
@@ -16,12 +17,13 @@ class Router {
         this.#views = new Map();
         this.#authViews = new Map();
 
-        this.#views.set('/login', LoginView)
-        this.#views.set('/signup', SignupView)
+        this.#views.set('/login', LoginView);
+        this.#views.set('/signup', SignupView);
 
-        this.#authViews.set('/main', MainView)
-        this.#authViews.set('/profile', ProfileView)
-        this.#authViews.set('/write_letter', writeLetter)
+        this.#authViews.set('/main', MainView);
+        this.#authViews.set('/profile', ProfileView);
+        this.#authViews.set('/write_letter', writeLetter);
+        this.#authViews.set('/sent', SentView);
     }
 
     navigate({ path, state = '', pushState }) {
