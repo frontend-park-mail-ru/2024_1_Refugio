@@ -12,6 +12,7 @@
 }
 
 .menu__write-letter__button {
+    display: grid;
     align-items: center;
 
     margin-bottom: 11px;

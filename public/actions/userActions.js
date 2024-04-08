@@ -38,9 +38,19 @@ export const actionGetIncoming = () => ({
     value: {},
 })
 
+export const actionGetSent = () => ({
+    type: 'getSent',
+    value: {},
+})
+
 export const actionGetEmail = (id) => ({
     type: 'getEmail',
     value: id,
+})
+
+export const actionSend = (value) => ({
+    type: 'send',
+    value: value,
 })
 
 export const actionLogout = () => ({

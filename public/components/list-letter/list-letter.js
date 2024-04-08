@@ -30,7 +30,12 @@ export default class List_letter {
             text: this.#config.text,
             date: this.#config.date,
             id: this.#config.id,
+            userLetter: this.#config.from.charAt(0),
         };
+        if (this.#config.sent) {
+            letter.from = this.#config.to;
+            letter.userLetter = this.#config.to.charAt(0);
+        }
         return template(letter);
     }
 }

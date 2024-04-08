@@ -28,6 +28,16 @@
     align-items: center;
 }
 
+.list-letter__avatar-img {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--input-background);
+}
+
 .list-letter__status {
     width: 16px;
     height: 16px;

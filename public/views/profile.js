@@ -1,5 +1,8 @@
 import Profile from '../pages/profile/profile.js';
 import BaseView from './base.js';
+import userStore from '../stores/userStore.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetUser } from '../actions/userActions.js';
 
 /**
  * Класс для рендера страницы логина
@@ -26,7 +29,8 @@ class ProfileView extends BaseView {
      */
     async renderPage() {
         document.title = 'Профиль';
-        this.#config.header.avatar = await this.#getUserAvatar();
+        this.#config.user = await this.#getUserInfo();
+        this.#config.header.username = this.#config.user.firstname;
         const page = new Profile(this.root, this.#config);
         this.components.push(page);
         this.render();
@@ -37,14 +41,9 @@ class ProfileView extends BaseView {
      * Запрашивает у сервера имя пользователя
      * @returns {string} имя пользователя
      */
-    async #getUserAvatar() {
-        // const response = await ajax(
-        //     'GET', 'http://89.208.223.140:8080/api/v1/get-user', null, 'application/json'
-        // );
-        // const data = await response.json();
-        // return data.body.user.name;
-        return "avatar path";
-
+    async #getUserInfo() {
+        await dispathcher.do(actionGetUser());
+        return userStore.body;
     }
 
 }

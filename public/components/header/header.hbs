@@ -8,11 +8,11 @@
         </div>
     </div>
     <div class="header__avatar">
-        {{!-- {{#if avatar}}
-        <div>avatar</div>
-        {{else}} --}}
+        {{#if avatar}}
         <img class="header__avatar-img" src="../../static/img/avatar_36_36.svg" alt="">
-        {{!-- {{/if}} --}}
+        {{else}}
+        <div class="header__avatar-img">{{userLetter}}</div>
+        {{/if}}
         <div class="dropdown__wrapper__profile-menu hide__dropdown__wrapper">
             <div class="dropdown__profile-menu">
                 <div class="dropdown__profile-menu__profile__button">

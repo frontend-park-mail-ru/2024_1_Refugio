@@ -9,7 +9,7 @@ import { actionLogout, actionRedirect, actionRedirectToLetter } from '../../acti
  * Класс обертки страницы
  * @class
  */
-export default class Main {
+export default class Sent {
     #parent;
     #config;
 
@@ -29,7 +29,7 @@ export default class Main {
      */
     render() {
         const template = Handlebars.templates['main.hbs'];
-        this.#config.content.sent = false;
+        this.#config.content.sent = true;
         const elements = {
             header: new Header(null, this.#config.header).render(),
             menu: new Menu(null, this.#config.menu).render(),
@@ -99,9 +99,9 @@ export default class Main {
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
-    handleSent = async (e) => {
+    handleMain = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/sent', true));
+        dispathcher.do(actionRedirect('/main', true));
     };
     /**
      * Добавляет листенеры на компоненты
@@ -121,8 +121,8 @@ export default class Main {
             .querySelector('.menu__write-letter__button')
             .addEventListener('click', this.handleWriteLetter);
         this.#parent
-            .querySelector('.menu__sent__button')
-            .addEventListener('click', this.handleSent);
+            .querySelector('.menu__incoming__button')
+            .addEventListener('click', this.handleMain);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
     }
@@ -146,7 +146,7 @@ export default class Main {
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
             .querySelector('.menu__incoming__button')
-            .addEventListener('click', this.handleSent);
+            .removeEventListener('click', this.handleMain);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
     }

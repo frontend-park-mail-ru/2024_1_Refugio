@@ -14,7 +14,9 @@ const handlers = [
     {type: 'updateUser', method: userStore.updateUser.bind(userStore)},
     {type: 'logout', method: userStore.logout.bind(userStore)},
     {type: 'getIncoming', method: emailStore.getIncoming.bind(emailStore)},
+    {type: 'getSent', method: emailStore.getSent.bind(emailStore)},
     {type: 'getEmail', method: emailStore.getEmail.bind(emailStore)},
+    {type: 'send', method: emailStore.send.bind(emailStore)},
 ];
 
 export default handlers;

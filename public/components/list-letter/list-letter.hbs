@@ -4,10 +4,13 @@
             {{#if status}}
             <img src="../../static/icons/read-on__256.svg">
             {{/if}}
-            </div>
+        </div>
         <div class="list-letter__avatar">
-
-            <img src="{{avatar}}">
+            {{#if avatar}}
+            <img class="list-letter__avatar-img" src="{{avatar}}" alt="">
+            {{else}}
+            <div class="list-letter__avatar-img">{{userLetter}}</div>
+            {{/if}}
         </div>
         <div class="list-letter__text list-letter__white-text">
             {{from}}
