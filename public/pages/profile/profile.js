@@ -374,6 +374,15 @@ export default class Profile {
         await dispathcher.do(actionLogout());
     };
 
+    handleWriteLetter = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/write_letter', true));
+    };
+
+    handleMain = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/main', true));
+    };
     /**
      * Добавляет листенеры на компоненты
      */
@@ -384,13 +393,15 @@ export default class Profile {
         this.#parent
             .querySelector('.dropdown__profile-menu__logout__button')
             .addEventListener('click', this.handleExit);
-        // this.#parent
-        //     .querySelector('.profile__content__form__switch-authorization-method__passive')
-        //     .addEventListener('click', this.renderLogin);
+        this.#parent
+            .querySelector('.menu__write-letter__button')
+            .addEventListener('click', this.handleWriteLetter);
+        this.#parent
+            .querySelector('.menu__incoming__button')
+            .addEventListener('click', this.handleMain);
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
-
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
@@ -403,17 +414,20 @@ export default class Profile {
     removeListeners() {
         this.#parent
             .querySelector('.profile__content__form__save__button')
-            .addEventListener('click', this.handleSaveForm);
-
-        // this.#parent
-        //     .querySelector('.profile__content__form__switch-authorization-method__passive')
-        //     .addEventListener('click', this.renderLogin);
+            .removeEventListener('click', this.handleSaveForm);
+        this.#parent
+            .querySelector('.menu__write-letter__button')
+            .removeEventListener('click', this.handleWriteLetter);
+        this.#parent
+            .querySelector('.menu__incoming__button')
+            .removeEventListener('click', this.handleMain);
         this.#parent
             .querySelector('.cl-switch input')
-            .addEventListener('change', this.handleCheckbox);
-
+            .removeEventListener('change', this.handleCheckbox);
         this.#parent
-        document.addEventListener('click', this.handleDropdowns);
+            .querySelector('.dropdown__profile-menu__logout__button')
+            .removeEventListener('click', this.handleExit);
+        document.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateUser', this.handleUpdateResponse);
     }

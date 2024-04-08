@@ -18,6 +18,11 @@ export const actionRedirect = (path, pushState) => ({
     value: {path: path, pushState: pushState},
 })
 
+export const actionRedirectToLetter = (id, pushState) => ({
+    type: 'openLetter', 
+    value: {id: id, pushState: pushState},
+})
+
 export const actionGetUser = () => ({
     type: 'getUser',
     value: {},
@@ -31,6 +36,11 @@ export const actionUpdateUser = (value) => ({
 export const actionGetIncoming = () => ({
     type: 'getIncoming',
     value: {},
+})
+
+export const actionGetEmail = (id) => ({
+    type: 'getEmail',
+    value: id,
 })
 
 export const actionLogout = () => ({

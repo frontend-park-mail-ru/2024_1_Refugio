@@ -3,7 +3,7 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionRedirectToLetter } from '../../actions/userActions.js';
 
 /**
  * Класс обертки страницы
@@ -46,19 +46,28 @@ export default class Main {
         await dispathcher.do(actionLogout());
     };
 
-    handleProfile = async (e) => {
+    handleProfile = (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/profile', true));
     };
 
-    handleWriteLetter = async (e) => {
+    handleWriteLetter = (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/write_letter', true));
+    };
+
+    handleLetter = (e, id) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirectToLetter(id, true));
     };
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent
+            .querySelectorAll('.list-letter').forEach((letter) => {
+                letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
+            });
         this.#parent
             .querySelector('.dropdown__profile-menu__logout__button')
             .addEventListener('click', this.handleExit);
