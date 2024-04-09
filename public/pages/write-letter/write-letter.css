@@ -321,6 +321,7 @@
     width: 100%;
     overflow:auto;
     resize: none;
+    white-space: pre-wrap;
 
     min-height: 410px;
 

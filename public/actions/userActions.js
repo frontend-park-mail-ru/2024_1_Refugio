@@ -13,9 +13,9 @@ export const actionSignup = (value) => ({
     value: value,
 })
 
-export const actionRedirect = (path, pushState) => ({
+export const actionRedirect = (path, pushState, data=undefined) => ({
     type: 'open', 
-    value: {path: path, pushState: pushState},
+    value: {path: path, pushState: pushState, data: data},
 })
 
 export const actionRedirectToLetter = (id, pushState) => ({
@@ -26,6 +26,11 @@ export const actionRedirectToLetter = (id, pushState) => ({
 export const actionGetUser = () => ({
     type: 'getUser',
     value: {},
+})
+
+export const actionAvatarUpload = (file) => ({
+    type: 'avatarUpload',
+    value: {file: file},
 })
 
 export const actionUpdateUser = (value) => ({

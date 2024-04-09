@@ -57,13 +57,17 @@ class Router {
         }
     }
 
-    open({ path, state = '', pushState }) {
+    open({ path, state = '', pushState, data }) {
         if (this.#currentView) {
             this.#currentView.clear();
         }
         this.#currentView = this.#views.get(path) || this.#authViews.get(path);
         this.navigate({ path, state, pushState });
-        this.#currentView.renderPage();
+        if (data) {
+            this.#currentView.renderPage(data);
+        } else {
+            this.#currentView.renderPage();
+        }
     }
 
     openLetter({ id, pushState }) {

@@ -34,13 +34,16 @@ export default class Letter {
         const template = Handlebars.templates['letter.hbs'];
         const config = this.#config;
         const elements = {
-            status: this.#config.emailreadStatus,
+            status: this.#config.email.readStatus,
             avatar: this.#config.email.photoId,
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
             text: this.#config.email.text,
             date: this.#config.email.dateOfDispatch,
             id: this.#config.email.id,
+            replyId: this.#config.email.replyToEmailId,
+            replyTopic: this.#config.replyEmail?.topic,
+            userLetter: this.#config.email.senderEmail.charAt(0),
             header: new Header(null, config.header).render(),
             menu: new Menu(null, config.menu).render(),
         };
@@ -102,9 +105,28 @@ export default class Letter {
         e.preventDefault();
         dispathcher.do(actionRedirect('/main', true));
     };
+
     handleWriteLetter = (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/write_letter', true));
+    };
+
+    handleResend = (e) => {
+        e.preventDefault();
+        const topic = this.#parent
+            .querySelector('.letter__content__body__subject span').textContent
+        const sender = this.#parent
+            .querySelector('#sender').textContent
+        const date = this.#parent
+            .querySelector('#date').textContent
+        const text = this.#parent
+            .querySelector('.letter__content__body__text p').textContent
+        dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text }));
+    };
+
+    handleReply = (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/write_letter', true, { replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
     /**
@@ -120,6 +142,12 @@ export default class Letter {
         this.#parent
             .querySelector('.menu__write-letter__button')
             .addEventListener('click', this.handleWriteLetter);
+        this.#parent
+            .querySelector('#resend')
+            .addEventListener('click', this.handleResend);
+        this.#parent
+            .querySelector('#reply')
+            .addEventListener('click', this.handleReply);
         this.#parent
             .querySelector('.menu__incoming__button')
             .addEventListener('click', this.handleMain);
@@ -143,6 +171,12 @@ export default class Letter {
         this.#parent
             .querySelector('.menu__incoming__button')
             .removeEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('#resend')
+            .removeEventListener('click', this.handleResend);
+        this.#parent
+            .querySelector('#reply')
+            .removeEventListener('click', this.handleReply);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
     }
