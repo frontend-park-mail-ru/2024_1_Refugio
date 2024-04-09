@@ -38,4 +38,14 @@ export default class List_letter {
         }
         return template(letter);
     }
+
+
+    addListeners() {
+    }
+
+    /**
+     * Удаляет листенеры
+     */
+    removeListeners() {
+    }
 }

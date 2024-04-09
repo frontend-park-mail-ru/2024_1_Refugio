@@ -53,6 +53,11 @@ export const actionSend = (value) => ({
     value: value,
 })
 
+// export const actionUpdate = (value) => ({
+//     type: 'update',
+//     value: value,
+// })
+
 export const actionLogout = () => ({
     type: 'logout',
     value: {},

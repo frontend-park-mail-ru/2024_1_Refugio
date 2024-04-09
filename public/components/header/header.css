@@ -32,6 +32,12 @@
     }
 }
 
+.header__logo:hover {
+    p {
+        color: var(--main-button-hover);
+    }
+}
+
 .header__search {
     margin: 8px 24px 8px 16px
 }
@@ -77,6 +83,10 @@
     height: 36px;
     border-radius: 50%;
     background-color: var(--input-background);
+}
+
+.header__avatar-img:hover {
+    background-color: var(--main-button-secondary);
 }
 
 

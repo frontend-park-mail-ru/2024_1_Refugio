@@ -54,6 +54,7 @@
     height: 44px;
     display: grid;
     grid-template-columns: auto 48px;
+    align-content: center;
     align-items: center;
 }
 
@@ -124,7 +125,7 @@
 .dropdown__day,
 .dropdown__month,
 .dropdown__year {
-    max-height: 168px;
+    max-height: 156px;
     overflow: auto;
 }
 
@@ -132,7 +133,7 @@
 .dropdown__month::-webkit-scrollbar,
 .dropdown__year::-webkit-scrollbar {
     width: 6px;
-    height: 168px;
+    height: 156px;
 }
 
 .dropdown__day::-webkit-scrollbar-track,
