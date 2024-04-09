@@ -164,6 +164,7 @@ export default class Main {
         const letters = this.#config.content.list_letters;
         const value = letters.find(item => String(item.id) === id);
         value.readStatus = !value.readStatus;
+        value.dateOfDispatch = undefined;
         dispathcher.do(actionUpdateEmail(id, value));
     }
 
@@ -203,7 +204,7 @@ export default class Main {
     handleMarkAllAsRead = (e) => {
         e.preventDefault();
         const letters = this.#config.content.list_letters;
-        if (letters.length === 0 ) {
+        if (letters.length === 0) {
             return;
         }
         letters.forEach(item => {
@@ -218,6 +219,8 @@ export default class Main {
 
 
                 item.readStatus = false
+                item.dateOfDispatch = undefined;
+
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
         })
@@ -254,6 +257,8 @@ export default class Main {
 
 
                 item.readStatus = false
+                item.dateOfDispatch = undefined;
+
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
         })
@@ -276,6 +281,8 @@ export default class Main {
                 statusChild.parentNode.replaceChild(img, statusChild);
 
                 item.readStatus = true;
+                item.dateOfDispatch = undefined;
+
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
         })
