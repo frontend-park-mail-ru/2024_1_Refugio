@@ -38,6 +38,8 @@ export default class Main {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
+    selectedListLetters = []
+
     handleDropdowns(e) {
         const target = e.target;
 
@@ -64,7 +66,6 @@ export default class Main {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
-                console.log(showDropdown);
                 if (showDropdown) {
                     elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
                     elements[key].dropdown.classList.add('show__dropdown__wrapper');
@@ -103,10 +104,101 @@ export default class Main {
         e.preventDefault();
         dispathcher.do(actionRedirect('/sent', true));
     };
+
+    handleHeader() {
+        const unselectedButtons = document.querySelector('.main__content__header__unselected-buttons');
+        const selectedButtons = document.querySelector('.main__content__header__selected-buttons');
+
+        if (this.selectedListLetters.length > 0) {
+            selectedButtons.classList.remove('remove');
+            unselectedButtons.classList.add('remove');
+            document.querySelector('#selected-letters-counter').textContent = this.selectedListLetters.length;
+        } else {
+            selectedButtons.classList.add('remove');
+            unselectedButtons.classList.remove('remove');
+        }
+    }
+
+    handleCheckbox = (e, id) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const letter = document.querySelector(`[data-id="${id}"]`);
+        const avatar = letter.querySelector('.list-letter__avatar')
+
+        if (letter.classList.contains('selected-list-letter')) {
+            letter.classList.remove('selected-list-letter');
+            const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+            icon.parentNode.removeChild(icon);
+            avatar.classList.remove('remove');
+            this.selectedListLetters.pop(letter);
+        } else {
+            letter.classList.add('selected-list-letter');
+            const icon = document.createElement('img');
+            icon.src = '../../static/icons/done.svg';
+            icon.alt = '';
+            icon.classList.add('list-letter__avatar-checkbox-centered');
+            avatar.parentNode.appendChild(icon);
+            avatar.classList.add('remove');
+            this.selectedListLetters.push(letter);
+        }
+        this.handleHeader();
+    }
+
+    handleStatus = (e, id) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const letter = document.querySelector(`[data-id="${id}"]`);
+        const statusChild = letter.querySelector('.list-letter__status img');
+        const statusImg = letter.querySelector('.list-letter__status-offer');
+        const img = document.createElement('img');
+        img.alt = '';
+        if (statusImg === null) {
+            img.src = '../../static/icons/read-on-offer__256.svg';
+            img.classList.add('list-letter__status-offer');
+        }
+        else {
+            img.src = '../../static/icons/read-on__256.svg';
+        }
+        statusChild.parentNode.replaceChild(img, statusChild);
+        //ПОМЕНЯТЬ СТАТУС
+    }
+
+    handleSelectAll = (e) => {
+        e.preventDefault();
+        
+        document.querySelectorAll('.list-letter').forEach(letter => {
+            const avatar = letter.querySelector('.list-letter__avatar')
+            letter.classList.add('selected-list-letter');
+            const icon = document.createElement('img');
+            icon.src = '../../static/icons/done.svg';
+            icon.alt = '';
+            icon.classList.add('list-letter__avatar-checkbox-centered');
+            avatar.parentNode.appendChild(icon);
+            avatar.classList.add('remove');
+            this.selectedListLetters.push(letter);
+        });
+        this.handleHeader();
+
+    }
+
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent
+            .querySelectorAll('.list-letter').forEach((letter) => {
+                letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
+            });
+        this.#parent
+            .querySelectorAll('.list-letter').forEach((letter) => {
+                letter.querySelector('.list-letter__status').addEventListener('click', (e) => this.handleStatus(e, letter.dataset.id));
+            });
+        this.#parent
+            .querySelector('#select-all')
+            .addEventListener('click', this.handleSelectAll);
+
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));

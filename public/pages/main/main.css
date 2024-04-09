@@ -37,7 +37,20 @@
 
 .main__content__header {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(0, auto));
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+}
+
+.main__content__header__unselected-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+    padding: 8px;
+}
+
+.main__content__header__selected-buttons {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
     justify-content: start;
     padding: 8px;
 }

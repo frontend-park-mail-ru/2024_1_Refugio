@@ -46,6 +46,14 @@ class emaillStore {
         const status = await response.status;
         mediator.emit('send', status);
     }
+
+    // async update(newEmail) {
+    //     const response = await ajax(
+    //         'POST', 'http://mailhub.su:8080/api/v1/email/update/{id}', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
+    //     );
+    //     const status = await response.status;
+    //     mediator.emit('send', status);
+    // }
 }
 
 export default new emaillStore();

@@ -96,8 +96,7 @@ input:autofill {
 }
 
 .remove {
-    visibility: hidden;
-    position: absolute;
+    display: none;
 }
 
 .auth__input-backgroud-error {
