@@ -33,7 +33,9 @@ export default class LetterView extends BaseView {
     async renderPage() {
         this.#config.email = await this.#getEmailInfo();
         document.title = this.#config.email.topic;
-        this.#config.header.username = await this.#getUserInfo();
+        this.#config.user = await this.#getUserInfo();
+        this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.avatar = this.#config.user.avatar;
         const page = new Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
@@ -46,7 +48,7 @@ export default class LetterView extends BaseView {
      */
     async #getUserInfo() {
         await dispathcher.do(actionGetUser());
-        return userStore.body.firstname;
+        return userStore.body;
     }
 
     async #getEmailInfo() {

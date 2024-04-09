@@ -31,6 +31,7 @@ class ProfileView extends BaseView {
         document.title = 'Профиль';
         this.#config.user = await this.#getUserInfo();
         this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.avatar = this.#config.user.avatar;
         const page = new Profile(this.root, this.#config);
         this.components.push(page);
         this.render();

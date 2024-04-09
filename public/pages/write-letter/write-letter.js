@@ -35,6 +35,12 @@ export default class Write__Letter {
         const config = this.#config;
 
         const elements = {
+            sender: this.#config.values?.sender,
+            date: this.#config.values?.date,
+            topic: this.#config.values?.topic,
+            text: this.#config.values?.text,
+            replyId: this.#config.values?.replyId,
+            replySender: this.#config.values?.replySender,
             header: new Header(null, config.header).render(),
             menu: new Menu(null, config.menu).render(),
         };
@@ -166,7 +172,10 @@ export default class Write__Letter {
             recipientEmail: to,
             senderEmail: this.#config.user.login,
         };
-
+        if (this.#config.values.replyId) {
+            console.log(this.#config.values.replyId);
+            newLetter.replyToEmailId = this.#config.values.replyId;
+        }
         dispathcher.do(actionSend(newLetter));
     };
 

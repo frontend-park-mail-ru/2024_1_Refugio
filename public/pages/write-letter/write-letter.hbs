@@ -6,12 +6,17 @@
             <div class="write__letter__content__header">
                 <div class="write__letter__content__header__to">
                     <span class="write__letter__content__header__to__label">Кому</span>
+                    {{#if replyId}}
+                    <input type="text" class="write__letter__content__header__to__input" placeholder="ivanovii@mail.ru" value="{{replySender}}" disabled>
+                    {{else}}
                     <input type="text" class="write__letter__content__header__to__input" placeholder="ivanovii@mail.ru">
+                    {{/if}}
                     <p class="write__letter__content__header__to__error remove">Ошибка</p>
                 </div>
                 <div class="write__letter__content__header__subject">
                     <span class="write__letter__content__header__subject__label">Тема</span>
-                    <input type="text" class="write__letter__content__header__subject__input" placeholder="О чём хотите написать?">
+                    <input type="text" class="write__letter__content__header__subject__input"
+                        placeholder="О чём хотите написать?">
                     <p class="write__letter__content__header__subject__error remove">Ошибка</p>
                 </div>
                 <div class="write__letter__content__header__attachments">
@@ -29,9 +34,13 @@
                 </div>
             </div>
             <div class="write__letter__content__text__wrapper">
-                {{!-- <div class="write__letter__content__text"> --}}
-                    <textarea class="write__letter__content__text__textarea" placeholder="Текст письма" maxlength="4096"></textarea>
-                {{!-- </div> --}}
+                {{#if sender}}
+                <textarea class="write__letter__content__text__textarea" placeholder="Текст письма"
+                    maxlength="4096">------Пересылаемое сообщение------&#13;&#10;{{date}} {{sender}}&#13;&#10;{{topic}}&#13;&#10;{{text}}&#13;&#10;------Пересылаемое сообщение------&#13;&#10;</textarea>
+                {{else}}
+                <textarea class="write__letter__content__text__textarea" placeholder="Текст письма"
+                    maxlength="4096"></textarea>
+                {{/if}}
             </div>
             <div class="write__letter__content__process-buttons">
                 <div

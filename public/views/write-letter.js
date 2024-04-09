@@ -27,10 +27,16 @@ class WriteLetterView extends BaseView {
     /**
      * Функция рендера страницы
      */
-    async renderPage() {
+    async renderPage(data = undefined) {
+        if (data) {
+            this.#config.values = data;
+        } else {
+            this.#config.values = undefined;
+        }
         document.title = 'Новое письмо';
         this.#config.user = await this.#getUserInfo();
         this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.avatar = this.#config.user.avatar;
         const page = new Write__Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
