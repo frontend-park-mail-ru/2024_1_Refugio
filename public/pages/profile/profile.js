@@ -3,7 +3,7 @@ import Header from '../../components/header/header.js';
 import Birthday_Select from '../../components/birthday-select/birthday-select.js';
 import Gender_Select from '../../components/gender-select/gender-select.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionRedirect, actionUpdateUser, actionLogout } from '../../actions/userActions.js';
+import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 
 
@@ -41,6 +41,7 @@ export default class Profile {
             firstname: this.#config.user.firstname,
             lastname: this.#config.user.surname,
             middlename: this.#config.user.middlename,
+            avatar: this.#config.user.avatar,
             description: this.#config.user.description,
             phonenumber: this.#config.user.phonenumber,
             header: new Header(null, config.header).render(),
@@ -76,7 +77,7 @@ export default class Profile {
         const firstName = firstNameInput.value.trim();
         const middleName = middleNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const birthday = new Date(birthdayYear, monthIndex, birthdayDay).toISOString();
+        const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12).toISOString();
         const gender = genderInput.checked ? 'Female' : 'Male';
         //avatar
         const bio = bioInput.value.trim();
@@ -384,6 +385,13 @@ export default class Profile {
         e.preventDefault();
         dispathcher.do(actionRedirect('/main', true));
     };
+
+    handleAvatarUpload = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('file', this.#parent.querySelector('#avatar').files[0]);
+        dispathcher.do(actionAvatarUpload(formData))
+    }
     /**
      * Добавляет листенеры на компоненты
      */
@@ -403,6 +411,9 @@ export default class Profile {
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
+        this.#parent
+            .querySelector('#avatarButton')
+            .addEventListener('click', this.handleAvatarUpload);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateUser', this.handleUpdateResponse);
@@ -427,6 +438,9 @@ export default class Profile {
         this.#parent
             .querySelector('.dropdown__profile-menu__logout__button')
             .removeEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('#avatarButton')
+            .removeEventListener('click', (e) => this.handleAvatarUpload(e, file));
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateUser', this.handleUpdateResponse);

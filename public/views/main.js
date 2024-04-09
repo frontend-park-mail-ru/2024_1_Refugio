@@ -69,7 +69,9 @@ class MainView extends BaseView {
      */
     async renderPage() {
         document.title = 'Входящие';
-        this.#config.header.username = await this.#getUserInfo();
+        this.#config.user = await this.#getUserInfo();
+        this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.avatar = this.#config.user.avatar;
         this.#config.content.list_letters = await this.#getEmailsInfo();
         const page = new Main(this.root, this.#config);
         this.components.push(page);
@@ -83,7 +85,7 @@ class MainView extends BaseView {
      */
     async #getUserInfo() {
         await dispathcher.do(actionGetUser());
-        return userStore.body.firstname;
+        return userStore.body;
     }
 
     /**

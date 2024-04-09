@@ -229,6 +229,7 @@
     padding: 0 20px 8px 20px;
     overflow: auto;
     max-height: 500px;
+    white-space: pre-wrap;
 
     p {
         color: var(--text);

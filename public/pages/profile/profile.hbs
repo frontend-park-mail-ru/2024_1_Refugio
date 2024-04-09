@@ -36,12 +36,15 @@
                     <div class="profile__content__form__avatar-group">
                         <div class="profile__content__form__avatar">
                             {{#if avatar}}
-                            <img class="profile__avatar-img" src="../../static/img/avatar_36_36.svg" alt="">
+                            <img class="profile__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
                             {{else}}
                             <div class="profile__avatar-img">{{userLetter}}</div>
                             {{/if}}
                         </div>
                         <div class="profile__content__form__load-avatar__button">
+                            <input type="file" value="Выберите файл" id="avatar">
+                        </div>
+                        <div class="profile__content__form__load-avatar__button" id="avatarButton">
                             <input type="button" value="Загрузить фото">
                         </div>
                         <p class="profile__content__form__load-avatar__error">Ошибка</p>

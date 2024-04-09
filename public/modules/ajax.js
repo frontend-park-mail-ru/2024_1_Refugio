@@ -9,25 +9,46 @@
 export default async function ajax(method, url, body = null, contentType, csrf) {
     let request;
     if (method !== 'HEAD' && method !== 'GET') {
-        request = new Request(url, {
-            method: method,
-            body: body,
-            headers: {
-                'Content-type': contentType,
-                'X-CSRF-Token': csrf,
-            },
-            credentials: 'include',
-        });
+        if (contentType) {
+            request = new Request(url, {
+                method: method,
+                body: body,
+                headers: {
+                    'Content-type': contentType,
+                    'X-CSRF-Token': csrf,
+                },
+                credentials: 'include',
+            });
+        } else {
+            request = new Request(url, {
+                method: method,
+                body: body,
+                headers: {
+                    'X-CSRF-Token': csrf,
+                },
+                credentials: 'include',
+            });
+        }
     }
     else {
-        request = new Request(url, {
-            method: method,
-            headers: {
-                'Content-type': contentType,
-                'X-CSRF-Token': csrf,
-            },
-            credentials: 'include',
-        });
+        if (contentType) {
+            request = new Request(url, {
+                method: method,
+                headers: {
+                    'Content-type': contentType,
+                    'X-CSRF-Token': csrf,
+                },
+                credentials: 'include',
+            });
+        } else {
+            request = new Request(url, {
+                method: method,
+                headers: {
+                    'X-CSRF-Token': csrf,
+                },
+                credentials: 'include',
+            });
+        }
     }
     return fetch(request);
 }

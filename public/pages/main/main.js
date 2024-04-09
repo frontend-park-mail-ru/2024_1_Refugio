@@ -95,7 +95,7 @@ export default class Main {
         dispathcher.do(actionRedirect('/write_letter', true));
     };
 
-    handleLetter = (e, id) => {
+    handleLetter = async (e, id) => {
         e.preventDefault();
         dispathcher.do(actionRedirectToLetter(id, true));
     };
