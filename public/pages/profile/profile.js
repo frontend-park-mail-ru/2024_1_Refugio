@@ -77,7 +77,7 @@ export default class Profile {
         const firstName = firstNameInput.value.trim();
         const middleName = middleNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const birthday = new Date(birthdayYear, monthIndex, birthdayDay).toISOString();
+        const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12).toISOString();
         const gender = genderInput.checked ? 'Female' : 'Male';
         //avatar
         const bio = bioInput.value.trim();
@@ -389,7 +389,7 @@ export default class Profile {
     handleAvatarUpload = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append('avatar', this.#parent.querySelector('#avatar').files[0]);
+        formData.append('file', this.#parent.querySelector('#avatar').files[0]);
         dispathcher.do(actionAvatarUpload(formData))
     }
     /**

@@ -34,13 +34,15 @@ export default class Letter {
         const template = Handlebars.templates['letter.hbs'];
         const config = this.#config;
         const elements = {
-            status: this.#config.emailreadStatus,
+            status: this.#config.email.readStatus,
             avatar: this.#config.email.photoId,
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
             text: this.#config.email.text,
             date: this.#config.email.dateOfDispatch,
             id: this.#config.email.id,
+            replyId: this.#config.email.replyToEmailId,
+            replyTopic: this.#config.replyEmail?.topic,
             userLetter: this.#config.email.senderEmail.charAt(0),
             header: new Header(null, config.header).render(),
             menu: new Menu(null, config.menu).render(),

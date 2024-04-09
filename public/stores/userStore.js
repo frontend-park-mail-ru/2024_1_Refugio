@@ -85,7 +85,7 @@ class UserStore {
 
     async avatarUpload(file) {
         const response = await ajax(
-            'POST', 'http://mailhub.su:8080/api/v1/user/avatar/upload', file.file, 'multipart/form-data', this.#csrf
+            'POST', 'http://mailhub.su:8080/api/v1/user/avatar/upload', file.file, undefined, this.#csrf
         );
         console.log(file.file);
         const status = await response.status;

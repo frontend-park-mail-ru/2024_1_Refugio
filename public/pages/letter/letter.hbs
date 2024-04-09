@@ -31,13 +31,17 @@
             </div>
             <div class="letter__content__body">
                 <div class="letter__content__body__subject">
+                    {{#if replyId}}
+                    <span>Ответ на "{{replyTopic}}": {{subject}}</span>
+                    {{else}}
                     <span>{{subject}}</span>
+                    {{/if}}
                 </div>
                 <div class="letter__content__body__info">
                     <div class="letter__content__body__info__icon-avatar-name">
                         <img class="letter__content__body__info__icon" src="../../static/icons/circle-read.svg" alt="">
                         {{#if avatar}}
-                        <img class="header__avatar-img" src="{{avatar}}" alt="">
+                        <img class="header__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
                         {{else}}
                         <div class="header__avatar-img">{{userLetter}}</div>
                         {{/if}}
