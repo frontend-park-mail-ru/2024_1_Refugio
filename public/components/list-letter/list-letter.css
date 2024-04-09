@@ -27,8 +27,6 @@
     border-radius: 8px;
 }
 
-
-
 .list-letter__status-avatar-from-subject-text-group {
     display: grid;
     grid-template-columns: repeat(5, auto);
@@ -108,5 +106,7 @@
 }
 
 .list-letter_date {
+    display: grid;
+    
     align-content: center;
 }

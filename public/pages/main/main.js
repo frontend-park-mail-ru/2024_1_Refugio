@@ -202,8 +202,10 @@ export default class Main {
 
     handleMarkAllAsRead = (e) => {
         e.preventDefault();
-
         const letters = this.#config.content.list_letters;
+        if (letters.length === 0 ) {
+            return;
+        }
         letters.forEach(item => {
             if (item.readStatus === true) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
@@ -225,11 +227,10 @@ export default class Main {
     handleDelete = (e) => {
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
-            this.selectedListLetters.pop(item);
             const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
-            console.log(letter);
             letter[0].remove();
             dispathcher.do(actionDeleteEmail(item.dataset.id));
+            this.selectedListLetters = this.selectedListLetters.filter(el => el !== item);
         });
         this.handleDeselect(e);
         this.handleHeader();
@@ -370,22 +371,22 @@ export default class Main {
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
-                letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
+                letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
         this.#parent
             .querySelector('.dropdown__profile-menu__logout__button')
-            .addEventListener('click', this.handleExit);
+            .removeEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.dropdown__profile-menu__profile__button')
-            .addEventListener('click', this.handleProfile);
+            .removeEventListener('click', this.handleProfile);
         this.#parent
             .querySelector('.menu__write-letter__button')
-            .addEventListener('click', this.handleWriteLetter);
+            .removeEventListener('click', this.handleWriteLetter);
         this.#parent
             .querySelector('.menu__sent__button')
-            .addEventListener('click', this.handleSent);
-        this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
+            .removeEventListener('click', this.handleSent);
+        this.#parent.removeEventListener('click', this.handleDropdowns);
+        mediator.off('logout', this.handleExitResponse)
     }
 
     handleExitResponse = (status) => {

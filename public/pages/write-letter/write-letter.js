@@ -172,7 +172,7 @@ export default class Write__Letter {
             recipientEmail: to,
             senderEmail: this.#config.user.login,
         };
-        if (this.#config.values.replyId) {
+        if (this.#config.values?.replyId) {
             console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
@@ -205,7 +205,6 @@ export default class Write__Letter {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
-                console.log(showDropdown);
                 if (showDropdown) {
                     elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
                     elements[key].dropdown.classList.add('show__dropdown__wrapper');
