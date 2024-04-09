@@ -203,12 +203,13 @@ export default class Main {
 
     handleMarkAllAsRead = (e) => {
         e.preventDefault();
+
         const letters = this.#config.content.list_letters;
         if (letters.length === 0) {
             return;
         }
         letters.forEach(item => {
-            if (item.readStatus === true) {
+            if (item.readStatus === false) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
@@ -218,7 +219,7 @@ export default class Main {
                 statusChild.parentNode.replaceChild(img, statusChild);
 
 
-                item.readStatus = false
+                item.readStatus = true;
                 item.dateOfDispatch = undefined;
 
                 dispathcher.do(actionUpdateEmail(item.id, item));
@@ -245,7 +246,7 @@ export default class Main {
         const letters = this.#config.content.list_letters;
         letters.forEach(item => {
 
-            if (item.readStatus === true && selectedIds.includes(String(item.id))) {
+            if (item.readStatus === false && selectedIds.includes(String(item.id))) {
 
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
@@ -256,7 +257,7 @@ export default class Main {
                 statusChild.parentNode.replaceChild(img, statusChild);
 
 
-                item.readStatus = false
+                item.readStatus = true
                 item.dateOfDispatch = undefined;
 
                 dispathcher.do(actionUpdateEmail(item.id, item));
@@ -271,7 +272,7 @@ export default class Main {
 
         const letters = this.#config.content.list_letters;
         letters.forEach(item => {
-            if (item.readStatus === false && selectedIds.includes(String(item.id))) {
+            if (item.readStatus === true && selectedIds.includes(String(item.id))) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const statusImg = letter.querySelector('.list-letter__status-offer');
@@ -280,7 +281,7 @@ export default class Main {
                 img.src = '../../static/icons/read-on__256.svg';
                 statusChild.parentNode.replaceChild(img, statusChild);
 
-                item.readStatus = true;
+                item.readStatus = false;
                 item.dateOfDispatch = undefined;
 
                 dispathcher.do(actionUpdateEmail(item.id, item));
