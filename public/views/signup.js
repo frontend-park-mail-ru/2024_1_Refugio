@@ -7,7 +7,7 @@ const config = {
  * Класс для рендера страницы списка писем
  * @class
  */
-export default class SignupView extends BaseView {
+class SignupView extends BaseView {
 
     /**
          * Конструктор класса
@@ -21,7 +21,7 @@ export default class SignupView extends BaseView {
      * Функция рендера страницы
      */
     renderPage() {
-        this.clear();
+        document.title = 'Создание ящика';
         const page = new Signup(this.root, config);
         this.components.push(page);
         this.render();
@@ -29,3 +29,5 @@ export default class SignupView extends BaseView {
     }
 
 }
+
+export default new SignupView();

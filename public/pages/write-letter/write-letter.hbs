@@ -1,0 +1,60 @@
+<div class="write__letter__root">
+    {{{header}}}
+    {{{menu}}}
+    <div class="write__letter__content__wrapper">
+        <div class="write__letter__content">
+            <div class="write__letter__content__header">
+                <div class="write__letter__content__header__to">
+                    <span class="write__letter__content__header__to__label">Кому</span>
+                    {{#if replyId}}
+                    <input type="text" class="write__letter__content__header__to__input" placeholder="ivanovii@mail.ru" value="{{replySender}}" disabled>
+                    {{else}}
+                    <input type="text" class="write__letter__content__header__to__input" placeholder="ivanovii@mail.ru">
+                    {{/if}}
+                    <p class="write__letter__content__header__to__error remove">Ошибка</p>
+                </div>
+                <div class="write__letter__content__header__subject">
+                    <span class="write__letter__content__header__subject__label">Тема</span>
+                    <input type="text" class="write__letter__content__header__subject__input"
+                        placeholder="О чём хотите написать?">
+                    <p class="write__letter__content__header__subject__error remove">Ошибка</p>
+                </div>
+                <div class="write__letter__content__header__attachments">
+                    <div class="write__letter__content__header__attachments__attach-button">
+                        <input type="button" value="Прикрепить файл">
+                    </div>
+                    <div class="write__letter__content__header__attachments__view-button">
+                        <input type="button" value="5 файлов">
+                        <span>255 КБ</span>
+                    </div>
+                    <div class="write__letter__content__header__attachments__delete-all-button">
+                        <input type="button" value="Удалить все">
+                    </div>
+                    <p class="write__letter__content__header__attachments__error remove">Ошибка</p>
+                </div>
+            </div>
+            <div class="write__letter__content__text__wrapper">
+                {{#if sender}}
+                <textarea class="write__letter__content__text__textarea" placeholder="Текст письма"
+                    maxlength="4096">------Пересылаемое сообщение------&#13;&#10;{{date}} {{sender}}&#13;&#10;{{topic}}&#13;&#10;{{text}}&#13;&#10;------Пересылаемое сообщение------&#13;&#10;</textarea>
+                {{else}}
+                <textarea class="write__letter__content__text__textarea" placeholder="Текст письма"
+                    maxlength="4096"></textarea>
+                {{/if}}
+            </div>
+            <div class="write__letter__content__process-buttons">
+                <div
+                    class="write__letter__content__process-buttons__send-button write__letter__content__process-button">
+                    <input type="button" value="Отправить">
+                </div>
+                <div
+                    class="write__letter__content__process-buttons__save-draft-button write__letter__content__process-button">
+                    <input type="button" value="Сохранить черновик">
+                </div>
+                <div
+                    class="write__letter__content__process-buttons__cancel-button write__letter__content__process-button">
+                    <input type="button" value="Отменить">
+                </div>
+            </div>
+        </div>
+    </div>

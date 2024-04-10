@@ -1,94 +1,202 @@
-.login-container {
-    background-color: #101419;
+.login__box {
+    grid-area: login-box;
 
     display: grid;
-    grid-template-areas: 'login-container__sign'
-    'login-container__form';
+    grid-template-rows: repeat(4, auto);
 
-    text-align: center;
+    padding: 32px 16px 6px 16px;
 
-    width: 300px;
-    border: solid 1px #30363d;
-    border-radius: 30px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+    max-height: 764px;
+    width: 392px;
+
+    background-color: var(--box-background);
+    border-radius: 8px;
 }
 
-.login-container__sign{
-    margin: 15px;
-}
+.login__switch-authorization-method {
 
-.login-container__form{
     display: grid;
-    grid-template-areas: 'login-container__error-sign'
-    'login-container__label'
-    'login-container__input'
-    'login-container__label'
-    'login-container__input'
-    'login-container__login-btn'
-    'login-container__signup-ref'
-    'login-container__restore-ref';
-    row-gap: 10px;
-    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2px;
+
+    margin: 0 16px 40px 16px;
+    padding: 2px;
+
+    height: 44px;
+
+    background-color: var(--input-background);
+    border-radius: 10px;
+
+    p {
+        display: grid;
+        place-items: center;
+
+        border-radius: 8px;
+
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 20px;
+    }
 }
 
-.login-container__label {
-    justify-self: start;
-    margin-left:15%;
+.login__switch-authorization-method__active {
+    background-color: var(--secondary-button-onhover-selected);
 }
 
-.login-container__input {
-    width: 70%;
-    border-radius: 15px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    background-color: #e6edf3;
-}
-
-.login-container__login-btn {
-    justify-self: center;
-    width:50%;
-    font-size: 16px;
-    background-color: #1079ea;
-    border-radius: 40px;
-    border-width: 1px;
-    color: #e6edf3;
-    padding: 15px 25px;
-    margin: 20px 0 20px;
-    text-align: center;
+.login__switch-authorization-method__passive {
+    color: var(--input-placeholder);
 
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-.login-container__login-btn:hover {
-    background-color: #1262b7;
+.login__switch-authorization-method__passive:active {
+    transform: scale(0.99);
 }
 
-.login-container__signup-ref {
-    display: block;
 
+.login__email__input-group,
+.login__password__input-group {
+    display: grid;
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
+    grid-row-gap: 2px;
+}
+
+.login__email__input-group,
+.login__password__input-group {
+    padding: 2px 16px 0 16px;
+}
+
+.login__email__input-group label,
+.login__password__input-group label {
+    grid-area: label;
+
+    margin-top: 2px;
+
+    color: var(--input-label-counter-icon);
     font-size: 14px;
-    color: #e6edf3;
-    text-decoration: none;
-    margin-bottom: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
 }
 
-.login-container__restore-ref {
-    display: block;
+.login__email__input {
+    grid-area: input;
 
-    font-size: 14px;
-    color: #e6edf3;
-    text-decoration: none;
-    margin-bottom: 12px;
+    padding: 12px;
+
+    background-color: var(--input-background);
+    border-radius: 8px;
+
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
 }
 
-.login-container__error-sign {
+.login__password__input {
+    grid-area: input;
+
+    padding: 12px;
+
+    height: 44px;
+    width: 328px;
+
+    background-color: var(--input-background);
+    border-radius: 8px;
+
+    color: var(--text);
+    font-size: 25px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    line-height: 20px;
+}
+
+.login__email__input::placeholder,
+.login__password__input::placeholder {
+    color: var(--input-placeholder);
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.login__email__input:focus,
+.login__password__input:focus {
+    outline: none;
+}
+
+.login__email__error,
+.login__password__error,
+.login__button__error {
+    grid-area: error;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
     visibility: hidden;
-    color:#a54343;
-    padding: 0 5px;
-    height:40px;
+
+    overflow-wrap: anywhere;
 }
 
-.login-container__error-sign_show {
-    visibility: visible;
+.login__button-group {
+    display: grid;
+    grid-template-areas:
+        'button'
+        'error';
+
+    margin-top: 26px;
+    padding: 0 16px 0 16px;
+
+    text-align: center;
+}
+
+.login__button {
+    grid-area: button;
+
+    margin-bottom: 8px;
+    padding: 10px 16px 10px 16px;
+
+    height: 36px;
+
+    background-color: white;
+    border-radius: 8px;
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+}
+
+.login__button:hover {
+    background-color: var(--main-button-hover);
+    input {
+        background-color: var(--main-button-hover);
+    }
+}
+
+.login__button:active {
+    transform: scale(0.99);
+}
+
+.login__button input {
+    background-color: white;
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
 }

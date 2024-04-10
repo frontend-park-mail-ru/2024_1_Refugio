@@ -1,0 +1,28 @@
+
+
+    <div class="gender__select-group">
+        <label class="gender__select__label">Пол</label>
+        <div class="gender__select">
+            {{#if gender}}
+            <p class="gender__select__male">Мужской</p>
+            <div class="cl-toggle-switch">
+                <label class="cl-switch">
+                    <input type="checkbox">
+                    <span></span>
+                </label>
+            </div>
+            <p class="gender__select__female gender__select__passive">
+                Женский</p>
+            {{else}}
+            <p class="gender__select__male gender__select__passive">Мужской</p>
+            <div class="cl-toggle-switch">
+                <label class="cl-switch">
+                    <input type="checkbox" checked>
+                    <span></span>
+                </label>
+            </div>
+            <p class="gender__select__female">
+                Женский</p>
+            {{/if}}
+        </div>
+    </div>

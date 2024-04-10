@@ -1,34 +1,51 @@
-<div class="signup-container">
+<div class="signup__box">
 
-    <h1 class="signup-container__sign">Регистрация</h1>
-    <form action="" class="signup-container__form">
-        <div class="signup-container__error-sign">
-            <p>Все поля доложны быть заполнены</p>
+    <div class="signup__switch-authorization-method">
+        <p class="signup__switch-authorization-method__passive">Вход в аккаунт</p>
+        <p class="signup__switch-authorization-method__active">Создание ящика</p>
+    </div>
+    <div class="signup__first-last-names__block">
+        <div class="signup__first-name__input-group">
+            <label>Имя</label>
+            <input type="text" class="signup__first-name__input" placeholder="Иван">
+            <p class="signup__first-name__error">Ошибка</p>
         </div>
-        <label class="signup-container__label" for="name">
-            Имя
-        </label>
-        <input class="signup-container__input" type="text" placeholder="Имя" id="name">
-        <label class="signup-container__label" for="surname">
-            Фамилия
-        </label>
-        <input class="signup-container__input" type="text" placeholder="Фамилия" id="surname">
-        <label class="signup-container__label" for="email">
-            Почтовый адрес
-        </label>
-        <input class="signup-container__input" type="email" placeholder="Email" id="email">
-        <label class="signup-container__label" for="password">
-            Пароль
-        </label>
-        <input class="signup-container__input" type="password" placeholder="Пароль" id="password">
-        <label class="signup-container__label" for="repeat">
-            Повторите пароль
-        </label>
-        <input class="signup-container__input" type="password" placeholder="Повторите пароль" id="repeat">
+        <div class="signup__last-name__input-group">
+            <label>Фамилия</label>
+            <input type="text" class="signup__last-name__input" placeholder="Иванов">
+            <p class="signup__last-name__error">Ошибка</p>
+        </div>
+    </div>
 
-        <button id="signupBtn" class="signup-container__signup-btn" type="submit">Зарегистрироваться</button>
 
-        <a class="signup-container__login-ref" href="#">Уже есть аккаунт</a>
-    </form>
+
+    {{{birthday_select}}}
+
+    {{{gender_select}}}
+
+    <div class="signup__email__input-group">
+        <label>Имя ящика</label>
+        <input type="email" class="signup__email__input" placeholder="ivanovivan@mail.ru">
+        <p class="signup__email__error">Ошибка</p>
+    </div>
+
+    <div class="signup__password__input-group">
+        <label>Пароль</label>
+        <input type="password" class="signup__password__input" placeholder="●●●●●●●●">
+        <p class="signup__password__error">Ошибка</p>
+    </div>
+
+    <div class="signup__password-confirm__input-group">
+        <label>Пароль ещё раз</label>
+        <input type="password" class="signup__password-confirm__input" placeholder="●●●●●●●●">
+        <p class="signup__password-confirm__error">Ошибка</p>
+    </div>
+
+    <div class="signup__button-group">
+        <div class="signup__button">
+            <input type="button" value="Создать">
+        </div>
+        <p class="signup__button__error">Ошибка</p>
+    </div>
 
 </div>

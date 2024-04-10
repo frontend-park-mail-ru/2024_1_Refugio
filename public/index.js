@@ -1,21 +1,17 @@
-import MainView from './views/main.js';
-import LoginView from './views/login.js';
-import ajax from '../modules/ajax.js';
+import dispathcher from './modules/dispathcher.js';
+import { actionStart } from './actions/userActions.js';
+// import LetterView from './views/letter.js';
+// import ProfileView from './views/profile.js';
+// import WriteLetterView from './views/write-letter.js';
+// import MainView from './views/main.js';
 
-(async () => {
-    const response = await ajax(
-        'GET', 'http://89.208.223.140:8080/api/v1/verify-auth', null, 'application/json'
-    );
-    const status = await response.status;
-    if (status >= 300) {
-        const login = new LoginView();
-        login.renderPage();
-    } else {
-        const main = new MainView();
-        main.renderPage();
-    }
+dispathcher.do(actionStart());
 
-})();
+// const view = MainView;
+// console.log(view);
+// view.renderPage();
+//const view = new ProfileView();
+//view.renderPage();
 
 // let isAuth;
 // ajax(

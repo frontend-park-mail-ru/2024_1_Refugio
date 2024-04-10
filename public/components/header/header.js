@@ -23,8 +23,8 @@ export default class Header {
     render() {
         const template = Handlebars.templates['header.hbs'];
         const header = {
-            logo: this.#config.logo,
-            username: this.#config.username,
+            avatar: this.#config.avatar,
+            userLetter: this.#config.username.charAt(0),
         };
         return template(header);
     }

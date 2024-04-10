@@ -1,21 +1,26 @@
 <div class="header">
-    <div class="header__logo">
-        {{logo}}
+    <div class="header__logo-search">
+        <div class="header__logo">
+            <p>MAILHUB</p>
+        </div>
+        <div class="header__search">
+            <input type="text" class="header__search__body" placeholder="Поиск на почте">
+        </div>
     </div>
-    <div class="header__search">
-        Поиск
-    </div>
-    <div class="header__menu">
-        Меню
-        <div class="header__dropdown">
-            <div class="header__settings dropdown-element">
-                Настройки
-            </div>
-            <div class="header__profile dropdown-element">
-                {{username}}
-            </div>
-            <div class="header__exit dropdown-element">
-                Выйти
+    <div class="header__avatar">
+        {{#if avatar}}
+        <img class="header__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
+        {{else}}
+        <div class="header__avatar-img">{{userLetter}}</div>
+        {{/if}}
+        <div class="dropdown__wrapper__profile-menu hide__dropdown__wrapper">
+            <div class="dropdown__profile-menu">
+                <div class="dropdown__profile-menu__profile__button">
+                    <input type="button" value="Личные данные">
+                </div>
+                <div class="dropdown__profile-menu__logout__button">
+                    <input type="button" value="Выйти">
+                </div>
             </div>
         </div>
     </div>
