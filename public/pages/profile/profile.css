@@ -217,7 +217,7 @@
     display: grid;
     grid-template-areas:
         'avatar'
-        'button'
+        'buttons'
         'error';
     justify-content: center;
     justify-items: center;
@@ -242,8 +242,12 @@
 }
 
 
+.profile__content__form__load-avatar__buttons {
+    grid-area: buttons;
+    grid-template-columns: repeat(2, auto);
+}
+
 .profile__content__form__load-avatar__button {
-    grid-area: button;
     padding: 10px 14px 10px 14px;
 
     height: 36px;

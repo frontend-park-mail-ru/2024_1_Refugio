@@ -10,12 +10,14 @@
                 <div class="profile__content__form__first-middle-names__block">
                     <div class="profile__content__form__first-name__input-group">
                         <label>Имя</label>
-                        <input type="text" class="profile__content__form__first-name__input" placeholder="Иван" value="{{firstname}}">
+                        <input type="text" class="profile__content__form__first-name__input" placeholder="Иван"
+                            value="{{firstname}}">
                         <p class="profile__content__form__first-name__error">Ошибка</p>
                     </div>
                     <div class="profile__content__form__middle-name__input-group">
                         <label>Отчество</label>
-                        <input type="text" class="profile__content__form__middle-name__input" placeholder="Иванович" value="{{middlename}}">
+                        <input type="text" class="profile__content__form__middle-name__input" placeholder="Иванович"
+                            value="{{middlename}}">
                         <p class="profile__content__form__middle-name__error">Ошибка</p>
                     </div>
                 </div>
@@ -23,7 +25,8 @@
                     <div class="profile__content__form__birthday-gender-last-name-group">
                         <div class="profile__content__form__last-name__input-group">
                             <label>Фамилия</label>
-                            <input type="text" class="profile__content__form__last-name__input" placeholder="Иванов" value="{{lastname}}">
+                            <input type="text" class="profile__content__form__last-name__input" placeholder="Иванов"
+                                value="{{lastname}}">
                             <p class="profile__content__form__last-name__error">Ошибка</p>
                         </div>
                         {{{birthday_select}}}
@@ -41,11 +44,13 @@
                             <div class="profile__avatar-img">{{userLetter}}</div>
                             {{/if}}
                         </div>
-                        <div class="profile__content__form__load-avatar__button">
-                            <input type="file" value="Выберите файл" id="avatar">
-                        </div>
-                        <div class="profile__content__form__load-avatar__button" id="avatarButton">
-                            <input type="button" value="Загрузить фото">
+                        <div class="profile__content__form__load-avatar__buttons">
+                            <div class="profile__content__form__load-avatar__button">
+                                <input type="file" value="Выберите файл" id="avatar">
+                            </div>
+                            <div class="profile__content__form__load-avatar__button" id="avatarButton">
+                                <input type="button" value="Загрузить фото">
+                            </div>
                         </div>
                         <p class="profile__content__form__load-avatar__error">Ошибка</p>
 
@@ -55,13 +60,14 @@
                 <div class="profile__content__form__bio-phone-number__block">
                     <div class="profile__content__form__bio__input-group">
                         <label>О себе</label>
-                        <input type="text" class="profile__content__form__bio__input" placeholder="Веб-разработчик" value="{{description}}">
+                        <input type="text" class="profile__content__form__bio__input" placeholder="Веб-разработчик"
+                            value="{{description}}">
                         <p class="profile__content__form__bio__error">Ошибка</p>
                     </div>
                     <div class="profile__content__form__phone-number__input-group">
                         <label>Номер телефона</label>
-                        <input type="text" class="profile__content__form__phone-number__input"
-                            placeholder="88001234567" value="{{phonenumber}}">
+                        <input type="text" class="profile__content__form__phone-number__input" placeholder="88001234567"
+                            value="{{phonenumber}}">
                         <p class="profile__content__form__phone-number__error">Ошибка</p>
                     </div>
                 </div>
