@@ -216,6 +216,11 @@ export default class Write__Letter {
         }
     };
 
+    handleSent = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/sent', true));
+    };
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -229,6 +234,12 @@ export default class Write__Letter {
         this.#parent
             .querySelector('.menu__incoming__button')
             .addEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .addEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .addEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.write__letter__content__process-buttons__send-button')
             .addEventListener('click', this.handleSend);
@@ -249,6 +260,12 @@ export default class Write__Letter {
             .removeEventListener('click', this.handleProfile);
         this.#parent
             .querySelector('.menu__incoming__button')
+            .removeEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .removeEventListener('click', this.handleSent);
+        this.#parent.
+            querySelector('.header__logo')
             .removeEventListener('click', this.handleMain);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);

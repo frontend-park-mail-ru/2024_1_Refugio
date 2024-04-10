@@ -350,27 +350,27 @@ export default class Main {
     removeListeners() {
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
-                letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
+                letter.querySelector('.list-letter__avatar-wrapper').removeEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
             });
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
-                letter.querySelector('.list-letter__status').addEventListener('click', (e) => this.handleStatus(e, letter.dataset.id));
+                letter.querySelector('.list-letter__status').removeEventListener('click', (e) => this.handleStatus(e, letter.dataset.id));
             });
         this.#parent
             .querySelector('#select-all')
-            .addEventListener('click', this.handleSelectAll);
+            .removeEventListener('click', this.handleSelectAll);
         this.#parent
             .querySelector('#deselect')
-            .addEventListener('click', this.handleDeselect);
+            .removeEventListener('click', this.handleDeselect);
         this.#parent
             .querySelector('#mark-all-as-read')
-            .addEventListener('click', this.handleMarkAllAsRead);
+            .removeEventListener('click', this.handleMarkAllAsRead);
         this.#parent
             .querySelector('#delete')
-            .addEventListener('click', this.handleDelete);
+            .removeEventListener('click', this.handleDelete);
         this.#parent
             .querySelector('#mark-as-read')
-            .addEventListener('click', this.handleMarkAsRead);
+            .removeEventListener('click', this.handleMarkAsRead);
         this.#parent
             .querySelector('#mark-as-unread')
             .addEventListener('click', this.handleMarkAsUnread);

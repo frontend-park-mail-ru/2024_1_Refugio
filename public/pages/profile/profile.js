@@ -392,6 +392,12 @@ export default class Profile {
         formData.append('file', this.#parent.querySelector('#avatar').files[0]);
         dispathcher.do(actionAvatarUpload(formData))
     }
+
+    handleSent = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/sent', true));
+    };
+    
     /**
      * Добавляет листенеры на компоненты
      */
@@ -408,6 +414,12 @@ export default class Profile {
         this.#parent
             .querySelector('.menu__incoming__button')
             .addEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .addEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .addEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
@@ -432,6 +444,12 @@ export default class Profile {
         this.#parent
             .querySelector('.menu__incoming__button')
             .removeEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .removeEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .removeEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.cl-switch input')
             .removeEventListener('change', this.handleCheckbox);

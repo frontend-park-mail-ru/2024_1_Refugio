@@ -129,6 +129,11 @@ export default class Letter {
         dispathcher.do(actionRedirect('/write_letter', true, { replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
+    handleSent = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/sent', true));
+    };
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -151,6 +156,12 @@ export default class Letter {
         this.#parent
             .querySelector('.menu__incoming__button')
             .addEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .addEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .addEventListener('click', this.handleSent);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
     }
@@ -169,14 +180,20 @@ export default class Letter {
             .querySelector('.menu__write-letter__button')
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
-            .querySelector('.menu__incoming__button')
-            .removeEventListener('click', this.handleMain);
-        this.#parent
             .querySelector('#resend')
             .removeEventListener('click', this.handleResend);
         this.#parent
             .querySelector('#reply')
             .removeEventListener('click', this.handleReply);
+        this.#parent
+            .querySelector('.menu__incoming__button')
+            .removeEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .removeEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .removeEventListener('click', this.handleSent);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
     }

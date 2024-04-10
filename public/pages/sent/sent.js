@@ -103,6 +103,12 @@ export default class Sent {
         e.preventDefault();
         dispathcher.do(actionRedirect('/main', true));
     };
+
+    handleSent = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/sent', true));
+    };
+    
     /**
      * Добавляет листенеры на компоненты
      */
@@ -122,6 +128,12 @@ export default class Sent {
             .addEventListener('click', this.handleWriteLetter);
         this.#parent
             .querySelector('.menu__incoming__button')
+            .addEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .addEventListener('click', this.handleSent);
+        this.#parent.
+            querySelector('.header__logo')
             .addEventListener('click', this.handleMain);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
@@ -146,6 +158,12 @@ export default class Sent {
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
             .querySelector('.menu__incoming__button')
+            .removeEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.menu__sent__button')
+            .removeEventListener('click', this.handleSent);
+        this.#parent.
+            querySelector('.header__logo')
             .removeEventListener('click', this.handleMain);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
