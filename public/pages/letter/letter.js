@@ -159,6 +159,10 @@ export default class Letter {
         this.#parent.
             querySelector('.header__logo')
             .addEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.letter__content__header__back-button')
+            .addEventListener('click', this.handleMain);
+
         this.#parent
             .querySelector('.menu__sent__button')
             .addEventListener('click', this.handleSent);
@@ -190,6 +194,9 @@ export default class Letter {
             .removeEventListener('click', this.handleMain);
         this.#parent.
             querySelector('.header__logo')
+            .removeEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.letter__content__header__back-button')
             .removeEventListener('click', this.handleMain);
         this.#parent
             .querySelector('.menu__sent__button')
