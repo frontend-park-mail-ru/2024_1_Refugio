@@ -1,142 +1,107 @@
 .header {
     grid-area: header;
+    position: relative;
 
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-content: space-between;
+    grid-template-columns: 220px auto 1fr auto;
+    grid-template-rows: 62px;
+    align-items: center;
 
-    padding: 4px 12px 4px 12px;
-
-    height: 62px;
-}
-
-.header__logo-search {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-content: left;
-
-    padding-left: 4px;
+    padding: 4px 12px;
 }
 
 .header__logo {
-    width: 200px;
+    margin-right: 12px;
+
+    color: var(--main-button);
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: 7px;
+    line-height: 54px;
+
     text-align: center;
     cursor: pointer;
-
-    p {
-        color: white;
-        font-size: 30px;
-        font-weight: 900;
-        letter-spacing: 7px;
-        line-height: 54px;
-    }
 }
 
 .header__logo:hover {
-    p {
-        color: var(--main-button-hover);
-    }
+    color: var(--main-button-hover);
 }
 
-.header__search {
-    margin: 8px 24px 8px 16px
-}
-
-.header__search__body {
-    background-color: var(--input-background);
-    border-radius: 8px;
-
+.header__search-wrapper {
     padding: 8px 12px;
     width: 240px;
 
-    color: var(--text);
+    background-color: var(--input-background);
+    border-radius: 8px;
+}
+
+.header__search-wrapper__input {
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0px;
     line-height: 20px;
 }
 
-.header__search__body::placeholder {
-    color: text(--input-placeholder);
+.header__search-wrapper__input::placeholder {
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0px;
     line-height: 20px;
 }
 
-.header__search__body:focus {
+.header__search-wrapper__input:focus {
     outline: none;
 }
 
-.header__avatar {
-    position: relative;
-    display: grid;
-    align-items: center;
-    cursor: pointer;
-}
 
-.header__avatar-img {
+.header__avatar {
+    grid-column: 4;
+
     display: grid;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
     width: 36px;
     height: 36px;
     border-radius: 50%;
     background-color: var(--input-background);
-}
 
-.header__avatar-img:hover {
-    background-color: var(--main-button-secondary);
-}
-
-
-.dropdown__wrapper__profile-menu {
-    position: absolute;
-    right: 0;
-    top: 100%;
-
-    background: var(--input-background);
-    border-radius: 8px;
-    z-index: 1;
-
-    box-shadow: 0px 3px 5px -1px var(--box-background);
-
-    margin-top: 0px;
-}
-
-.dropdown__profile-menu {
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    gap: 2px;
-
-    padding: 8px;
-}
-
-.dropdown__profile-menu__profile__button,
-.dropdown__profile-menu__logout__button {
-    padding: 5px 8px 5px 8px;
-    border-radius: 8px;
     cursor: pointer;
 }
 
-.dropdown__profile-menu__profile__button:hover,
-.dropdown__profile-menu__logout__button:hover {
-    background-color: var(--secondary-button-onhover-selected);
-
-    input {
-        background-color: var(--secondary-button-onhover-selected);
-    }
+.header__avatar:hover {
+    filter: brightness(0.9);
+    /* background-color: var(--main-button-secondary); */
 }
 
-.dropdown__profile-menu__profile__button input,
-.dropdown__profile-menu__logout__button input {
-    background-color: transparent;
+.header__dropdown {
+    position: absolute;
+    right: 12px;
+    top: 66px;
 
-    color: var(--text);
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+    gap: 2px;
+    padding: 8px;
+
+    background: var(--input-background);
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+
+    visibility: hidden;
+}
+
+.header__dropdown__profile-button,
+.header__dropdown__logout-button {
+    padding: 5px 8px 5px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+
     font-size: 15px;
     font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
+}
 
-    cursor: pointer;
+.header__dropdown__profile-button:hover,
+.header__dropdown__logout-button:hover {
+    background-color: var(--secondary-button-onhover-selected);
 }

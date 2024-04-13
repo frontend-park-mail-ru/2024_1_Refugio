@@ -1,24 +1,25 @@
-.gender__select-group {
+.gender-select {
+    grid-area: gender;
 
     display: grid;
     grid-template-rows: auto auto;
     grid-row-gap: 2px;
 
-    padding: 20px 16px 0 16px;
+    margin: 20px 16px 0 16px;
     cursor: default;
+
+    label {
+        color: var(--input-label-counter-icon);
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0;
+        line-height: 20px;
+    }
 }
 
-.gender__select__label {
-    margin-top: 2px;
 
-    color: var(--input-label-counter-icon);
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 18px;
-}
 
-.gender__select {
+.gender-select-wrapper {
     display: grid;
     grid-template-columns: repeat(3, auto);
     justify-content: start;
@@ -27,7 +28,14 @@
     padding: 0 12px 0 12px;
 }
 
-.gender__select__passive {
+.gender-select-wrapper p {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.gender-select_passive {
     color: var(--input-placeholder);
 }
 
@@ -36,13 +44,12 @@
 
     height: 20px;
     width: 38px;
-
 }
 
 .cl-switch {
     position: relative;
     display: inline-block;
-    
+
     height: 100%;
     width: 100%;
     cursor: pointer;
@@ -62,10 +69,9 @@
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    background-color: rgb(0, 0, 0, 0.38);
+    background-color: black;
     outline: none;
     opacity: 0;
-    transform: scale(1);
     pointer-events: none;
     transition: opacity 0.3s 0.1s, transform 0.2s 0.1s;
 }
@@ -149,10 +155,7 @@
     background-color: #ddd;
 }
 
-.cl-switch>input:checked:disabled+span::before {
-    background-color: var(--text);
-}
-
+.cl-switch>input:checked:disabled+span::before,
 .cl-switch>input:checked:disabled+span::after {
     background-color: var(--text);
 }
