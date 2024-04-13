@@ -97,18 +97,18 @@ export default class Signup {
 
 
         let isValidForm = true;
-        const fristNameError = this.#parent
+        const firstNameError = this.#parent
             .querySelector('#first-name-error');
         if (!firstName) {
-            fristNameError.textContent = "Введите имя";
-            fristNameError.classList.add('show');
+            firstNameError.textContent = "Введите имя";
+            firstNameError.classList.add('show');
             firstNameInput.classList.add('input-background-error');
             isValidForm = false;
 
         } else {
             if (firstName.length > MAX_INPUT_LENGTH) {
-                fristNameError.textContent = "Слишком длинное имя";
-                fristNameError.classList.add('show');
+                firstNameError.textContent = "Слишком длинное имя";
+                firstNameError.classList.add('show');
                 firstNameInput.classList.add('input-background-error');
                 isValidForm = false;
             }
@@ -232,6 +232,8 @@ export default class Signup {
     };
 
     handleCheckbox(e) {
+        console.log(this);
+
         e.preventDefault();
         if (this.checked) {
             document.querySelector('.gender-select_female').classList.remove('gender-select_passive');
