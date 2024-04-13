@@ -1,97 +1,78 @@
 <div class="profile-root">
     {{{header}}}
     {{{menu}}}
-    <div class="profile__content__wrapper">
-        <div class="profile__content">
-            <div class="profile__content__header">
-                <p>Личные данные</p>
+    <div class="profile__content">
+        <div class="profile__header">Личные данные</div>
+        <div class="profile__form">
+
+            <div class="profile__form__first-name-input-wrapper">
+                <label>Имя</label>
+                <input type="text" class="profile__form__first-name-input-wrapper__input" value="{{firstname}}"
+                    placeholder="Иван">
+                <div id="first-name-error" class="profile__error">Ошибка</div>
             </div>
-            <div class="profile__content__form">
-                <div class="profile__content__form__first-middle-names__block">
-                    <div class="profile__content__form__first-name__input-group">
-                        <label>Имя</label>
-                        <input type="text" class="profile__content__form__first-name__input" placeholder="Иван"
-                            value="{{firstname}}">
-                        <p class="profile__content__form__first-name__error">Ошибка</p>
-                    </div>
-                    <div class="profile__content__form__middle-name__input-group">
-                        <label>Отчество</label>
-                        <input type="text" class="profile__content__form__middle-name__input" placeholder="Иванович"
-                            value="{{middlename}}">
-                        <p class="profile__content__form__middle-name__error">Ошибка</p>
-                    </div>
-                </div>
-                <div class="profile__content__form__avatar-birthday-gender-last-name__block">
-                    <div class="profile__content__form__birthday-gender-last-name-group">
-                        <div class="profile__content__form__last-name__input-group">
-                            <label>Фамилия</label>
-                            <input type="text" class="profile__content__form__last-name__input" placeholder="Иванов"
-                                value="{{lastname}}">
-                            <p class="profile__content__form__last-name__error">Ошибка</p>
-                        </div>
-                        {{{birthday_select}}}
-                        {{{gender_select}}}
+
+            <div class="profile__form__middle-name-input-wrapper">
+                <label>Отчество</label>
+                <input type="text" class="profile__form__middle-name-input-wrapper__input" value="{{middlename}}"
+                    placeholder="Иванович">
+                <div id="middle-name-error" class="profile__error">Ошибка</div>
+            </div>
+
+
+            <div class="profile__form__last-name-input-wrapper">
+                <label>Фамилия</label>
+                <input type="text" class="profile__form__last-name-input-wrapper__input" value="{{lastname}}"
+                    placeholder="Иванов">
+                <div id="last-name-error" class="profile__error">Ошибка</div>
+            </div>
+            {{{birthday_select}}}
+            {{{gender_select}}}
 
 
 
 
-                    </div>
-                    <div class="profile__content__form__avatar-group">
-                        <div class="profile__content__form__avatar">
-                            {{#if avatar}}
-                            <img class="profile__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
-                            {{else}}
-                            <div class="profile__avatar-img">{{userLetter}}</div>
-                            {{/if}}
-                        </div>
-                        <div class="profile__content__form__load-avatar__buttons">
-                            <div class="profile__content__form__load-avatar__button">
-                                <input type="file" value="Выберите файл" id="avatar">
-                            </div>
-                            <div class="profile__content__form__load-avatar__button" id="avatarButton">
-                                <input type="button" value="Загрузить фото">
-                            </div>
-                        </div>
-                        <p class="profile__content__form__load-avatar__error">Ошибка</p>
+            <div class="profile__form__avatar-load-wrapper">
+                {{#if avatar}}
+                <img class="profile__form__avatar-load-wrapper__avatar" src="{{avatar}}" alt="{{userLetter}}">
+                {{else}}
+                <div class="profile__form__avatar-load-wrapper__avatar">{{userLetter}}</div>
+                {{/if}}
+                <input type="file" value="Выберите фото" class="profile__form__avatar-load-wrapper__avatar-load-input">
 
-                    </div>
+                <div class="profile__form__avatar-load-wrapper__avatar-set-button">Установить фото</div>
+                <div id="load-avatar-error" class="profile__error">Ошибка</div>
 
-                </div>
-                <div class="profile__content__form__bio-phone-number__block">
-                    <div class="profile__content__form__bio__input-group">
-                        <label>О себе</label>
-                        <input type="text" class="profile__content__form__bio__input" placeholder="Веб-разработчик"
-                            value="{{description}}">
-                        <p class="profile__content__form__bio__error">Ошибка</p>
-                    </div>
-                    <div class="profile__content__form__phone-number__input-group">
-                        <label>Номер телефона</label>
-                        <input type="text" class="profile__content__form__phone-number__input" placeholder="88001234567"
-                            value="{{phonenumber}}">
-                        <p class="profile__content__form__phone-number__error">Ошибка</p>
-                    </div>
-                </div>
-                <div class="profile__content__form__password-password-confirm__block">
-                    <div class="profile__content__form__password__input-group">
-                        <label>Новый пароль</label>
-                        <input type="password" class="profile__content__form__password__input" placeholder="●●●●●●●●">
-                        <p class="profile__content__form__password__error">Ошибка</p>
-                    </div>
-                    <div class="profile__content__form__password-confirm__input-group">
-                        <label>Новый пароль ещё раз</label>
-                        <input type="password" class="profile__content__form__password-confirm__input"
-                            placeholder="●●●●●●●●">
-                        <p class="profile__content__form__password-confirm__error">Ошибка</p>
-                    </div>
-                </div>
+            </div>
+
+            <div class="profile__form__bio-input-wrapper">
+                <label>О себе</label>
+                <input type="text" class="profile__form__bio-input-wrapper__input" value="{{desctiption}}"
+                    placeholder="Веб-разработчик">
+                <div id="bio-error" class="profile__error">Ошибка</div>
+            </div>
+            <div class="profile__form__phone-input-wrapper">
+                <label>Номер телефона</label>
+                <input type="text" class="profile__form__phone-input-wrapper__input" value="{{phoneNumber}}"
+                    placeholder="88005553535">
+                <div id="phone-error" class="profile__error">Ошибка</div>
+            </div>
+            <div class="profile__form__password-input-wrapper">
+                <label>Новый пароль</label>
+                <input type="password" class="profile__form__password-input-wrapper__input" placeholder="●●●●●●●●">
+                <div id="password-error" class="profile__error">Ошибка</div>
+            </div>
+            <div class="profile__form__password-confirm-input-wrapper">
+                <label>Новый пароль ещё раз</label>
+                <input type="password" class="profile__form__password-confirm-input-wrapper__input"
+                    placeholder="●●●●●●●●">
+                <div id="password-confirm-error" class="profile__error">Ошибка</div>
+            </div>
 
 
-                <div class="profile__content__form__save__button-group">
-                    <div class="profile__content__form__save__button">
-                        <input type="button" value="Сохранить">
-                    </div>
-                    <p class="profile__content__form__save__button__error">Ошибка</p>
-                </div>
+            <div class="profile__form__save-button-wrapper">
+                <div class="profile__form__save-button-wrapper__button">Сохранить</div>
+                <div id="save-error" class="profile__error">Ошибка</div>
             </div>
         </div>
     </div>
