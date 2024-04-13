@@ -1,24 +1,22 @@
-.letter__root {
+.letter-root {
     display: grid;
     grid-template-areas:
         'header header'
         'menu content';
     grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
-    justify-content: left;
-    align-content: start;
-
-    background-color: black;
 
     height: 100%;
+
+    background-color: black;
 }
 
 
-.letter__content__wrapper {
+
+.letter-content {
     grid-area: content;
-}
+    place-self: start;
 
-.letter__content {
     display: grid;
     grid-template-rows: auto auto;
 
@@ -26,6 +24,7 @@
 
     background-color: var(--box-background);
     border-radius: 8px;
+
 }
 
 .letter__content__header {

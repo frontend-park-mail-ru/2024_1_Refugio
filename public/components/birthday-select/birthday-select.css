@@ -1,10 +1,11 @@
 .birthday__input-group {
-
+    grid-area:birthday;
+    
     display: grid;
     grid-template-rows: auto, auto;
     grid-row-gap: 2px;
 
-    padding: 2px 16px 0 16px;
+    margin: 2px 16px 0 16px;
 
     label {
         margin-top: 2px;

@@ -59,6 +59,7 @@
     --input-label-counter-icon: #808080;
     --text: #ededed;
     --main-button-hover: #ededed;
+    --main-button: white;
 
     --negative: #ff4747;
     --error-input-placeholder: #522e2e;
@@ -69,11 +70,12 @@
     padding: 0;
     border: none;
     box-sizing: border-box;
+    transition: all 0.1s ease;
 }
 
 body {
-    font-family: Roboto;
     background-color: var(--background);
+    font-family: Roboto;
     color: var(--text);
     font-size: 15px;
     font-weight: 400;
@@ -91,6 +93,22 @@ input:autofill {
     filter: brightness(86%) grayscale(100%) invert(1);
 }
 
+
+input {
+    background-color: var(--input-background);
+    color: var(--text);
+}
+
+input::placeholder {
+    color: var(--input-placeholder);
+}
+
+label {
+    color: var(--input-label-counter-icon);
+}
+
+
+
 .show {
     visibility: visible;
 }
@@ -99,10 +117,6 @@ input:autofill {
     display: none;
 }
 
-.auth__input-backgroud-error {
+.input-background-error {
     background-color: var(--error-input-placeholder);
-}
-
-.auth__input-backgroud-error::placeholder {
-    visibility: hidden;
 }

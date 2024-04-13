@@ -43,15 +43,14 @@ export default class Sent {
 
         const elements = {
             profile: {
-                button: document.querySelector('.header__avatar-img'),
-                dropdown: document.querySelector('.dropdown__wrapper__profile-menu'),
+                button: document.querySelector('.header__avatar'),
+                dropdown: document.querySelector('.header__dropdown'),
             }
         }
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
-                value.dropdown.classList.remove('show__dropdown__wrapper');
-                value.dropdown.classList.add('hide__dropdown__wrapper');
+                value.dropdown.classList.remove('show');
             });
         }
 
@@ -60,14 +59,12 @@ export default class Sent {
             if (elements[key].button.contains(target)) {
                 hasTarget = true;
                 let showDropdown = true;
-                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                if (elements[key].dropdown.classList.contains('show')) {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
-                console.log(showDropdown);
                 if (showDropdown) {
-                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
-                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show');
                 }
             }
         })
@@ -108,7 +105,7 @@ export default class Sent {
         e.preventDefault();
         dispathcher.do(actionRedirect('/sent', true));
     };
-    
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -118,19 +115,19 @@ export default class Sent {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
         this.#parent
-            .querySelector('.dropdown__profile-menu__logout__button')
+            .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.dropdown__profile-menu__profile__button')
+            .querySelector('.header__dropdown__profile-button')
             .addEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter__button')
+            .querySelector('.menu__write-letter-button')
             .addEventListener('click', this.handleWriteLetter);
         this.#parent
-            .querySelector('.menu__incoming__button')
+            .querySelector('#incoming-folder')
             .addEventListener('click', this.handleMain);
         this.#parent
-            .querySelector('.menu__sent__button')
+            .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
         this.#parent.
             querySelector('.header__logo')
@@ -148,19 +145,19 @@ export default class Sent {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
         this.#parent
-            .querySelector('.dropdown__profile-menu__logout__button')
+            .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.dropdown__profile-menu__profile__button')
+            .querySelector('.header__dropdown__profile-button')
             .removeEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter__button')
+            .querySelector('.menu__write-letter-button')
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
-            .querySelector('.menu__incoming__button')
+            .querySelector('#incoming-folder')
             .removeEventListener('click', this.handleMain);
         this.#parent
-            .querySelector('.menu__sent__button')
+            .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
         this.#parent.
             querySelector('.header__logo')
