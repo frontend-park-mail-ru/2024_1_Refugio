@@ -1,0 +1,186 @@
+.login-box {
+    grid-area: login-box;
+
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+
+    padding: 32px 16px 6px 16px;
+    max-height: 440px;
+    width: 392px;
+
+    background-color: var(--box-background);
+    border-radius: 8px;
+}
+
+.login-box__authorization-method-switch {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2px;
+
+    margin: 0 16px 40px 16px;
+    padding: 2px;
+    height: 44px;
+
+    background-color: var(--input-background);
+    border-radius: 10px;
+}
+
+.login-box__authorization-method-switch__method {
+    display: grid;
+    place-items: center;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.login-box__authorization-method-switch__method_active {
+    background-color: var(--secondary-button-onhover-selected);
+}
+
+.login-box__authorization-method-switch__method_passive {
+    color: var(--input-placeholder);
+
+    cursor: pointer;
+}
+
+.login-box__authorization-method-switch__method_passive:active {
+    transform: scale(0.99);
+}
+
+.login-box__email-input-wrapper {
+    display: grid;
+    grid-template-areas:
+        'label label'
+        'email-input domain-input'
+        'error error';
+    grid-row-gap: 2px;
+    margin: 2px 16px 0 16px;
+}
+
+.login-box__password-input-wrapper {
+    display: grid;
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
+    grid-row-gap: 2px;
+    margin: 2px 16px 0 16px;
+
+}
+
+.login-box__email-input-wrapper label,
+
+
+
+.login-box__email-input-wrapper__email-input,
+.login-box__email-input-wrapper__email-domain-input {
+    font-size: 16px;
+    letter-spacing: 0;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.login-box__email-input-wrapper__email-input {
+    grid-area: email-input;
+
+    padding: 12px 2px 12px 12px;
+    width: 220px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.login-box__email-input-wrapper__email-domain-input {
+    grid-area: domain-input;
+
+    padding: 12px 12px 12px 0;
+    width: 108px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.login-box__password-input-wrapper__input {
+    grid-area: input;
+
+    padding: 12px;
+    height: 44px;
+    width: 328px;
+    border-radius: 8px;
+
+    font-size: 25px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.login-box__email-input-wrapper__email-input::placeholder,
+.login-box__email-input-wrapper__email-domain-input::placeholder,
+.login-box__password-input-wrapper__input::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.login-box__email-input-wrapper__email-input:focus,
+.login-box__email-input-wrapper__email-domain-input:focus,
+.login-box__password-input-wrapper__input:focus {
+    outline: none;
+}
+
+.login-box__error {
+    grid-area: error;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+    overflow-wrap: anywhere;
+}
+
+.login-box__login-button-wrapper {
+    display: grid;
+    grid-template-areas:
+        'button'
+        'error';
+    grid-row-gap: 8px;
+    margin: 26px 16px 0 16px;
+
+    text-align: center;
+}
+
+.login-box__login-button-wrapper__button {
+    grid-area: button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+    height: 36px;
+
+    background-color: var(--main-button);
+    border-radius: 8px;
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+}
+
+.login-box__login-button-wrapper__button:hover {
+    background-color: var(--main-button-hover);
+}
+
+.login-box__login-button-wrapper__button:active {
+    transform: scale(0.99);
+}
