@@ -1,3 +1,4 @@
+import Handlebars from 'handlebars';
 
 import './modules/dispathcher.js';
 import './actions/userActions.js';
