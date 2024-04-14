@@ -26,6 +26,7 @@ export default class Write__Letter {
         this.#config = config;
         this.#parent = parent;
     }
+    
 
     /**
      * Рендер компонента в DOM
@@ -82,7 +83,7 @@ export default class Write__Letter {
 
         const to = toInput.value.trim();
         let topic = topicInput.value.trim();
-        const text = textInput.value.trim();
+        let text = textInput.value.trim();
 
         let oldError = this.#parent
             .querySelector('.write-letter__to__error');
@@ -152,6 +153,10 @@ export default class Write__Letter {
 
         if (!topic) {
             topic = "Без темы";
+        }
+
+        if (!text) {
+            text = "Пустое письмо";
         }
 
 

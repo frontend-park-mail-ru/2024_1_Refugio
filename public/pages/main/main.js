@@ -35,6 +35,7 @@ export default class Main {
             menu: new Menu(null, this.#config.menu).render(),
             list_letters: new List_letters(null, this.#config.content).render(),
         };
+        const hasLetters = this
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 

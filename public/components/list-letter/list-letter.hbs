@@ -1,34 +1,31 @@
 <div class="list-letter" data-id="{{id}}">
-    <div class="list-letter__status-avatar-from-subject-text-group">
-        <div class="list-letter__status">
-            {{#if status}}
-            <img src="../../static/icons/read-on__256.svg">
-            {{else}}
-            <img src="../../static/icons/read-on-offer__256.svg" class="list-letter__status-offer">
-            {{/if}}
-        </div>
+    {{#if status}}
+    <img class="list-letter__status" src="../../static/icons/read-on__256.svg">
+    {{else}}
+    <img class="list-letter__status list-letter__status-offer" src="../../static/icons/read-on-offer__256.svg" >
+    {{/if}}
+    {{!-- <div class="list-letter__avatar-wrapper"> --}}
         <div class="list-letter__avatar-wrapper">
-            <div class="list-letter__avatar">
-                {{#if avatar}}
-                <img class="list-letter__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
-                {{else}}
-                <div class="list-letter__avatar-img">{{userLetter}}</div>
-                {{/if}}
-                <img class="list-letter__avatar-checkbox list-letter__avatar-checkbox-centered"
-                    src="../../static/icons/read_off.svg">
-            </div>
+            {{#if avatar}}
+            <img class="list-letter__avatar-wrapper__avatar" src="{{avatar}}" alt="{{userLetter}}">
+            {{else}}
+            <div class="list-letter__avatar-wrapper__avatar">{{userLetter}}</div>
+            {{/if}}
+            <img class="list-letter__avatar-wrapper__checkbox list-letter__avatar-wrapper__checkbox_centered"
+                src="../../static/icons/read_off.svg">
         </div>
-        <div class="list-letter__text list-letter__white-text">
-            {{from}}
-        </div>
-        <div class="list-letter__text list-letter__white-text">
-            {{subject}}
-        </div>
-        <div class="list-letter__text list-letter__gray-text">
-            {{text}}
-        </div>
-    </div>
-    <div class="list-letter_date list-letter__text list-letter__gray-text">
+        {{!--
+    </div> --}}
+    <span class="list-letter__text list-letter__text_white">
+        {{from}}
+    </span>
+    <span class="list-letter__text list-letter__text_white">
+        {{subject}}
+    </span>
+    <span class="list-letter__text list-letter__text_gray">
+        {{text}}
+    </span>
+    <span class="list-letter__date list-letter__text list-letter__text_gray">
         {{date}}
-    </div>
+    </span>
 </div>

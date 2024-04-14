@@ -4,6 +4,11 @@
     height: 800px;
     align-content: start;
     overflow-y: auto;
+    text-align: center;
+}
+
+.list-letters_empty {
+    margin-top: 20px;
 }
 
 .list-letters::-webkit-scrollbar {
