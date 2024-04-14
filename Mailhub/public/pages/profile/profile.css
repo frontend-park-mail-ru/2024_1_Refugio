@@ -1,0 +1,277 @@
+@import '../../components/birthday-select/birthday-select.css';
+@import '../../components/gender-select/gender-select.css';
+
+.profile-root {
+    display: grid;
+    grid-template-areas:
+        'header header header'
+        'menu content .';
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto 1fr;
+
+    height: 100%;
+}
+
+
+.profile-content {
+    grid-area: content;
+    display: grid;
+    grid-template-rows: auto auto;
+
+    height: fit-content;
+    width: 752px;
+
+    background-color: var(--box-background);
+    border-radius: 8px;
+}
+
+
+.profile__header {
+    padding: 20px 32px;
+
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 28px;
+}
+
+.profile__form {
+    display: grid;
+    grid-template-areas:
+        'first-name middle-name'
+        'last-name avatar'
+        'birthday avatar'
+        'gender avatar'
+        'bio phone'
+        'password password-confirm'
+        'button button';
+    grid-template-columns: repeat(2, 1fr);
+    align-items: start;
+
+    padding: 0 16px 6px;
+}
+
+.profile__form__first-name-input-wrapper {
+    grid-area: first-name;
+    margin: 2px 8px 0 16px;
+}
+
+.profile__form__middle-name-input-wrapper {
+    grid-area: middle-name;
+    margin: 2px 16px 0 8px;
+}
+
+.profile__form__last-name-input-wrapper {
+    grid-area: last-name;
+    margin: 2px 8px 0 16px;
+}
+
+.profile__form__bio-input-wrapper {
+    grid-area: bio;
+    margin: 2px 8px 0 16px;
+}
+
+.profile__form__phone-input-wrapper {
+    grid-area: phone;
+    margin: 2px 16px 0 8px;
+}
+
+.profile__form__password-input-wrapper {
+    grid-area: password;
+    margin: 2px 8px 0 16px;
+}
+
+.profile__form__password-confirm-input-wrapper {
+    grid-area: password-confirm;
+    margin: 2px 16px 0 8px;
+}
+
+.profile__form__first-name-input-wrapper,
+.profile__form__middle-name-input-wrapper,
+.profile__form__last-name-input-wrapper,
+.profile__form__bio-input-wrapper,
+.profile__form__phone-input-wrapper,
+.profile__form__password-input-wrapper,
+.profile__form__password-confirm-input-wrapper {
+    display: grid;
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
+    grid-row-gap: 2px;
+}
+
+.profile__form__first-name-input-wrapper label,
+.profile__form__middle-name-input-wrapper label,
+.profile__form__last-name-input-wrapper label,
+.profile__form__bio-input-wrapper label,
+.profile__form__phone-input-wrapper label,
+.profile__form__password-input-wrapper label,
+.profile__form__password-confirm-input-wrapper label {
+    grid-area: label;
+
+    margin-top: 2px;
+
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+
+
+.profile__form__first-name-input-wrapper__input,
+.profile__form__middle-name-input-wrapper__input,
+.profile__form__last-name-input-wrapper__input,
+.profile__form__bio-input-wrapper__input,
+.profile__form__phone-input-wrapper__input,
+.profile__form__password-input-wrapper__input,
+.profile__form__password-confirm-input-wrapper__input {
+    grid-area: input;
+
+    padding: 12px;
+    border-radius: 8px;
+
+    font-size: 16px;
+    letter-spacing: 0;
+    font-weight: 400;
+    line-height: 20px;
+
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.profile__form__first-name-input-wrapper__input::placeholder,
+.profile__form__middle-name-input-wrapper__input::placeholder,
+.profile__form__last-name-input-wrapper__input::placeholder,
+.profile__form__bio-input-wrapper__input::placeholder,
+.profile__form__phone-input-wrapper__input::placeholder,
+.profile__form__password-input-wrapper__input::placeholder,
+.profile__form__password-confirm-input-wrapper__input::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.profile__form__first-name-input-wrapper__input:focus,
+.profile__form__middle-name-input-wrapper__input:focus,
+.profile__form__last-name-input-wrapper__input:focus,
+.profile__form__bio-input-wrapper__input:focus,
+.profile__form__phone-input-wrapper__input:focus,
+.profile__form__password-input-wrapper__input:focus,
+.profile__form__password-confirm-input-wrapper__input:focus {
+    outline: none;
+}
+
+.profile__form__avatar-load-wrapper {
+    grid-area: avatar;
+    display: grid;
+    grid-template-areas:
+        'avatar'
+        'load'
+        'set'
+        'error';
+    justify-items: center;
+    padding-top: 18px;
+}
+
+.profile__form__avatar-load-wrapper__avatar {
+    grid-area: avatar;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width: 166px;
+    height: 166px;
+    border-radius: 50%;
+    background-color: var(--input-label-counter-icon);
+    font-size: 24px;
+    margin-bottom: 16px;
+}
+
+
+.profile__form__avatar-load-wrapper__avatar-set-button {
+    grid-area: set;
+}
+
+.profile__form__avatar-load-wrapper__avatar-set-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+    height: 36px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+}
+
+.profile__form__avatar-load-wrapper__avatar-set-button:hover {
+
+    background-color: var(--secondary-button-onhover-selected)
+}
+
+.profile__form__save-button-wrapper {
+    grid-area: button;
+
+    display: grid;
+    grid-template-areas:
+        'button'
+        'error';
+    grid-row-gap: 8px;
+    margin: 26px 16px 0 16px;
+
+    text-align: center;
+}
+
+.profile__form__save-button-wrapper__button {
+    grid-area: button;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+    height: 36px;
+
+    background-color: var(--main-button);
+    border-radius: 8px;
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+}
+
+.profile__form__save-button-wrapper__button:hover {
+    background-color: var(--main-button-hover);
+}
+
+.profile__form__save-button-wrapper__button:active {
+    transform: scale(0.99);
+}
+
+.profile__form__avatar-load-wrapper__avatar-load-input {
+    display: none;
+}
+
+.profile__error {
+    grid-area: error;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+    overflow-wrap: anywhere;
+}

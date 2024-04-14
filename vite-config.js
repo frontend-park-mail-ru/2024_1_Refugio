@@ -1,5 +1,6 @@
 export default defineConfig({
-    root: './public/',
+    root: './public',
+    publicDir: 'public',
     plugins: [
         handlebars(),
         {
@@ -28,7 +29,6 @@ export default defineConfig({
     build: {
         outDir: path.resolve(__dirname, 'build'),
         rollupOptions: {
-            input: './public/index.html',
             output: {
                 assetFileNames: '[name].[ext]',
                 entryFileNames: '[name].js',
@@ -39,4 +39,4 @@ export default defineConfig({
         minify: true,
         assetsDir: '.',
     },
-});
+}); 
