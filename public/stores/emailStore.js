@@ -47,13 +47,19 @@ class emaillStore {
         mediator.emit('send', status);
     }
 
-    // async update(newEmail) {
-    //     const response = await ajax(
-    //         'POST', 'http://mailhub.su:8080/api/v1/email/update/{id}', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
-    //     );
-    //     const status = await response.status;
-    //     mediator.emit('send', status);
-    // }
+    async updateEmail({id, value}) {
+        const response = await ajax(
+            'PUT', `http://mailhub.su:8080/api/v1/email/update/${id}`, JSON.stringify(value), 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+    }
+
+    async deleteEmail({id}) {
+        const response = await ajax(
+            'DELETE', `http://mailhub.su:8080/api/v1/email/delete/${id}`,null, 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+    }
 }
 
 export default new emaillStore();

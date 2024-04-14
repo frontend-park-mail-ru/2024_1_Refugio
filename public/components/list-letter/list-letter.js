@@ -23,7 +23,7 @@ export default class List_letter {
     render() {
         const template = Handlebars.templates['list-letter.hbs'];
         const letter = {
-            status: this.#config.status,
+            status: !this.#config.status,
             avatar: this.#config.avatar,
             from: this.#config.from,
             subject: this.#config.subject,

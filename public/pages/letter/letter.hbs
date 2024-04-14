@@ -1,71 +1,69 @@
-<div class="letter__root">
+<div class="letter-root">
     {{{header}}}
     {{{menu}}}
-    <div class="letter__content__wrapper">
-        <div class="letter__content">
-            <div class="letter__content__header">
-                <div class="letter__content__header__button">
-                    <img src="../../static/icons/arrow-previous.svg" alt="">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Удалить">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="В папку">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Спам">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Пометить прочитанным">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Помететить непрочитанным">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Ответить" id="reply">
-                </div>
-                <div class="letter__content__header__button" id="resend">
-                    <input type="button" value="Переслать">
-                </div>
+    <div class="letter-content">
+        <div class="letter__content__header">
+            <div class="letter__content__header__button letter__content__header__back-button">
+                <img src="../../static/icons/arrow-previous.svg" alt="">
             </div>
-            <div class="letter__content__body">
-                <div class="letter__content__body__subject">
-                    {{#if replyId}}
-                    <span>Ответ на "{{replyTopic}}": {{subject}}</span>
+            <div class="letter__content__header__button">
+                <input type="button" value="Удалить">
+            </div>
+            <div class="letter__content__header__button">
+                <input type="button" value="В папку">
+            </div>
+            <div class="letter__content__header__button">
+                <input type="button" value="Спам">
+            </div>
+            <div class="letter__content__header__button">
+                <input type="button" value="Пометить прочитанным">
+            </div>
+            <div class="letter__content__header__button">
+                <input type="button" value="Помететить непрочитанным">
+            </div>
+            <div class="letter__content__header__button">
+                <input type="button" value="Ответить" id="reply">
+            </div>
+            <div class="letter__content__header__button" id="resend">
+                <input type="button" value="Переслать">
+            </div>
+        </div>
+        <div class="letter__content__body">
+            <div class="letter__content__body__subject">
+                {{#if replyId}}
+                <span>Ответ на "{{replyTopic}}": {{subject}}</span>
+                {{else}}
+                <span>{{subject}}</span>
+                {{/if}}
+            </div>
+            <div class="letter__content__body__info">
+                <div class="letter__content__body__info__icon-avatar-name">
+                    <img class="letter__content__body__info__icon" src="../../static/icons/circle-read.svg" alt="">
+                    {{#if avatar}}
+                    <img class="header__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
                     {{else}}
-                    <span>{{subject}}</span>
+                    <div class="header__avatar-img">{{userLetter}}</div>
                     {{/if}}
+                    <span id="sender">{{from}}</span>
                 </div>
-                <div class="letter__content__body__info">
-                    <div class="letter__content__body__info__icon-avatar-name">
-                        <img class="letter__content__body__info__icon" src="../../static/icons/circle-read.svg" alt="">
-                        {{#if avatar}}
-                        <img class="header__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
-                        {{else}}
-                        <div class="header__avatar-img">{{userLetter}}</div>
-                        {{/if}}
-                        <span id="sender">{{from}}</span>
-                    </div>
-                    <span id="date">{{date}}</span>
+                <span id="date">{{date}}</span>
+            </div>
+            <div class="letter__content__body__attachments">
+                <div class="letter__content__body__attachments__view-button">
+                    <input type="button" value="5 файлов">
+                    <span>255 КБ</span>
                 </div>
-                <div class="letter__content__body__attachments">
-                    <div class="letter__content__body__attachments__view-button">
-                        <input type="button" value="5 файлов">
-                        <span>255 КБ</span>
-                    </div>
-                    <div class="letter__content__body__attachments__download-all-button">
-                        <input type="button" value="Скачать все">
-                    </div>
-                    <p class="letter__content__body__attachments__error remove">Ошибка</p>
+                <div class="letter__content__body__attachments__download-all-button">
+                    <input type="button" value="Скачать все">
+                </div>
+                <p class="letter__content__body__attachments__error remove">Ошибка</p>
 
-
-                </div>
-                <div class="letter__content__body__text">
-                    <p>{{text}}</p>
-                </div>
 
             </div>
+            <div class="letter__content__body__text">
+                <p>{{text}}</p>
+            </div>
+
         </div>
     </div>
 </div>

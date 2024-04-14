@@ -41,15 +41,15 @@ export default class Signup {
     handleSignup = async (e) => {
         e.preventDefault();
 
-        const firstNameInput = document.querySelector('.signup__first-name__input');
-        const lastNameInput = document.querySelector('.signup__last-name__input');
+        const firstNameInput = document.querySelector('.signup-box__first-name-input-wrapper__input');
+        const lastNameInput = document.querySelector('.signup-box__last-name-input-wrapper__input');
         const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent;
         const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent;
         const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
-        const emailInput = document.querySelector('.signup__email__input');
-        const passwordInput = document.querySelector('.signup__password__input');
-        const passwordConfirmInput = document.querySelector('.signup__password-confirm__input');
+        const emailInput = document.querySelector('.signup-box__email-input-wrapper__email-input');
+        const passwordInput = document.querySelector('.signup-box__password-input-wrapper__input');
+        const passwordConfirmInput = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
 
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
@@ -62,191 +62,155 @@ export default class Signup {
         const password = passwordInput.value;
         const passwordConfirm = passwordConfirmInput.value;
 
+        const emailDomainInput = this.#parent
+            .querySelector('.signup-box__email-input-wrapper__email-domain-input');
         let oldError = this.#parent
-            .querySelector('.signup__first-name__error');
+            .querySelector('#first-name-error');
         oldError.classList.remove('show');
         oldError = firstNameInput;
-        oldError.classList.remove('auth__input-backgroud-error');
-
+        oldError.classList.remove('input-background-error');
         oldError = this.#parent
-            .querySelector('.signup__last-name__error');
+            .querySelector('#last-name-error');
         oldError.classList.remove('show');
         oldError = lastNameInput;
-        oldError.classList.remove('auth__input-backgroud-error');
-
+        oldError.classList.remove('input-background-error');
         oldError = this.#parent
-            .querySelector('.signup__email__error');
+            .querySelector('#email-error');
         oldError.classList.remove('show');
         oldError = emailInput;
-        oldError.classList.remove('auth__input-backgroud-error');
-
+        oldError.classList.remove('input-background-error');
+        oldError = emailDomainInput;
+        oldError.classList.remove('input-background-error');
         oldError = this.#parent
-            .querySelector('.signup__password__error');
+            .querySelector('#password-error');
         oldError.classList.remove('show');
         oldError = passwordInput;
-        oldError.classList.remove('auth__input-backgroud-error');
-
+        oldError.classList.remove('input-background-error');
         oldError = this.#parent
-            .querySelector('.signup__password-confirm__error');
+            .querySelector('#password-confirm-error');
         oldError.classList.remove('show');
         oldError = passwordConfirmInput;
-        oldError.classList.remove('auth__input-backgroud-error');
-
+        oldError.classList.remove('input-background-error');
         oldError = this.#parent
-            .querySelector('.signup__button__error');
+            .querySelector('#signup-error');
         oldError.classList.remove('show');
 
+
+        let isValidForm = true;
+        const firstNameError = this.#parent
+            .querySelector('#first-name-error');
         if (!firstName) {
-            const error = this.#parent
-                .querySelector('.signup__first-name__error');
-            error.textContent = 'Введите имя';
-            error.classList.add('show');
-            firstNameInput.classList.add('auth__input-backgroud-error');
-            return;
+            firstNameError.textContent = "Введите имя";
+            firstNameError.classList.add('show');
+            firstNameInput.classList.add('input-background-error');
+            isValidForm = false;
+
+        } else {
+            if (firstName.length > MAX_INPUT_LENGTH) {
+                firstNameError.textContent = "Слишком длинное имя";
+                firstNameError.classList.add('show');
+                firstNameInput.classList.add('input-background-error');
+                isValidForm = false;
+            }
         }
 
+        const lastNameError = this.#parent
+            .querySelector('#last-name-error');
         if (!lastName) {
-            const error = this.#parent
-                .querySelector('.signup__last-name__error');
-            error.textContent = 'Введите фамилию';
-            error.classList.add('show');
-            lastNameInput.classList.add('auth__input-backgroud-error');
-            return;
+            lastNameError.textContent = "Введите фамилию";
+            lastNameError.classList.add('show');
+            lastNameInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (lastName.length > MAX_INPUT_LENGTH) {
+                lastNameError.textContent = "Слишком длинная фамилия";
+                lastNameError.classList.add('show');
+                lastNameInput.classList.add('input-background-error');
+                isValidForm = false;
+            }
         }
 
+        const emailError = this.#parent
+            .querySelector('#email-error');
         if (!email) {
-            const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Введите имя ящика';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return;
+            emailError.textContent = 'Введите имя ящика';
+            emailError.classList.add('show');
+            emailInput.classList.add('input-background-error');
+            emailDomainInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (email.length > MAX_INPUT_LENGTH) {
+                emailError.textContent = 'Слишком длинное имя ящика';
+                emailError.classList.add('show');
+                emailInput.classList.add('input-background-error');
+                emailDomainInput.classList.add('input-background-error');
+                isValidForm = false;
+            } else {
+                const emailLoginRegex = /^[a-zA-Z0-9._%+-]+$/;
+                if (!emailLoginRegex.test(email)) {
+                    emailError.textContent = 'Некорректное имя ящика';
+                    emailError.classList.add('show');
+                    emailInput.classList.add('input-background-error');
+                    emailDomainInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
+            }
         }
 
+        const passwordError = this.#parent
+            .querySelector('#password-error');
         if (!password) {
-            const error = this.#parent
-                .querySelector('.signup__password__error');
-            error.textContent = 'Введите пароль';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return;
+            passwordError.textContent = 'Введите пароль';
+            passwordError.classList.add('show');
+            passwordInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (password.length > 4 * MAX_INPUT_LENGTH) {
+                passwordError.textContent = 'Слишком длинный пароль';
+                passwordError.classList.add('show');
+                passwordInput.classList.add('input-background-error');
+                isValidForm = false;
+            } else {
+                if (password.length < 8) {
+                    passwordError.textContent = 'Минимальная длина 8 символов';
+                    passwordError.classList.add('show');
+                    passwordInput.classList.add('input-background-error');
+                    isValidForm = false;
+                } else {
+                    const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
+                    if (!passwordRegex.test(password)) {
+                        passwordError.textContent = 'Недопустимые символы';
+                        passwordError.classList.add('show');
+                        passwordInput.classList.add('input-background-error');
+                        isValidForm = false;
+                    }
+                }
+            }
         }
 
+        const passwordConfirmError = this.#parent
+            .querySelector('#password-confirm-error');
         if (!passwordConfirm) {
-            const error = this.#parent
-                .querySelector('.signup__password-confirm__error');
-            error.textContent = 'Введите пароль ещё раз';
-            error.classList.add('show');
-            passwordConfirmInput.classList.add('auth__input-backgroud-error');
+            passwordConfirmError.textContent = 'Введите пароль';
+            passwordConfirmError.classList.add('show');
+            passwordConfirmInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (password !== passwordConfirm) {
+                passwordConfirmError.textContent = 'Пароли не совпадают';
+                passwordConfirmError.classList.add('show');
+                passwordConfirmInput.classList.add('input-background-error');
+                isValidForm = false;
+            }
+        }
+        
+        if (!isValidForm) {
             return;
-        }
-
-
-
-        if (firstName.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.signup__first-name__error');
-            error.textContent = 'Слишком длинное имя';
-            error.classList.add('show');
-            firstNameInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-        if (lastName.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.signup__last-name__error');
-            error.textContent = 'Слишком длинная фамилия';
-            error.classList.add('show');
-            lastNameInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (email.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Слишком длинное имя ящика';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (password.length > 4 * MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.signup__password__error');
-            error.textContent = 'Слишком длинный пароль';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (passwordConfirm.length > 4 * MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.signup__password-confirm__error');
-            error.textContent = 'Слишком длинный пароль';
-            error.classList.add('show');
-            passwordConfirmInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (email.indexOf('@') === -1) {
-            const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Забыли "@"';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
-        if (email.indexOf('.') === -1) {
-            const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Забыли "."';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
-        const emailSignupRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!emailSignupRegex.test(email)) {
-            const error = this.#parent
-                .querySelector('.signup__email__error');
-            error.textContent = 'Некорректное имя ящика';
-            error.classList.add('show');
-            emailInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
-        if (password.length < 8) {
-            const error = this.#parent
-                .querySelector('.signup__password__error');
-            error.textContent = 'Минимальная длина 8 символов';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
-        const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
-        if (!passwordRegex.test(password)) {
-            const error = this.#parent
-                .querySelector('.signup__password__error');
-            error.textContent = 'Недопустимые символы';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
-
-        if (password !== passwordConfirm) {
-            const error = this.#parent
-                .querySelector('.signup__password-confirm__error');
-            error.textContent = 'Пароли не совпадают';
-            error.classList.add('show');
-            passwordConfirmInput.classList.add('auth__input-backgroud-error');
-            return
         }
 
         // create JSON object with user data
         const newUser = {
-            login: email,
+            login: email + "@mailhub.su",
             firstname: firstName,
             password: password,
             surname: lastName,
@@ -268,13 +232,15 @@ export default class Signup {
     };
 
     handleCheckbox(e) {
+        console.log(this);
+
         e.preventDefault();
         if (this.checked) {
-            document.querySelector('.gender__select__female').classList.remove('gender__select__passive');
-            document.querySelector('.gender__select__male').classList.add('gender__select__passive');
+            document.querySelector('.gender-select_female').classList.remove('gender-select_passive');
+            document.querySelector('.gender-select_male').classList.add('gender-select_passive');
         } else {
-            document.querySelector('.gender__select__male').classList.remove('gender__select__passive');
-            document.querySelector('.gender__select__female').classList.add('gender__select__passive');
+            document.querySelector('.gender-select_male').classList.remove('gender-select_passive');
+            document.querySelector('.gender-select_female').classList.add('gender-select_passive');
         }
     }
 
@@ -341,16 +307,23 @@ export default class Signup {
         }
     };
 
+    handleEnterKey = async (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            this.handleSignup(e);
+        }
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
         this.#parent
-            .querySelector('.signup__button')
+            .querySelector('.signup-box__signup-button-wrapper__button')
             .addEventListener('click', this.handleSignup);
 
         this.#parent
-            .querySelector('.signup__switch-authorization-method__passive')
+            .querySelector('.signup-box__authorization-method-switch__method_passive')
             .addEventListener('click', this.renderLogin);
         this.#parent
             .querySelector('.cl-switch input')
@@ -358,6 +331,8 @@ export default class Signup {
 
         this.#parent
         document.addEventListener('click', this.handleDropdowns);
+        document
+            .addEventListener('keydown', this.handleEnterKey);
         mediator.on('signup', this.handleSignupResponse);
     }
 
@@ -366,17 +341,20 @@ export default class Signup {
      */
     removeListeners() {
         this.#parent
-            .querySelector('.signup__button')
-            .addEventListener('click', this.handleSignup);
+            .querySelector('.signup-box__signup-button-wrapper__button')
+            .removeEventListener('click', this.handleSignup);
 
         this.#parent
-            .querySelector('.signup__switch-authorization-method__passive')
-            .addEventListener('click', this.renderLogin);
+            .querySelector('.signup-box__authorization-method-switch__method_passive')
+            .removeEventListener('click', this.renderLogin);
         this.#parent
             .querySelector('.cl-switch input')
-            .addEventListener('change', this.handleCheckbox);
+            .removeEventListener('change', this.handleCheckbox);
+
         this.#parent
-        document.addEventListener('click', this.handleDropdowns);
+        document.removeEventListener('click', this.handleDropdowns);
+        document
+            .removeEventListener('keydown', this.handleEnterKey);
         mediator.off('signup', this.handleSignupResponse);
     }
 
@@ -387,7 +365,7 @@ export default class Signup {
                 break;
             default:
                 const error = this.#parent
-                    .querySelector('.signup__button__error');
+                    .querySelector('#signup-error');
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
                 break;

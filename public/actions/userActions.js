@@ -58,10 +58,15 @@ export const actionSend = (value) => ({
     value: value,
 })
 
-// export const actionUpdate = (value) => ({
-//     type: 'update',
-//     value: value,
-// })
+export const actionUpdateEmail = (id, value) => ({
+    type: 'updateEmail',
+    value: {id: id, value: value},
+})
+
+export const actionDeleteEmail = (id) => ({
+    type: 'deleteEmail',
+    value: {id: id},
+})
 
 export const actionLogout = () => ({
     type: 'logout',
