@@ -1,9 +1,9 @@
-import '../pages/letter/letter.js';
-import './base.js';
-import '../modules/dispathcher.js';
-import '../actions/userActions.js';
-import '../stores/emailStore.js';
-import '../stores/userStore.js';
+import Letter from '../pages/letter/letter.js';
+import BaseView from './base.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetEmail, actionGetUser } from '../actions/userActions.js';
+import emailStore from '../stores/emailStore.js';
+import userStore from '../stores/userStore.js';
 
 /**
  * Класс для рендера страницы логина

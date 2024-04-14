@@ -1,8 +1,8 @@
-import '../pages/profile/profile.js';
-import './base.js';
-import '../stores/userStore.js';
-import '../modules/dispathcher.js';
-import '../actions/userActions.js';
+import Profile from '../pages/profile/profile.js';
+import BaseView from './base.js';
+import userStore from '../stores/userStore.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetUser } from '../actions/userActions.js';
 
 /**
  * Класс для рендера страницы логина

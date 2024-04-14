@@ -1,3 +1,5 @@
+import {template} from './header.hbs'
+
 /**
  * Класс обертки компонента
  * @class
@@ -21,7 +23,6 @@ export default class Header {
      * рендерит компонент в DOM
      */
     render() {
-        Handlebars.templates['header.hbs'];
         const header = {
             avatar: this.#config.avatar,
             userLetter: this.#config.username.charAt(0),

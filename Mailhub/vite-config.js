@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite';
-import { handlebars } from 'vite-plugin-handlebars';
+import {handlebars} from 'vite-plugin-handlebars';
 import babel from '@rollup/plugin-babel';
 import path from 'path';
 import autoprefixer from 'autoprefixer';
@@ -48,5 +48,10 @@ export default defineConfig({
         emptyOutDir: true,
         minify: true,
         assetsDir: '.',
+    },
+    server: {
+        port: 8081,
+        host: "0.0.0.0",
+        hmr: true,
     },
 }); 

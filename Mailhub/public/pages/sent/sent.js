@@ -1,9 +1,11 @@
-import '../../components/header/header.js';
-import '../../components/menu/menu.js';
-import '../../components/list-letters/list-letters.js';
-import '../../modules/mediator.js';
-import '../../modules/dispathcher.js';
-import '../../actions/userActions.js';
+import Header from '../../components/header/header.js';
+import Menu from '../../components/menu/menu.js';
+import List_letters from '../../components/list-letters/list-letters.js';
+import mediator from '../../modules/mediator.js';
+import dispathcher from '../../modules/dispathcher.js';
+import { actionLogout, actionRedirect, actionRedirectToLetter } from '../../actions/userActions.js';
+import  {template}  from './main.hbs'
+
 
 /**
  * Класс обертки страницы
@@ -28,7 +30,6 @@ export default class Sent {
      * Рендер компонента в DOM
      */
     render() {
-        Handlebars.templates['main.hbs'];
         this.#config.content.sent = true;
         const elements = {
             header: new Header(null, this.#config.header).render(),

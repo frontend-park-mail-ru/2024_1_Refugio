@@ -1,10 +1,10 @@
-import '../pages/main/main.js';
-import './base.js';
-import '../modules/dispathcher.js';
-import '../actions/userActions.js';
-import '../stores/userStore.js';
-import '../stores/emailStore.js';
-import '../pages/sent/sent.js';
+import Main from '../pages/main/main.js';
+import BaseView from './base.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetUser, actionGetSent } from '../actions/userActions.js';
+import userStore from '../stores/userStore.js';
+import emailStore from '../stores/emailStore.js';
+import Sent from '../pages/sent/sent.js';
 
 /**
  * Класс для рендера страницы списка писем

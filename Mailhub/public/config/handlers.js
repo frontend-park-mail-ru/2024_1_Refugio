@@ -1,6 +1,6 @@
-import "../stores/userStore.js";
-import "../stores/emailStore.js";
-import "../modules/router.js";
+import userStore from "../stores/userStore.js";
+import emailStore from "../stores/emailStore.js";
+import router from "../modules/router.js";
 
 const handlers = [
     {type: 'verifyAuth', method: userStore.verifyAuth.bind(userStore)},

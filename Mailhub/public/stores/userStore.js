@@ -1,6 +1,6 @@
-import "../modules/ajax.js";
-import "../modules/mediator.js";
-import "./emailStore.js";
+import ajax from "../modules/ajax.js";
+import mediator from "../modules/mediator.js";
+import emailStore from "./emailStore.js";
 
 class UserStore {
     body

@@ -1,4 +1,4 @@
-import '../config/handlers.js'
+import handlers from '../config/handlers.js'
 
 class Dispatcher {
     #handlers;

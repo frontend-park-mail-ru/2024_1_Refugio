@@ -1,3 +1,6 @@
+import {template} from './list-letter.hbs'
+
+
 /**
  * Класс обертки компонента
  * @class
@@ -21,7 +24,6 @@ export default class List_letter {
      * рендерит компонент в DOM
      */
     render() {
-        Handlebars.templates['list-letter.hbs'];
         const letter = {
             status: !this.#config.status,
             avatar: this.#config.avatar,
