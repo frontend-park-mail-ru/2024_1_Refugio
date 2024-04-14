@@ -13,7 +13,7 @@
 }
 
 
-.profile__content {
+.profile-content {
     grid-area: content;
     display: grid;
     grid-template-rows: auto auto;
@@ -183,20 +183,16 @@
     width: 166px;
     height: 166px;
     border-radius: 50%;
-    background-color: var(--input-background);
+    background-color: var(--input-label-counter-icon);
     font-size: 24px;
     margin-bottom: 16px;
 }
 
-.profile__form__avatar-load-wrapper__avatar-load-button {
-    grid-area: load;
-}
 
 .profile__form__avatar-load-wrapper__avatar-set-button {
     grid-area: set;
 }
 
-.profile__form__avatar-load-wrapper__avatar-load-button,
 .profile__form__avatar-load-wrapper__avatar-set-button {
     display: flex;
     align-items: center;
@@ -215,7 +211,6 @@
     cursor: pointer;
 }
 
-.profile__form__avatar-load-wrapper__avatar-load-button:hover,
 .profile__form__avatar-load-wrapper__avatar-set-button:hover {
 
     background-color: var(--secondary-button-onhover-selected)

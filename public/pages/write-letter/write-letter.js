@@ -76,93 +76,84 @@ export default class Write__Letter {
 
     handleSend = async (e) => {
         e.preventDefault();
-        const toInput = document.querySelector('.write__letter__content__header__to__input');
-        const topicInput = document.querySelector('.write__letter__content__header__subject__input');
-        const textInput = document.querySelector('.write__letter__content__text__textarea');
+        const toInput = document.querySelector('.write-letter__to__input');
+        const topicInput = document.querySelector('.write-letter__subject__input');
+        const textInput = document.querySelector('.write-letter__text');
 
         const to = toInput.value.trim();
-        const topic = topicInput.value.trim();
+        let topic = topicInput.value.trim();
         const text = textInput.value.trim();
 
         let oldError = this.#parent
-            .querySelector('.write__letter__content__header__to__error');
-        oldError.classList.remove('show');
-        oldError.classList.add('remove');
+            .querySelector('.write-letter__to__error');
+        oldError.classList.remove('appear');
         oldError = toInput;
         oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.write__letter__content__header__subject__error');
-        oldError.classList.remove('show');
-        oldError.classList.add('remove');
+            .querySelector('.write-letter__subject__error');
+        oldError.classList.remove('appear');
         oldError = topicInput;
         oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.write__letter__content__header__attachments__error');
+            .querySelector('.write-letter__attachments__error');
         oldError.classList.remove('show');
-        oldError.classList.add('remove');
 
+        let isValidForm = true;
+        const toError = this.#parent.querySelector('.write-letter__to__error');
         if (!to) {
-            const error = this.#parent
-                .querySelector('.write__letter__content__header__to__error');
-            error.textContent = 'Введите получателя';
-            error.classList.remove('remove');
-            error.classList.add('show');
+            toError.textContent = "Введите получателя";
+            toError.classList.add('appear');
             toInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (to.length > MAX_INPUT_LENGTH) {
+                toError.textContent = "Слишком длинное имя ящика получателя";
+                toError.classList.add('appear');
+                toInput.classList.add('input-background-error');
+                isValidForm = false;
+            } else {
+                if (to.indexOf('@') === -1) {
+                    toError.textContent = "Забыли \"@\"";
+                    toError.classList.add('appear');
+                    toInput.classList.add('input-background-error');
+                    isValidForm = false;
+                } else {
+                    if (to.indexOf('.') === -1) {
+                        toError.textContent = "Забыли \".\"";
+                        toError.classList.add('appear');
+                        toInput.classList.add('input-background-error');
+                        isValidForm = false;
+                    } else {
+                        const toRegex = /^[a-zA-Z0-9._%+-]+@mailhub.su$/;
+                        if (!toRegex.test(to)) {
+                            toError.textContent = "Некорректное имя ящика получателя";
+                            toError.classList.add('appear');
+                            toInput.classList.add('input-background-error');
+                            isValidForm = false;
+                        }
+                    }
+                }
+            }
+        }
+
+        const topicError = this.#parent.querySelector('.write-letter__subject__error');
+        if (topic.length > MAX_INPUT_LENGTH) {
+            topicError.textContent = "Слишком длинная тема";
+            topicError.classList.add('appear');
+            topicInput.classList.add('input-background-error');
+            isValidForm = false;
+        }
+
+        if (!isValidForm) {
             return;
         }
 
         if (!topic) {
-            const error = this.#parent
-                .querySelector('.write__letter__content__header__subject__error');
-            error.textContent = 'Введите тему';
-            error.classList.remove('remove');
-            error.classList.add('show');
-            topicInput.classList.add('input-background-error');
-            return;
+            topic = "Без темы";
         }
 
-        if (topic.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.write__letter__content__header__subject__error');
-            error.textContent = 'Слишком длинная тема';
-            error.classList.remove('remove');
-            error.classList.add('show');
-            topicInput.classList.add('input-background-error');
-            return;
-        }
-
-        if (to.indexOf('@') === -1) {
-            const error = this.#parent
-                .querySelector('.write__letter__content__header__to__error');
-            error.textContent = 'Забыли "@"';
-            error.classList.remove('remove');
-            error.classList.add('show');
-            toInput.classList.add('input-background-error');
-            return
-        }
-
-        if (to.indexOf('.') === -1) {
-            const error = this.#parent
-                .querySelector('.write__letter__content__header__to__error');
-            error.textContent = 'Забыли "."';
-            error.classList.remove('remove');
-            error.classList.add('show');
-            toInput.classList.add('input-background-error');
-            return
-        }
-
-        const emailSignupRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (!emailSignupRegex.test(to)) {
-            const error = this.#parent
-                .querySelector('.write__letter__content__header__to__error');
-            error.textContent = 'Некорректное имя ящика';
-            error.classList.remove('remove');
-            error.classList.add('show');
-            toInput.classList.add('input-background-error');
-            return
-        }
 
         // create JSON object with user data
         const newLetter = {
@@ -239,7 +230,7 @@ export default class Write__Letter {
             .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
         this.#parent
-            .querySelector('.write__letter__content__process-buttons__send-button')
+            .querySelector('.write-letter__buttons__send-button')
             .addEventListener('click', this.handleSend);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
@@ -266,7 +257,7 @@ export default class Write__Letter {
             .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
         this.#parent
-            .querySelector('.write__letter__content__process-buttons__send-button')
+            .querySelector('.write-letter__buttons__send-button')
             .removeEventListener('click', this.handleSend);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
@@ -290,10 +281,9 @@ export default class Write__Letter {
                 break;
             default:
                 const error = this.#parent
-                    .querySelector('.write__letter__content__header__attachments__error');
+                    .querySelector('.write-letter__buttons__error');
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
-                error.classList.remove('remove');
                 break;
         }
     }

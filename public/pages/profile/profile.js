@@ -324,7 +324,6 @@ export default class Profile {
                 }
             }
         })
-        console.log(1);
 
 
         if (elements.day.dropdown.contains(target) && target.tagName === 'P') {

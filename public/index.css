@@ -113,6 +113,10 @@ label {
     visibility: visible;
 }
 
+.appear {
+    display: block;
+}
+
 .remove {
     display: none;
 }

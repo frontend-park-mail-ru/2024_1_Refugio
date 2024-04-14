@@ -111,13 +111,13 @@ export default class Letter {
     handleResend = (e) => {
         e.preventDefault();
         const topic = this.#parent
-            .querySelector('.letter__content__body__subject span').textContent
+            .querySelector('.letter__subject').textContent
         const sender = this.#parent
-            .querySelector('#sender').textContent
+            .querySelector('.letter__info__from').textContent
         const date = this.#parent
-            .querySelector('#date').textContent
+            .querySelector('.letter__info__date').textContent
         const text = this.#parent
-            .querySelector('.letter__content__body__text p').textContent
+            .querySelector('.letter__text').textContent
         dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text }));
     };
 
@@ -157,7 +157,7 @@ export default class Letter {
             querySelector('.header__logo')
             .addEventListener('click', this.handleMain);
         this.#parent.
-            querySelector('.letter__content__header__back-button')
+            querySelector('.letter__header__back-button')
             .addEventListener('click', this.handleMain);
 
         this.#parent
@@ -193,7 +193,7 @@ export default class Letter {
             querySelector('.header__logo')
             .removeEventListener('click', this.handleMain);
         this.#parent.
-            querySelector('.letter__content__header__back-button')
+            querySelector('.letter__header__back-button')
             .removeEventListener('click', this.handleMain);
 
         this.#parent
