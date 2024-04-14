@@ -1,11 +1,11 @@
-import LoginView from "../views/login.js";
-import MainView from "../views/main.js";
-import SignupView from "../views/signup.js";
-import userStore from "../stores/userStore.js";
-import ProfileView from "../views/profile.js";
-import writeLetter from "../views/write-letter.js";
-import LetterView from "../views/letter.js";
-import SentView from "../views/sent.js";
+import "../views/login.js";
+import "../views/main.js";
+import "../views/signup.js";
+import "../stores/userStore.js";
+import "../views/profile.js";
+import "../views/write-letter.js";
+import "../views/letter.js";
+import "../views/sent.js";
 
 class Router {
     #views

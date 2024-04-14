@@ -1,8 +1,8 @@
-import BaseView from './base.js';
-import Write__Letter from '../pages/write-letter/write-letter.js';
-import userStore from '../stores/userStore.js';
-import dispathcher from '../modules/dispathcher.js';
-import { actionGetUser } from '../actions/userActions.js';
+import './base.js';
+import '../pages/write-letter/write-letter.js';
+import '../stores/userStore.js';
+import '../modules/dispathcher.js';
+import '../actions/userActions.js';
 
 /**
  * Класс для рендера страницы логина

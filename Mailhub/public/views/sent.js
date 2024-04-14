@@ -1,10 +1,10 @@
-import Main from '../pages/main/main.js';
-import BaseView from './base.js';
-import dispathcher from '../modules/dispathcher.js';
-import { actionGetUser, actionGetSent } from '../actions/userActions.js';
-import userStore from '../stores/userStore.js';
-import emailStore from '../stores/emailStore.js';
-import Sent from '../pages/sent/sent.js';
+import '../pages/main/main.js';
+import './base.js';
+import '../modules/dispathcher.js';
+import '../actions/userActions.js';
+import '../stores/userStore.js';
+import '../stores/emailStore.js';
+import '../pages/sent/sent.js';
 
 /**
  * Класс для рендера страницы списка писем
@@ -162,7 +162,7 @@ class SentView extends BaseView {
                     subject: 'Subject',
                     text: 'Some text about fish',
                     date: '12/12/2012'
-                }, 
+                },
                 {
                     status: 'read',
                     photoId: '/static/img/avatar_32_32.svg',
@@ -170,7 +170,7 @@ class SentView extends BaseView {
                     subject: 'Subject',
                     text: 'Some text about fish',
                     date: '12/12/2012'
-                }, 
+                },
                 {
                     status: 'read',
                     photoId: '/static/img/avatar_32_32.svg',

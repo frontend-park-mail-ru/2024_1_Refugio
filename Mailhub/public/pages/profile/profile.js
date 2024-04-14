@@ -1,10 +1,10 @@
-import Menu from '../../components/menu/menu.js';
-import Header from '../../components/header/header.js';
-import Birthday_Select from '../../components/birthday-select/birthday-select.js';
-import Gender_Select from '../../components/gender-select/gender-select.js';
-import dispathcher from '../../modules/dispathcher.js';
-import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload } from '../../actions/userActions.js';
-import mediator from '../../modules/mediator.js';
+import '../../components/menu/menu.js';
+import '../../components/header/header.js';
+import '../../components/birthday-select/birthday-select.js';
+import '../../components/gender-select/gender-select.js';
+import '../../modules/dispathcher.js';
+import '../../actions/userActions.js';
+import '../../modules/mediator.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -33,7 +33,7 @@ export default class Profile {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['profile.hbs'];
+        Handlebars.templates['profile.hbs'];
         const config = this.#config;
 
         const elements = {

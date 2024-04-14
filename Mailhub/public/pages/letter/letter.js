@@ -1,8 +1,8 @@
-import Menu from '../../components/menu/menu.js';
-import Header from '../../components/header/header.js';
-import dispathcher from '../../modules/dispathcher.js';
-import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect } from '../../actions/userActions.js';
+import '../../components/menu/menu.js';
+import '../../components/header/header.js';
+import '../../modules/dispathcher.js';
+import '../../modules/mediator.js';
+import '../../actions/userActions.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -31,7 +31,7 @@ export default class Letter {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['letter.hbs'];
+        Handlebars.templates['letter.hbs'];
         const config = this.#config;
         const elements = {
             status: this.#config.email.readStatus,

@@ -21,7 +21,7 @@ export default class Login_box {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['login-box.hbs'];
+        Handlebars.templates['login-box.hbs'];
 
         const login_box = {
         };

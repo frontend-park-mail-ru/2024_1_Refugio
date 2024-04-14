@@ -21,7 +21,7 @@ export default class Birthday_Select {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['birthday-select.hbs'];
+        Handlebars.templates['birthday-select.hbs'];
         const elements = {
             birthday_day: this.#config?.user?.birthday.substr(8, 2) || 1,
             birthday_month: this.parseMonths(Number(this.#config?.user?.birthday.substr(5, 2) || 1)),

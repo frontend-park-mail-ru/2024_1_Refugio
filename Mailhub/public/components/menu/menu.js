@@ -21,7 +21,7 @@ export default class Menu {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['menu.hbs'];
+        Handlebars.templates['menu.hbs'];
 
         return template();
     }

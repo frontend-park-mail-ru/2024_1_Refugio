@@ -1,5 +1,5 @@
-import Birthday_Select from "../birthday-select/birthday-select.js";
-import Gender_Select from "../gender-select/gender-select.js";
+import "../birthday-select/birthday-select.js";
+import "../gender-select/gender-select.js";
 
 /**
  * Класс обертки компонента
@@ -25,7 +25,7 @@ export default class Signup_box {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['signup-box.hbs'];
+        Handlebars.templates['signup-box.hbs'];
 
         const signup_box = {
             birthday_select: new Birthday_Select(null, this.#config).render() ,

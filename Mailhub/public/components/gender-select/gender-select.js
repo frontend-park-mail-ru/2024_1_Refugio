@@ -21,7 +21,7 @@ export default class Gender_Select {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['gender-select.hbs'];
+        Handlebars.templates['gender-select.hbs'];
         const elements = {
             gender: this.#config.user?.gender === 'Female' ? false : true,
         }

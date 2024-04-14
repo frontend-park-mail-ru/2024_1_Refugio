@@ -1,6 +1,6 @@
-import Login from '../pages/login/login.js';
+import '../pages/login/login.js';
 
-import BaseView from './base.js';
+import './base.js';
 
 const config = {
 };

@@ -1,5 +1,5 @@
-import Signup from '../pages/signup/signup.js';
-import BaseView from './base.js';
+import '../pages/signup/signup.js';
+import'./base.js';
 
 const config = {
 };
