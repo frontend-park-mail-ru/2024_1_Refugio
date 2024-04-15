@@ -5,6 +5,7 @@ import Gender_Select from '../../components/gender-select/gender-select.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
+import template from './profile.hbs'
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -33,7 +34,6 @@ export default class Profile {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['profile.hbs'];
         const config = this.#config;
 
         const elements = {
@@ -43,7 +43,7 @@ export default class Profile {
             middlename: this.#config.user.middlename,
             avatar: this.#config.user.avatar,
             description: this.#config.user.description,
-            phonenumber: this.#config.user.phonenumber,
+            phoneNumber: this.#config.user.phonenumber,
             header: new Header(null, config.header).render(),
             menu: new Menu(null, config.menu).render(),
             birthday_select: new Birthday_Select(null, config).render(),
@@ -59,232 +59,225 @@ export default class Profile {
     handleSaveForm = async (e) => {
         e.preventDefault();
 
-        const firstNameInput = document.querySelector('.profile__content__form__first-name__input');
-        const middleNameInput = document.querySelector('.profile__content__form__middle-name__input');
-        const lastNameInput = document.querySelector('.profile__content__form__last-name__input');
+        const firstNameInput = document.querySelector('.profile__form__first-name-input-wrapper__input');
+        const middleNameInput = document.querySelector('.profile__form__middle-name-input-wrapper__input');
+        const lastNameInput = document.querySelector('.profile__form__last-name-input-wrapper__input');
         const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent;
         const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent;
         const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
-        // const avatarInput;
-        const bioInput = document.querySelector('.profile__content__form__bio__input');
-        const phoneNumberInput = document.querySelector('.profile__content__form__phone-number__input');
-        const passwordInput = document.querySelector('.profile__content__form__password__input');
-        const passwordConfirmInput = document.querySelector('.profile__content__form__password-confirm__input');
+        const bioInput = document.querySelector('.profile__form__bio-input-wrapper__input');
+        const phoneNumberInput = document.querySelector('.profile__form__phone-input-wrapper__input');
+        const passwordInput = document.querySelector('.profile__form__password-input-wrapper__input');
+        const passwordConfirmInput = document.querySelector('.profile__form__password-confirm-input-wrapper__input');
 
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
         const firstName = firstNameInput.value.trim();
         const middleName = middleNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12).toISOString();
+        const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12);
+        const birthdayString = birthday.toISOString();
         const gender = genderInput.checked ? 'Female' : 'Male';
-        //avatar
         const bio = bioInput.value.trim();
         let phoneNumber = phoneNumberInput.value.trim();
         const password = passwordInput.value;
         const passwordConfirm = passwordConfirmInput.value;
 
         let oldError = this.#parent
-            .querySelector('.profile__content__form__first-name__error');
+            .querySelector('#first-name-error');
         oldError.classList.remove('show');
         oldError = firstNameInput;
-        oldError.classList.remove('auth__input-backgroud-error');
+        oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.profile__content__form__middle-name__error');
+            .querySelector('#middle-name-error');
         oldError.classList.remove('show');
         oldError = middleNameInput;
-        oldError.classList.remove('auth__input-backgroud-error');
+        oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.profile__content__form__last-name__error');
+            .querySelector('#last-name-error');
         oldError.classList.remove('show');
         oldError = lastNameInput;
-        oldError.classList.remove('auth__input-backgroud-error');
+        oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.profile__content__form__bio__error');
+            .querySelector('#bio-error');
         oldError.classList.remove('show');
         oldError = bioInput;
-        oldError.classList.remove('auth__input-backgroud-error');
+        oldError.classList.remove('input-background-error');
+
         oldError = this.#parent
-            .querySelector('.profile__content__form__phone-number__error');
+            .querySelector('#phone-error');
         oldError.classList.remove('show');
         oldError = phoneNumberInput;
-        oldError.classList.remove('auth__input-backgroud-error');
+        oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.profile__content__form__password__error');
+            .querySelector('#password-error');
         oldError.classList.remove('show');
         oldError = passwordInput;
-        oldError.classList.remove('auth__input-backgroud-error');
+        oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.profile__content__form__password-confirm__error');
+            .querySelector('#password-confirm-error');
         oldError.classList.remove('show');
         oldError = passwordConfirmInput;
-        oldError.classList.remove('auth__input-backgroud-error');
+        oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.profile__content__form__save__button__error');
+            .querySelector('#save-error');
         oldError.classList.remove('show');
 
 
+        let isValidForm = true;
+        const firstNameError = this.#parent
+            .querySelector('#first-name-error');
         if (!firstName) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__first-name__error');
-            error.textContent = 'Введите имя';
-            error.classList.add('show');
-            firstNameInput.classList.add('auth__input-backgroud-error');
-            return;
+            firstNameError.textContent = "Введите имя";
+            firstNameError.classList.add('show');
+            firstNameInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (firstName.length > MAX_INPUT_LENGTH) {
+                firstNameError.textContent = "Слишком длинное имя";
+                firstNameError.classList.add('show');
+                firstNameInput.classList.add('input-background-error');
+                isValidForm = false;
+            }
         }
 
-        if (!lastName) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__last-name__error');
-            error.textContent = 'Введите фамилию';
-            error.classList.add('show');
-            lastNameInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (!password && passwordConfirm) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__password__error');
-            error.textContent = 'Введите пароль';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (!passwordConfirm && password) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__password-confirm__error');
-            error.textContent = 'Введите пароль ещё раз';
-            error.classList.add('show');
-            passwordConfirmInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
-        if (firstName.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__first-name__error');
-            error.textContent = 'Слишком длинное имя';
-            error.classList.add('show');
-            firstNameInput.classList.add('auth__input-backgroud-error');
-            return;
-        }
-
+        const middleNameError = this.#parent
+            .querySelector('#middle-name-error');
         if (middleName.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__middle-name__error');
-            error.textContent = 'Слишком длинное отчество';
-            error.classList.add('show');
-            middleNameInput.classList.add('auth__input-backgroud-error');
-            return;
+            middleNameError.textContent = "Слишком длинное отчество";
+            middleNameError.classList.add('show');
+            middleNameInput.classList.add('input-background-error');
+            isValidForm = false;
         }
 
-        if (lastName.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__last-name__error');
-            error.textContent = 'Слишком длинная фамилия';
-            error.classList.add('show');
-            lastNameInput.classList.add('auth__input-backgroud-error');
-            return;
+        const lastNameError = this.#parent
+            .querySelector('#last-name-error');
+        if (!lastName) {
+            lastNameError.textContent = "Введите фамилию";
+            lastNameError.classList.add('show');
+            lastNameInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (lastName.length > MAX_INPUT_LENGTH) {
+                lastNameError.textContent = "Слишком длинная фамилия";
+                lastNameError.classList.add('show');
+                lastNameInput.classList.add('input-background-error');
+                isValidForm = false;
+            }
         }
 
+        const bioError = this.#parent
+            .querySelector('#bio-error');
         if (bio.length > MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__bio__error');
-            error.textContent = 'Слишком много текста';
-            error.classList.add('show');
-            bioInput.classList.add('auth__input-backgroud-error');
-            return;
+            bioError.textContent = "Слишком много текста";
+            bioError.classList.add('show');
+            bioInput.classList.add('input-background-error');
+            isValidForm = false;
         }
 
+        const phoneError = this.#parent
+            .querySelector('#phone-error');
         if (phoneNumber.length > 32) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__phone-number__error');
-            error.textContent = 'Слишком длинный номер';
-            error.classList.add('show');
-            phoneNumberInput.classList.add('auth__input-backgroud-error');
-            return;
+            phoneError.textContent = "Слишком длинный номер";
+            phoneError.classList.add('show');
+            phoneNumberInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            const phoneNumberRegex = /^[0-9+\-().\s]+$/;
+            if (phoneNumber && !phoneNumberRegex.test(phoneNumber)) {
+                phoneError.textContent = "Некорректный номер";
+                phoneError.classList.add('show');
+                phoneNumberInput.classList.add('input-background-error');
+                isValidForm = false;
+            }
         }
 
-
+        const passwordError = this.#parent
+            .querySelector('#password-error');
         if (password.length > 4 * MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__password__error');
-            error.textContent = 'Слишком длинный пароль';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return;
+            passwordError.textContent = "Слишком длинный пароль";
+            passwordError.classList.add('show');
+            passwordInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (password && password.length < 8) {
+                passwordError.textContent = "Минимальная длина 8 символов";
+                passwordError.classList.add('show');
+                passwordInput.classList.add('input-background-error');
+                isValidForm = false;
+            } else {
+                const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
+                if (password && !passwordRegex.test(password)) {
+                    passwordError.textContent = "Недопустимые символы";
+                    passwordError.classList.add('show');
+                    passwordInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
+            }
         }
 
+        const passwordConfirmError = this.#parent
+            .querySelector('#password-confirm-error');
         if (passwordConfirm.length > 4 * MAX_INPUT_LENGTH) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__password-confirm__error');
-            error.textContent = 'Слишком длинный пароль';
-            error.classList.add('show');
-            passwordConfirmInput.classList.add('auth__input-backgroud-error');
-            return;
+            passwordConfirmError.textContent = "Слишком длинный пароль";
+            passwordConfirmError.classList.add('show');
+            passwordConfirmInput.classList.add('input-background-error');
+            isValidForm = false;
+        } else {
+            if (password && !passwordConfirm) {
+                passwordConfirmError.textContent = 'Введите пароль ещё раз';
+                passwordConfirmError.classList.add('show');
+                passwordConfirmInput.classList.add('input-background-error');
+                isValidForm = false;
+            } else {
+                if (password && password !== passwordConfirm) {
+                    passwordConfirmError.textContent = 'Пароли не совпадают';
+                    passwordConfirmError.classList.add('show');
+                    passwordConfirmInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
+            }
         }
 
-        const phoneNumberRegex = /^[0-9+\-().\s]+$/;
-        if (!phoneNumberRegex.test(phoneNumber)) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__phone-number__error');
-            error.textContent = 'Некорректный номер';
-            error.classList.add('show');
-            phoneNumberInput.classList.add('auth__input-backgroud-error');
-            return;
+        const dateError = this.#parent
+            .querySelector('#save-error');
+        console.log(birthday)
+        console.log(new Date())
+        console.log(birthday > new Date())
+        if (birthday > new Date()) {
+            dateError.textContent = 'Дата рождения превосходит сегодняшнее число';
+            dateError.classList.add('show');
+            isValidForm = false;
+        } else if (([3, 5, 8, 10].includes(monthIndex) && Number(birthdayDay) === 31) || (monthIndex === 1 && Number(birthdayDay) === 30)) {
+            dateError.textContent = 'В этом месяце нет такого числа';
+            dateError.classList.add('show');
+            isValidForm = false;
+        } else if (monthIndex === 1 && Number(birthdayDay) === 29 && birthday.getMonth() !== 1) {
+            dateError.textContent = 'В этом месяце в невисокосном году нет такого числа';
+            dateError.classList.add('show');
+            isValidForm = false;
         }
-
-
-
-        if (password && password.length < 8) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__password__error');
-            error.textContent = 'Минимальная длина 8 символов';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
-        const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
-        if (password && !passwordRegex.test(password)) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__password__error');
-            error.textContent = 'Недопустимые символы';
-            error.classList.add('show');
-            passwordInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
-
-        if (password && password !== passwordConfirm) {
-            const error = this.#parent
-                .querySelector('.profile__content__form__password-confirm__error');
-            error.textContent = 'Пароли не совпадают';
-            error.classList.add('show');
-            passwordConfirmInput.classList.add('auth__input-backgroud-error');
-            return
-        }
-
 
         phoneNumber = phoneNumber.indexOf('+') === 0 ? '+'.concat(phoneNumber.replace(/\D+/g, '')) : phoneNumber.replace(/\D+/g, '');
 
+        if (!isValidForm) {
+            return;
+        }
 
-
-        console.log(phoneNumber);
         // create JSON object with user data
         const editedUser = {
             firstname: firstName,
             surname: lastName,
             middlename: middleName,
             gender: gender,
-            birthday: birthday,
+            birthday: birthdayString,
             phonenumber: phoneNumber,
             description: bio,
             id: this.#config.user.id,
@@ -294,17 +287,19 @@ export default class Profile {
     };
 
     handleCheckbox(e) {
+
         e.preventDefault();
         if (this.checked) {
-            document.querySelector('.gender__select__female').classList.remove('gender__select__passive');
-            document.querySelector('.gender__select__male').classList.add('gender__select__passive');
+            document.querySelector('.gender-select_female').classList.remove('gender-select_passive');
+            document.querySelector('.gender-select_male').classList.add('gender-select_passive');
         } else {
-            document.querySelector('.gender__select__male').classList.remove('gender__select__passive');
-            document.querySelector('.gender__select__female').classList.add('gender__select__passive');
+            document.querySelector('.gender-select_male').classList.remove('gender-select_passive');
+            document.querySelector('.gender-select_female').classList.add('gender-select_passive');
         }
     }
 
     handleDropdowns(e) {
+
         const target = e.target;
 
         if (document.querySelector('.birthday__input__day__value-img') === null) { return; }
@@ -324,8 +319,8 @@ export default class Profile {
                 dropdown: document.querySelector('.dropdown__wrapper__year'),
             },
             profile: {
-                button: document.querySelector('.header__avatar-img'),
-                dropdown: document.querySelector('.dropdown__wrapper__profile-menu'),
+                button: document.querySelector('.header__avatar'),
+                dropdown: document.querySelector('.header__dropdown'),
             }
         }
 
@@ -352,6 +347,7 @@ export default class Profile {
             }
         })
 
+
         if (elements.day.dropdown.contains(target) && target.tagName === 'P') {
             document.querySelector('.birthday__input__day__value-img p').textContent = target.textContent;
 
@@ -369,7 +365,7 @@ export default class Profile {
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     handleExit = async (e) => {
         e.preventDefault();
@@ -388,31 +384,59 @@ export default class Profile {
 
     handleAvatarUpload = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('file', this.#parent.querySelector('#avatar').files[0]);
-        dispathcher.do(actionAvatarUpload(formData))
+        const input = this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar-load-input');
+        const handleAvatarProcessing = async () => {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img1 = this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar');
+                img1.src = event.target.result;
+                const img2 = this.#parent.querySelector('.header__avatar');
+                img2.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+            input.removeEventListener('change', handleAvatarProcessing);
+            const formData = new FormData();
+            formData.append('file', this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar-load-input').files[0]);
+            dispathcher.do(actionAvatarUpload(formData))
+        };
+        input.addEventListener('change', handleAvatarProcessing);
+        input.click();
+
     }
+
+    handleSent = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/sent', true));
+    };
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
         this.#parent
-            .querySelector('.profile__content__form__save__button')
+            .querySelector('.profile__form__save-button-wrapper__button')
             .addEventListener('click', this.handleSaveForm);
         this.#parent
-            .querySelector('.dropdown__profile-menu__logout__button')
+            .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.menu__write-letter__button')
+            .querySelector('.menu__write-letter-button')
             .addEventListener('click', this.handleWriteLetter);
         this.#parent
-            .querySelector('.menu__incoming__button')
+            .querySelector('#incoming-folder')
             .addEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .addEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('#sent-folder')
+            .addEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
         this.#parent
-            .querySelector('#avatarButton')
+            .querySelector('.profile__form__avatar-load-wrapper__avatar-set-button')
             .addEventListener('click', this.handleAvatarUpload);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
@@ -424,25 +448,31 @@ export default class Profile {
      */
     removeListeners() {
         this.#parent
-            .querySelector('.profile__content__form__save__button')
+            .querySelector('.profile__form__save-button-wrapper__button')
             .removeEventListener('click', this.handleSaveForm);
         this.#parent
-            .querySelector('.menu__write-letter__button')
+            .querySelector('.header__dropdown__logout-button')
+            .removeEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.menu__write-letter-button')
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
-            .querySelector('.menu__incoming__button')
+            .querySelector('#incoming-folder')
             .removeEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .removeEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('#sent-folder')
+            .removeEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.cl-switch input')
             .removeEventListener('change', this.handleCheckbox);
         this.#parent
-            .querySelector('.dropdown__profile-menu__logout__button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('#avatarButton')
-            .removeEventListener('click', (e) => this.handleAvatarUpload(e, file));
+            .querySelector('.profile__form__avatar-load-wrapper__avatar-set-button')
+            .removeEventListener('click', this.handleAvatarUpload);
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse)
+        mediator.off('logout', this.handleExitResponse);
         mediator.off('updateUser', this.handleUpdateResponse);
     }
 
@@ -457,13 +487,13 @@ export default class Profile {
     }
 
     handleUpdateResponse = (status) => {
+        const error = this.#parent
+            .querySelector('#save-error');
         switch (status) {
             case 200:
-                dispathcher.do(actionRedirect('/main', true));
+                // dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
-                const error = this.#parent
-                    .querySelector('.profile__content__form__save__button__error');
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
                 break;

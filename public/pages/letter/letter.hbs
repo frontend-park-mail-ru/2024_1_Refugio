@@ -1,71 +1,44 @@
-<div class="letter__root">
+<div class="letter-root">
     {{{header}}}
     {{{menu}}}
-    <div class="letter__content__wrapper">
-        <div class="letter__content">
-            <div class="letter__content__header">
-                <div class="letter__content__header__button">
-                    <img src="../../static/icons/arrow-previous.svg" alt="">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Удалить">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="В папку">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Спам">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Пометить прочитанным">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Помететить непрочитанным">
-                </div>
-                <div class="letter__content__header__button">
-                    <input type="button" value="Ответить" id="reply">
-                </div>
-                <div class="letter__content__header__button" id="resend">
-                    <input type="button" value="Переслать">
-                </div>
+        <div class="letter-content">
+            <div class="letter__header">
+                <img src="../../static/icons/arrow-previous.svg" alt=""
+                    class="letter__header__button letter__header__back-button">
+                <div id="delete" class="letter__header__button">Удалить</div>
+                <div id="to-folder" class="letter__header__button">В папку</div>
+                <div id="to-spam" class="letter__header__button">Спам</div>
+                <div id="mark-as-read" class="letter__header__button">Пометить прочитанным</div>
+                <div id="mark-as-unread" class="letter__header__button">Помететить непрочитанным</div>
+                <div id="reply" class="letter__header__button">Ответить</div>
+                <div id="resend" class="letter__header__button">Переслать</div>
             </div>
-            <div class="letter__content__body">
-                <div class="letter__content__body__subject">
-                    {{#if replyId}}
-                    <span>Ответ на "{{replyTopic}}": {{subject}}</span>
-                    {{else}}
-                    <span>{{subject}}</span>
-                    {{/if}}
-                </div>
-                <div class="letter__content__body__info">
-                    <div class="letter__content__body__info__icon-avatar-name">
-                        <img class="letter__content__body__info__icon" src="../../static/icons/circle-read.svg" alt="">
-                        {{#if avatar}}
-                        <img class="header__avatar-img" src="{{avatar}}" alt="{{userLetter}}">
-                        {{else}}
-                        <div class="header__avatar-img">{{userLetter}}</div>
-                        {{/if}}
-                        <span id="sender">{{from}}</span>
-                    </div>
-                    <span id="date">{{date}}</span>
-                </div>
-                <div class="letter__content__body__attachments">
-                    <div class="letter__content__body__attachments__view-button">
-                        <input type="button" value="5 файлов">
-                        <span>255 КБ</span>
-                    </div>
-                    <div class="letter__content__body__attachments__download-all-button">
-                        <input type="button" value="Скачать все">
-                    </div>
-                    <p class="letter__content__body__attachments__error remove">Ошибка</p>
 
-
-                </div>
-                <div class="letter__content__body__text">
-                    <p>{{text}}</p>
-                </div>
-
+            <span class="letter__subject">
+                {{#if replyId}}
+                Ответ на "{{replyTopic}}": {{subject}}
+                {{else}}
+                {{subject}}
+                {{/if}}
+            </span>
+            <div class="letter__info">
+                <img class="letter__info__icon" src="../../static/icons/circle-read.svg" alt="">
+                {{#if avatar}}
+                <img class="letter__info__avatar" src="{{avatar}}" alt="{{userLetter}}">
+                {{else}}
+                <div class="letter__info__avatar">{{userLetter}}</div>
+                {{/if}}
+                <span class="letter__info__from">{{from}}</span>
+                <span class="letter__info__date">{{date}}</span>
             </div>
+            <div class="letter__attachments">
+                <div class="letter__attachments__view-button">
+                    <span class="letter__attachments__view-button__label">5 файлов</span>
+                    <span class="letter__attachments__view-button__counter">255 КБ</span>
+                </div>
+                <div class="letter__attachments__download-all-button">Скачать все</div>
+                <div class="letter__attachments__error">Ошибка</div>
+            </div>
+            <div class="letter__text">{{text}}</div>
         </div>
-    </div>
 </div>

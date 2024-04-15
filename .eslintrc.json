@@ -23,8 +23,6 @@
         "no-param-reassign": "off",
         "prefer-promise-reject-errors": ["error", {"allowEmptyReject": true}],
         "no-restricted-globals": ["error", "event", "fdescribe"],
-        "semi": ["error", "always"],
-        "quotes": ["error", "single"],
         "no-alert": "error",
         "no-var": "error",
         "no-debugger": "error",

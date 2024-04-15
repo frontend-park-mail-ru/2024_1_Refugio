@@ -3,9 +3,10 @@ import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
 import { actionLogout, actionRedirect } from '../../actions/userActions.js';
+import template from './letter.hbs'
 
 
-const MAX_INPUT_LENGTH = 64;
+//const MAX_INPUT_LENGTH = 64;
 
 
 /**
@@ -31,7 +32,6 @@ export default class Letter {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['letter.hbs'];
         const config = this.#config;
         const elements = {
             status: this.#config.email.readStatus,
@@ -55,15 +55,14 @@ export default class Letter {
 
         const elements = {
             profile: {
-                button: document.querySelector('.header__avatar-img'),
-                dropdown: document.querySelector('.dropdown__wrapper__profile-menu'),
+                button: document.querySelector('.header__avatar'),
+                dropdown: document.querySelector('.header__dropdown'),
             }
         }
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
-                value.dropdown.classList.remove('show__dropdown__wrapper');
-                value.dropdown.classList.add('hide__dropdown__wrapper');
+                value.dropdown.classList.remove('show');
             });
         }
 
@@ -72,21 +71,19 @@ export default class Letter {
             if (elements[key].button.contains(target)) {
                 hasTarget = true;
                 let showDropdown = true;
-                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                if (elements[key].dropdown.classList.contains('show')) {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
-                console.log(showDropdown);
                 if (showDropdown) {
-                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
-                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show');
                 }
             }
         })
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     /**
      * Функция авторизации
@@ -114,13 +111,13 @@ export default class Letter {
     handleResend = (e) => {
         e.preventDefault();
         const topic = this.#parent
-            .querySelector('.letter__content__body__subject span').textContent
+            .querySelector('.letter__subject').textContent
         const sender = this.#parent
-            .querySelector('#sender').textContent
+            .querySelector('.letter__info__from').textContent
         const date = this.#parent
-            .querySelector('#date').textContent
+            .querySelector('.letter__info__date').textContent
         const text = this.#parent
-            .querySelector('.letter__content__body__text p').textContent
+            .querySelector('.letter__text').textContent
         dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text }));
     };
 
@@ -129,18 +126,23 @@ export default class Letter {
         dispathcher.do(actionRedirect('/write_letter', true, { replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
+    handleSent = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/sent', true));
+    };
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
         this.#parent
-            .querySelector('.dropdown__profile-menu__logout__button')
+            .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.dropdown__profile-menu__profile__button')
+            .querySelector('.header__dropdown__profile-button')
             .addEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter__button')
+            .querySelector('.menu__write-letter-button')
             .addEventListener('click', this.handleWriteLetter);
         this.#parent
             .querySelector('#resend')
@@ -149,8 +151,18 @@ export default class Letter {
             .querySelector('#reply')
             .addEventListener('click', this.handleReply);
         this.#parent
-            .querySelector('.menu__incoming__button')
+            .querySelector('#incoming-folder')
             .addEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .addEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.letter__header__back-button')
+            .addEventListener('click', this.handleMain);
+
+        this.#parent
+            .querySelector('#sent-folder')
+            .addEventListener('click', this.handleSent);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
     }
@@ -160,23 +172,33 @@ export default class Letter {
      */
     removeListeners() {
         this.#parent
-            .querySelector('.dropdown__profile-menu__logout__button')
+            .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.dropdown__profile-menu__profile__button')
+            .querySelector('.header__dropdown__profile-button')
             .removeEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter__button')
+            .querySelector('.menu__write-letter-button')
             .removeEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('.menu__incoming__button')
-            .removeEventListener('click', this.handleMain);
         this.#parent
             .querySelector('#resend')
             .removeEventListener('click', this.handleResend);
         this.#parent
             .querySelector('#reply')
             .removeEventListener('click', this.handleReply);
+        this.#parent
+            .querySelector('#incoming-folder')
+            .removeEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.header__logo')
+            .removeEventListener('click', this.handleMain);
+        this.#parent.
+            querySelector('.letter__header__back-button')
+            .removeEventListener('click', this.handleMain);
+
+        this.#parent
+            .querySelector('#sent-folder')
+            .removeEventListener('click', this.handleSent);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
     }

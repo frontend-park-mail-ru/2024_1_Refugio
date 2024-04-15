@@ -1,4 +1,6 @@
 import List_letter from '../../components/list-letter/list-letter.js';
+import template from './list-letters.hbs'
+
 /**
  * Класс обертки компонента
  * @class
@@ -45,7 +47,6 @@ export default class Main {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['list-letters.hbs'];
         const list_letters = this.#renderConfig(this.#config?.list_letters ? this.#config.list_letters : []);
         return template({ list_letters });
     }

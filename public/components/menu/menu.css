@@ -2,7 +2,7 @@
     grid-area: menu;
 
     display: grid;
-    grid-auto-rows: minmax(20px, auto);
+    grid-auto-rows: repeat(auto-fit, auto);
     gap: 1px;
     align-content: start;
 
@@ -11,102 +11,119 @@
     width: 232px;
 }
 
-.menu__write-letter__button {
+.menu__write-letter-button {
     display: grid;
-    align-items: center;
+    place-items: center;
 
     margin-bottom: 11px;
-
-    padding: 10px 20px 10px 20px;
-
     height: 36px;
-    width: 100%;
 
     background-color: white;
     border-radius: 8px;
 
-    text-align: center;
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
 
     cursor: pointer;
-
-    transition: all 0.1s ease;
-    outline: none;
-
-    input {
-        background-color: white;
-
-        color: var(--main-button-secondary);
-        font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0;
-        line-height: 20px;
-
-        cursor: pointer;
-        transition: all 0.1s ease;
-
-    }
+    transform: scale(1);
 }
 
-.menu__write-letter__button:hover {
+.menu__write-letter-button:hover {
     background-color: var(--main-button-hover);
-
-    input {
-        background-color: var(--main-button-hover);
-    }
 }
 
-.menu__write-letter__button:active {
+.menu__write-letter-button:active {
     transform: scale(0.99);
+
 }
 
-
-.menu__standard__counter__button {
+.menu__folder {
     display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    align-content: center;
+    grid-template-columns: 1fr auto;
+    align-items: center;
 
-    padding: 10px 0 10px 10px;
-
+    padding-left: 10px;
     height: 36px;
-    width: 100%;
 
-    background-color: transparent;
     border-radius: 8px;
 
-    text-align: center;
-
     cursor: pointer;
-
-    transition: all 0.1s ease;
-
-    input {
-        background-color: transparent;
-
-        color: var(--text);
-        font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0;
-        line-height: 20px;
-
-        cursor: pointer;
-        transition: all 0.1s ease;
-    }
-
-    span {
-        padding: 0 6px 0 6px;
-
-        color: var(--text);
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0;
-        line-height: 20px;
-    }
 }
 
-.menu__standard__counter__button:hover {
+.menu__folder:hover {
     background-color: var(--secondary-button-onhover-selected)
 }
+
+.menu__folder__text {
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.menu__default-folder__counter {
+    padding: 0 6px;
+
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.menu__trash-folder__clear {
+    margin-right: 6px;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.menu__trash-folder__clear:hover,
+.menu__custom-folder__options:hover {
+    background-color: var(--input-placeholder);
+    border-radius: 20px;
+}
+
+.menu__custom-folder__options {
+    margin-right: 6px;
+    padding: 6px;
+}
+
+.menu__new-folder-button {
+    display: grid;
+    align-items: center;
+
+    padding-left: 10px;
+    margin-top: 11px;
+    height: 36px;
+
+    border-radius: 8px;
+
+    color: var(--input-placeholder);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+}
+
+.menu__new-folder-button:hover {
+    background-color: var(--secondary-button-onhover-selected);
+    color: var(--text);
+}
+
+/* 
+
 
 .menu__standard__counter__button:active {
     transform: scale(0.99);
@@ -337,4 +354,4 @@
 
 .menu__new-folder__button:active {
     transform: scale(0.99);
-}
+} */

@@ -52,6 +52,7 @@ class emaillStore {
             'PUT', `http://mailhub.su:8080/api/v1/email/update/${id}`, JSON.stringify(value), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
+        return status;
     }
 
     async deleteEmail({id}) {
@@ -59,6 +60,7 @@ class emaillStore {
             'DELETE', `http://mailhub.su:8080/api/v1/email/delete/${id}`,null, 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
+        return status;
     }
 }
 
