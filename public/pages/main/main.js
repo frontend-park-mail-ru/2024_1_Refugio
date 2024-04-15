@@ -105,16 +105,34 @@ export default class Main {
     };
 
     handleHeader() {
-        const unselectedButtons = document.querySelector('.main__content__header__unselected-buttons');
-        const selectedButtons = document.querySelector('.main__content__header__selected-buttons');
+        const unselectedButtons = {
+            selectAll: document.querySelector('#select-all'),
+            markAllAsRead: document.querySelector('#mark-all-as-read'),
+        };
+        const selectedButtons = {
+            deselect: document.querySelector('#deselect'),
+            delete: document.querySelector('#delete'),
+            moveTo: document.querySelector('#move-to'),
+            spam: document.querySelector('#spam'),
+            markAsRead: document.querySelector('#mark-as-read'),
+            markAsUnread: document.querySelector('#mark-as-unread'),
+        }
 
         if (this.selectedListLetters.length > 0) {
-            selectedButtons.classList.remove('remove');
-            unselectedButtons.classList.add('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.add('appear');
+            })
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            })
             document.querySelector('#selected-letters-counter').textContent = this.selectedListLetters.length;
         } else {
-            selectedButtons.classList.add('remove');
-            unselectedButtons.classList.remove('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            })
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.add('appear');
+            })
         }
     }
 
@@ -122,22 +140,24 @@ export default class Main {
         e.preventDefault();
         e.stopPropagation();
         const letter = document.querySelector(`[data-id="${id}"]`);
-        const avatar = letter.querySelector('.list-letter__avatar')
-
-        if (letter.classList.contains('selected-list-letter')) {
-            letter.classList.remove('selected-list-letter');
-            const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+        const avatar = letter.querySelector('.list-letter__avatar-wrapper__avatar')
+        const oldIcon = letter.querySelector('.list-letter__avatar-wrapper__checkbox')
+        if (letter.classList.contains('list-letter_selected')) {
+            letter.classList.remove('list-letter_selected');
+            const icon = letter.querySelectorAll('.list-letter__avatar-wrapper__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
+            oldIcon.classList.remove('remove');
             this.selectedListLetters.pop(letter);
         } else {
-            letter.classList.add('selected-list-letter');
+            letter.classList.add('list-letter_selected');
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar-wrapper__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
+            oldIcon.classList.add('remove');
             this.selectedListLetters.push(letter);
         }
         this.handleHeader();
@@ -147,7 +167,7 @@ export default class Main {
         e.preventDefault();
         e.stopPropagation();
         const letter = document.querySelector(`[data-id="${id}"]`);
-        const statusChild = letter.querySelector('.list-letter__status img');
+        const statusChild = letter.querySelector('.list-letter__status');
         const statusImg = letter.querySelector('.list-letter__status-offer');
         const img = document.createElement('img');
         img.alt = '';
@@ -171,12 +191,12 @@ export default class Main {
         e.preventDefault();
 
         document.querySelectorAll('.list-letter').forEach(letter => {
-            const avatar = letter.querySelector('.list-letter__avatar')
-            letter.classList.add('selected-list-letter');
+            const avatar = letter.querySelector('.list-letter__avatar-wrapper__avatar')
+            letter.classList.add('list-letter_selected');
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar-wrapper__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -188,10 +208,10 @@ export default class Main {
         e.preventDefault();
 
         document.querySelectorAll('.list-letter').forEach(letter => {
-            if (letter.classList.contains('selected-list-letter')) {
-                const avatar = letter.querySelector('.list-letter__avatar')
-                letter.classList.remove('selected-list-letter');
-                const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+            if (letter.classList.contains('list-letter_selected')) {
+                const avatar = letter.querySelector('.list-letter__avatar-wrapper__avatar')
+                letter.classList.remove('list-letter_selected');
+                const icon = letter.querySelectorAll('.list-letter__avatar-wrapper__checkbox_centered')[1];
                 icon.parentNode.removeChild(icon);
                 avatar.classList.remove('remove');
                 this.selectedListLetters.pop(letter);
@@ -210,11 +230,12 @@ export default class Main {
         letters.forEach(item => {
             if (item.readStatus === false) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
-                const statusChild = letter.querySelector('.list-letter__status img');
+                const statusChild = letter.querySelector('.list-letter__status');
                 const img = document.createElement('img');
                 img.alt = '';
                 img.src = '../../static/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
+                img.classList.add('list-letter__status');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
 
@@ -248,11 +269,12 @@ export default class Main {
             if (item.readStatus === false && selectedIds.includes(String(item.id))) {
 
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
-                const statusChild = letter.querySelector('.list-letter__status img');
+                const statusChild = letter.querySelector('.list-letter__status');
                 const img = document.createElement('img');
                 img.alt = '';
                 img.src = '../../static/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
+                img.classList.add('list-letter__status');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
 
@@ -273,11 +295,11 @@ export default class Main {
         letters.forEach(item => {
             if (item.readStatus === true && selectedIds.includes(String(item.id))) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
-                const statusChild = letter.querySelector('.list-letter__status img');
-                const statusImg = letter.querySelector('.list-letter__status-offer');
+                const statusChild = letter.querySelector('.list-letter__status');
                 const img = document.createElement('img');
                 img.alt = '';
                 img.src = '../../static/icons/read-on__256.svg';
+                img.classList.add('list-letter__status');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
                 item.readStatus = false;

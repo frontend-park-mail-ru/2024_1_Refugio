@@ -45,8 +45,7 @@
 
 .list-letter__avatar-wrapper__avatar {
     display: grid;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -67,6 +66,8 @@
 }
 
 .list-letter__avatar-wrapper__checkbox_centered {
+    display: grid;
+    align-items: center;
     margin: 8px;
 }
 

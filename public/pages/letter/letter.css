@@ -34,7 +34,7 @@
 
 .letter__header__button {
     display: grid;
-    place-items: center;
+    align-items: center;
 
     padding: 4px 16px;
     height: 30px;
@@ -46,6 +46,7 @@
     line-height: 18px;
 
     cursor: pointer;
+    transform: scale(1);
 }
 
 .letter__header__button:hover,
