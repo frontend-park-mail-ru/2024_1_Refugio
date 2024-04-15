@@ -4,7 +4,7 @@ import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionRedirectToLetter } from '../../actions/userActions.js';
-import template from './main.hbs'
+import template from '../main/main.hbs'
 
 /**
  * Класс обертки страницы

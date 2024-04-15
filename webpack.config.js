@@ -26,8 +26,15 @@ export default (env) => {
     ],
     module: {
       rules: [
-        // ...
-      ],
+        {
+          test: /\.hbs$/,
+          use: [
+            {
+              loader: 'handlebars-loader',
+            },
+          ],
+        },
+      ]
     },
     resolve: {
       // ...

@@ -2,3 +2,4 @@
 /.vscode/
 .idea/
 *.precompiled.js
+/build
