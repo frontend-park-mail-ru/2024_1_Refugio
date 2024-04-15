@@ -39,11 +39,11 @@
 
 .login-box__authorization-method-switch__method_active {
     background-color: var(--secondary-button-onhover-selected);
+    transform: scale(1);
 }
 
 .login-box__authorization-method-switch__method_passive {
     color: var(--input-placeholder);
-
     cursor: pointer;
 }
 

@@ -1,4 +1,3 @@
-@import 'pages/main/main.css';
 @import 'pages/login/login.css';
 @import 'pages/signup/signup.css';
 @import 'pages/profile/profile.css';
@@ -111,6 +110,10 @@ label {
 
 .show {
     visibility: visible;
+}
+
+.appear {
+    display: grid;
 }
 
 .remove {

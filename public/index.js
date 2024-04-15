@@ -1,3 +1,6 @@
+import '../public/index.css';
+
+
 import dispathcher from './modules/dispathcher.js';
 import { actionStart } from './actions/userActions.js';
 // import LetterView from './views/letter.js';

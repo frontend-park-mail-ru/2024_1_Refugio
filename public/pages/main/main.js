@@ -4,6 +4,8 @@ import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
+import template from './main.hbs'
+
 
 /**
  * Класс обертки страницы
@@ -28,7 +30,6 @@ export default class Main {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['main.hbs'];
         this.#config.content.sent = false;
         const elements = {
             header: new Header(null, this.#config.header).render(),
