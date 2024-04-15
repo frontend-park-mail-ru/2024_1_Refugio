@@ -2,6 +2,7 @@ import Login_Box from '../../components/login-box/login-box.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogin, actionRedirect } from '../../actions/userActions.js';
+import template from './login.hbs'
 
 const MAX_INPUT_LENGTH = 64;
 
@@ -28,7 +29,6 @@ export default class Login {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['login.hbs'];
         const elements = {
             login_box: new Login_Box(null, this.#config).render(),
         };
