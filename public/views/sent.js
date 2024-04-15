@@ -1,4 +1,3 @@
-import Main from '../pages/main/main.js';
 import BaseView from './base.js';
 import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser, actionGetSent } from '../actions/userActions.js';

@@ -71,7 +71,7 @@ export default class Sent {
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     /**
      * Функция выхода из ящика
