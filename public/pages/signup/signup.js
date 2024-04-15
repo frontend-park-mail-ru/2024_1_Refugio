@@ -207,14 +207,11 @@ export default class Signup {
 
         const dateError = this.#parent
             .querySelector('#signup-error');
-            console.log(birthday)
-            console.log(new Date())
-            console.log(birthday > new Date())
         if (birthday > new Date()) {
             dateError.textContent = 'Дата рождения превосходит сегодняшнее число';
             dateError.classList.add('show');
             isValidForm = false;
-        } else if (([3, 5, 8 ,10].includes(monthIndex) && Number(birthdayDay) === 31) || (monthIndex===1 && Number(birthdayDay) === 30)) {
+        } else if (([1, 3, 5, 8 ,10].includes(monthIndex) && Number(birthdayDay) === 31) || (monthIndex===1 && Number(birthdayDay) === 30)) {
             dateError.textContent = 'В этом месяце нет такого числа';
             dateError.classList.add('show');
             isValidForm = false;
