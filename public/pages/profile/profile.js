@@ -145,6 +145,15 @@ export default class Profile {
                 firstNameError.classList.add('show');
                 firstNameInput.classList.add('input-background-error');
                 isValidForm = false;
+            } else {
+                const firstNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+                if (!firstNameRegex.test(firstName)) {
+                    firstNameError.textContent = "Некорректное имя";
+                    firstNameError.classList.add('show');
+                    firstNameInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
+
             }
         }
 
@@ -155,6 +164,15 @@ export default class Profile {
             middleNameError.classList.add('show');
             middleNameInput.classList.add('input-background-error');
             isValidForm = false;
+        } else {
+            const middleNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+            if (!middleNameRegex.test(middleName)) {
+                middleNameError.textContent = "Некорректное отчество";
+                middleNameError.classList.add('show');
+                middleNameInput.classList.add('input-background-error');
+                isValidForm = false;
+            }
+
         }
 
         const lastNameError = this.#parent
@@ -170,6 +188,14 @@ export default class Profile {
                 lastNameError.classList.add('show');
                 lastNameInput.classList.add('input-background-error');
                 isValidForm = false;
+            } else {
+                const lastNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+                if (!lastNameRegex.test(lastName)) {
+                    lastNameError.textContent = "Некорректная фамилия";
+                    lastNameError.classList.add('show');
+                    lastNameInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
             }
         }
 
@@ -225,25 +251,20 @@ export default class Profile {
 
         const passwordConfirmError = this.#parent
             .querySelector('#password-confirm-error');
-        if (passwordConfirm.length > 4 * MAX_INPUT_LENGTH) {
-            passwordConfirmError.textContent = "Слишком длинный пароль";
+
+        if (password && !passwordConfirm) {
+            passwordConfirmError.textContent = 'Введите пароль ещё раз';
             passwordConfirmError.classList.add('show');
             passwordConfirmInput.classList.add('input-background-error');
             isValidForm = false;
         } else {
-            if (password && !passwordConfirm) {
-                passwordConfirmError.textContent = 'Введите пароль ещё раз';
+            if (password && password !== passwordConfirm) {
+                passwordConfirmError.textContent = 'Пароли не совпадают';
                 passwordConfirmError.classList.add('show');
                 passwordConfirmInput.classList.add('input-background-error');
                 isValidForm = false;
-            } else {
-                if (password && password !== passwordConfirm) {
-                    passwordConfirmError.textContent = 'Пароли не совпадают';
-                    passwordConfirmError.classList.add('show');
-                    passwordConfirmInput.classList.add('input-background-error');
-                    isValidForm = false;
-                }
             }
+
         }
 
         const dateError = this.#parent
