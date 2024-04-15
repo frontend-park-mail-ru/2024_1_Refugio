@@ -8,8 +8,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run compile:templates",
     "start": "DEBUG=* node server",
-    "dev": "vite",
-    "build": "vite build",
     "compile:templates": "handlebars public/components/header/header.hbs -f public/components/header/header.precompiled.js && handlebars public/components/menu/menu.hbs -f public/components/menu/menu.precompiled.js && handlebars public/components/list-letter/list-letter.hbs -f public/components/list-letter/list-letter.precompiled.js && handlebars public/pages/main/main.hbs -f public/pages/main/main.precompiled.js && handlebars public/components/list-letters/list-letters.hbs -f public/components/list-letters/list-letters.precompiled.js && handlebars public/pages/login/login.hbs -f public/pages/login/login.precompiled.js && handlebars public/components/login-box/login-box.hbs -f public/components/login-box/login-box.precompiled.js && handlebars public/pages/signup/signup.hbs -f public/pages/signup/signup.precompiled.js && handlebars public/components/signup-box/signup-box.hbs -f public/components/signup-box/signup-box.precompiled.js && handlebars public/pages/profile/profile.hbs -f public/pages/profile/profile.precompiled.js && handlebars public/pages/letter/letter.hbs -f public/pages/letter/letter.precompiled.js  && handlebars public/components/birthday-select/birthday-select.hbs -f public/components/birthday-select/birthday-select.precompiled.js && handlebars public/components/gender-select/gender-select.hbs -f public/components/gender-select/gender-select.precompiled.js && handlebars public/pages/write-letter/write-letter.hbs -f public/pages/write-letter/write-letter.precompiled.js"
   },
   "author": "",
@@ -20,13 +18,9 @@
     "handlebars": "^4.7.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.4",
-    "@babel/preset-env": "^7.24.4",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
-    "babel-loader": "^9.1.3",
     "eslint": "^8.57.0",
-    "jsdoc": "^4.0.2",
-    "vite": "^5.2.8"
+    "jsdoc": "^4.0.2"
   }
 }
