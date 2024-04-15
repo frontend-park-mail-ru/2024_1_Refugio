@@ -20,6 +20,11 @@
     margin: 0 16px 2px 0;
 }
 
+.write-letter__to {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
 .write-letter__to,
 .write-letter__subject {
     display: grid;
@@ -33,8 +38,7 @@
 
     padding: 8px 16px 0;
     background-color: var(--box-background);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+
 }
 
 .write-letter__to__label,

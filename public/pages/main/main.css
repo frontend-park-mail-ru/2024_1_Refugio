@@ -135,6 +135,6 @@
 
 .main__content__body {
     padding-right: 4px;
-    /* height: 800px;
-    overflow: hidden; */
+    /* overflow: hidden; */
+    height: 800px;
 }

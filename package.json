@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ci": "^2.3.0",
     "debug": "^4.3.4",
     "express": "^4.18.3",
     "handlebars": "^4.7.8"
