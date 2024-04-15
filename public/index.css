@@ -4,6 +4,7 @@
 @import 'pages/letter/letter.css';
 @import 'pages/write-letter/write-letter.css';
 @import 'pages/sent/sent.css';
+@import 'pages/main/main.css';
 
 @font-face {
     font-family: 'Roboto';
