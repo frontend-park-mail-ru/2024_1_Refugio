@@ -28,7 +28,7 @@ export default class List_letter {
             from: this.#config.from,
             subject: this.#config.subject,
             text: this.#config.text,
-            date: this.#config.date,
+            date: new Date(this.#config.date).toDateString(),
             id: this.#config.id,
             userLetter: this.#config.from.charAt(0),
         };

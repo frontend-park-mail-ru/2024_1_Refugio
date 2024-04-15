@@ -39,7 +39,7 @@ export default class Letter {
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
             text: this.#config.email.text,
-            date: this.#config.email.dateOfDispatch,
+            date: new Date(this.#config.email.dateOfDispatch).toDateString(),
             id: this.#config.email.id,
             replyId: this.#config.email.replyToEmailId,
             replyTopic: this.#config.replyEmail?.topic,
