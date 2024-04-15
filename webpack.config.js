@@ -2,6 +2,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const _resolve = (...args) => path.resolve(__dirname, ...args);
@@ -23,6 +25,9 @@ export default (env) => {
         inject: 'body', // This line injects all your JavaScript files into the body of your HTML
       }),
       new webpack.ProgressPlugin(),
+      autoprefixer,
+      cssnano,
+
     ],
     module: {
       rules: [
@@ -34,13 +39,30 @@ export default (env) => {
             },
           ],
         },
+
         {
           test: /\.css$/,
           use: [
             'style-loader',
             'css-loader',
-            'postcss-loader',
-          ],
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    [
+                      'autoprefixer',
+                    ],
+                    [
+                      'cssnano',
+                      {
+                        preset: 'default',
+                      },
+                    ],
+                  ],
+                },
+              },
+            },]
         },
         {
           test: /\.js$/,
@@ -52,6 +74,7 @@ export default (env) => {
             },
           },
         },
+
       ]
     },
     resolve: {

@@ -1,5 +1,6 @@
-import template from './list-letters.hbs'
 import List_letter from '../../components/list-letter/list-letter.js';
+import template from './list-letters.hbs'
+
 /**
  * Класс обертки компонента
  * @class
