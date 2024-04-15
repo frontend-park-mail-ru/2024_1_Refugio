@@ -8,6 +8,16 @@ import { actionStart } from './actions/userActions.js';
 // import WriteLetterView from './views/write-letter.js';
 // import MainView from './views/main.js';
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js', {scope: '/'})
+    .then((reg) => {
+        console.log('SW register', reg);
+    })
+    .catch((error) => {
+        console.log('SW error', error);
+    })
+}
+
 dispathcher.do(actionStart());
 
 // const view = MainView;

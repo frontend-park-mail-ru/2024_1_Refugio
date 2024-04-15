@@ -6,7 +6,7 @@ import { actionLogout, actionRedirect } from '../../actions/userActions.js';
 import template from './letter.hbs'
 
 
-const MAX_INPUT_LENGTH = 64;
+//const MAX_INPUT_LENGTH = 64;
 
 
 /**
@@ -83,7 +83,7 @@ export default class Letter {
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     /**
      * Функция авторизации

@@ -208,7 +208,7 @@ export default class Write__Letter {
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     handleSent = async (e) => {
         e.preventDefault();
@@ -280,6 +280,8 @@ export default class Write__Letter {
     }
 
     handleSendResponse = (status) => {
+        const error = this.#parent
+            .querySelector('.write__letter__content__header__attachments__error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
@@ -287,6 +289,7 @@ export default class Write__Letter {
             default:
                 const error = this.#parent
                     .querySelector('.write-letter__buttons__error');
+
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
                 break;
