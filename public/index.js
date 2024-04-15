@@ -1,9 +1,5 @@
-// import 'pages/login/login.css';
-// import 'pages/signup/signup.css';
-// import 'pages/profile/profile.css';
-// import 'pages/letter/letter.css';
-// import 'pages/write-letter/write-letter.css';
-// import 'pages/sent/sent.css';
+import '../public/index.css';
+
 
 import dispathcher from './modules/dispathcher.js';
 import { actionStart } from './actions/userActions.js';
