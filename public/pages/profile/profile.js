@@ -76,7 +76,8 @@ export default class Profile {
         const firstName = firstNameInput.value.trim();
         const middleName = middleNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12).toISOString();
+        const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12);
+        const birthdayString = birthday.toISOString();
         const gender = genderInput.checked ? 'Female' : 'Male';
         const bio = bioInput.value.trim();
         let phoneNumber = phoneNumberInput.value.trim();
@@ -245,9 +246,30 @@ export default class Profile {
             }
         }
 
+        const dateError = this.#parent
+            .querySelector('#save-error');
+        console.log(birthday)
+        console.log(new Date())
+        console.log(birthday > new Date())
+        if (birthday > new Date()) {
+            dateError.textContent = 'Дата рождения превосходит сегодняшнее число';
+            dateError.classList.add('show');
+            isValidForm = false;
+        } else if (([3, 5, 8, 10].includes(monthIndex) && Number(birthdayDay) === 31) || (monthIndex === 1 && Number(birthdayDay) === 30)) {
+            dateError.textContent = 'В этом месяце нет такого числа';
+            dateError.classList.add('show');
+            isValidForm = false;
+        } else if (monthIndex === 1 && Number(birthdayDay) === 29 && birthday.getMonth() !== 1) {
+            dateError.textContent = 'В этом месяце в невисокосном году нет такого числа';
+            dateError.classList.add('show');
+            isValidForm = false;
+        }
+
         phoneNumber = phoneNumber.indexOf('+') === 0 ? '+'.concat(phoneNumber.replace(/\D+/g, '')) : phoneNumber.replace(/\D+/g, '');
 
-
+        if (!isValidForm) {
+            return;
+        }
 
         // create JSON object with user data
         const editedUser = {
@@ -255,7 +277,7 @@ export default class Profile {
             surname: lastName,
             middlename: middleName,
             gender: gender,
-            birthday: birthday,
+            birthday: birthdayString,
             phonenumber: phoneNumber,
             description: bio,
             id: this.#config.user.id,
@@ -344,7 +366,7 @@ export default class Profile {
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     handleExit = async (e) => {
         e.preventDefault();
@@ -466,13 +488,13 @@ export default class Profile {
     }
 
     handleUpdateResponse = (status) => {
+        const error = this.#parent
+            .querySelector('#save-error');
         switch (status) {
             case 200:
                 // dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
-                const error = this.#parent
-                    .querySelector('#save-error');
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
                 break;

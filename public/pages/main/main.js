@@ -73,7 +73,7 @@ export default class Main {
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     /**
      * Функция выхода из ящика
@@ -273,7 +273,7 @@ export default class Main {
             if (item.readStatus === true && selectedIds.includes(String(item.id))) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
-                const statusImg = letter.querySelector('.list-letter__status-offer');
+                //const statusImg = letter.querySelector('.list-letter__status-offer');
                 const img = document.createElement('img');
                 img.alt = '';
                 img.src = '../../static/icons/read-on__256.svg';

@@ -55,7 +55,8 @@ export default class Signup {
 
         const firstName = firstNameInput.value.trim();
         const lastName = lastNameInput.value.trim();
-        const birthday = new Date(birthdayYear, monthIndex, birthdayDay).toISOString();
+        const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12);
+        const birthdayString = birthday.toISOString();
 
         const gender = genderInput.checked ? 'Female' : 'Male';
         const email = emailInput.value.trim();
@@ -203,7 +204,26 @@ export default class Signup {
                 isValidForm = false;
             }
         }
-        
+
+        const dateError = this.#parent
+            .querySelector('#signup-error');
+            console.log(birthday)
+            console.log(new Date())
+            console.log(birthday > new Date())
+        if (birthday > new Date()) {
+            dateError.textContent = 'Дата рождения превосходит сегодняшнее число';
+            dateError.classList.add('show');
+            isValidForm = false;
+        } else if (([3, 5, 8 ,10].includes(monthIndex) && Number(birthdayDay) === 31) || (monthIndex===1 && Number(birthdayDay) === 30)) {
+            dateError.textContent = 'В этом месяце нет такого числа';
+            dateError.classList.add('show');
+            isValidForm = false;
+        } else if (monthIndex===1 && Number(birthdayDay) === 29 && birthday.getMonth() !== 1) {
+            dateError.textContent = 'В этом месяце в невисокосном году нет такого числа';
+            dateError.classList.add('show');
+            isValidForm = false;
+        }
+
         if (!isValidForm) {
             return;
         }
@@ -215,7 +235,7 @@ export default class Signup {
             password: password,
             surname: lastName,
             gender: gender,
-            birthday: birthday
+            birthday: birthdayString,
         };
 
         dispathcher.do(actionSignup(newUser));
@@ -245,7 +265,7 @@ export default class Signup {
     }
 
     handleDropdowns(e) {
-        const target = event.target;
+        const target = e.target;
 
         if (document.querySelector('.birthday__input__day__value-img') === null) { return; }
 
@@ -305,7 +325,7 @@ export default class Signup {
         if (!hasTarget) {
             hideAllDropdowns();
         }
-    };
+    }
 
     handleEnterKey = async (e) => {
         if (e.key === "Enter") {
@@ -359,13 +379,13 @@ export default class Signup {
     }
 
     handleSignupResponse = (status) => {
+        const error = this.#parent
+            .querySelector('#signup-error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
-                const error = this.#parent
-                    .querySelector('#signup-error');
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
                 break;
