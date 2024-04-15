@@ -209,6 +209,7 @@ export default class Main {
 
         document.querySelectorAll('.list-letter').forEach(letter => {
             if (letter.classList.contains('list-letter_selected')) {
+                console.log(letter);
                 const avatar = letter.querySelector('.list-letter__avatar-wrapper__avatar')
                 letter.classList.remove('list-letter_selected');
                 const icon = letter.querySelectorAll('.list-letter__avatar-wrapper__checkbox_centered')[1];
@@ -294,7 +295,10 @@ export default class Main {
         const letters = this.#config.content.list_letters;
         letters.forEach(item => {
             if (item.readStatus === true && selectedIds.includes(String(item.id))) {
+
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
+                console.log(letter);
+
                 const statusChild = letter.querySelector('.list-letter__status');
                 const img = document.createElement('img');
                 img.alt = '';
@@ -304,6 +308,7 @@ export default class Main {
 
                 item.readStatus = false;
                 item.dateOfDispatch = undefined;
+                console.log(letter);
 
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
