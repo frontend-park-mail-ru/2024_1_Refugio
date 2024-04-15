@@ -1,3 +1,4 @@
+import template from './login-box.hbs'
 /**
  * Класс обертки компонента
  * @class
@@ -21,7 +22,6 @@ export default class Login_box {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['login-box.hbs'];
 
         const login_box = {
         };

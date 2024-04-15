@@ -3,6 +3,7 @@ import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionSend } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
+import template from './write-letter.hbs'
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -32,7 +33,6 @@ export default class Write__Letter {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['write-letter.hbs'];
         const config = this.#config;
 
         const elements = {

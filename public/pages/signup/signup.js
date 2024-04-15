@@ -2,6 +2,7 @@ import { actionRedirect, actionSignup } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
+import template from './signup.hbs'
 
 const MAX_INPUT_LENGTH = 64;
 
@@ -28,7 +29,6 @@ export default class Signup {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['signup.hbs'];
         const elements = {
             signup_box: new Signup_Box(null, this.#config).render(),
         };

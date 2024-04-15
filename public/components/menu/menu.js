@@ -1,3 +1,4 @@
+import template from './menu.hbs'
 /**
  * Класс обертки компонента
  * @class
@@ -21,7 +22,6 @@ export default class Menu {
      * рендерит компонент в DOM
      */
     render() {
-        const template = Handlebars.templates['menu.hbs'];
 
         return template();
     }

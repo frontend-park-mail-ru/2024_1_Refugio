@@ -5,6 +5,7 @@ import Gender_Select from '../../components/gender-select/gender-select.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
+import template from './profile.hbs'
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -33,7 +34,6 @@ export default class Profile {
      * Рендер компонента в DOM
      */
     render() {
-        const template = Handlebars.templates['profile.hbs'];
         const config = this.#config;
 
         const elements = {
