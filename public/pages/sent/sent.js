@@ -4,7 +4,7 @@ import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
-import template from '../main/main.hbs'
+import template from './main.hbs'
 
 
 /**
@@ -96,10 +96,15 @@ export default class Sent {
 
     handleLetter = async (e, id) => {
         e.preventDefault();
+        const letters = this.#config.content.list_letters;
+        const value = letters.find(item => String(item.id) === id);
+        value.readStatus = !value.readStatus;
+        value.dateOfDispatch = undefined;
+        dispathcher.do(actionUpdateEmail(id, value));
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
-    handleIncoming= async (e) => {
+    handleIncoming = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/main', true));
     };
@@ -147,7 +152,7 @@ export default class Sent {
             const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
-            this.selectedListLetters.pop(letter);
+            this.selectedListLetters = this.selectedListLetters.filter(element => element !== letter);
         } else {
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
@@ -242,7 +247,6 @@ export default class Sent {
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
         })
-
     }
 
     handleDelete = (e) => {
@@ -292,7 +296,6 @@ export default class Sent {
             if (item.readStatus === true && selectedIds.includes(String(item.id))) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
-                //const statusImg = letter.querySelector('.list-letter__status-offer');
                 const img = document.createElement('img');
                 img.alt = '';
                 img.src = '../../static/icons/read-on__256.svg';
