@@ -344,8 +344,7 @@ export default class Profile {
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
-                value.dropdown.classList.remove('show__dropdown__wrapper');
-                value.dropdown.classList.add('hide__dropdown__wrapper');
+                value.dropdown.classList.remove('show');
             });
         }
 
@@ -354,13 +353,12 @@ export default class Profile {
             if (elements[key].button.contains(target)) {
                 hasTarget = true;
                 let showDropdown = true;
-                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                if (elements[key].dropdown.classList.contains('show')) {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
                 if (showDropdown) {
-                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
-                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show');
                 }
             }
         })
@@ -400,19 +398,15 @@ export default class Profile {
         dispathcher.do(actionRedirect('/main', true));
     };
 
+    reader = new FileReader();
+
+
     handleAvatarUpload = async (e) => {
         e.preventDefault();
         const input = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input');
         const handleAvatarProcessing = async () => {
             const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const img1 = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar');
-                img1.src = event.target.result;
-                const img2 = this.#parent.querySelector('.header__avatar');
-                img2.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
+            this.reader.readAsDataURL(file);
             input.removeEventListener('change', handleAvatarProcessing);
             const formData = new FormData();
             formData.append('file', this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input').files[0]);
@@ -420,7 +414,13 @@ export default class Profile {
         };
         input.addEventListener('change', handleAvatarProcessing);
         input.click();
+    }
 
+    handleAvatarUpdate = (e) => {
+        const img1 = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar');
+        img1.src = this.reader.result
+        const img2 = this.#parent.querySelector('.header__avatar');
+        img2.src = this.reader.result;
     }
 
     handleSent = async (e) => {
@@ -432,6 +432,9 @@ export default class Profile {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent
+            .querySelector('.header__dropdown__logout-button')
+            .addEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.profile__buttons__save-button')
             .addEventListener('click', this.handleSaveForm);
@@ -459,12 +462,17 @@ export default class Profile {
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateUser', this.handleUpdateResponse);
+        mediator.on('logout', this.handleExitResponse);
+
     }
 
     /**
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#parent
+            .querySelector('.header__dropdown__logout-button')
+            .removeEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.profile__buttons__save-button')
             .removeEventListener('click', this.handleSaveForm);
@@ -492,6 +500,7 @@ export default class Profile {
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
         mediator.off('updateUser', this.handleUpdateResponse);
+        mediator.off('logout', this.handleExitResponse);
     }
 
     handleExitResponse = (status) => {
@@ -509,11 +518,21 @@ export default class Profile {
             .querySelector('#buttons-error');
         switch (status) {
             case 200:
-                // dispathcher.do(actionRedirect('/main', true));
+                this.handleAvatarUpdate();
                 break;
             default:
                 error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
                 error.classList.add('show');
+                break;
+        }
+    }
+
+    handleExitResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
                 break;
         }
     }

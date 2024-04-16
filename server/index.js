@@ -9,6 +9,7 @@ const dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const router = express.Router();
 
+router.use(express.static(path.resolve(dirname, '..', 'static')));
 router.use(express.static(path.resolve(dirname, '..', 'build')));
 router.use(express.static(path.resolve(dirname, '..', 'node_modules')));
 

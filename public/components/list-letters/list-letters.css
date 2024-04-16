@@ -6,6 +6,7 @@
     background-color: var(--box-background);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
+
 }
 
 .list-letters::-webkit-scrollbar {
@@ -21,8 +22,8 @@
     border-radius: 12px;
 }
 
-.list-letters_empty-banner {
+.list-letters_empty {
     display: grid;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
+    height: 48px;
 }

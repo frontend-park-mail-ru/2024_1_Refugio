@@ -96,6 +96,11 @@ export default class Main {
 
     handleLetter = async (e, id) => {
         e.preventDefault();
+        const letters = this.#config.content.list_letters;
+        const value = letters.find(item => String(item.id) === id);
+        value.readStatus = true;
+        value.dateOfDispatch = undefined;
+        dispathcher.do(actionUpdateEmail(id, value));
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
@@ -147,11 +152,11 @@ export default class Main {
             const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
-            this.selectedListLetters.pop(letter);
+            this.selectedListLetters = this.selectedListLetters.filter(element => element !== letter);
         } else {
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
             icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
@@ -170,11 +175,11 @@ export default class Main {
         const img = document.createElement('img');
         img.alt = '';
         if (statusImg === null) {
-            img.src = '../../static/icons/read-on-offer__256.svg';
+            img.src = '/icons/read-on-offer__256.svg';
             img.classList.add('list-letter__status-offer');
         }
         else {
-            img.src = '../../static/icons/read-on__256.svg';
+            img.src = '/icons/read-on__256.svg';
         }
         statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -192,7 +197,7 @@ export default class Main {
             const avatar = letter.querySelector('.list-letter__avatar')
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
             icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
@@ -231,7 +236,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -242,7 +247,6 @@ export default class Main {
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
         })
-
     }
 
     handleDelete = (e) => {
@@ -269,7 +273,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -292,10 +296,9 @@ export default class Main {
             if (item.readStatus === true && selectedIds.includes(String(item.id))) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
-                //const statusImg = letter.querySelector('.list-letter__status-offer');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on__256.svg';
+                img.src = '/icons/read-on__256.svg';
                 statusChild.parentNode.replaceChild(img, statusChild);
 
                 item.readStatus = false;
