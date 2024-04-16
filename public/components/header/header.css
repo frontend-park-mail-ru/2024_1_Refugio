@@ -27,15 +27,12 @@
     color: var(--main-button-hover);
 }
 
-.header__search-wrapper {
+.header__search-wrapper__input {
     padding: 8px 12px;
     width: 240px;
-
     background-color: var(--input-background);
     border-radius: 8px;
-}
 
-.header__search-wrapper__input {
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0px;

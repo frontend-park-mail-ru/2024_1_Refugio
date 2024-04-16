@@ -1,50 +1,36 @@
-<div class="main__root">
+<div class="main-root">
     {{{header}}}
     {{{menu}}}
-    <div class="main__content__wrapper">
-        <div class="main__content">
-            <div class="main__content__header">
-
-                <div class="main__content__header__unselected-buttons">
-                    <div id="select-all" class="main__content__header__button-icon">
-                        <img src="../../static/icons/read_off.svg" alt="">
-                        <input class="main__content__header__button-input" type="button" value="Выделить все">
-                    </div>
-                    <div id="mark-all-as-read" class="main__content__header__button">
-                        <input class="main__content__header__button-input" type="button"
-                            value="Отметить все прочитанными">
-                    </div>
-                </div>
-
-                <div class="main__content__header__selected-buttons remove">
-
-                    <div id="deselect" class="main__content__header__button-icon-span">
-                        <img src="../../static/icons/done.svg" alt="">
-                        <span id="selected-letters-counter"></span>
-                        <input class="main__content__header__button-input" type="button" value="Снять выделение">
-                    </div>
-                    <div id="delete" class="main__content__header__button">
-                        <input class="main__content__header__button-input" type="button" value="Удалить">
-                    </div>
-                    <div id="move-to" class="main__content__header__button">
-                        <input class="main__content__header__button-input" type="button" value="В папку">
-                    </div>
-                    <div id="spam" class="main__content__header__button">
-                        <input class="main__content__header__button-input" type="button" value="Спам">
-                    </div>
-                    <div id="mark-as-read" class="main__content__header__button">
-                        <input class="main__content__header__button-input" type="button" value="Пометить прочитанными">
-                    </div>
-                    <div id="mark-as-unread" class="main__content__header__button">
-                        <input class="main__content__header__button-input" type="button"
-                            value="Пометить непрочитанными">
-                    </div>
-                </div>
-
+    <div class="main-content">
+        <div class="main__header">
+            <div id="select-all" class="main__header__button_has-icon appear">
+                <img src="../../static/icons/read_off.svg" alt="">
+                <span id="unselected-letters-counter" class="main__header__button_has-icon__text">Выделить
+                    все</span>
             </div>
-            <div class="main__content__body">
-                {{{list_letters}}}
+            <div id="mark-all-as-read" class="main__header__button appear">Отметить все прочитанными
             </div>
+
+
+            <div id="deselect" class="main__header__button_has-icon-counter">
+                <img src="../../static/icons/done.svg" alt="">
+                <span id="selected-letters-counter" class="main__header__button_has-icon-counter__counter"></span>
+                <span class="main__header__button_has-icon-counter__text">Снять выделение</span>
+            </div>
+            <div id="delete" class="main__header__button">Удалить
+            </div>
+            <div id="move-to" class="main__header__button">В папку
+            </div>
+            <div id="spam" class="main__header__button">Спам
+            </div>
+            <div id="mark-as-read" class="main__header__button ">Пометить прочитанными
+            </div>
+            <div id="mark-as-unread" class="main__header__button ">Пометить непрочитанными
+            </div>
+
+        </div>
+        <div class="main__body">
+            {{{list_letters}}}
         </div>
     </div>
 </div>
