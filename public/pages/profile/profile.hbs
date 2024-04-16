@@ -5,26 +5,26 @@
         <div class="profile__header">Личные данные</div>
         <div class="profile__form">
 
-            <div class="profile__form__first-name-input-wrapper">
+            <div class="profile__first-name-input-wrapper">
                 <label>Имя</label>
-                <input type="text" class="profile__form__first-name-input-wrapper__input" value="{{firstname}}"
+                <input type="text" class="profile__first-name-input-wrapper__input" value="{{firstname}}"
                     placeholder="Иван">
-                <div id="first-name-error" class="profile__error">Ошибка</div>
+                <div id="first-name-error" class="profile__buttons__error">Ошибка</div>
             </div>
 
-            <div class="profile__form__middle-name-input-wrapper">
+            <div class="profile__middle-name-input-wrapper">
                 <label>Отчество</label>
-                <input type="text" class="profile__form__middle-name-input-wrapper__input" value="{{middlename}}"
+                <input type="text" class="profile__middle-name-input-wrapper__input" value="{{middlename}}"
                     placeholder="Иванович">
-                <div id="middle-name-error" class="profile__error">Ошибка</div>
+                <div id="middle-name-error" class="profile__buttons__error">Ошибка</div>
             </div>
 
 
-            <div class="profile__form__last-name-input-wrapper">
+            <div class="profile__last-name-input-wrapper">
                 <label>Фамилия</label>
-                <input type="text" class="profile__form__last-name-input-wrapper__input" value="{{lastname}}"
+                <input type="text" class="profile__last-name-input-wrapper__input" value="{{lastname}}"
                     placeholder="Иванов">
-                <div id="last-name-error" class="profile__error">Ошибка</div>
+                <div id="last-name-error" class="profile__buttons__error">Ошибка</div>
             </div>
             {{{birthday_select}}}
             {{{gender_select}}}
@@ -32,47 +32,53 @@
 
 
 
-            <div class="profile__form__avatar-load-wrapper">
+            <div class="profile__avatar-load-wrapper">
                 {{#if avatar}}
-                <img class="profile__form__avatar-load-wrapper__avatar" src="{{avatar}}" alt="{{userLetter}}">
+                <img class="profile__avatar-load-wrapper__avatar" src="{{avatar}}" alt="{{userLetter}}">
                 {{else}}
-                <div class="profile__form__avatar-load-wrapper__avatar">{{userLetter}}</div>
+                <div class="profile__avatar-load-wrapper__avatar">{{userLetter}}</div>
                 {{/if}}
-                <input type="file" value="Выберите фото" class="profile__form__avatar-load-wrapper__avatar-load-input">
+                <input type="file" value="Выберите фото" class="profile__avatar-load-wrapper__avatar-load-input">
 
-                <div class="profile__form__avatar-load-wrapper__avatar-set-button">Установить фото</div>
-                <div id="load-avatar-error" class="profile__error">Ошибка</div>
+                <div class="profile__avatar-load-wrapper__avatar-set-button">Установить фото</div>
+                <div id="load-avatar-error" class="profile__buttons__error">Ошибка</div>
 
             </div>
 
-            <div class="profile__form__bio-input-wrapper">
+            <div class="profile__bio-input-wrapper">
                 <label>О себе</label>
-                <input type="text" class="profile__form__bio-input-wrapper__input" value="{{description}}"
+                <input type="text" class="profile__bio-input-wrapper__input" value="{{description}}"
                     placeholder="Веб-разработчик">
-                <div id="bio-error" class="profile__error">Ошибка</div>
+                <div id="bio-error" class="profile__buttons__error">Ошибка</div>
             </div>
-            <div class="profile__form__phone-input-wrapper">
+            <div class="profile__phone-input-wrapper">
                 <label>Номер телефона</label>
-                <input type="text" class="profile__form__phone-input-wrapper__input" value="{{phoneNumber}}"
+                <input type="text" class="profile__phone-input-wrapper__input" value="{{phoneNumber}}"
                     placeholder="88005553535">
-                <div id="phone-error" class="profile__error">Ошибка</div>
+                <div id="phone-error" class="profile__buttons__error">Ошибка</div>
             </div>
-            <div class="profile__form__password-input-wrapper">
+            <div class="profile__password-input-wrapper">
                 <label>Новый пароль</label>
-                <input type="password" class="profile__form__password-input-wrapper__input" placeholder="●●●●●●●●">
-                <div id="password-error" class="profile__error">Ошибка</div>
+                <input type="password" class="profile__password-input-wrapper__input" placeholder="●●●●●●●●">
+                <div id="password-error" class="profile__buttons__error">Ошибка</div>
             </div>
-            <div class="profile__form__password-confirm-input-wrapper">
+            <div class="profile__password-confirm-input-wrapper">
                 <label>Новый пароль ещё раз</label>
-                <input type="password" class="profile__form__password-confirm-input-wrapper__input"
+                <input type="password" class="profile__password-confirm-input-wrapper__input"
                     placeholder="●●●●●●●●">
-                <div id="password-confirm-error" class="profile__error">Ошибка</div>
+                <div id="password-confirm-error" class="profile__buttons__error">Ошибка</div>
             </div>
 
 
-            <div class="profile__form__save-button-wrapper">
-                <div class="profile__form__save-button-wrapper__button">Сохранить</div>
-                <div id="save-error" class="profile__error">Ошибка</div>
+            <div class="profile__buttons">
+                <div class="profile__buttons__save-button">Сохранить</div>
+                <div class="profile__buttons__reset-button">
+                    Сбросить
+                </div>
+                <div class="profile__buttons__cancel-button">
+                    Отменить
+                </div>
+                <div id="buttons-error" class="profile__buttons__error">Ошибка</div>
             </div>
         </div>
     </div>

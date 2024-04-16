@@ -14,8 +14,8 @@ export default class List_letter {
      * @param {object} config 
      */
     constructor(parent, config) {
-        this.#config=config;
-        this.#parent=parent;
+        this.#config = config;
+        this.#parent = parent;
     }
 
     /**
@@ -28,7 +28,7 @@ export default class List_letter {
             from: this.#config.from,
             subject: this.#config.subject,
             text: this.#config.text,
-            date: new Date(this.#config.date).toDateString(),
+            date: (new Date(this.#config.date)).toLocaleDateString('ru-RU'),
             id: this.#config.id,
             userLetter: this.#config.from.charAt(0),
         };

@@ -39,7 +39,8 @@ export default class Letter {
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
             text: this.#config.email.text,
-            date: new Date(this.#config.email.dateOfDispatch).toDateString(),
+            date: (new Date(this.#config.email.dateOfDispatch)).toLocaleDateString('ru-RU', {year: 'numeric', month: 'long', day: 'numeric' }),
+    
             id: this.#config.email.id,
             replyId: this.#config.email.replyToEmailId,
             replyTopic: this.#config.replyEmail?.topic,

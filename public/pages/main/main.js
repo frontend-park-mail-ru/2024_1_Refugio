@@ -105,16 +105,34 @@ export default class Main {
     };
 
     handleHeader() {
-        const unselectedButtons = document.querySelector('.main__content__header__unselected-buttons');
-        const selectedButtons = document.querySelector('.main__content__header__selected-buttons');
+        const unselectedButtons = {
+            select_all: document.querySelector('#select-all'),
+            mark_all_as_read: document.querySelector('#mark-all-as-read'),
+        };
+        const selectedButtons = {
+            deselect: document.querySelector('#deselect'),
+            delete: document.querySelector('#delete'),
+            // move_to: document.querySelector('#move-to'),
+            // spam: document.querySelector('#spam'),
+            mark_as_read: document.querySelector('#mark-as-read'),
+            mark_as_unread: document.querySelector('#mark-as-unread'),
+        };
 
         if (this.selectedListLetters.length > 0) {
-            selectedButtons.classList.remove('remove');
-            unselectedButtons.classList.add('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.add('appear');
+            });
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            });
             document.querySelector('#selected-letters-counter').textContent = this.selectedListLetters.length;
         } else {
-            selectedButtons.classList.add('remove');
-            unselectedButtons.classList.remove('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            });
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.add('appear');
+            });
         }
     }
 
@@ -126,7 +144,7 @@ export default class Main {
 
         if (letter.classList.contains('selected-list-letter')) {
             letter.classList.remove('selected-list-letter');
-            const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+            const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
             this.selectedListLetters.pop(letter);
@@ -135,7 +153,7 @@ export default class Main {
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -176,7 +194,7 @@ export default class Main {
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -191,7 +209,7 @@ export default class Main {
             if (letter.classList.contains('selected-list-letter')) {
                 const avatar = letter.querySelector('.list-letter__avatar')
                 letter.classList.remove('selected-list-letter');
-                const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+                const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
                 icon.parentNode.removeChild(icon);
                 avatar.classList.remove('remove');
                 this.selectedListLetters.pop(letter);

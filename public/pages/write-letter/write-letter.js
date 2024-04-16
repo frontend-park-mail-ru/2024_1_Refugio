@@ -97,9 +97,9 @@ export default class Write__Letter {
         oldError = topicInput;
         oldError.classList.remove('input-background-error');
 
-        oldError = this.#parent
-            .querySelector('.write-letter__attachments__error');
-        oldError.classList.remove('show');
+        // oldError = this.#parent
+        //     .querySelector('.write-letter__attachments__error');
+        // oldError.classList.remove('show');
 
         let isValidForm = true;
         const toError = this.#parent.querySelector('.write-letter__to__error');
@@ -280,8 +280,6 @@ export default class Write__Letter {
     }
 
     handleSendResponse = (status) => {
-        const error = this.#parent
-            .querySelector('.write__letter__content__header__attachments__error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));

@@ -14,7 +14,8 @@ export default (env) => {
     entry: _resolve('public', 'index.js'),
     output: {
       path: _resolve('build'),
-      filename: '[name].[contenthash].js',
+      filename: 'index.js',
+      // filename: '[name].[contenthash].js',
       clean: false,
       publicPath: '/', // This should be the root of your server
     },
