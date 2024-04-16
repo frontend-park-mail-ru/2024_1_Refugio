@@ -38,7 +38,6 @@
 .list-letter__status {
     width: 16px;
     height: 16px;
-    transition: all 0.1s ease;
 }
 
 .list-letter__status-offer {

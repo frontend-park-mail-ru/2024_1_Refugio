@@ -59,17 +59,17 @@ export default class Profile {
     handleSaveForm = async (e) => {
         e.preventDefault();
 
-        const firstNameInput = document.querySelector('.profile__form__first-name-input-wrapper__input');
-        const middleNameInput = document.querySelector('.profile__form__middle-name-input-wrapper__input');
-        const lastNameInput = document.querySelector('.profile__form__last-name-input-wrapper__input');
+        const firstNameInput = document.querySelector('.profile__first-name-input-wrapper__input');
+        const middleNameInput = document.querySelector('.profile__middle-name-input-wrapper__input');
+        const lastNameInput = document.querySelector('.profile__last-name-input-wrapper__input');
         const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent;
         const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent;
         const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
-        const bioInput = document.querySelector('.profile__form__bio-input-wrapper__input');
-        const phoneNumberInput = document.querySelector('.profile__form__phone-input-wrapper__input');
-        const passwordInput = document.querySelector('.profile__form__password-input-wrapper__input');
-        const passwordConfirmInput = document.querySelector('.profile__form__password-confirm-input-wrapper__input');
+        const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
+        const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
+        const passwordInput = document.querySelector('.profile__password-input-wrapper__input');
+        const passwordConfirmInput = document.querySelector('.profile__password-confirm-input-wrapper__input');
 
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
@@ -127,7 +127,7 @@ export default class Profile {
         oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('#save-error');
+            .querySelector('#buttons-error');
         oldError.classList.remove('show');
 
 
@@ -268,7 +268,7 @@ export default class Profile {
         }
 
         const dateError = this.#parent
-            .querySelector('#save-error');
+            .querySelector('#buttons-error');
         if (birthday > new Date()) {
             dateError.textContent = 'Дата рождения превосходит сегодняшнее число';
             dateError.classList.add('show');
@@ -402,12 +402,12 @@ export default class Profile {
 
     handleAvatarUpload = async (e) => {
         e.preventDefault();
-        const input = this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar-load-input');
+        const input = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input');
         const handleAvatarProcessing = async () => {
             const file = input.files[0];
             const reader = new FileReader();
             reader.onload = (event) => {
-                const img1 = this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar');
+                const img1 = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar');
                 img1.src = event.target.result;
                 const img2 = this.#parent.querySelector('.header__avatar');
                 img2.src = event.target.result;
@@ -415,7 +415,7 @@ export default class Profile {
             reader.readAsDataURL(file);
             input.removeEventListener('change', handleAvatarProcessing);
             const formData = new FormData();
-            formData.append('file', this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar-load-input').files[0]);
+            formData.append('file', this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input').files[0]);
             dispathcher.do(actionAvatarUpload(formData))
         };
         input.addEventListener('change', handleAvatarProcessing);
@@ -433,7 +433,7 @@ export default class Profile {
      */
     addListeners() {
         this.#parent
-            .querySelector('.profile__form__save-button-wrapper__button')
+            .querySelector('.profile__buttons__save-button')
             .addEventListener('click', this.handleSaveForm);
         this.#parent
             .querySelector('.header__dropdown__logout-button')
@@ -454,7 +454,7 @@ export default class Profile {
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
         this.#parent
-            .querySelector('.profile__form__avatar-load-wrapper__avatar-set-button')
+            .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .addEventListener('click', this.handleAvatarUpload);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
@@ -466,7 +466,7 @@ export default class Profile {
      */
     removeListeners() {
         this.#parent
-            .querySelector('.profile__form__save-button-wrapper__button')
+            .querySelector('.profile__buttons__save-button')
             .removeEventListener('click', this.handleSaveForm);
         this.#parent
             .querySelector('.header__dropdown__logout-button')
@@ -487,7 +487,7 @@ export default class Profile {
             .querySelector('.cl-switch input')
             .removeEventListener('change', this.handleCheckbox);
         this.#parent
-            .querySelector('.profile__form__avatar-load-wrapper__avatar-set-button')
+            .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .removeEventListener('click', this.handleAvatarUpload);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
@@ -506,7 +506,7 @@ export default class Profile {
 
     handleUpdateResponse = (status) => {
         const error = this.#parent
-            .querySelector('#save-error');
+            .querySelector('#buttons-error');
         switch (status) {
             case 200:
                 // dispathcher.do(actionRedirect('/main', true));

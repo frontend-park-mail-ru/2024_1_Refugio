@@ -51,48 +51,48 @@
     padding: 0 16px 6px;
 }
 
-.profile__form__first-name-input-wrapper {
+.profile__first-name-input-wrapper {
     grid-area: first-name;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__middle-name-input-wrapper {
+.profile__middle-name-input-wrapper {
     grid-area: middle-name;
     margin: 2px 16px 0 8px;
 }
 
-.profile__form__last-name-input-wrapper {
+.profile__last-name-input-wrapper {
     grid-area: last-name;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__bio-input-wrapper {
+.profile__bio-input-wrapper {
     grid-area: bio;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__phone-input-wrapper {
+.profile__phone-input-wrapper {
     grid-area: phone;
     margin: 2px 16px 0 8px;
 }
 
-.profile__form__password-input-wrapper {
+.profile__password-input-wrapper {
     grid-area: password;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__password-confirm-input-wrapper {
+.profile__password-confirm-input-wrapper {
     grid-area: password-confirm;
     margin: 2px 16px 0 8px;
 }
 
-.profile__form__first-name-input-wrapper,
-.profile__form__middle-name-input-wrapper,
-.profile__form__last-name-input-wrapper,
-.profile__form__bio-input-wrapper,
-.profile__form__phone-input-wrapper,
-.profile__form__password-input-wrapper,
-.profile__form__password-confirm-input-wrapper {
+.profile__first-name-input-wrapper,
+.profile__middle-name-input-wrapper,
+.profile__last-name-input-wrapper,
+.profile__bio-input-wrapper,
+.profile__phone-input-wrapper,
+.profile__password-input-wrapper,
+.profile__password-confirm-input-wrapper {
     display: grid;
     grid-template-areas:
         'label'
@@ -101,13 +101,13 @@
     grid-row-gap: 2px;
 }
 
-.profile__form__first-name-input-wrapper label,
-.profile__form__middle-name-input-wrapper label,
-.profile__form__last-name-input-wrapper label,
-.profile__form__bio-input-wrapper label,
-.profile__form__phone-input-wrapper label,
-.profile__form__password-input-wrapper label,
-.profile__form__password-confirm-input-wrapper label {
+.profile__first-name-input-wrapper label,
+.profile__middle-name-input-wrapper label,
+.profile__last-name-input-wrapper label,
+.profile__bio-input-wrapper label,
+.profile__phone-input-wrapper label,
+.profile__password-input-wrapper label,
+.profile__password-confirm-input-wrapper label {
     grid-area: label;
 
     margin-top: 2px;
@@ -119,13 +119,13 @@
 }
 
 
-.profile__form__first-name-input-wrapper__input,
-.profile__form__middle-name-input-wrapper__input,
-.profile__form__last-name-input-wrapper__input,
-.profile__form__bio-input-wrapper__input,
-.profile__form__phone-input-wrapper__input,
-.profile__form__password-input-wrapper__input,
-.profile__form__password-confirm-input-wrapper__input {
+.profile__first-name-input-wrapper__input,
+.profile__middle-name-input-wrapper__input,
+.profile__last-name-input-wrapper__input,
+.profile__bio-input-wrapper__input,
+.profile__phone-input-wrapper__input,
+.profile__password-input-wrapper__input,
+.profile__password-confirm-input-wrapper__input {
     grid-area: input;
 
     padding: 12px;
@@ -140,30 +140,30 @@
     width: 100%;
 }
 
-.profile__form__first-name-input-wrapper__input::placeholder,
-.profile__form__middle-name-input-wrapper__input::placeholder,
-.profile__form__last-name-input-wrapper__input::placeholder,
-.profile__form__bio-input-wrapper__input::placeholder,
-.profile__form__phone-input-wrapper__input::placeholder,
-.profile__form__password-input-wrapper__input::placeholder,
-.profile__form__password-confirm-input-wrapper__input::placeholder {
+.profile__first-name-input-wrapper__input::placeholder,
+.profile__middle-name-input-wrapper__input::placeholder,
+.profile__last-name-input-wrapper__input::placeholder,
+.profile__bio-input-wrapper__input::placeholder,
+.profile__phone-input-wrapper__input::placeholder,
+.profile__password-input-wrapper__input::placeholder,
+.profile__password-confirm-input-wrapper__input::placeholder {
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
 }
 
-.profile__form__first-name-input-wrapper__input:focus,
-.profile__form__middle-name-input-wrapper__input:focus,
-.profile__form__last-name-input-wrapper__input:focus,
-.profile__form__bio-input-wrapper__input:focus,
-.profile__form__phone-input-wrapper__input:focus,
-.profile__form__password-input-wrapper__input:focus,
-.profile__form__password-confirm-input-wrapper__input:focus {
+.profile__first-name-input-wrapper__input:focus,
+.profile__middle-name-input-wrapper__input:focus,
+.profile__last-name-input-wrapper__input:focus,
+.profile__bio-input-wrapper__input:focus,
+.profile__phone-input-wrapper__input:focus,
+.profile__password-input-wrapper__input:focus,
+.profile__password-confirm-input-wrapper__input:focus {
     outline: none;
 }
 
-.profile__form__avatar-load-wrapper {
+.profile__avatar-load-wrapper {
     grid-area: avatar;
     display: grid;
     grid-template-areas:
@@ -175,7 +175,7 @@
     padding-top: 18px;
 }
 
-.profile__form__avatar-load-wrapper__avatar {
+.profile__avatar-load-wrapper__avatar {
     grid-area: avatar;
     display: grid;
     align-items: center;
@@ -189,11 +189,11 @@
 }
 
 
-.profile__form__avatar-load-wrapper__avatar-set-button {
+.profile__avatar-load-wrapper__avatar-set-button {
     grid-area: set;
 }
 
-.profile__form__avatar-load-wrapper__avatar-set-button {
+.profile__avatar-load-wrapper__avatar-set-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -211,37 +211,73 @@
     cursor: pointer;
 }
 
-.profile__form__avatar-load-wrapper__avatar-set-button:hover {
-
-    background-color: var(--secondary-button-onhover-selected)
+.profile__avatar-load-wrapper__avatar-set-button:hover,
+.profile__buttons__reset-button:hover,
+.profile__buttons__cancel-button:hover {
+    background-color: var(--main-button-secondary);
 }
 
-.profile__form__save-button-wrapper {
-    grid-area: button;
 
+.profile__buttons {
     display: grid;
     grid-template-areas:
-        'button'
-        'error';
-    grid-row-gap: 8px;
-    margin: 26px 16px 0 16px;
+        'save reset cancel'
+        'error error error';
+    grid-template-columns: auto auto 1fr;
+    grid-column-gap: 8px;
 
-    text-align: center;
+    padding: 16px 20px;
+    background-color: var(--box-background);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transform: scale(1);
 }
 
-.profile__form__save-button-wrapper__button {
-    grid-area: button;
+.profile__buttons__save-button {
+    grid-area: save;
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    padding: 10px 16px;
+    margin-right: 16px;
+    padding: 10px 20px;
     height: 36px;
 
-    background-color: var(--main-button);
     border-radius: 8px;
+    background-color: var(--main-button);
 
     color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1)
+}
+
+.profile__buttons__save-button:hover {
+    background-color: var(--main-button-hover);
+}
+
+.profile__buttons__reset-button {
+    grid-area: reset;
+}
+
+.profile__buttons__cancel-button {
+    grid-area: cancel;
+    /* width: fit-content; */
+}
+
+.profile__buttons__reset-button,
+.profile__buttons__cancel-button {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 12px;
+    height: 36px;
+
+    border-radius: 8px;
+
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0;
@@ -251,20 +287,10 @@
     transform: scale(1);
 }
 
-.profile__form__save-button-wrapper__button:hover {
-    background-color: var(--main-button-hover);
-}
-
-.profile__form__save-button-wrapper__button:active {
-    transform: scale(0.99);
-}
-
-.profile__form__avatar-load-wrapper__avatar-load-input {
-    display: none;
-}
-
-.profile__error {
+.profile__buttons__error {
     grid-area: error;
+    display: grid;
+    align-items: center;
 
     color: var(--negative);
     font-size: 13px;
@@ -274,4 +300,14 @@
 
     visibility: hidden;
     overflow-wrap: anywhere;
+}
+
+.profile__buttons__save-button:active,
+.profile__buttons__reset-button:active,
+.profile__buttons__cancel-button:active  {
+    transform: scale(0.99);
+}
+
+.profile__avatar-load-wrapper__avatar-load-input {
+    display: none;
 }
