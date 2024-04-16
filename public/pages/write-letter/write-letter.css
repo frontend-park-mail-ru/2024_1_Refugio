@@ -127,7 +127,6 @@
 .write-letter__attachments__view-button {
     position: relative;
 
-    display: grid;
     grid-template-columns: repeat(2, auto);
     align-items: center;
 
@@ -209,10 +208,11 @@
 .write-letter__buttons {
     display: grid;
     grid-template-areas:
-        'send save-draft cancel'
-        'error error error';
-    grid-template-columns: auto auto 1fr;
+        'send  cancel'
+        'error error';
+    grid-template-columns: repeat(2, fit-content);
     grid-column-gap: 8px;
+    justify-content: start;
 
     padding: 16px 20px 0 20px;
     height: fit-content;
@@ -229,6 +229,7 @@
 
     margin-right: 16px;
     padding: 10px 20px;
+    height: 36px;
 
     border-radius: 8px;
     background-color: var(--main-button);
@@ -253,7 +254,6 @@
 
 .write-letter__buttons__cancel-button {
     grid-area: cancel;
-    width: fit-content;
 }
 
 .write-letter__buttons__save-draft-button,
