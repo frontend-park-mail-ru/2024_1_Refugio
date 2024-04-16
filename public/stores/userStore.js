@@ -15,7 +15,7 @@ class UserStore {
 
     async verifyAuth() {
         const response = await ajax(
-            'GET', 'http://mailhub.su:8080/api/v1/verify-auth', null, 'application/json', this.#csrf
+            'GET', 'https://mailhub.su:8080/api/v1/verify-auth', null, 'application/json', this.#csrf
         );
         this.isAuth = await response.status < 300;
         this.#csrf = response.headers.get('X-Csrf-Token');
@@ -24,7 +24,7 @@ class UserStore {
 
     async logout() {
         const response = await ajax(
-            'POST', 'http://mailhub.su:8080/api/v1/auth/logout', null, 'application/json', this.#csrf
+            'POST', 'https://mailhub.su:8080/api/v1/auth/logout', null, 'application/json', this.#csrf
         );
         const status = await response.status;
         if (status < 300) {
@@ -37,7 +37,7 @@ class UserStore {
 
     async login(newUser) {
         const response = await ajax(
-            'POST', 'http://mailhub.su:8080/api/v1/auth/login', JSON.stringify(newUser), 'application/json', this.#csrf
+            'POST', 'https://mailhub.su:8080/api/v1/auth/login', JSON.stringify(newUser), 'application/json', this.#csrf
         );
 
         const status = await response.status;
@@ -50,7 +50,7 @@ class UserStore {
 
     async signup(newUser) {
         const response = await ajax(
-            'POST', 'http://mailhub.su:8080/api/v1/auth/signup', JSON.stringify(newUser), 'application/json', this.#csrf
+            'POST', 'https://mailhub.su:8080/api/v1/auth/signup', JSON.stringify(newUser), 'application/json', this.#csrf
         );
         const status = await response.status;
         if (status < 300) {
@@ -66,7 +66,7 @@ class UserStore {
 
     async getUser() {
         const response = await ajax(
-            'GET', 'http://mailhub.su:8080/api/v1/user/get', null, 'application/json', this.#csrf
+            'GET', 'https://mailhub.su:8080/api/v1/user/get', null, 'application/json', this.#csrf
         );
         const status = await response.status;
         if (status < 300) {
@@ -77,7 +77,7 @@ class UserStore {
 
     async updateUser(newUser) {
         const response = await ajax(
-            'PUT', 'http://mailhub.su:8080/api/v1/user/update', JSON.stringify(newUser), 'application/json', this.#csrf
+            'PUT', 'https://mailhub.su:8080/api/v1/user/update', JSON.stringify(newUser), 'application/json', this.#csrf
         );
         const status = await response.status;
         mediator.emit('updateUser', status);
@@ -85,7 +85,7 @@ class UserStore {
 
     async avatarUpload(file) {
         const response = await ajax(
-            'POST', 'http://mailhub.su:8080/api/v1/user/avatar/upload', file.file, undefined, this.#csrf
+            'POST', 'https://mailhub.su:8080/api/v1/user/avatar/upload', file.file, undefined, this.#csrf
         );
         const status = await response.status;
         mediator.emit('updateUser', status);

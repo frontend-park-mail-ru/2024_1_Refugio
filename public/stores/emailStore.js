@@ -16,7 +16,7 @@ class emaillStore {
 
     async getIncoming() {
         const response = await ajax(
-            'GET', 'http://mailhub.su:8080/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
+            'GET', 'https://mailhub.su:8080/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
         this.incoming = data.body.emails;
@@ -24,7 +24,7 @@ class emaillStore {
 
     async getSent() {
         const response = await ajax(
-            'GET', 'http://mailhub.su:8080/api/v1/emails/sent', null, 'application/json', userStore.getCsrf()
+            'GET', 'https://mailhub.su:8080/api/v1/emails/sent', null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
         this.sent = data.body.emails;
@@ -33,7 +33,7 @@ class emaillStore {
 
     async getEmail(id) {
         const response = await ajax(
-            'GET', `http://mailhub.su:8080/api/v1/email/${id}`, null, 'application/json', userStore.getCsrf()
+            'GET', `https://mailhub.su:8080/api/v1/email/${id}`, null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
         this.email = data.body.email;
@@ -41,7 +41,7 @@ class emaillStore {
 
     async send(newEmail) {
         const response = await ajax(
-            'POST', 'http://mailhub.su:8080/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
+            'POST', 'https://mailhub.su:8080/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
         mediator.emit('send', status);
@@ -49,7 +49,7 @@ class emaillStore {
 
     async updateEmail({id, value}) {
         const response = await ajax(
-            'PUT', `http://mailhub.su:8080/api/v1/email/update/${id}`, JSON.stringify(value), 'application/json', userStore.getCsrf()
+            'PUT', `https://mailhub.su:8080/api/v1/email/update/${id}`, JSON.stringify(value), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
         return status;
@@ -57,7 +57,7 @@ class emaillStore {
 
     async deleteEmail({id}) {
         const response = await ajax(
-            'DELETE', `http://mailhub.su:8080/api/v1/email/delete/${id}`,null, 'application/json', userStore.getCsrf()
+            'DELETE', `https://mailhub.su:8080/api/v1/email/delete/${id}`,null, 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
         return status;
