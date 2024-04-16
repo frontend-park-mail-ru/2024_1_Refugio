@@ -144,7 +144,7 @@ export default class Main {
 
         if (letter.classList.contains('selected-list-letter')) {
             letter.classList.remove('selected-list-letter');
-            const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+            const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
             this.selectedListLetters.pop(letter);
@@ -153,7 +153,7 @@ export default class Main {
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -194,7 +194,7 @@ export default class Main {
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -209,7 +209,7 @@ export default class Main {
             if (letter.classList.contains('selected-list-letter')) {
                 const avatar = letter.querySelector('.list-letter__avatar')
                 letter.classList.remove('selected-list-letter');
-                const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+                const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
                 icon.parentNode.removeChild(icon);
                 avatar.classList.remove('remove');
                 this.selectedListLetters.pop(letter);
