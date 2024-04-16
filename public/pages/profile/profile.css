@@ -226,7 +226,7 @@
     grid-template-columns: auto auto 1fr;
     grid-column-gap: 8px;
 
-    padding: 16px 20px;
+    padding: 16px 20px 0 20px;
     background-color: var(--box-background);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -265,7 +265,6 @@
 
 .profile__buttons__cancel-button {
     grid-area: cancel;
-    /* width: fit-content; */
 }
 
 .profile__buttons__reset-button,

@@ -2,7 +2,6 @@
 @import '../../components/menu/menu.css';
 @import '../../components/list-letter/list-letter.css';
 @import '../../components/list-letters/list-letters.css';
-
 .main-root {
     display: grid;
     grid-template-areas:
@@ -33,7 +32,7 @@
 
     padding: 8px;
     background-color: var(--box-background);
-    border-radius: 8px;
+    border-radius: 8px 8px 0 0;
 }
 
 .main__header__button {
@@ -108,10 +107,4 @@
 .main__header__button_has-icon:active,
 .main__header__button_has-icon-counter:active {
     transform: scale(0.99);
-}
-
-.main__body {
-    padding-right: 4px;
-    height: 800px;
-    /* overflow: hidden; */
 }

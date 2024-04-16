@@ -195,8 +195,10 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     white-space: pre-wrap;
+    word-break: break-word;
 
     font-size: 16px;
     font-weight: 400;
@@ -204,15 +206,15 @@
     line-height: 20px;
 }
 
-/*.letter__content__body__text::-webkit-scrollbar {
-    width: 6px;
+.letter__text::-webkit-scrollbar {
+    width: 4px;
 }
 
-.letter__content__body__text::-webkit-scrollbar-track {
+.letter__text::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-.letter__content__body__text::-webkit-scrollbar-thumb {
+.letter__text::-webkit-scrollbar-thumb {
     background-color: var(--input-label-counter-icon);
     border-radius: 12px;
-} */
+}

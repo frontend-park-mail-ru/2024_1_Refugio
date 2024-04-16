@@ -30,7 +30,7 @@ export default class Sent {
      * Рендер компонента в DOM
      */
     render() {
-        this.#config.content.sent = true;
+        this.#config.content.sent = false;
         const elements = {
             header: new Header(null, this.#config.header).render(),
             menu: new Menu(null, this.#config.menu).render(),
@@ -99,7 +99,7 @@ export default class Sent {
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
-    handleIncoming = async (e) => {
+    handleIncoming= async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/main', true));
     };
@@ -112,8 +112,8 @@ export default class Sent {
         const selectedButtons = {
             deselect: document.querySelector('#deselect'),
             delete: document.querySelector('#delete'),
-            move_to: document.querySelector('#move-to'),
-            spam: document.querySelector('#spam'),
+            // move_to: document.querySelector('#move-to'),
+            // spam: document.querySelector('#spam'),
             mark_as_read: document.querySelector('#mark-as-read'),
             mark_as_unread: document.querySelector('#mark-as-unread'),
         };
@@ -144,7 +144,7 @@ export default class Sent {
 
         if (letter.classList.contains('selected-list-letter')) {
             letter.classList.remove('selected-list-letter');
-            const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+            const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
             this.selectedListLetters.pop(letter);
@@ -153,7 +153,7 @@ export default class Sent {
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -194,7 +194,7 @@ export default class Sent {
             const icon = document.createElement('img');
             icon.src = '../../static/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -209,7 +209,7 @@ export default class Sent {
             if (letter.classList.contains('selected-list-letter')) {
                 const avatar = letter.querySelector('.list-letter__avatar')
                 letter.classList.remove('selected-list-letter');
-                const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+                const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
                 icon.parentNode.removeChild(icon);
                 avatar.classList.remove('remove');
                 this.selectedListLetters.pop(letter);
