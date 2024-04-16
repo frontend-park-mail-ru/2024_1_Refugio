@@ -156,7 +156,7 @@ export default class Main {
         } else {
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
             icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
@@ -175,11 +175,11 @@ export default class Main {
         const img = document.createElement('img');
         img.alt = '';
         if (statusImg === null) {
-            img.src = '../../static/icons/read-on-offer__256.svg';
+            img.src = '/icons/read-on-offer__256.svg';
             img.classList.add('list-letter__status-offer');
         }
         else {
-            img.src = '../../static/icons/read-on__256.svg';
+            img.src = '/icons/read-on__256.svg';
         }
         statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -197,7 +197,7 @@ export default class Main {
             const avatar = letter.querySelector('.list-letter__avatar')
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
             icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
@@ -236,7 +236,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -273,7 +273,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -298,7 +298,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on__256.svg';
+                img.src = '/icons/read-on__256.svg';
                 statusChild.parentNode.replaceChild(img, statusChild);
 
                 item.readStatus = false;
