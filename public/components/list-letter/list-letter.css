@@ -52,6 +52,7 @@
     height: 36px;
     border-radius: 50%;
     background-color: var(--input-background);
+    object-fit: cover;
 }
 
 .list-letter:hover .list-letter__avatar__image {

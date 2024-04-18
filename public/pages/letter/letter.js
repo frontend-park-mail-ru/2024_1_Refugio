@@ -53,6 +53,12 @@ export default class Letter {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
+    hideError = () => {
+        const oldError = this.#parent
+            .querySelector('.letter__error');
+        oldError.classList.remove('appear');
+    };
+
     handleDropdowns(e) {
         const target = e.target;
 
@@ -135,6 +141,7 @@ export default class Letter {
     };
 
     handleStatus = async (e) => {
+        this.hideError();
         e.preventDefault();
         const id = this.#config.email.id;
         const value = this.#config.email;
@@ -150,6 +157,7 @@ export default class Letter {
     }
 
     handleMarkAsRead = async (e) => {
+        this.hideError();
         e.preventDefault();
         const id = this.#config.email.id;
         const value = this.#config.email;
@@ -162,6 +170,7 @@ export default class Letter {
     }
 
     handleMarkAsUnread = async (e) => {
+        this.hideError();
         e.preventDefault();
         const id = this.#config.email.id;
         const value = this.#config.email;
@@ -174,6 +183,7 @@ export default class Letter {
     }
 
     handleDelete = async (e) => {
+        this.hideError();
         e.preventDefault();
         const id = this.#config.email.id;
         this.handleBack(e);
@@ -236,6 +246,9 @@ export default class Letter {
             .addEventListener('click', this.handleSent);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
+        mediator.on('updateEmail', this.handleUpdateEmailResponse);
+        mediator.on('deleteEmail', this.handleDeleteEmailResponse);
+
     }
 
     /**
@@ -275,6 +288,8 @@ export default class Letter {
             .removeEventListener('click', this.handleSent);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
+        mediator.off('updateEmail', this.handleUpdateEmailResponse);
+        mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     handleExitResponse = (status) => {
@@ -283,6 +298,30 @@ export default class Letter {
                 dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
+                break;
+        }
+    }
+
+    handleUpdateEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
+                break;
+        }
+    }
+
+    handleDeleteEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
                 break;
         }
     }

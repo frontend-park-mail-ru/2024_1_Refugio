@@ -41,6 +41,12 @@ export default class Sent {
 
     selectedListLetters = []
 
+    hideError = () => {
+        const oldError = this.#parent
+            .querySelector('.letter__error');
+        oldError.classList.remove('appear');
+    };
+
     handleDropdowns(e) {
         const target = e.target;
 
@@ -226,6 +232,7 @@ export default class Sent {
     }
 
     handleMarkAllAsRead = (e) => {
+        this.hideError();
         e.preventDefault();
 
         const letters = this.#config.content.list_letters;
@@ -252,6 +259,7 @@ export default class Sent {
     }
 
     handleDelete = (e) => {
+        this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
             const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
@@ -264,6 +272,7 @@ export default class Sent {
     }
 
     handleMarkAsRead = (e) => {
+        this.hideError();
         e.preventDefault();
         const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
         const letters = this.#config.content.list_letters;
@@ -290,6 +299,7 @@ export default class Sent {
     }
 
     handleMarkAsUnread = (e) => {
+        this.hideError();
         e.preventDefault();
         const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
 
@@ -364,6 +374,8 @@ export default class Sent {
             .addEventListener('click', this.handleIncoming);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
+        mediator.on('updateEmail', this.handleUpdateEmailResponse);
+        mediator.on('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     /**
@@ -417,6 +429,8 @@ export default class Sent {
             .removeEventListener('click', this.handleIncoming);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
+        mediator.off('updateEmail', this.handleUpdateEmailResponse);
+        mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     handleExitResponse = (status) => {
@@ -425,6 +439,30 @@ export default class Sent {
                 dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
+                break;
+        }
+    }
+
+    handleUpdateEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
+                break;
+        }
+    }
+
+    handleDeleteEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
                 break;
         }
     }

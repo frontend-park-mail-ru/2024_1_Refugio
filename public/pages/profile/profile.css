@@ -193,6 +193,7 @@
     background-color: var(--input-label-counter-icon);
     font-size: 24px;
     cursor: pointer;
+    object-fit: cover;
 }
 
 

@@ -99,6 +99,10 @@ export default class Write__Letter {
         oldError = topicInput;
         oldError.classList.remove('input-background-error');
 
+        oldError = this.#parent
+            .querySelector('.write-letter__buttons__error');
+            oldError.classList.remove('show');
+
         // oldError = this.#parent
         //     .querySelector('.write-letter__attachments__error');
         // oldError.classList.remove('show');
@@ -303,7 +307,7 @@ export default class Write__Letter {
                 const error = this.#parent
                     .querySelector('.write-letter__buttons__error');
 
-                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
         }
