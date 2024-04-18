@@ -4,6 +4,8 @@ import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionSend } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './write-letter.hbs'
+import router from '../../modules/router.js';
+
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -27,7 +29,7 @@ export default class Write__Letter {
         this.#config = config;
         this.#parent = parent;
     }
-    
+
 
     /**
      * Рендер компонента в DOM
@@ -127,6 +129,7 @@ export default class Write__Letter {
                         toInput.classList.add('input-background-error');
                         isValidForm = false;
                     } else {
+                        if 
                         const toRegex = /^[a-zA-Z0-9._%+-]+@mailhub.su$/;
                         if (!toRegex.test(to)) {
                             toError.textContent = "Некорректное имя ящика получателя";
@@ -215,6 +218,13 @@ export default class Write__Letter {
         dispathcher.do(actionRedirect('/sent', true));
     };
 
+    handleBack = async (e) => {
+        e.preventDefault();
+        if (router.canGoBack() > 1) {
+            window.history.back();
+        }
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -237,6 +247,9 @@ export default class Write__Letter {
         this.#parent
             .querySelector('.write-letter__buttons__send-button')
             .addEventListener('click', this.handleSend);
+        this.#parent
+            .querySelector('.write-letter__buttons__cancel-button')
+            .addEventListener('click', this.handleBack);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)

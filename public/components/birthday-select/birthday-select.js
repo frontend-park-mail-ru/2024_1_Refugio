@@ -24,7 +24,7 @@ export default class Birthday_Select {
      */
     render() {
         const elements = {
-            birthday_day: this.#config?.user?.birthday.substr(8, 2) || 1,
+            birthday_day: ((this.#config?.user?.birthday.substr(8, 1) === '0') ? this.#config?.user?.birthday.substr(9, 1) : this.#config?.user?.birthday.substr(8, 2)) || 1,
             birthday_month: this.parseMonths(Number(this.#config?.user?.birthday.substr(5, 2) || 1)),
             birthday_year: this.#config?.user?.birthday.substr(0, 4) || 2024,
         }

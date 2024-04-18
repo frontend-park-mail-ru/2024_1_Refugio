@@ -301,8 +301,7 @@ export default class Signup {
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
-                value.dropdown.classList.remove('show__dropdown__wrapper');
-                value.dropdown.classList.add('hide__dropdown__wrapper');
+                value.dropdown.classList.remove('show');
             });
         }
 
@@ -311,13 +310,12 @@ export default class Signup {
             if (elements[key].button.contains(target)) {
                 hasTarget = true;
                 let showDropdown = true;
-                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                if (elements[key].dropdown.classList.contains('show')) {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
                 if (showDropdown) {
-                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
-                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show');
                 }
             }
         })
