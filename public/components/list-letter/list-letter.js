@@ -28,7 +28,8 @@ export default class List_letter {
             from: this.#config.from,
             subject: this.#config.subject,
             text: this.#config.text,
-            date: (new Date(this.#config.date)).toLocaleDateString('ru-RU'),
+            date: (new Date(this.#config.date)).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
+
             id: this.#config.id,
             userLetter: this.#config.from.charAt(0),
         };

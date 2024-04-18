@@ -40,7 +40,8 @@ export default class Letter {
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
             text: this.#config.email.text,
-            date: (new Date(this.#config.email.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' }),
+            date: (new Date(this.#config.email.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }),
+
 
             id: this.#config.email.id,
             replyId: this.#config.email.replyToEmailId,
@@ -175,7 +176,7 @@ export default class Letter {
     handleDelete = async (e) => {
         e.preventDefault();
         const id = this.#config.email.id;
-        dispathcher.do(actionRedirect('/main', true)); //СДЕЛАТЬ ПЕРЕХОД НА ПРЕДЫДУЩУЮ СТРАНИЦУ, А НЕ ВХОДЯЩИЕ
+        this.handleBack(e);
         dispathcher.do(actionDeleteEmail(id));
     }
 
@@ -184,6 +185,9 @@ export default class Letter {
         if (router.canGoBack() > 1) {
             window.history.back();
         }
+        document
+            .querySelector('.letter__header__back-button')
+            .removeEventListener('click', this.handleBack);
     }
 
     /**

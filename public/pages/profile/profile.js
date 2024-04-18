@@ -435,6 +435,9 @@ export default class Profile {
         if (router.canGoBack() > 1) {
             window.history.back();
         }
+        document
+            .querySelector('.profile__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
     }
 
     handleReset = (e) => {
@@ -458,8 +461,8 @@ export default class Profile {
         lastNameInput.value = '';
         bioInput.value = '';
         phoneNumberInput.value = '';
-        passwordInput.value = '';
-        passwordConfirmInput.value = '';
+        // passwordInput.value = '';
+        // passwordConfirmInput.value = '';
 
     }
 
@@ -500,6 +503,10 @@ export default class Profile {
         this.#parent
             .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .addEventListener('click', this.handleAvatarUpload);
+        this.#parent
+            .querySelector('.profile__avatar-load-container')
+            .addEventListener('click', this.handleAvatarUpload);
+
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateUser', this.handleUpdateResponse);

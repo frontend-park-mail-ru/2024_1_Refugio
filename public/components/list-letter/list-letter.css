@@ -66,6 +66,8 @@
 }
 
 .list-letter__avatar__checkbox_centered {
+    display: grid;
+    align-items: center;
     margin: 8px;
 }
 

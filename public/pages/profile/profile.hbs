@@ -33,13 +33,15 @@
 
 
             <div class="profile__avatar-load-wrapper">
-                {{#if avatar}}
-                <img class="profile__avatar-load-wrapper__avatar" src="{{avatar}}" alt="{{userLetter}}">
-                {{else}}
-                <div class="profile__avatar-load-wrapper__avatar">{{userLetter}}</div>
-                {{/if}}
+                <div class="profile__avatar-load-container">
+                    {{#if avatar}}
+                    <img class="profile__avatar-load-wrapper__avatar" src="{{avatar}}" alt="{{userLetter}}">
+                    {{else}}
+                    <div class="profile__avatar-load-wrapper__avatar">{{userLetter}}</div>
+                    {{/if}}
+                    <img src="/icons/add_outline_28.svg" class="profile__avatar-load-wrapper__avatar-set-icon">
+                </div>
                 <input type="file" value="Выберите фото" class="profile__avatar-load-wrapper__avatar-load-input">
-
                 <div class="profile__avatar-load-wrapper__avatar-set-button">Установить фото</div>
                 <div id="load-avatar-error" class="profile__buttons__error">Ошибка</div>
 
@@ -64,8 +66,7 @@
             </div>
             <div class="profile__password-confirm-input-wrapper">
                 <label>Новый пароль ещё раз</label>
-                <input type="password" class="profile__password-confirm-input-wrapper__input"
-                    placeholder="●●●●●●●●">
+                <input type="password" class="profile__password-confirm-input-wrapper__input" placeholder="●●●●●●●●">
                 <div id="password-confirm-error" class="profile__buttons__error">Ошибка</div>
             </div> --}}
 

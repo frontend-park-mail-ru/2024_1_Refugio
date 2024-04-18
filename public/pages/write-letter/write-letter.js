@@ -222,6 +222,9 @@ export default class Write__Letter {
         if (router.canGoBack() > 1) {
             window.history.back();
         }
+        document
+            .querySelector('.write-letter__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
     }
 
     /**

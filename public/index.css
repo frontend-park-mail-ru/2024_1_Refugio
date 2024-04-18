@@ -117,6 +117,10 @@ label {
     display: none;
 }
 
+.no-click {
+    cursor: not-allowed;
+}
+
 .input-background-error {
     background-color: var(--error-input-placeholder);
 }
