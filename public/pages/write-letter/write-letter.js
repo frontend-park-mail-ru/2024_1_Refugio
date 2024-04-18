@@ -129,7 +129,6 @@ export default class Write__Letter {
                         toInput.classList.add('input-background-error');
                         isValidForm = false;
                     } else {
-                        if 
                         const toRegex = /^[a-zA-Z0-9._%+-]+@mailhub.su$/;
                         if (!toRegex.test(to)) {
                             toError.textContent = "Некорректное имя ящика получателя";

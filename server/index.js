@@ -13,6 +13,7 @@ router.use(express.static(path.resolve(dirname, '..', 'static')));
 router.use(express.static(path.resolve(dirname, '..', 'build')));
 router.use(express.static(path.resolve(dirname, '..', 'node_modules')));
 
+
 router.get('*', (req, res) => {
     const filePath = path.resolve(dirname, '../build', "index.html");
     if (!fs.existsSync(filePath)) {
