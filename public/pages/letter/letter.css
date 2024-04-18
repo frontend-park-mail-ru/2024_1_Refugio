@@ -55,11 +55,6 @@
     background-color: var(--main-button-secondary)
 }
 
-.letter__header__button:active {
-    transform: scale(0.99);
-
-}
-
 .letter__subject {
     padding-left: 16px;
 
@@ -84,7 +79,9 @@
 
 .letter__info__icon {
     margin: 0 1px;
-    border-radius: 8px;
+    border-radius: 100px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
 }
 

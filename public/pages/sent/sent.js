@@ -98,9 +98,11 @@ export default class Sent {
         e.preventDefault();
         const letters = this.#config.content.list_letters;
         const value = letters.find(item => String(item.id) === id);
-        value.readStatus = !value.readStatus;
         value.dateOfDispatch = undefined;
-        dispathcher.do(actionUpdateEmail(id, value));
+        if (value.readStatus === false) {
+            value.readStatus = true;
+            dispathcher.do(actionUpdateEmail(id, value));
+        }
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 

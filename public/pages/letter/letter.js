@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
 import template from './letter.hbs'
 
 
@@ -39,8 +39,8 @@ export default class Letter {
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
             text: this.#config.email.text,
-            date: (new Date(this.#config.email.dateOfDispatch)).toLocaleDateString('ru-RU', {year: 'numeric', month: 'long', day: 'numeric' }),
-    
+            date: (new Date(this.#config.email.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric' }),
+
             id: this.#config.email.id,
             replyId: this.#config.email.replyToEmailId,
             replyTopic: this.#config.replyEmail?.topic,
@@ -132,10 +132,59 @@ export default class Letter {
         dispathcher.do(actionRedirect('/sent', true));
     };
 
+    handleStatus = async (e) => {
+        e.preventDefault();
+        const id = this.#config.email.id;
+        const value = this.#config.email;
+        const icon = document.querySelector('.letter__info__icon');
+
+        if (icon.src.endsWith("/icons/read-on-offer__256.svg")) {
+            icon.src = '/icons/read-on__256.svg';
+        } else {
+            icon.src = '/icons/read-on-offer__256.svg';
+        };
+        value.readStatus = !value.readStatus;
+        dispathcher.do(actionUpdateEmail(id, value));
+    }
+
+    handleMarkAsRead = async (e) => {
+        e.preventDefault();
+        const id = this.#config.email.id;
+        const value = this.#config.email;
+        const icon = document.querySelector('.letter__info__icon');
+        if (value.readStatus === false) {
+            value.readStatus = true;
+            icon.src = '/icons/read-on-offer__256.svg';
+            dispathcher.do(actionUpdateEmail(id, value));
+        }
+    }
+
+    handleMarkAsUnread = async (e) => {
+        e.preventDefault();
+        const id = this.#config.email.id;
+        const value = this.#config.email;
+        const icon = document.querySelector('.letter__info__icon');
+        if (value.readStatus === true) {
+            value.readStatus = false;
+            icon.src = '/icons/read-on__256.svg';
+            dispathcher.do(actionUpdateEmail(id, value));
+        }
+    }
+
+    handleDelete = async (e) => {
+        e.preventDefault();
+        const id = this.#config.email.id;
+        dispathcher.do(actionRedirect('/main', true)); //СДЕЛАТЬ ПЕРЕХОД НА ПРЕДЫДУЩУЮ СТРАНИЦУ, А НЕ ВХОДЯЩИЕ
+        dispathcher.do(actionDeleteEmail(id));
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent
+            .querySelector('.letter__info__icon')
+            .addEventListener('click', this.handleStatus);
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
@@ -145,6 +194,15 @@ export default class Letter {
         this.#parent
             .querySelector('.menu__write-letter-button')
             .addEventListener('click', this.handleWriteLetter);
+        this.#parent
+            .querySelector('#delete')
+            .addEventListener('click', this.handleDelete);
+        this.#parent
+            .querySelector('#mark-as-read')
+            .addEventListener('click', this.handleMarkAsRead);
+        this.#parent
+            .querySelector('#mark-as-unread')
+            .addEventListener('click', this.handleMarkAsUnread);
         this.#parent
             .querySelector('#resend')
             .addEventListener('click', this.handleResend);
@@ -172,6 +230,9 @@ export default class Letter {
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#parent
+            .querySelector('.letter__info__icon')
+            .removeEventListener('click', this.handleStatus);
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);

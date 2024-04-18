@@ -164,7 +164,7 @@ export default class Signup {
                 emailDomainInput.classList.add('input-background-error');
                 isValidForm = false;
             } else {
-                const emailLoginRegex = /^[a-zA-Z0-9_%+-]+$/;
+                const emailLoginRegex = /^[a-zA-Z0-9._%+-]+$/;
                 if (!emailLoginRegex.test(email)) {
                     emailError.textContent = 'Некорректное имя ящика';
                     emailError.classList.add('show');

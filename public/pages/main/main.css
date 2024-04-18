@@ -98,9 +98,3 @@
 .main__header__button_has-icon-counter:hover {
     background-color: var(--main-button-secondary);
 }
-
-.main__header__button:active,
-.main__header__button_has-icon:active,
-.main__header__button_has-icon-counter:active {
-    transform: scale(0.99);
-}
