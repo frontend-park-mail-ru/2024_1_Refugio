@@ -4,6 +4,7 @@ import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
 import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
 import template from './letter.hbs'
+import router from '../../modules/router.js';
 
 
 //const MAX_INPUT_LENGTH = 64;
@@ -178,6 +179,13 @@ export default class Letter {
         dispathcher.do(actionDeleteEmail(id));
     }
 
+    handleBack = async (e) => {
+        e.preventDefault();
+        if (router.canGoBack() > 1) {
+            window.history.back();
+        }
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -217,7 +225,7 @@ export default class Letter {
             .addEventListener('click', this.handleMain);
         this.#parent.
             querySelector('.letter__header__back-button')
-            .addEventListener('click', this.handleMain);
+            .addEventListener('click', this.handleBack);
 
         this.#parent
             .querySelector('#sent-folder')

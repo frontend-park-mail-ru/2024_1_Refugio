@@ -12,6 +12,7 @@ class Router {
     #authViews
     #currentView
     #redirectView
+    #historyNum
 
     constructor() {
         this.#views = new Map();
@@ -24,15 +25,23 @@ class Router {
         this.#authViews.set('/profile', ProfileView);
         this.#authViews.set('/write_letter', writeLetter);
         this.#authViews.set('/sent', SentView);
+
+        this.#historyNum = 0;
     }
 
     navigate({ path, state = '', pushState }) {
+        this.#historyNum += 1;
         if (pushState) {
             window.history.pushState(state, '', `${path}`)
         } else {
             window.history.replaceState(state, '', `${path}`)
         }
     }
+
+    canGoBack() {
+        return this.#historyNum;
+    }
+    
 
     async redirect(href) {
         let isAuth = await userStore.verifyAuth();
