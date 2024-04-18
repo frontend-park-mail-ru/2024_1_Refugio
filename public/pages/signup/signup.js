@@ -398,7 +398,7 @@ export default class Signup {
                 dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
-                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
         }

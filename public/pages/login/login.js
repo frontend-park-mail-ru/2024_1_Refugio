@@ -185,7 +185,7 @@ export default class Login {
                 errorSign.classList.add('show');
                 break;
             default:
-                errorSign.textContent = 'Ошибка на нашей стороне, уже исправляем';
+                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
                 errorSign.classList.add('show');
                 break;
         }

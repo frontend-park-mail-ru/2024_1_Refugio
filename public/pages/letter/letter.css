@@ -14,10 +14,27 @@
     align-content: start;
 
     display: grid;
-    grid-template-rows: repeat(5, auto);
+    grid-template-rows: repeat(6, auto);
     overflow: auto;
 
     margin: 0 16px 2px 0;
+}
+
+.letter__error {
+    display: none;
+    align-items: center;
+
+    padding: 2px 16px;
+
+    background-color: var(--box-background);
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    overflow-wrap: anywhere;
 }
 
 .letter__header {

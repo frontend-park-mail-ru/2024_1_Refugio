@@ -115,6 +115,10 @@ export default class Profile {
         oldError = phoneNumberInput;
         oldError.classList.remove('input-background-error');
 
+        oldError = this.#parent
+            .querySelector('#load-avatar-error');
+        oldError.classList.remove('show');
+
         // oldError = this.#parent
         //     .querySelector('#password-error');
         // oldError.classList.remove('show');
@@ -406,6 +410,20 @@ export default class Profile {
         const input = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input');
         const handleAvatarProcessing = async () => {
             const file = input.files[0];
+            const error = this.#parent
+                .querySelector('#load-avatar-error');
+            if (file.size > 5 * 1024 * 1024) {
+                error.textContent = 'Файл превышает максимальный размер 5 МБ';
+                error.classList.add('show');
+                return;
+            }
+
+            if (!file.type.match('image.*')) {
+                error.textContent = 'Некорректный формат файла';
+                error.classList.add('show');
+                return;
+            }
+
             this.reader.readAsDataURL(file);
             input.removeEventListener('change', handleAvatarProcessing);
             const formData = new FormData();
@@ -435,6 +453,9 @@ export default class Profile {
         if (router.canGoBack() > 1) {
             window.history.back();
         }
+        document
+            .querySelector('.profile__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
     }
 
     handleReset = (e) => {
@@ -458,8 +479,8 @@ export default class Profile {
         lastNameInput.value = '';
         bioInput.value = '';
         phoneNumberInput.value = '';
-        passwordInput.value = '';
-        passwordConfirmInput.value = '';
+        // passwordInput.value = '';
+        // passwordConfirmInput.value = '';
 
     }
 
@@ -500,9 +521,14 @@ export default class Profile {
         this.#parent
             .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .addEventListener('click', this.handleAvatarUpload);
+        this.#parent
+            .querySelector('.profile__avatar-load-container')
+            .addEventListener('click', this.handleAvatarUpload);
+
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateUser', this.handleUpdateResponse);
+        mediator.on('avatarUpload', this.handleAvatarResponse);
         mediator.on('logout', this.handleExitResponse);
 
     }
@@ -541,6 +567,7 @@ export default class Profile {
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
         mediator.off('updateUser', this.handleUpdateResponse);
+        mediator.off('avatarUpload', this.handleAvatarResponse);
         mediator.off('logout', this.handleExitResponse);
     }
 
@@ -562,7 +589,21 @@ export default class Profile {
                 this.handleAvatarUpdate();
                 break;
             default:
-                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+                break;
+        }
+    }
+
+    handleAvatarResponse = (status) => {
+        const error = this.#parent
+            .querySelector('#load-avatar-error');
+        switch (status) {
+            case 200:
+                this.handleAvatarUpdate();
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
         }

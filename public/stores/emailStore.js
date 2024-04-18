@@ -52,7 +52,7 @@ class emaillStore {
             'PUT', `https://mailhub.su/api/v1/email/update/${id}`, JSON.stringify(value), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        return status;
+        mediator.emit('updateEmail', status);
     }
 
     async deleteEmail({id}) {
@@ -60,7 +60,7 @@ class emaillStore {
             'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`,null, 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        return status;
+        mediator.emit('deleteEmail', status);
     }
 }
 
