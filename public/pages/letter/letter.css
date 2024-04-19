@@ -64,6 +64,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .letter__header__button:hover,
@@ -100,6 +101,8 @@
     width: 18px;
     height: 18px;
     cursor: pointer;
+    transition: background-color 0.1s ease;
+
 }
 
 .letter__info__icon:hover {

@@ -4,7 +4,7 @@ import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
-import template from '../main/main.hbs'
+import template from './sent.hbs'
 
 
 /**
@@ -30,7 +30,7 @@ export default class Sent {
      * Рендер компонента в DOM
      */
     render() {
-        this.#config.content.sent = false;
+        this.#config.content.sent = true;
         const elements = {
             header: new Header(null, this.#config.header).render(),
             menu: new Menu(null, this.#config.menu).render(),
@@ -120,15 +120,15 @@ export default class Sent {
     handleHeader() {
         const unselectedButtons = {
             select_all: document.querySelector('#select-all'),
-            mark_all_as_read: document.querySelector('#mark-all-as-read'),
+            // mark_all_as_read: document.querySelector('#mark-all-as-read'),
         };
         const selectedButtons = {
             deselect: document.querySelector('#deselect'),
             delete: document.querySelector('#delete'),
             // move_to: document.querySelector('#move-to'),
             // spam: document.querySelector('#spam'),
-            mark_as_read: document.querySelector('#mark-as-read'),
-            mark_as_unread: document.querySelector('#mark-as-unread'),
+            // mark_as_read: document.querySelector('#mark-as-read'),
+            // mark_as_unread: document.querySelector('#mark-as-unread'),
         };
 
         if (this.selectedListLetters.length > 0) {
@@ -138,7 +138,7 @@ export default class Sent {
             Object.values(unselectedButtons).forEach(button => {
                 button.classList.remove('appear');
             });
-            document.querySelector('#selected-letters-counter').textContent = this.selectedListLetters.length;
+            document.querySelector('#unselected-letters-counter').textContent = this.selectedListLetters.length;
         } else {
             Object.values(selectedButtons).forEach(button => {
                 button.classList.remove('appear');
@@ -231,32 +231,32 @@ export default class Sent {
         this.handleHeader();
     }
 
-    handleMarkAllAsRead = (e) => {
-        this.hideError();
-        e.preventDefault();
+    // handleMarkAllAsRead = (e) => {
+    //     this.hideError();
+    //     e.preventDefault();
 
-        const letters = this.#config.content.list_letters;
-        if (letters.length === 0) {
-            return;
-        }
-        letters.forEach(item => {
-            if (item.readStatus === false) {
-                const letter = document.querySelector(`[data-id="${item.id}"]`);
-                const statusChild = letter.querySelector('.list-letter__status img');
-                const img = document.createElement('img');
-                img.alt = '';
-                img.src = '/icons/read-on-offer__256.svg';
-                img.classList.add('list-letter__status-offer');
-                statusChild.parentNode.replaceChild(img, statusChild);
+    //     const letters = this.#config.content.list_letters;
+    //     if (letters.length === 0) {
+    //         return;
+    //     }
+    //     letters.forEach(item => {
+    //         if (item.readStatus === false) {
+    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
+    //             const statusChild = letter.querySelector('.list-letter__status img');
+    //             const img = document.createElement('img');
+    //             img.alt = '';
+    //             img.src = '/icons/read-on-offer__256.svg';
+    //             img.classList.add('list-letter__status-offer');
+    //             statusChild.parentNode.replaceChild(img, statusChild);
 
 
-                item.readStatus = true;
-                item.dateOfDispatch = undefined;
+    //             item.readStatus = true;
+    //             item.dateOfDispatch = undefined;
 
-                dispathcher.do(actionUpdateEmail(item.id, item));
-            }
-        })
-    }
+    //             dispathcher.do(actionUpdateEmail(item.id, item));
+    //         }
+    //     })
+    // }
 
     handleDelete = (e) => {
         this.hideError();
@@ -271,56 +271,56 @@ export default class Sent {
         this.handleHeader();
     }
 
-    handleMarkAsRead = (e) => {
-        this.hideError();
-        e.preventDefault();
-        const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
-        const letters = this.#config.content.list_letters;
-        letters.forEach(item => {
+    // handleMarkAsRead = (e) => {
+    //     this.hideError();
+    //     e.preventDefault();
+    //     const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
+    //     const letters = this.#config.content.list_letters;
+    //     letters.forEach(item => {
 
-            if (item.readStatus === false && selectedIds.includes(String(item.id))) {
+    //         if (item.readStatus === false && selectedIds.includes(String(item.id))) {
 
-                const letter = document.querySelector(`[data-id="${item.id}"]`);
-                const statusChild = letter.querySelector('.list-letter__status img');
-                const img = document.createElement('img');
-                img.alt = '';
-                img.src = '/icons/read-on-offer__256.svg';
-                img.classList.add('list-letter__status-offer');
-                statusChild.parentNode.replaceChild(img, statusChild);
+    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
+    //             const statusChild = letter.querySelector('.list-letter__status img');
+    //             const img = document.createElement('img');
+    //             img.alt = '';
+    //             img.src = '/icons/read-on-offer__256.svg';
+    //             img.classList.add('list-letter__status-offer');
+    //             statusChild.parentNode.replaceChild(img, statusChild);
 
 
-                item.readStatus = true
-                item.dateOfDispatch = undefined;
+    //             item.readStatus = true
+    //             item.dateOfDispatch = undefined;
 
-                dispathcher.do(actionUpdateEmail(item.id, item));
-            }
-        })
-        this.handleDeselect(e);
-    }
+    //             dispathcher.do(actionUpdateEmail(item.id, item));
+    //         }
+    //     })
+    //     this.handleDeselect(e);
+    // }
 
-    handleMarkAsUnread = (e) => {
-        this.hideError();
-        e.preventDefault();
-        const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
+    // handleMarkAsUnread = (e) => {
+    //     this.hideError();
+    //     e.preventDefault();
+    //     const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
 
-        const letters = this.#config.content.list_letters;
-        letters.forEach(item => {
-            if (item.readStatus === true && selectedIds.includes(String(item.id))) {
-                const letter = document.querySelector(`[data-id="${item.id}"]`);
-                const statusChild = letter.querySelector('.list-letter__status img');
-                const img = document.createElement('img');
-                img.alt = '';
-                img.src = '/icons/read-on__256.svg';
-                statusChild.parentNode.replaceChild(img, statusChild);
+    //     const letters = this.#config.content.list_letters;
+    //     letters.forEach(item => {
+    //         if (item.readStatus === true && selectedIds.includes(String(item.id))) {
+    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
+    //             const statusChild = letter.querySelector('.list-letter__status img');
+    //             const img = document.createElement('img');
+    //             img.alt = '';
+    //             img.src = '/icons/read-on__256.svg';
+    //             statusChild.parentNode.replaceChild(img, statusChild);
 
-                item.readStatus = false;
-                item.dateOfDispatch = undefined;
+    //             item.readStatus = false;
+    //             item.dateOfDispatch = undefined;
 
-                dispathcher.do(actionUpdateEmail(item.id, item));
-            }
-        })
-        this.handleDeselect(e);
-    }
+    //             dispathcher.do(actionUpdateEmail(item.id, item));
+    //         }
+    //     })
+    //     this.handleDeselect(e);
+    // }
 
     /**
      * Добавляет листенеры на компоненты
@@ -341,18 +341,18 @@ export default class Sent {
         this.#parent
             .querySelector('#deselect')
             .addEventListener('click', this.handleDeselect);
-        this.#parent
-            .querySelector('#mark-all-as-read')
-            .addEventListener('click', this.handleMarkAllAsRead);
+        // this.#parent
+        //     .querySelector('#mark-all-as-read')
+        //     .addEventListener('click', this.handleMarkAllAsRead);
         this.#parent
             .querySelector('#delete')
             .addEventListener('click', this.handleDelete);
-        this.#parent
-            .querySelector('#mark-as-read')
-            .addEventListener('click', this.handleMarkAsRead);
-        this.#parent
-            .querySelector('#mark-as-unread')
-            .addEventListener('click', this.handleMarkAsUnread);
+        // this.#parent
+        //     .querySelector('#mark-as-read')
+        //     .addEventListener('click', this.handleMarkAsRead);
+        // this.#parent
+        //     .querySelector('#mark-as-unread')
+        //     .addEventListener('click', this.handleMarkAsUnread);
 
 
 
@@ -374,7 +374,6 @@ export default class Sent {
             .addEventListener('click', this.handleIncoming);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
-        mediator.on('updateEmail', this.handleUpdateEmailResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
     }
 
@@ -396,18 +395,18 @@ export default class Sent {
         this.#parent
             .querySelector('#deselect')
             .removeEventListener('click', this.handleDeselect);
-        this.#parent
-            .querySelector('#mark-all-as-read')
-            .removeEventListener('click', this.handleMarkAllAsRead);
+        // this.#parent
+        //     .querySelector('#mark-all-as-read')
+        //     .addEventListener('click', this.handleMarkAllAsRead);
         this.#parent
             .querySelector('#delete')
             .removeEventListener('click', this.handleDelete);
-        this.#parent
-            .querySelector('#mark-as-read')
-            .removeEventListener('click', this.handleMarkAsRead);
-        this.#parent
-            .querySelector('#mark-as-unread')
-            .addEventListener('click', this.handleMarkAsUnread);
+        // this.#parent
+        //     .querySelector('#mark-as-read')
+        //     .addEventListener('click', this.handleMarkAsRead);
+        // this.#parent
+        //     .querySelector('#mark-as-unread')
+        //     .addEventListener('click', this.handleMarkAsUnread);
 
 
 
@@ -429,7 +428,6 @@ export default class Sent {
             .removeEventListener('click', this.handleIncoming);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
-        mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 

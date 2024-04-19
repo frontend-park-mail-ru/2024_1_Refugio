@@ -35,6 +35,9 @@ export default class LetterView extends BaseView {
         if (this.#config.email.replyToEmailId) {
             this.#config.replyEmail = await this.#getEmailInfo(this.#config.email.replyToEmailId);
         }
+        if (emailStore.incoming_count > 0) {
+            this.#config.menu.incoming_count = emailStore.incoming_count;
+        }
         document.title = this.#config.email.topic;
         this.#config.user = await this.#getUserInfo();
         this.#config.header.username = this.#config.user.firstname;

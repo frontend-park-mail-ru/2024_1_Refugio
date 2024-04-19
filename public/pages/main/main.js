@@ -36,6 +36,7 @@ export default class Main {
             header: new Header(null, this.#config.header).render(),
             menu: new Menu(null, this.#config.menu).render(),
             list_letters: new List_letters(null, this.#config.content).render(),
+            contains_letters: this.#config.content.list_letters.length !== 0
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -408,7 +409,7 @@ export default class Main {
             .removeEventListener('click', this.handleMarkAsRead);
         this.#parent
             .querySelector('#mark-as-unread')
-            .addEventListener('click', this.handleMarkAsUnread);
+            .removeEventListener('click', this.handleMarkAsUnread);
 
 
 

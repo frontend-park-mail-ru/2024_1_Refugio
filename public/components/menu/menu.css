@@ -29,6 +29,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .menu__write-letter-button:hover {
@@ -51,6 +52,11 @@
     border-radius: 8px;
 
     cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+.menu__folder_selected {
+    background-color: var(--secondary-button-onhover-selected)
 }
 
 .menu__folder:hover {
@@ -76,6 +82,7 @@
     font-weight: 500;
     letter-spacing: 0;
     line-height: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .menu__trash-folder__clear {
@@ -85,17 +92,20 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
+    border-radius: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .menu__trash-folder__clear:hover,
 .menu__custom-folder__options:hover {
     background-color: var(--input-placeholder);
-    border-radius: 20px;
 }
 
 .menu__custom-folder__options {
     margin-right: 6px;
     padding: 6px;
+    border-radius: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .menu__new-folder-button {
@@ -115,6 +125,7 @@
     line-height: 20px;
 
     cursor: pointer;
+    transition: background-color 0.1s ease;
 }
 
 .menu__new-folder-button:hover {

@@ -2,6 +2,7 @@
 @import '../../components/menu/menu.css';
 @import '../../components/list-letter/list-letter.css';
 @import '../../components/list-letters/list-letters.css';
+
 .main-root {
     display: grid;
     grid-template-areas:
@@ -18,10 +19,27 @@
     align-content: start;
 
     display: grid;
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(3, auto);
     overflow: auto;
 
     margin: 0 16px 2px 0;
+}
+
+.letter__error {
+    display: none;
+    align-items: center;
+
+    padding: 2px 16px;
+
+    background-color: var(--box-background);
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    overflow-wrap: anywhere;
 }
 
 .main__header {
@@ -50,6 +68,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .main__header__button_has-icon {
@@ -64,6 +83,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .main__header__button_has-icon__text,
@@ -86,7 +106,7 @@
 
     cursor: pointer;
     transform: scale(1);
-
+    transition: background-color 0.1s ease;
 }
 
 .main__header__button_has-icon-counter__counter {
@@ -101,10 +121,4 @@
 .main__header__button_has-icon:hover,
 .main__header__button_has-icon-counter:hover {
     background-color: var(--main-button-secondary);
-}
-
-.main__header__button:active,
-.main__header__button_has-icon:active,
-.main__header__button_has-icon-counter:active {
-    transform: scale(0.99);
 }
