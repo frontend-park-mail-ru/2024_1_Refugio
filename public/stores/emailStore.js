@@ -4,6 +4,7 @@ import mediator from "../modules/mediator.js";
 
 class emaillStore {
     incoming
+    incoming_count
     sent
 
     constructor() {
@@ -20,6 +21,12 @@ class emaillStore {
         );
         const data = await response.json();
         this.incoming = data.body.emails;
+        this.incoming_count = 0;
+        this.incoming.forEach((letter) => {
+            if (!letter.readStatus) {
+                this.incoming_count += 1;
+            }
+        });
     }
 
     async getSent() {
@@ -47,17 +54,22 @@ class emaillStore {
         mediator.emit('send', status);
     }
 
-    async updateEmail({id, value}) {
+    async updateEmail({ id, value }) {
         const response = await ajax(
             'PUT', `https://mailhub.su/api/v1/email/update/${id}`, JSON.stringify(value), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
+        if (value.readStatus) {
+            this.incoming_count -= 1;
+        } else {
+            this.incoming_count += 1;
+        }
         mediator.emit('updateEmail', status);
     }
 
-    async deleteEmail({id}) {
+    async deleteEmail({ id }) {
         const response = await ajax(
-            'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`,null, 'application/json', userStore.getCsrf()
+            'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
         mediator.emit('deleteEmail', status);

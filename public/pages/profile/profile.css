@@ -187,6 +187,9 @@
 }
 
 .profile__avatar-load-wrapper__avatar {
+    display: grid;
+    align-items: center;
+    justify-items: center;
     width: 166px;
     height: 166px;
     border-radius: 50%;

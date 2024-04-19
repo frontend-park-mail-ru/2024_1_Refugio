@@ -5,6 +5,7 @@ import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
 import template from './main.hbs'
+import emailStore from '../../stores/emailStore.js';
 
 
 /**
@@ -446,6 +447,12 @@ export default class Main {
     handleUpdateEmailResponse = (status) => {
         switch (status) {
             case 200:
+                const counter = this.#parent.querySelector('.menu__default-folder__counter');
+                if (emailStore.incoming_count > 0){
+                    counter.textContent = emailStore.incoming_count;
+                } else {
+                    counter.textContent = '';
+                }
                 break;
             default:
                 const error = this.#parent.querySelector('.letter__error');

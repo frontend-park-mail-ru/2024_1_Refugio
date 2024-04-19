@@ -28,27 +28,29 @@ self.addEventListener('activate', (e) => {
  * Обработка fetch запросов
  */
 self.addEventListener('fetch', (e) => {
-    e.respondWith(
-        new Promise((resolve, reject) => {
-            fetch(e.request)
-                .then((res) => {
-                    const resForCache = res.clone();
-                    caches.open(CACHE_NAME).then((cache) => {
-                        cache.put(e.request, resForCache)
-                    })
-                    resolve(res);
-                },
-                (error) => {
-                    if (navigator.onLine) {
-                        reject(error);
-                    } else {
-                        reject(new Error("User is offline"))
-                    }
-                })
-                .catch()
-        })
-            .catch(() => caches.open(CACHE_NAME)
-                .then((cache) => cache.match(e.request)
-                    .then((result) => result)))
-    )
+    //if (e.request.method === 'GET') {
+        e.respondWith(
+            new Promise((resolve, reject) => {
+                fetch(e.request)
+                    .then((res) => {
+                        const resForCache = res.clone();
+                        caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(e.request, resForCache)
+                        })
+                        resolve(res);
+                    },
+                        (error) => {
+                            if (navigator.onLine) {
+                                reject(error);
+                            } else {
+                                reject(new Error("User is offline"))
+                            }
+                        })
+                    .catch()
+            })
+                .catch(() => caches.open(CACHE_NAME)
+                    .then((cache) => cache.match(e.request)
+                        .then((result) => result)))
+        )
+    //}
 })
