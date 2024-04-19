@@ -437,9 +437,14 @@ export default class Profile {
     handleAvatarUpdate = () => {
         if (this.reader.result !== null) {
             const img1 = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar');
-            img1.src = this.reader.result
             const img2 = this.#parent.querySelector('.header__avatar');
-            img2.src = this.reader.result;
+            console.log(img1.tagName);
+            if (img1.tagName === 'IMG') {
+                img1.src = this.reader.result;
+                img2.src = this.reader.result;
+            } else {
+                dispathcher.do(actionRedirect('/profile', false));
+            }
         }
     }
 
@@ -586,7 +591,7 @@ export default class Profile {
             .querySelector('#buttons-error');
         switch (status) {
             case 200:
-                this.handleAvatarUpdate();
+                //this.handleAvatarUpdate();
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';

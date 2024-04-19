@@ -3,11 +3,14 @@
 
     <div id="incoming-folder" class="menu__folder">
         <div class="menu__folder__text">Входящие</div>
-        <div class="menu__default-folder__counter">1</div>
+        {{#if incoming_count }}
+        <div class="menu__default-folder__counter">{{incoming_count}}</div>
+        {{else}}
+        <div class="menu__default-folder__counter"></div>
+        {{/if}}
     </div>
     <div id="sent-folder" class="menu__folder">
         <div class="menu__folder__text">Отправленные</div>
-        <div class="menu__default-folder__counter">1</div>
     </div>
 
     {{!-- <div  class="menu__folder">

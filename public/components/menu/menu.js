@@ -22,7 +22,9 @@ export default class Menu {
      * рендерит компонент в DOM
      */
     render() {
-
-        return template();
+        const elements = {
+            incoming_count: this.#config.incoming_count,
+        };
+        return template(elements);
     }
 }

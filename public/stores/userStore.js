@@ -88,7 +88,7 @@ class UserStore {
             'POST', 'https://mailhub.su/api/v1/user/avatar/upload', file.file, undefined, this.#csrf
         );
         const status = await response.status;
-        mediator.emit('updateUser', status);
+        mediator.emit('avatarUpload', status);
     }
 }
 
