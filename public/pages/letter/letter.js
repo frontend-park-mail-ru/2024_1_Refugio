@@ -120,19 +120,27 @@ export default class Letter {
     handleResend = (e) => {
         e.preventDefault();
         const topic = this.#parent
-            .querySelector('.letter__subject').textContent
+            .querySelector('.letter__subject').textContent.trim();
         const sender = this.#parent
-            .querySelector('.letter__info__from').textContent
+            .querySelector('.letter__info__from').textContent.trim();
         const date = this.#parent
-            .querySelector('.letter__info__date').textContent
+            .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
-            .querySelector('.letter__text').textContent
+            .querySelector('.letter__text').textContent.trim();
         dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text }));
     };
 
     handleReply = (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true, { replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
+        const topic = this.#parent
+            .querySelector('.letter__subject').textContent.trim();
+        const sender = this.#parent
+            .querySelector('.letter__info__from').textContent.trim();
+        const date = this.#parent
+            .querySelector('.letter__info__date').textContent.trim();
+        const text = this.#parent
+            .querySelector('.letter__text').textContent.trim();
+        dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text, replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
     handleSent = async (e) => {

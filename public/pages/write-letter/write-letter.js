@@ -30,6 +30,12 @@ export default class Write__Letter {
         this.#parent = parent;
     }
 
+    registerHelper(text) {
+        let lines = text.split('\n');
+        lines = lines.map(line => '\t' + line);
+        return lines.join('\n');
+    };
+
 
     /**
      * Рендер компонента в DOM
@@ -41,7 +47,7 @@ export default class Write__Letter {
             sender: this.#config.values?.sender,
             date: this.#config.values?.date,
             topic: this.#config.values?.topic,
-            text: this.#config.values?.text,
+            text: this.registerHelper(this.#config.values?.text),
             replyId: this.#config.values?.replyId,
             replySender: this.#config.values?.replySender,
             header: new Header(null, config.header).render(),
@@ -101,7 +107,7 @@ export default class Write__Letter {
 
         oldError = this.#parent
             .querySelector('.write-letter__buttons__error');
-            oldError.classList.remove('show');
+        oldError.classList.remove('show');
 
         // oldError = this.#parent
         //     .querySelector('.write-letter__attachments__error');
