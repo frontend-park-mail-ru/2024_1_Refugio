@@ -81,6 +81,7 @@
     background: var(--input-background);
     border-radius: 8px;
     z-index: 1;
+    visibility: hidden;
 
     padding-top: 12px;
     padding-right: 4px;
@@ -97,18 +98,6 @@
     line-height: 20px;
 
     margin-top: 32px;
-}
-
-.show__dropdown__wrapper {
-    visibility: visible;
-    opacity: 1;
-    display: block;
-}
-
-.hide__dropdown__wrapper {
-    visibility: hidden;
-    opacity: 0;
-    display: none;
 }
 
 .dropdown__wrapper__day {

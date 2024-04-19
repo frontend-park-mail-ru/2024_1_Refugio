@@ -1,44 +1,34 @@
 .list-letter {
     display: grid;
-    grid-template-columns: repeat(2, auto);
-    justify-content: space-between;
-    align-content: center;
+    grid-template-columns: auto auto auto auto 1fr auto;
+    grid-column-gap: 8px;
+    align-items: center;
 
     padding: 0 8px;
     height: 48px;
+    border-radius: 8px;
 
     cursor: pointer;
-    transition: all 0.1s ease;
 }
 
 .list-letter:hover {
     background-color: var(--main-button-secondary);
-    border-radius: 8px;
 }
 
 .list-letter:hover .list-letter__status-offer{
     opacity: 1;
 }
 
-
 .selected-list-letter,
 .selected-list-letter:hover {
     background-color: var(--mail-selected);
-    border-radius: 8px;
-}
-
-.list-letter__status-avatar-from-subject-text-group {
-    display: grid;
-    grid-template-columns: repeat(5, auto);
-    gap: 8px;
-    justify-content: start;
-    align-items: center;
 }
 
 .list-letter__status {
-    width: 16px;
-    height: 16px;
-    transition: all 0.1s ease;
+    display: grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
 }
 
 .list-letter__status-offer {
@@ -46,7 +36,7 @@
 }
 
 .list-letter__status:hover,
-.list-letter__avatar-checkbox:hover {
+.list-letter__avatar__checkbox:hover {
     background-color: var(--secondary-button-onhover-selected);
     border-radius: 100px;
 }
@@ -55,33 +45,34 @@
     position: relative;
 }
 
-.list-letter__avatar-img {
+.list-letter__avatar__image {
     display: grid;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
     width: 36px;
     height: 36px;
     border-radius: 50%;
     background-color: var(--input-background);
+    object-fit: cover;
 }
 
-.list-letter:hover .list-letter__avatar-img {
+.list-letter:hover .list-letter__avatar__image {
     opacity: 0;
 }
 
-.list-letter__avatar-checkbox {
+.list-letter__avatar__checkbox {
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
 }
 
-.list-letter__avatar-checkbox-centered {
-
+.list-letter__avatar__checkbox_centered {
+    display: grid;
+    align-items: center;
     margin: 8px;
 }
 
-.list-letter:hover .list-letter__avatar-checkbox  {
+.list-letter:hover .list-letter__avatar__checkbox  {
     opacity: 1;
 }
 
@@ -97,16 +88,6 @@
     text-overflow: ellipsis;
 }
 
-.list-letter__white-text {
-    color: var(--text);
-}
-
-.list-letter__gray-text {
+.list-letter__text_gray {
     color: var(--input-placeholder);
-}
-
-.list-letter_date {
-    display: grid;
-    
-    align-content: center;
 }

@@ -41,6 +41,12 @@ export default class Main {
 
     selectedListLetters = []
 
+    hideError = () => {
+        const oldError = this.#parent
+            .querySelector('.letter__error');
+        oldError.classList.remove('appear');
+    };
+
     handleDropdowns(e) {
         const target = e.target;
 
@@ -96,6 +102,13 @@ export default class Main {
 
     handleLetter = async (e, id) => {
         e.preventDefault();
+        const letters = this.#config.content.list_letters;
+        const value = letters.find(item => String(item.id) === id);
+        value.dateOfDispatch = undefined;
+        if (value.readStatus === false) {
+            value.readStatus = true;
+            dispathcher.do(actionUpdateEmail(id, value));
+        }
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
@@ -105,16 +118,34 @@ export default class Main {
     };
 
     handleHeader() {
-        const unselectedButtons = document.querySelector('.main__content__header__unselected-buttons');
-        const selectedButtons = document.querySelector('.main__content__header__selected-buttons');
+        const unselectedButtons = {
+            select_all: document.querySelector('#select-all'),
+            mark_all_as_read: document.querySelector('#mark-all-as-read'),
+        };
+        const selectedButtons = {
+            deselect: document.querySelector('#deselect'),
+            delete: document.querySelector('#delete'),
+            // move_to: document.querySelector('#move-to'),
+            // spam: document.querySelector('#spam'),
+            mark_as_read: document.querySelector('#mark-as-read'),
+            mark_as_unread: document.querySelector('#mark-as-unread'),
+        };
 
         if (this.selectedListLetters.length > 0) {
-            selectedButtons.classList.remove('remove');
-            unselectedButtons.classList.add('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.add('appear');
+            });
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            });
             document.querySelector('#selected-letters-counter').textContent = this.selectedListLetters.length;
         } else {
-            selectedButtons.classList.add('remove');
-            unselectedButtons.classList.remove('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            });
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.add('appear');
+            });
         }
     }
 
@@ -126,16 +157,16 @@ export default class Main {
 
         if (letter.classList.contains('selected-list-letter')) {
             letter.classList.remove('selected-list-letter');
-            const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+            const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
-            this.selectedListLetters.pop(letter);
+            this.selectedListLetters = this.selectedListLetters.filter(element => element !== letter);
         } else {
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -152,11 +183,11 @@ export default class Main {
         const img = document.createElement('img');
         img.alt = '';
         if (statusImg === null) {
-            img.src = '../../static/icons/read-on-offer__256.svg';
+            img.src = '/icons/read-on-offer__256.svg';
             img.classList.add('list-letter__status-offer');
         }
         else {
-            img.src = '../../static/icons/read-on__256.svg';
+            img.src = '/icons/read-on__256.svg';
         }
         statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -174,9 +205,9 @@ export default class Main {
             const avatar = letter.querySelector('.list-letter__avatar')
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -191,7 +222,7 @@ export default class Main {
             if (letter.classList.contains('selected-list-letter')) {
                 const avatar = letter.querySelector('.list-letter__avatar')
                 letter.classList.remove('selected-list-letter');
-                const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+                const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
                 icon.parentNode.removeChild(icon);
                 avatar.classList.remove('remove');
                 this.selectedListLetters.pop(letter);
@@ -201,6 +232,7 @@ export default class Main {
     }
 
     handleMarkAllAsRead = (e) => {
+        this.hideError();
         e.preventDefault();
 
         const letters = this.#config.content.list_letters;
@@ -213,7 +245,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -224,10 +256,10 @@ export default class Main {
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
         })
-
     }
 
     handleDelete = (e) => {
+        this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
             const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
@@ -240,6 +272,7 @@ export default class Main {
     }
 
     handleMarkAsRead = (e) => {
+        this.hideError();
         e.preventDefault();
         const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
         const letters = this.#config.content.list_letters;
@@ -251,7 +284,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -266,6 +299,7 @@ export default class Main {
     }
 
     handleMarkAsUnread = (e) => {
+        this.hideError();
         e.preventDefault();
         const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
 
@@ -274,10 +308,9 @@ export default class Main {
             if (item.readStatus === true && selectedIds.includes(String(item.id))) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
-                //const statusImg = letter.querySelector('.list-letter__status-offer');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on__256.svg';
+                img.src = '/icons/read-on__256.svg';
                 statusChild.parentNode.replaceChild(img, statusChild);
 
                 item.readStatus = false;
@@ -341,6 +374,8 @@ export default class Main {
             .addEventListener('click', this.handleSent);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
+        mediator.on('updateEmail', this.handleUpdateEmailResponse);
+        mediator.on('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     /**
@@ -394,6 +429,8 @@ export default class Main {
             .removeEventListener('click', this.handleSent);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
+        mediator.off('updateEmail', this.handleUpdateEmailResponse);
+        mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     handleExitResponse = (status) => {
@@ -402,6 +439,30 @@ export default class Main {
                 dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
+                break;
+        }
+    }
+
+    handleUpdateEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
+                break;
+        }
+    }
+
+    handleDeleteEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
                 break;
         }
     }

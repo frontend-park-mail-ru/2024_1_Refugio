@@ -27,15 +27,12 @@
     color: var(--main-button-hover);
 }
 
-.header__search-wrapper {
+.header__search-wrapper__input {
     padding: 8px 12px;
     width: 240px;
-
     background-color: var(--input-background);
     border-radius: 8px;
-}
 
-.header__search-wrapper__input {
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0px;
@@ -65,6 +62,7 @@
     background-color: var(--input-label-counter-icon);
 
     cursor: pointer;
+    object-fit: cover;
 }
 
 .header__avatar:hover {
@@ -75,6 +73,7 @@
     position: absolute;
     right: 12px;
     top: 66px;
+    z-index: 999;
 
     display: grid;
     grid-template-rows: repeat(2, auto);

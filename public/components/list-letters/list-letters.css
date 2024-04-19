@@ -1,13 +1,16 @@
 .list-letters {
     display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(48px, auto));
-    height: 800px;
+    grid-template-rows: repeat(auto-fit, auto);
     align-content: start;
     overflow-y: auto;
+    background-color: var(--box-background);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
 }
 
 .list-letters::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 .list-letters::-webkit-scrollbar-track {
@@ -19,8 +22,8 @@
     border-radius: 12px;
 }
 
-.list-letters_empty-banner {
+.list-letters_empty {
     display: grid;
-    align-items: center;
-    justify-items: center;
+    place-items: center;
+    height: 48px;
 }

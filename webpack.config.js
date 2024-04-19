@@ -4,6 +4,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
+import CopyPlugin from 'copy-webpack-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const _resolve = (...args) => path.resolve(__dirname, ...args);
@@ -27,6 +28,11 @@ export default (env) => {
       new webpack.ProgressPlugin(),
       autoprefixer,
       cssnano,
+      new CopyPlugin({
+        patterns: [
+          { from: 'sw.js', to: 'sw.js' },
+        ],
+      }),
 
     ],
     module: {

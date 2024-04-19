@@ -4,6 +4,8 @@ import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionSend } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './write-letter.hbs'
+import router from '../../modules/router.js';
+
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -27,7 +29,7 @@ export default class Write__Letter {
         this.#config = config;
         this.#parent = parent;
     }
-    
+
 
     /**
      * Рендер компонента в DOM
@@ -98,8 +100,12 @@ export default class Write__Letter {
         oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('.write-letter__attachments__error');
-        oldError.classList.remove('show');
+            .querySelector('.write-letter__buttons__error');
+            oldError.classList.remove('show');
+
+        // oldError = this.#parent
+        //     .querySelector('.write-letter__attachments__error');
+        // oldError.classList.remove('show');
 
         let isValidForm = true;
         const toError = this.#parent.querySelector('.write-letter__to__error');
@@ -215,6 +221,16 @@ export default class Write__Letter {
         dispathcher.do(actionRedirect('/sent', true));
     };
 
+    handleBack = async (e) => {
+        e.preventDefault();
+        if (router.canGoBack() > 1) {
+            window.history.back();
+        }
+        document
+            .querySelector('.write-letter__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -237,6 +253,9 @@ export default class Write__Letter {
         this.#parent
             .querySelector('.write-letter__buttons__send-button')
             .addEventListener('click', this.handleSend);
+        this.#parent
+            .querySelector('.write-letter__buttons__cancel-button')
+            .addEventListener('click', this.handleBack);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)
@@ -280,8 +299,6 @@ export default class Write__Letter {
     }
 
     handleSendResponse = (status) => {
-        const error = this.#parent
-            .querySelector('.write__letter__content__header__attachments__error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
@@ -290,7 +307,7 @@ export default class Write__Letter {
                 const error = this.#parent
                     .querySelector('.write-letter__buttons__error');
 
-                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
         }
