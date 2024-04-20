@@ -65,6 +65,7 @@
     font-weight: 400;
     letter-spacing: 0px;
     line-height: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .write-letter__to__input::placeholder,
@@ -241,7 +242,8 @@
     line-height: 20px;
 
     cursor: pointer;
-    transform: scale(1)
+    transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .write-letter__buttons__send-button:hover {
@@ -250,10 +252,12 @@
 
 .write-letter__buttons__save-draft-button {
     grid-area: save-draft;
+    transition: background-color 0.1s ease;
 }
 
 .write-letter__buttons__cancel-button {
     grid-area: cancel;
+    transition: background-color 0.1s ease;
 }
 
 .write-letter__buttons__save-draft-button,

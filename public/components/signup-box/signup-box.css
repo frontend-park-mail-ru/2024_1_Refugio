@@ -108,6 +108,8 @@
     letter-spacing: 0;
     font-weight: 400;
     line-height: 20px;
+
+    transition: background-color 0.1s ease;
 }
 
 .signup-box__first-name-input-wrapper__input::placeholder,
@@ -160,6 +162,7 @@
     letter-spacing: 0;
     font-weight: 400;
     line-height: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .signup-box__email-input-wrapper__email-input {
@@ -242,6 +245,7 @@
     letter-spacing: 1px;
     font-weight: 400;
     line-height: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .signup-box__password-input-wrapper__input::placeholder,
@@ -303,6 +307,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .signup-box__signup-button-wrapper__button:hover {

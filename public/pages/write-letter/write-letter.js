@@ -289,6 +289,9 @@ export default class Write__Letter {
         this.#parent
             .querySelector('.write-letter__buttons__send-button')
             .removeEventListener('click', this.handleSend);
+        this.#parent
+            .querySelector('.write-letter__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('send', this.handleSendResponse)

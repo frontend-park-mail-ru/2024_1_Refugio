@@ -1,17 +1,14 @@
 <div class="menu">
     <div class="menu__write-letter-button">Написать письмо</div>
-
-    <div id="incoming-folder" class="menu__folder">
+    <div id="incoming-folder" class="menu__folder {{#if titleIncoming}} menu__folder_selected {{/if}}">
         <div class="menu__folder__text">Входящие</div>
 
         <div class="menu__default-folder__counter">
-            {{#if incoming_count }}
-                {{incoming_count}}
-            {{/if}}
+           
         </div>
 
     </div>
-    <div id="sent-folder" class="menu__folder">
+    <div id="sent-folder" class="menu__folder {{#if titleSent}} menu__folder_selected {{/if}}">
         <div class="menu__folder__text">Отправленные</div>
     </div>
 

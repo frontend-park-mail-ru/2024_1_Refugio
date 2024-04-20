@@ -5,6 +5,7 @@ import mediator from '../../modules/mediator.js';
 import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
+import userStore from '../../stores/userStore.js';
 
 
 //const MAX_INPUT_LENGTH = 64;
@@ -50,6 +51,9 @@ export default class Letter {
             header: new Header(null, config.header).render(),
             menu: new Menu(null, config.menu).render(),
         };
+        if (elements.from === userStore.body.login) {
+            elements.from = this.#config.email.recipientEmail;
+        }
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
@@ -276,6 +280,15 @@ export default class Letter {
             .querySelector('.menu__write-letter-button')
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
+            .querySelector('#delete')
+            .removeEventListener('click', this.handleDelete);
+        this.#parent
+            .querySelector('#mark-as-read')
+            .removeEventListener('click', this.handleMarkAsRead);
+        this.#parent
+            .querySelector('#mark-as-unread')
+            .removeEventListener('click', this.handleMarkAsUnread);
+        this.#parent
             .querySelector('#resend')
             .removeEventListener('click', this.handleResend);
         this.#parent
@@ -289,7 +302,7 @@ export default class Letter {
             .removeEventListener('click', this.handleMain);
         this.#parent.
             querySelector('.letter__header__back-button')
-            .removeEventListener('click', this.handleMain);
+            .removeEventListener('click', this.handleBack);
 
         this.#parent
             .querySelector('#sent-folder')

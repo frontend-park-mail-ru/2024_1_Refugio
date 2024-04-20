@@ -168,7 +168,6 @@ export default class Login {
         this.#parent
             .querySelector('.login-box__authorization-method-switch__method_passive')
             .removeEventListener('click', this.renderSignup);
-
         mediator.off('login', this.handleLoginResponse);
     }
 

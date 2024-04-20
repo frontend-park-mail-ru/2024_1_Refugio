@@ -3,6 +3,7 @@ import BaseView from './base.js';
 import userStore from '../stores/userStore.js';
 import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser } from '../actions/userActions.js';
+import emailStore from '../stores/emailStore.js';
 
 /**
  * Класс для рендера страницы логина
@@ -32,6 +33,9 @@ class ProfileView extends BaseView {
         this.#config.user = await this.#getUserInfo();
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
+        if (emailStore.incoming_count > 0) {
+            this.#config.menu.incoming_count = emailStore.incoming_count;
+        }
         const page = new Profile(this.root, this.#config);
         this.components.push(page);
         this.render();

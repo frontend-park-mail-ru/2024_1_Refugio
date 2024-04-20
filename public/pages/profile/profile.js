@@ -549,6 +549,12 @@ export default class Profile {
             .querySelector('.profile__buttons__save-button')
             .removeEventListener('click', this.handleSaveForm);
         this.#parent
+            .querySelector('.profile__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
+        this.#parent
+            .querySelector('.profile__buttons__reset-button')
+            .removeEventListener('click', this.handleReset);
+        this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
         this.#parent
@@ -569,6 +575,10 @@ export default class Profile {
         this.#parent
             .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .removeEventListener('click', this.handleAvatarUpload);
+        this.#parent
+            .querySelector('.profile__avatar-load-container')
+            .removeEventListener('click', this.handleAvatarUpload);
+
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
         mediator.off('updateUser', this.handleUpdateResponse);
@@ -591,7 +601,7 @@ export default class Profile {
             .querySelector('#buttons-error');
         switch (status) {
             case 200:
-                //this.handleAvatarUpdate();
+                dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
