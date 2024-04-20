@@ -138,7 +138,7 @@ export default class Sent {
             Object.values(unselectedButtons).forEach(button => {
                 button.classList.remove('appear');
             });
-            document.querySelector('#unselected-letters-counter').textContent = this.selectedListLetters.length;
+            document.querySelector('#selected-letters-counter').textContent = this.selectedListLetters.length;
         } else {
             Object.values(selectedButtons).forEach(button => {
                 button.classList.remove('appear');
@@ -268,7 +268,6 @@ export default class Sent {
             this.selectedListLetters = this.selectedListLetters.filter(el => el !== item);
         });
         this.handleDeselect(e);
-        this.handleHeader();
     }
 
     // handleMarkAsRead = (e) => {
