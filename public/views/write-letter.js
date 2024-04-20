@@ -1,6 +1,7 @@
 import BaseView from './base.js';
 import Write__Letter from '../pages/write-letter/write-letter.js';
 import userStore from '../stores/userStore.js';
+import emailStore from '../stores/emailStore.js';
 import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser } from '../actions/userActions.js';
 
@@ -37,6 +38,11 @@ class WriteLetterView extends BaseView {
         this.#config.user = await this.#getUserInfo();
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
+        if (emailStore.incoming_count > 0) {
+            this.#config.menu.incoming_count = emailStore.incoming_count;
+        } else {
+            this.#config.menu.incoming_count = undefined;
+        }
         const page = new Write__Letter(this.root, this.#config);
         this.components.push(page);
         this.render();

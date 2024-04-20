@@ -51,6 +51,8 @@ class MainView extends BaseView {
         this.#config.content.list_letters = await this.#getEmailsInfo();
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;
+        } else {
+            this.#config.menu.incoming_count = undefined;
         }
         const page = new Main(this.root, this.#config);
         this.components.push(page);
