@@ -47,7 +47,7 @@ export default class Write__Letter {
             sender: this.#config.values?.sender,
             date: this.#config.values?.date,
             topic: this.#config.values?.topic,
-            text: this.#config.values?.text ? this.registerHelper(this.#config.values?.text) : undefined,
+            text: this.registerHelper(this.#config.values?.text),
             replyId: this.#config.values?.replyId,
             replySender: this.#config.values?.replySender,
             header: new Header(null, config.header).render(),
