@@ -249,11 +249,14 @@
 
 
 .profile__buttons {
+    grid-area: button;
+
     display: grid;
     grid-template-areas:
         'save reset cancel'
         'error error error';
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: auto auto 1fr;
+    justify-items: start;
     grid-column-gap: 8px;
 
     padding: 16px 20px 0 20px;

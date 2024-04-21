@@ -127,8 +127,8 @@ export default class Main {
         const selectedButtons = {
             deselect: document.querySelector('#deselect'),
             delete: document.querySelector('#delete'),
-            // move_to: document.querySelector('#move-to'),
-            // spam: document.querySelector('#spam'),
+            move_to: document.querySelector('#move-to'),
+            spam: document.querySelector('#spam'),
             mark_as_read: document.querySelector('#mark-as-read'),
             mark_as_unread: document.querySelector('#mark-as-unread'),
         };
