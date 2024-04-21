@@ -207,11 +207,13 @@
 }
 
 .write-letter__buttons {
+
+    
     display: grid;
     grid-template-areas:
-        'send  cancel'
-        'error error';
-    grid-template-columns: repeat(2, fit-content);
+        'send save-draft cancel'
+        'error error error';
+    grid-template-columns: auto auto 1fr;
     grid-column-gap: 8px;
     justify-content: start;
 

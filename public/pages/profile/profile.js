@@ -601,7 +601,7 @@ export default class Profile {
             .querySelector('#buttons-error');
         switch (status) {
             case 200:
-                dispathcher.do(actionRedirect('/main', true));
+                // dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';

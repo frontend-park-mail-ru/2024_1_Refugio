@@ -172,7 +172,6 @@ export default class Write__Letter {
         }
 
 
-        // create JSON object with user data
         const newLetter = {
             readStatus: false,
             topic: topic,
