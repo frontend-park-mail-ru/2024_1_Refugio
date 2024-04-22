@@ -144,6 +144,7 @@
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
+    transform: scale(1);
 }
 
 .write-letter__attachments__view-button__counter {
@@ -154,6 +155,7 @@
     font-weight: 500;
     letter-spacing: 0;
     line-height: 18px;
+    transform: scale(1);
 }
 
 .write-letter__attachments__delete-all-button {
@@ -254,12 +256,10 @@
 
 .write-letter__buttons__save-draft-button {
     grid-area: save-draft;
-    transition: background-color 0.1s ease;
 }
 
 .write-letter__buttons__cancel-button {
     grid-area: cancel;
-    transition: background-color 0.1s ease;
 }
 
 .write-letter__buttons__save-draft-button,
@@ -279,6 +279,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .write-letter__buttons__error {
