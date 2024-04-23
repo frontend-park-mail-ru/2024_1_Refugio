@@ -114,6 +114,7 @@
     top: 36px;
     left: -4px;
     z-index: 1;
+    cursor: default;
 }
 
 .menu__custom-folder__dropdown {
