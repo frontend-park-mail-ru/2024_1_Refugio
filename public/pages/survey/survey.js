@@ -38,8 +38,8 @@ export default class Survey {
     }
 
     async #getQuestionInfo() {
-        await dispathcher.do(actionGetQuestions());
-        return statStore.questions;
+        // await dispathcher.do(actionGetQuestions());
+        // return statStore.questions;
     }
 
     handleExit() {

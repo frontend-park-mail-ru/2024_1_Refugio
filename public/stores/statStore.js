@@ -1,6 +1,7 @@
 import ajax from "../modules/ajax.js";
-import mediator from "../modules/mediator.js";
 import userStore from "./userStore.js";
+
+import mediator from "../modules/mediator.js";
 
 class statStore {
     questions
