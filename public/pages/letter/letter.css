@@ -211,6 +211,8 @@
 
 
 .letter__attachments__dropdown__wrapper {
+    display: none;
+
     position: absolute;
     top: 32px;
     left: 68px;

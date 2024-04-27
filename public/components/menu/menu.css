@@ -110,6 +110,7 @@
 }
 
 .menu__custom-folder__dropdown__wrapper {
+    display: none;
     position: absolute;
     top: 36px;
     left: -4px;
