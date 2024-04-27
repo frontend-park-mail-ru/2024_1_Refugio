@@ -324,10 +324,25 @@ export default class Main {
         this.handleDeselect(e);
     }
 
+    handleShowSurvey = async (e) => {
+        e.preventDefault();
+
+        const iframe = document.createElement('iframe');
+
+        iframe.src = 'https://mailhub.su/survey'; 
+
+        var insertAfterElement = document.querySelector('.main__control-buttons');
+        insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent
+            .querySelector('.main__collapse-rollup-button')
+            .addEventListener('click', this.handleShowSurvey);
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
@@ -449,7 +464,7 @@ export default class Main {
         switch (status) {
             case 200:
                 const counter = this.#parent.querySelector('.menu__default-folder__counter');
-                if (emailStore.incoming_count > 0){
+                if (emailStore.incoming_count > 0) {
                     counter.textContent = emailStore.incoming_count;
                 } else {
                     counter.textContent = '';

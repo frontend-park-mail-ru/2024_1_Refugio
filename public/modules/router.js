@@ -6,6 +6,7 @@ import ProfileView from "../views/profile.js";
 import writeLetter from "../views/write-letter.js";
 import LetterView from "../views/letter.js";
 import SentView from "../views/sent.js";
+import SurveyView from "../views/survey.js";
 
 class Router {
     #views
@@ -25,6 +26,8 @@ class Router {
         this.#authViews.set('/profile', ProfileView);
         this.#authViews.set('/write_letter', writeLetter);
         this.#authViews.set('/sent', SentView);
+        this.#authViews.set('/survey', SurveyView );
+
 
         this.#historyNum = 0;
     }

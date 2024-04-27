@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-import template from './survey.hbs';
-import mediator from '../../modules/mediator.js';
-import dispathcher from '../../modules/dispathcher.js';
-import {actionGetQuestions} from '../../actions/userActions.js';
-import statStore from '../../stores/statStore.js';
-=======
 import dispathcher from '../../modules/dispathcher.js';
 import statStore from '../../stores/statStore.js';
 import template from './survey.hbs';
 import mediator from '../../modules/mediator.js';
 import { actionSendStat } from '../../actions/userActions.js';
->>>>>>> acf474a4d77aa163979c5eb405c02514c55180aa
 
 /**
  * Класс обертки страницы
@@ -51,11 +43,7 @@ export default class Survey {
 
     handleExit() {
         this.#parent
-<<<<<<< HEAD
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        // mediator.on('sendStat', this.handleNext);
-=======
+
             .querySelector('.survey')
             .classList.add('remove');
     }
@@ -85,7 +73,6 @@ export default class Survey {
             this.#parent
                 .querySelector('.survey__max-rating-grad').textContent = this.#config.questions.good[id + 1];
         }
->>>>>>> acf474a4d77aa163979c5eb405c02514c55180aa
     }
 
 
