@@ -25,6 +25,5 @@ export default class Survey {
     render() {
         this.#parent.insertAdjacentHTML('beforeend', template());
     }
-
-   
+ 
 }
