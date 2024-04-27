@@ -44,11 +44,7 @@ export default class Survey {
 
     handleExit() {
         this.#parent
-<<<<<<< HEAD
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        // mediator.on('sendStat', this.handleNext);
-=======
+
             .querySelector('.survey')
             .classList.add('remove');
     }
