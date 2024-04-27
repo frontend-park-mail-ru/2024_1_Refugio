@@ -1,4 +1,5 @@
 import template from './survey.hbs'
+import statStore from '../../stores/statStore.js';
 
 /**
  * Класс обертки страницы
@@ -31,6 +32,9 @@ export default class Survey {
         };
         this.#parent.insertAdjacentHTML('beforeend', template());
     }
+<<<<<<< HEAD
+ 
+=======
 
     async #getQuestionInfo() {
         await dispathcher.do(actionGetQuestions());
@@ -45,4 +49,5 @@ export default class Survey {
     }
 
 
+>>>>>>> 5d22fdb49a397cb8304278bce4ca8eeec0d9b200
 }

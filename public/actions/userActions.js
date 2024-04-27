@@ -72,3 +72,18 @@ export const actionLogout = () => ({
     type: 'logout',
     value: {},
 })
+
+export const actionGetQuestions = () => ({
+    type: 'questions',
+    value: {},
+})
+
+export const actionSendStat = (id, value) => ({
+    type: 'sendStat',
+    value: {id: id, value: value},
+})
+
+export const actionGetStatistic = () => ({
+    type: 'stat',
+    value: {},
+})
