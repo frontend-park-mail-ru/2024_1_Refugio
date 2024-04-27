@@ -87,3 +87,8 @@ export const actionGetStatistic = () => ({
     type: 'stat',
     value: {},
 })
+
+export const actionStar = (id) => ({
+    type: 'star',
+    value: {id: id},
+})
