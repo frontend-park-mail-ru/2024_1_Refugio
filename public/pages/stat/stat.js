@@ -58,6 +58,11 @@ export default class Stat {
         dispathcher.do(actionRedirect('/write_letter', true));
     };
 
+    handleProfile = (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/profile', true));
+    };
+
     handleMain = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/main', true));
@@ -114,6 +119,9 @@ export default class Stat {
         this.#parent
             .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__profile-button')
+            .addEventListener('click', this.handleProfile);
 
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
@@ -135,6 +143,9 @@ export default class Stat {
         this.#parent
             .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__profile-button')
+            .removeEventListener('click', this.handleProfile);
 
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);

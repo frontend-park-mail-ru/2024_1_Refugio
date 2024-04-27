@@ -85,6 +85,11 @@ export default class Write__Letter {
         dispathcher.do(actionRedirect('/main', true));
     };
 
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
+    };
+
     handleSend = async (e) => {
         e.preventDefault();
         const toInput = document.querySelector('.write-letter__to__input');
@@ -258,6 +263,9 @@ export default class Write__Letter {
             .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
         this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
+        this.#parent
             .querySelector('.write-letter__buttons__send-button')
             .addEventListener('click', this.handleSend);
         this.#parent
@@ -281,6 +289,9 @@ export default class Write__Letter {
         this.#parent
             .querySelector('#incoming-folder')
             .removeEventListener('click', this.handleMain);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent.
             querySelector('.header__logo')
             .removeEventListener('click', this.handleMain);

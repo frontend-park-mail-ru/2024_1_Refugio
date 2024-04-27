@@ -392,6 +392,11 @@ export default class Profile {
         await dispathcher.do(actionLogout());
     };
 
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
+    };
+
     handleWriteLetter = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/write_letter', true));
@@ -527,6 +532,9 @@ export default class Profile {
             .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .addEventListener('click', this.handleAvatarUpload);
         this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
+        this.#parent
             .querySelector('.profile__avatar-load-container')
             .addEventListener('click', this.handleAvatarUpload);
 
@@ -545,6 +553,9 @@ export default class Profile {
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent
             .querySelector('.profile__buttons__save-button')
             .removeEventListener('click', this.handleSaveForm);

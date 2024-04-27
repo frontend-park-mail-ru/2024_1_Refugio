@@ -63,6 +63,11 @@ export default class Letter {
         oldError.classList.remove('appear');
     };
 
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
+    };
+
     handleDropdowns(e) {
         const target = e.target;
 
@@ -232,6 +237,9 @@ export default class Letter {
             .querySelector('#delete')
             .addEventListener('click', this.handleDelete);
         this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
+        this.#parent
             .querySelector('#mark-as-read')
             .addEventListener('click', this.handleMarkAsRead);
         this.#parent
@@ -285,6 +293,9 @@ export default class Letter {
         this.#parent
             .querySelector('#mark-as-read')
             .removeEventListener('click', this.handleMarkAsRead);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent
             .querySelector('#mark-as-unread')
             .removeEventListener('click', this.handleMarkAsUnread);

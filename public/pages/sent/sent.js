@@ -270,6 +270,11 @@ export default class Sent {
         this.handleDeselect(e);
     }
 
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
+    };
+
     // handleMarkAsRead = (e) => {
     //     this.hideError();
     //     e.preventDefault();
@@ -371,6 +376,9 @@ export default class Sent {
         this.#parent
             .querySelector('#incoming-folder')
             .addEventListener('click', this.handleIncoming);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
@@ -391,6 +399,9 @@ export default class Sent {
         this.#parent
             .querySelector('#select-all')
             .removeEventListener('click', this.handleSelectAll);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent
             .querySelector('#deselect')
             .removeEventListener('click', this.handleDeselect);

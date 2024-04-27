@@ -16,7 +16,9 @@
     display: grid;
     grid-template-rows: repeat(3, auto);
     overflow: auto;
-
+    border-radius: 8px;
     margin: 0 16px 2px 0;
+    background-color: var(--box-background);
+    padding: 8px;
 }
 
