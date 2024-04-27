@@ -44,10 +44,10 @@ class statStore {
 
     async getStat() {
         const response = await ajax(
-            'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
+            'GET', 'https://mailhub.su/api/v1/statistics', null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
-        this.stat = data;
+        this.stat = data.body.statistic;
     }
 
     changeStar(id) {
