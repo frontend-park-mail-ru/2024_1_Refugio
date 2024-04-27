@@ -1,4 +1,5 @@
 import ajax from "../modules/ajax.js";
+import userStore from "./userStore.js";
 
 class statStore {
     questions
