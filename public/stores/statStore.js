@@ -1,5 +1,6 @@
 import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
+import userStore from "./userStore.js";
 
 class statStore {
     questions
@@ -18,17 +19,17 @@ class statStore {
 
     async getQuestions() {
         const response = await ajax(
-            'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
+            'GET', 'https://mailhub.su/api/v1/questions', null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
-        this.questions = data.body;
-        this.max = data.body.length();
+        this.questions = data.body.questions;
+        this.max = data.body.questions.length;
         this.count = 0;
     }
 
     async send({newAnswer, id}) {
         const response = await ajax(
-            'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(newAnswer), 'application/json', userStore.getCsrf()
+            'POST', 'https://mailhub.su/api/v1/answers', JSON.stringify(newAnswer), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
         elements = {

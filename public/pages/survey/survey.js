@@ -2,7 +2,7 @@ import dispathcher from '../../modules/dispathcher.js';
 import statStore from '../../stores/statStore.js';
 import template from './survey.hbs';
 import mediator from '../../modules/mediator.js';
-import { actionSendStat } from '../../actions/userActions.js';
+import { actionSendStat, actionGetQuestions } from '../../actions/userActions.js';
 
 /**
  * Класс обертки страницы
@@ -29,10 +29,11 @@ export default class Survey {
     async render() {
         this.#config.questions = await this.#getQuestionInfo();
         const elements = {
-            question: this.#config.questions.question[0],
-            bad: this.#config.questions.bad[0],
-            good: this.#config.questions.good[0],
+            question: this.#config.questions[0].text,
+            bad: this.#config.questions[0].min_text,
+            good: this.#config.questions[0].max_text,
         };
+        console.log(elements);
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
@@ -59,6 +60,7 @@ export default class Survey {
     handleNext({ answer, id }) {
         if (id + 1 === statStore.max) {
             this.handleExit();
+            statStore.count=0;
         }
         else {
             this.#parent
@@ -66,11 +68,12 @@ export default class Survey {
                     star.classList.remove('survey__rating-buttons__button_selected');
                 });
             this.#parent
-                .querySelector('.survey__question').textContent = this.#config.questions.question[id + 1];
+                .querySelector('.survey__question').textContent = this.#config.questions[id + 1].text;
             this.#parent
-                .querySelector('.survey__min-rating-grad').textContent = this.#config.questions.bad[id + 1];
+                .querySelector('.survey__min-rating-grad').textContent = this.#config.questions[id + 1].min_text;
             this.#parent
-                .querySelector('.survey__max-rating-grad').textContent = this.#config.questions.good[id + 1];
+                .querySelector('.survey__max-rating-grad').textContent = this.#config.questions[id + 1].max_text;
+            statStore.count+=1;
         }
     }
 
