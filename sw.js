@@ -28,7 +28,7 @@ self.addEventListener('activate', (e) => {
  * Обработка fetch запросов
  */
 self.addEventListener('fetch', (e) => {
-    //if (e.request.method === 'GET') {
+    if (e.request.method === 'GET') {
         e.respondWith(
             new Promise((resolve, reject) => {
                 fetch(e.request)
@@ -52,5 +52,5 @@ self.addEventListener('fetch', (e) => {
                     .then((cache) => cache.match(e.request)
                         .then((result) => result)))
         )
-    //}
+    }
 })

@@ -138,6 +138,7 @@
 
     box-sizing: border-box;
     width: 100%;
+    transition: background-color 0.1s ease;
 }
 
 .profile__first-name-input-wrapper__input::placeholder,
@@ -221,9 +222,6 @@
 
 .profile__avatar-load-wrapper__avatar-set-button {
     grid-area: set;
-}
-
-.profile__avatar-load-wrapper__avatar-set-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -239,6 +237,8 @@
     line-height: 20px;
 
     cursor: pointer;
+    transition: background-color 0.1s ease;
+
 }
 
 .profile__avatar-load-wrapper__avatar-set-button:hover,
@@ -249,11 +249,14 @@
 
 
 .profile__buttons {
+    grid-area: button;
+
     display: grid;
     grid-template-areas:
         'save reset cancel'
         'error error error';
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: auto auto 1fr;
+    justify-items: start;
     grid-column-gap: 8px;
 
     padding: 16px 20px 0 20px;
@@ -282,7 +285,8 @@
     line-height: 20px;
 
     cursor: pointer;
-    transform: scale(1)
+    transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .profile__buttons__save-button:hover {
@@ -291,10 +295,12 @@
 
 .profile__buttons__reset-button {
     grid-area: reset;
+    transition: background-color 0.1s ease;
 }
 
 .profile__buttons__cancel-button {
     grid-area: cancel;
+    transition: background-color 0.1s ease;
 }
 
 .profile__buttons__reset-button,

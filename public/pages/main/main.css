@@ -63,6 +63,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .main__header__button_has-icon {
@@ -77,6 +78,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .main__header__button_has-icon__text,
@@ -99,7 +101,7 @@
 
     cursor: pointer;
     transform: scale(1);
-
+    transition: background-color 0.1s ease;
 }
 
 .main__header__button_has-icon-counter__counter {

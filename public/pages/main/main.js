@@ -36,6 +36,7 @@ export default class Main {
             header: new Header(null, this.#config.header).render(),
             menu: new Menu(null, this.#config.menu).render(),
             list_letters: new List_letters(null, this.#config.content).render(),
+            contains_letters: this.#config.content.list_letters.length !== 0
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -126,8 +127,8 @@ export default class Main {
         const selectedButtons = {
             deselect: document.querySelector('#deselect'),
             delete: document.querySelector('#delete'),
-            // move_to: document.querySelector('#move-to'),
-            // spam: document.querySelector('#spam'),
+            move_to: document.querySelector('#move-to'),
+            spam: document.querySelector('#spam'),
             mark_as_read: document.querySelector('#mark-as-read'),
             mark_as_unread: document.querySelector('#mark-as-unread'),
         };
@@ -408,7 +409,7 @@ export default class Main {
             .removeEventListener('click', this.handleMarkAsRead);
         this.#parent
             .querySelector('#mark-as-unread')
-            .addEventListener('click', this.handleMarkAsUnread);
+            .removeEventListener('click', this.handleMarkAsUnread);
 
 
 

@@ -9,6 +9,7 @@
     border-radius: 8px;
 
     cursor: pointer;
+    transition: background-color 0.1s ease;
 }
 
 .list-letter:hover {
@@ -29,16 +30,18 @@
     place-items: center;
     width: 18px;
     height: 18px;
+    border-radius: 100px;
+    transition: background-color 0.1s ease;
 }
 
 .list-letter__status-offer {
     opacity: 0;
+    transition: background-color 0.1s ease;
 }
 
 .list-letter__status:hover,
 .list-letter__avatar__checkbox:hover {
     background-color: var(--secondary-button-onhover-selected);
-    border-radius: 100px;
 }
 
 .list-letter__avatar {
@@ -64,6 +67,7 @@
     top: 0;
     left: 0;
     opacity: 0;
+    border-radius: 100px;
 }
 
 .list-letter__avatar__checkbox_centered {

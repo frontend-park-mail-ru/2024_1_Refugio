@@ -1,19 +1,18 @@
 <div class="menu">
     <div class="menu__write-letter-button">Написать письмо</div>
-
-    <div id="incoming-folder" class="menu__folder">
+    <div id="incoming-folder" class="menu__folder {{#if titleIncoming}} menu__folder_selected {{/if}}">
         <div class="menu__folder__text">Входящие</div>
-        {{#if incoming_count }}
-        <div class="menu__default-folder__counter">{{incoming_count}}</div>
-        {{else}}
-        <div class="menu__default-folder__counter"></div>
-        {{/if}}
+
+        <div class="menu__default-folder__counter">
+
+        </div>
+
     </div>
-    <div id="sent-folder" class="menu__folder">
+    <div id="sent-folder" class="menu__folder {{#if titleSent}} menu__folder_selected {{/if}}">
         <div class="menu__folder__text">Отправленные</div>
     </div>
 
-    {{!-- <div  class="menu__folder">
+    <div class="menu__folder">
         <div class="menu__folder__text">Черновики</div>
         <div class="menu__default-folder__counter">1</div>
     </div>
@@ -35,13 +34,26 @@
     </div>
 
     <div class="menu__folder">
-        <div class="menu__folder__text">Кастомная папка1</div>
+        <div class="menu__folder__text">Кастомная папка с очень очень очень очень оченьоченьдлинным названием</div>
         <img class="menu__custom-folder__options" src="/icons/more-options.svg">
-    </div>
-    <div class="menu__folder">
-        <div class="menu__folder__text">Кастомная папка с очень очень очень  очень оченьоченьдлинным названием</div>
-        <img class="menu__custom-folder__options" src="/icons/more-options.svg">
+        <div class="menu__custom-folder__dropdown__wrapper">
+
+            <div class="menu__custom-folder__dropdown">
+                <input type="text" class="menu__folder__dropdown__input" placeholder="ivanovii@mailhub.su">
+                <div class="menu__folder__dropdown__save-button">Сохранить</div>
+                <div class="menu__folder__dropdown__cancel-button">Отмена</div>
+                <div class="menu__folder__dropdown__delete-button">Удалить</div>
+                <div class="menu__custom-folder__dropdown__error">Ошибка</div>
+
+            </div>
+        </div>
     </div>
 
-    <div class="menu__new-folder-button">Новая папка</div> --}}
+    <div class="menu__folder">
+        <div class="menu__folder__text">С вложениями</div>
+        <div class="menu__default-folder__counter">1</div>
+    </div>
+
+
+    <div class="menu__new-folder-button">Новая папка</div>
 </div>

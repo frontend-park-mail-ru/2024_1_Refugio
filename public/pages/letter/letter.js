@@ -5,6 +5,7 @@ import mediator from '../../modules/mediator.js';
 import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
+import userStore from '../../stores/userStore.js';
 
 
 //const MAX_INPUT_LENGTH = 64;
@@ -50,6 +51,9 @@ export default class Letter {
             header: new Header(null, config.header).render(),
             menu: new Menu(null, config.menu).render(),
         };
+        if (elements.from === userStore.body.login) {
+            elements.from = this.#config.email.recipientEmail;
+        }
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
@@ -120,19 +124,27 @@ export default class Letter {
     handleResend = (e) => {
         e.preventDefault();
         const topic = this.#parent
-            .querySelector('.letter__subject').textContent
+            .querySelector('.letter__subject').textContent.trim();
         const sender = this.#parent
-            .querySelector('.letter__info__from').textContent
+            .querySelector('.letter__info__from').textContent.trim();
         const date = this.#parent
-            .querySelector('.letter__info__date').textContent
+            .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
-            .querySelector('.letter__text').textContent
+            .querySelector('.letter__text').textContent.trim();
         dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text }));
     };
 
     handleReply = (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true, { replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
+        const topic = this.#parent
+            .querySelector('.letter__subject').textContent.trim();
+        const sender = this.#parent
+            .querySelector('.letter__info__from').textContent.trim();
+        const date = this.#parent
+            .querySelector('.letter__info__date').textContent.trim();
+        const text = this.#parent
+            .querySelector('.letter__text').textContent.trim();
+        dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text, replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
     handleSent = async (e) => {
@@ -268,6 +280,15 @@ export default class Letter {
             .querySelector('.menu__write-letter-button')
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
+            .querySelector('#delete')
+            .removeEventListener('click', this.handleDelete);
+        this.#parent
+            .querySelector('#mark-as-read')
+            .removeEventListener('click', this.handleMarkAsRead);
+        this.#parent
+            .querySelector('#mark-as-unread')
+            .removeEventListener('click', this.handleMarkAsUnread);
+        this.#parent
             .querySelector('#resend')
             .removeEventListener('click', this.handleResend);
         this.#parent
@@ -281,7 +302,7 @@ export default class Letter {
             .removeEventListener('click', this.handleMain);
         this.#parent.
             querySelector('.letter__header__back-button')
-            .removeEventListener('click', this.handleMain);
+            .removeEventListener('click', this.handleBack);
 
         this.#parent
             .querySelector('#sent-folder')

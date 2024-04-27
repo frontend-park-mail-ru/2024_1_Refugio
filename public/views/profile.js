@@ -4,6 +4,7 @@ import userStore from '../stores/userStore.js';
 import emailStore from '../stores/emailStore.js';
 import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser } from '../actions/userActions.js';
+import emailStore from '../stores/emailStore.js';
 
 /**
  * Класс для рендера страницы логина

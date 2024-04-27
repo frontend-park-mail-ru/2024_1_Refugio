@@ -4,6 +4,7 @@ import userStore from '../stores/userStore.js';
 import emailStore from '../stores/emailStore.js';
 import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser } from '../actions/userActions.js';
+import emailStore from '../stores/emailStore.js';
 
 /**
  * Класс для рендера страницы логина
@@ -33,6 +34,9 @@ class WriteLetterView extends BaseView {
             this.#config.values = data;
         } else {
             this.#config.values = undefined;
+        }
+        if (emailStore.incoming_count > 0) {
+            this.#config.menu.incoming_count = emailStore.incoming_count;
         }
         document.title = 'Новое письмо';
         this.#config.user = await this.#getUserInfo();

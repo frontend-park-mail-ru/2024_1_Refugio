@@ -24,6 +24,8 @@ export default class Menu {
     render() {
         const elements = {
             incoming_count: this.#config.incoming_count,
+            titleIncoming: (document.title==='Входящие' ? document.title: undefined),
+            titleSent: (document.title==='Отправленные' ? document.title: undefined),
         };
         return template(elements);
     }
