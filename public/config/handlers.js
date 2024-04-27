@@ -24,6 +24,7 @@ const handlers = [
     {type: 'questions', method: statStore.getQuestions.bind(statStore)},
     {type: 'sendStat', method: statStore.send.bind(statStore)},
     {type: 'stat', method: statStore.getStat.bind(statStore)},
+    {type: 'star', method: statStore.changeStar.bind(statStore)},
 ];
 
 export default handlers;

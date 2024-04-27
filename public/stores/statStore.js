@@ -1,13 +1,23 @@
 import ajax from "../modules/ajax.js";
+<<<<<<< HEAD
 import userStore from "./userStore.js";
+=======
+import mediator from "../modules/mediator.js";
+>>>>>>> acf474a4d77aa163979c5eb405c02514c55180aa
 
 class statStore {
     questions
     stat
+    raiting
+    count
+    max
 
     constructor() {
         this.questions = undefined;
         this.stat = undefined;
+        this.raiting = undefined;
+        this.count = undefined;
+        this.max = undefined;
     }
 
     async getQuestions() {
@@ -15,7 +25,9 @@ class statStore {
             'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
-        this.questions = data;
+        this.questions = data.body;
+        this.max = data.body.length();
+        this.count = 0;
     }
 
     async send({newAnswer, id}) {
@@ -27,6 +39,8 @@ class statStore {
             id: id,
             answer: newAnswer,
         }
+        this.raiting = undefined;
+        this.count += 1;
         mediator.emit('sendStat', elements);
     }
 
@@ -36,6 +50,11 @@ class statStore {
         );
         const data = await response.json();
         this.stat = data;
+    }
+
+    changeStar(id) {
+        this.raiting = id;
+        mediator.emit('changeStar', this.raiting);
     }
 }
 
