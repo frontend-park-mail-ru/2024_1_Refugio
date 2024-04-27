@@ -4,6 +4,7 @@ import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser, actionGetIncoming } from '../actions/userActions.js';
 import userStore from '../stores/userStore.js';
 import emailStore from '../stores/emailStore.js';
+import Survey from '../pages/survey/survey.js';
 
 /**
  * Класс для рендера страницы списка писем
@@ -55,7 +56,9 @@ class MainView extends BaseView {
             this.#config.menu.incoming_count = undefined;
         }
         const page = new Main(this.root, this.#config);
+        const survey = new Survey(this.root, this.#config);
         this.components.push(page);
+        this.components.push(survey);
         this.render();
         this.addListeners();
     }
