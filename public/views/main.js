@@ -4,6 +4,7 @@ import dispathcher from '../modules/dispathcher.js';
 import { actionGetUser, actionGetIncoming } from '../actions/userActions.js';
 import userStore from '../stores/userStore.js';
 import emailStore from '../stores/emailStore.js';
+import Survey from '../pages/survey/survey.js';
 
 /**
  * Класс для рендера страницы списка писем
