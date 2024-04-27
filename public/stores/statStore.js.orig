@@ -1,7 +1,9 @@
 import ajax from "../modules/ajax.js";
-
 import userStore from "./userStore.js";
+<<<<<<< HEAD
+=======
 
+>>>>>>> e634e9461823584a22e278f56dc7b2911f187221
 import mediator from "../modules/mediator.js";
 
 class statStore {

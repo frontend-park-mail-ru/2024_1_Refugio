@@ -36,7 +36,7 @@ export default class Main {
             header: new Header(null, this.#config.header).render(),
             menu: new Menu(null, this.#config.menu).render(),
             list_letters: new List_letters(null, this.#config.content).render(),
-            contains_letters: this.#config.content.list_letters.length !== 0
+            contains_letters: this.#config.content.list_letters.length !== 0,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -117,6 +117,11 @@ export default class Main {
     handleSent = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/sent', true));
+    };
+
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
     };
 
     handleHeader() {
@@ -389,6 +394,9 @@ export default class Main {
         this.#parent
             .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
@@ -444,6 +452,9 @@ export default class Main {
         this.#parent
             .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateEmail', this.handleUpdateEmailResponse);

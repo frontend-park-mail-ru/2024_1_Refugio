@@ -1,5 +1,12 @@
-import template from './survey.hbs'
+import dispathcher from '../../modules/dispathcher.js';
 import statStore from '../../stores/statStore.js';
+import template from './survey.hbs';
+import mediator from '../../modules/mediator.js';
+<<<<<<< HEAD
+import { actionSendStat } from '../../actions/userActions.js';
+=======
+import { actionSendStat, actionGetQuestions } from '../../actions/userActions.js';
+>>>>>>> e634e9461823584a22e278f56dc7b2911f187221
 
 /**
  * Класс обертки страницы
@@ -26,28 +33,115 @@ export default class Survey {
     async render() {
         this.#config.questions = await this.#getQuestionInfo();
         const elements = {
-            question: this.#config.questions.question[0],
-            bad: this.#config.questions.bad[0],
-            good: this.#config.questions.good[0],
+            question: this.#config.questions[0].text,
+            bad: this.#config.questions[0].min_text,
+            good: this.#config.questions[0].max_text,
         };
-        this.#parent.insertAdjacentHTML('beforeend', template());
+        console.log(elements);
+        this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
-<<<<<<< HEAD
- 
-=======
 
     async #getQuestionInfo() {
-        await dispathcher.do(actionGetQuestions());
-        return statStore.questions;
+        // await dispathcher.do(actionGetQuestions());
+        // return statStore.questions;
     }
+
+    handleExit() {
+        this.#parent
+<<<<<<< HEAD
+
+=======
+>>>>>>> e634e9461823584a22e278f56dc7b2911f187221
+            .querySelector('.survey')
+            .classList.add('remove');
+    }
+
+    handleSend() {
+        dispathcher.do(actionSendStat(statStore.count, statStore.raiting));
+    }
+
+    handleCheckbox = (e, id) => {
+        e.preventDefault();
+        dispathcher.do(actionStar(id));
+    }
+
+    handleNext({ answer, id }) {
+        if (id + 1 === statStore.max) {
+            this.handleExit();
+            statStore.count=0;
+        }
+        else {
+            this.#parent
+                .querySelectorAll('.survey__rating-buttons__button').forEach((star) => {
+                    star.classList.remove('survey__rating-buttons__button_selected');
+                });
+            this.#parent
+                .querySelector('.survey__question').textContent = this.#config.questions[id + 1].text;
+            this.#parent
+                .querySelector('.survey__min-rating-grad').textContent = this.#config.questions[id + 1].min_text;
+            this.#parent
+                .querySelector('.survey__max-rating-grad').textContent = this.#config.questions[id + 1].max_text;
+            statStore.count+=1;
+        }
+    }
+
 
     addListeners() {
         this.#parent
-            .querySelector('.header__dropdown__logout-button')
+            .querySelectorAll('.survey__rating-buttons__button').forEach((star) => {
+                star.addEventListener('click', (e) => this.handleCheckbox(e, star.dataset.id));
+            });
+        this.#parent
+            .querySelector('.survey__close-button')
             .addEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.survey__send-button')
+            .addEventListener('click', this.handleSend);
+        mediator.on('changeStar', this.handleStarResponse);
         mediator.on('sendStat', this.handleNext);
     }
 
+    removeListeners() {
+        this.#parent
+            .querySelectorAll('.survey__rating-buttons__button').forEach((star) => {
+                star.removeEventListener('click', (e) => this.handleCheckbox(e, star.dataset.id));
+            });
+        this.#parent
+            .querySelector('.survey__close-button')
+            .removeEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.survey__send-button')
+            .removeEventListener('click', this.handleSend);
+        mediator.off('changeStar', this.handleStarResponse);
+        mediator.off('sendStat', this.handleNext);
+    }
 
->>>>>>> 5d22fdb49a397cb8304278bce4ca8eeec0d9b200
+    handleStarResponse() {
+        stars = statStore.raiting;
+        if (stars >= 1) {
+            const star1 = this.#parent
+                .querySelector('#rating-1');
+            star1.classList.add('survey__rating-buttons__button_selected')
+        }
+        if (stars >= 2) {
+            const star2 = this.#parent
+                .querySelector('#rating-2');
+            star2.classList.add('survey__rating-buttons__button_selected')
+        }
+        if (stars >= 3) {
+            const star3 = this.#parent
+                .querySelector('#rating-3');
+            star3.classList.add('survey__rating-buttons__button_selected')
+        }
+        if (stars >= 4) {
+            const star4 = this.#parent
+                .querySelector('#rating-4');
+            star4.classList.add('survey__rating-buttons__button_selected')
+        }
+        if (stars >= 5) {
+            const star5 = this.#parent
+                .querySelector('#rating-5');
+            star5.classList.add('survey__rating-buttons__button_selected')
+        }
+    }
 }
