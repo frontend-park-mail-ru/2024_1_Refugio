@@ -119,6 +119,11 @@ export default class Main {
         dispathcher.do(actionRedirect('/sent', true));
     };
 
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
+    };
+
     handleHeader() {
         const unselectedButtons = {
             select_all: document.querySelector('#select-all'),
@@ -374,6 +379,9 @@ export default class Main {
         this.#parent
             .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
@@ -429,6 +437,9 @@ export default class Main {
         this.#parent
             .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
@@ -449,7 +460,7 @@ export default class Main {
         switch (status) {
             case 200:
                 const counter = this.#parent.querySelector('.menu__default-folder__counter');
-                if (emailStore.incoming_count > 0){
+                if (emailStore.incoming_count > 0) {
                     counter.textContent = emailStore.incoming_count;
                 } else {
                     counter.textContent = '';
