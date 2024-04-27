@@ -38,8 +38,8 @@ export default class Survey {
     }
 
     async #getQuestionInfo() {
-        // await dispathcher.do(actionGetQuestions());
-        // return statStore.questions;
+        await dispathcher.do(actionGetQuestions());
+        return statStore.questions;
     }
 
     handleExit() {
@@ -86,9 +86,6 @@ export default class Survey {
                 star.addEventListener('click', (e) => this.handleCheckbox(e, star.dataset.id));
             });
         this.#parent
-            .querySelector('.survey__close-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
             .querySelector('.survey__send-button')
             .addEventListener('click', this.handleSend);
         mediator.on('changeStar', this.handleStarResponse);
@@ -100,9 +97,6 @@ export default class Survey {
             .querySelectorAll('.survey__rating-buttons__button').forEach((star) => {
                 star.removeEventListener('click', (e) => this.handleCheckbox(e, star.dataset.id));
             });
-        this.#parent
-            .querySelector('.survey__close-button')
-            .removeEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.survey__send-button')
             .removeEventListener('click', this.handleSend);

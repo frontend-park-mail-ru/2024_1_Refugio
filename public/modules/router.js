@@ -27,8 +27,8 @@ class Router {
         this.#authViews.set('/profile', ProfileView);
         this.#authViews.set('/write_letter', writeLetter);
         this.#authViews.set('/sent', SentView);
-        this.#authViews.set('/survey', SurveyView );
-	this.#authViews.set('/stat', StatView);
+        this.#authViews.set('/survey', SurveyView);
+        this.#authViews.set('/stat', StatView);
 
 
         this.#historyNum = 0;
@@ -46,7 +46,7 @@ class Router {
     canGoBack() {
         return this.#historyNum;
     }
-    
+
 
     async redirect(href) {
         let isAuth = await userStore.verifyAuth();

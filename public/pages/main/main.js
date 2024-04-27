@@ -335,6 +335,8 @@ export default class Main {
         const iframe = document.createElement('iframe');
 
         iframe.src = 'https://mailhub.su/survey'; 
+        iframe.height = '300';
+        iframe.width = '400';
 
         var insertAfterElement = document.querySelector('.main__control-buttons');
         insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
