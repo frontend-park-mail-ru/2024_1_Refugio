@@ -36,7 +36,7 @@ export default class Main {
             header: new Header(null, this.#config.header).render(),
             menu: new Menu(null, this.#config.menu).render(),
             list_letters: new List_letters(null, this.#config.content).render(),
-            contains_letters: this.#config.content.list_letters.length !== 0
+            contains_letters: this.#config.content.list_letters.length !== 0,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -117,6 +117,11 @@ export default class Main {
     handleSent = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/sent', true));
+    };
+
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
     };
 
     handleHeader() {
@@ -324,10 +329,27 @@ export default class Main {
         this.handleDeselect(e);
     }
 
+    handleShowSurvey = async (e) => {
+        e.preventDefault();
+
+        const iframe = document.createElement('iframe');
+
+        iframe.src = 'https://mailhub.su/survey'; 
+        iframe.height = '300';
+        iframe.width = '400';
+
+        var insertAfterElement = document.querySelector('.main__control-buttons');
+        insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent
+            .querySelector('.main__collapse-rollup-button')
+            .addEventListener('click', this.handleShowSurvey);
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
@@ -374,6 +396,9 @@ export default class Main {
         this.#parent
             .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
@@ -429,6 +454,9 @@ export default class Main {
         this.#parent
             .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
@@ -449,7 +477,7 @@ export default class Main {
         switch (status) {
             case 200:
                 const counter = this.#parent.querySelector('.menu__default-folder__counter');
-                if (emailStore.incoming_count > 0){
+                if (emailStore.incoming_count > 0) {
                     counter.textContent = emailStore.incoming_count;
                 } else {
                     counter.textContent = '';

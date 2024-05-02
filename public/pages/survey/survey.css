@@ -1,0 +1,119 @@
+.survey {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    z-index: 1;
+
+    display: grid;
+    grid-template-areas:
+        'question question'
+        'rating rating'
+        'min max'
+        'send send';
+    grid-template-rows: 1fr repeat(3, auto);
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 2px;
+    align-content: start;
+
+    padding: 0 12px 12px 12px;
+    background-color: var(--box-background);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    height: 188px;
+    width: 340px;
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+}
+
+.survey__question {
+    grid-area: question;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    font-size: 16px;
+    letter-spacing: 0;
+    font-weight: 500;
+    line-height: 20px;
+}
+.survey__rating-buttons {
+    grid-area: rating;
+
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    justify-items: center;
+    margin: 6px 0;
+}
+
+.survey__rating-buttons__button {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.survey__min-rating-grad {
+    grid-area: min;
+    justify-self: start;
+}
+
+.survey__max-rating-grad {
+    grid-area: max;
+    justify-self: end;
+}
+
+.survey__min-rating-grad, 
+.survey__max-rating-grad {
+    margin: 6px 0;
+    color: var(--input-label-counter-icon);
+    font-size: 15px;
+    letter-spacing: 0;
+    font-weight: 400;
+    line-height: 20px;
+    cursor: default;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.survey__send-button {
+    grid-area: send;
+
+    display: flex;
+    align-items: center;
+    justify-self: center;
+
+    margin: 6px 0;
+    padding: 10px 16px;
+    height: 36px;
+
+    border-radius: 8px;
+    background-color: var(--main-button);
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+    transition: background-color 0.1s ease;
+}
+
+
+
+.survey__send-button:hover {
+    background-color: var(--main-button-hover);
+}
+
+.survey__send-button:active {
+    transform: scale(0.99);
+}

@@ -1,53 +1,46 @@
-import Letter from '../pages/letter/letter.js';
+import Stat from '../pages/stat/stat.js';
 import BaseView from './base.js';
-import dispathcher from '../modules/dispathcher.js';
-import { actionGetEmail, actionGetUser } from '../actions/userActions.js';
-import emailStore from '../stores/emailStore.js';
 import userStore from '../stores/userStore.js';
+import emailStore from '../stores/emailStore.js';
+import dispathcher from '../modules/dispathcher.js';
+import { actionGetStatistic, actionGetUser } from '../actions/userActions.js';
+import statStore from '../stores/statStore.js';
 
 /**
  * Класс для рендера страницы логина
  * @class
  */
-export default class LetterView extends BaseView {
+class StatView extends BaseView {
     #config = {
         menu: {},
         header: {
             avatar: '',
         },
-        letterNumber: undefined,
     }
 
     /**
          * Конструктор класса
          * @constructor
          */
-    constructor(letterNumber) {
+    constructor() {
         super();
-        this.#config.letterNumber = letterNumber;
     }
 
     /**
      * Функция рендера страницы
      */
     async renderPage() {
-        this.#config.email = await this.#getEmailInfo(this.#config.letterNumber);
-        if (this.#config.email.replyToEmailId) {
-            this.#config.replyEmail = await this.#getEmailInfo(this.#config.email.replyToEmailId);
-        }
-        if (emailStore.incoming_count > 0) {
-            this.#config.menu.incoming_count = emailStore.incoming_count;
-        }
-        document.title = this.#config.email.topic;
+        document.title = 'Статистика';
         this.#config.user = await this.#getUserInfo();
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
+        this.#config.stat = await this.#getStatInfo();
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;
         } else {
             this.#config.menu.incoming_count = undefined;
         }
-        const page = new Letter(this.root, this.#config);
+        const page = new Stat(this.root, this.#config);
         this.components.push(page);
         this.render();
         this.addListeners();
@@ -62,9 +55,11 @@ export default class LetterView extends BaseView {
         return userStore.body;
     }
 
-    async #getEmailInfo(id) {
-        await dispathcher.do(actionGetEmail(id));
-        return emailStore.email;
+    async #getStatInfo() {
+        await dispathcher.do(actionGetStatistic());
+        return statStore.stat;
     }
 
 }
+
+export default new StatView();

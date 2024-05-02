@@ -56,9 +56,11 @@ class MainView extends BaseView {
             this.#config.menu.incoming_count = undefined;
         }
         const page = new Main(this.root, this.#config);
-        const survey = new Survey(this.root, this.#config);
         this.components.push(page);
+<<<<<<< HEAD
+=======
         //this.components.push(survey);
+>>>>>>> e634e9461823584a22e278f56dc7b2911f187221
         this.render();
         this.addListeners();
     }
