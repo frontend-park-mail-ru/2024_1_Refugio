@@ -36,7 +36,7 @@ export default class Profile {
      */
     render() {
         const config = this.#config;
-
+        this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
             userLetter: this.#config.header.username.charAt(0),
             firstname: this.#config.user.firstname,
@@ -46,7 +46,7 @@ export default class Profile {
             description: this.#config.user.description,
             phoneNumber: this.#config.user.phonenumber,
             header: new Header(null, config.header).render(),
-            menu: new Menu(null, config.menu).render(),
+            menu: this.#config.menu.component.render(),
             birthday_select: new Birthday_Select(null, config).render(),
             gender_select: new Gender_Select(null, config).render(),
         };
@@ -397,16 +397,6 @@ export default class Profile {
         dispathcher.do(actionRedirect('/stat', true));
     };
 
-    handleWriteLetter = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true));
-    };
-
-    handleMain = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/main', true));
-    };
-
     reader = new FileReader();
 
 
@@ -453,11 +443,6 @@ export default class Profile {
         }
     }
 
-    handleSent = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/sent', true));
-    };
-
     handleBack = async (e) => {
         e.preventDefault();
         if (router.canGoBack() > 1) {
@@ -498,6 +483,7 @@ export default class Profile {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#config.menu.component.addListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
@@ -513,18 +499,6 @@ export default class Profile {
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.menu__write-letter-button')
-            .addEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#incoming-folder')
-            .addEventListener('click', this.handleMain);
-        this.#parent.
-            querySelector('.header__logo')
-            .addEventListener('click', this.handleMain);
-        this.#parent
-            .querySelector('#sent-folder')
-            .addEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
@@ -550,6 +524,7 @@ export default class Profile {
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#config.menu.component.removeListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
@@ -568,18 +543,6 @@ export default class Profile {
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.menu__write-letter-button')
-            .removeEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#incoming-folder')
-            .removeEventListener('click', this.handleMain);
-        this.#parent.
-            querySelector('.header__logo')
-            .removeEventListener('click', this.handleMain);
-        this.#parent
-            .querySelector('#sent-folder')
-            .removeEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.cl-switch input')
             .removeEventListener('change', this.handleCheckbox);

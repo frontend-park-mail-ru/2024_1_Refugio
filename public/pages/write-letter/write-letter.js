@@ -42,7 +42,7 @@ export default class Write__Letter {
      */
     render() {
         const config = this.#config;
-
+        this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
             sender: this.#config.values?.sender,
             date: this.#config.values?.date,
@@ -50,7 +50,7 @@ export default class Write__Letter {
             replyId: this.#config.values?.replyId,
             replySender: this.#config.values?.replySender,
             header: new Header(null, config.header).render(),
-            menu: new Menu(null, config.menu).render(),
+            menu: this.#config.menu.component.render(),
         };
         if (this.#config.values?.text) {
             elements.text = this.registerHelper(this.#config.values?.text);
@@ -78,11 +78,6 @@ export default class Write__Letter {
     handleProfile = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/profile', true));
-    };
-
-    handleMain = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/main', true));
     };
 
     handleStat = async (e) => {
@@ -228,11 +223,6 @@ export default class Write__Letter {
         }
     }
 
-    handleSent = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/sent', true));
-    };
-
     handleBack = async (e) => {
         e.preventDefault();
         if (router.canGoBack() > 1) {
@@ -247,21 +237,13 @@ export default class Write__Letter {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#config.menu.component.addListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.header__dropdown__profile-button')
             .addEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('#incoming-folder')
-            .addEventListener('click', this.handleMain);
-        this.#parent.
-            querySelector('.header__logo')
-            .addEventListener('click', this.handleMain);
-        this.#parent
-            .querySelector('#sent-folder')
-            .addEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.header__dropdown__stat-button')
             .addEventListener('click', this.handleStat);
@@ -280,6 +262,7 @@ export default class Write__Letter {
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#config.menu.component.removeListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
@@ -287,17 +270,8 @@ export default class Write__Letter {
             .querySelector('.header__dropdown__profile-button')
             .removeEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('#incoming-folder')
-            .removeEventListener('click', this.handleMain);
-        this.#parent
             .querySelector('.header__dropdown__stat-button')
             .removeEventListener('click', this.handleStat);
-        this.#parent.
-            querySelector('.header__logo')
-            .removeEventListener('click', this.handleMain);
-        this.#parent
-            .querySelector('#sent-folder')
-            .removeEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.write-letter__buttons__send-button')
             .removeEventListener('click', this.handleSend);

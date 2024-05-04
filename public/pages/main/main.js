@@ -32,13 +32,15 @@ export default class Main {
      */
     render() {
         this.#config.content.sent = false;
+        this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
-            header: new Header(null, this.#config.header).render(),
-            menu: new Menu(null, this.#config.menu).render(),
+            header: new Header(this.#parent, this.#config.header).render(),
+            menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
             contains_letters: this.#config.content.list_letters.length !== 0,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
+
     }
 
     selectedListLetters = []
@@ -97,11 +99,6 @@ export default class Main {
         dispathcher.do(actionRedirect('/profile', true));
     };
 
-    handleWriteLetter = (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true));
-    };
-
     handleLetter = async (e, id) => {
         e.preventDefault();
         const letters = this.#config.content.list_letters;
@@ -112,11 +109,6 @@ export default class Main {
             dispathcher.do(actionUpdateEmail(id, value));
         }
         dispathcher.do(actionRedirectToLetter(id, true));
-    };
-
-    handleSent = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/sent', true));
     };
 
     handleStat = async (e) => {
@@ -333,7 +325,7 @@ export default class Main {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
+        this.#config.menu.component.addListeners();
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -374,12 +366,6 @@ export default class Main {
             .querySelector('.header__dropdown__profile-button')
             .addEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .addEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#sent-folder')
-            .addEventListener('click', this.handleSent);
-        this.#parent
             .querySelector('.header__dropdown__stat-button')
             .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
@@ -392,6 +378,7 @@ export default class Main {
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#config.menu.component.removeListeners();
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').removeEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -431,12 +418,6 @@ export default class Main {
         this.#parent
             .querySelector('.header__dropdown__profile-button')
             .removeEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.menu__write-letter-button')
-            .removeEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#sent-folder')
-            .removeEventListener('click', this.handleSent);
         this.#parent
             .querySelector('.header__dropdown__stat-button')
             .removeEventListener('click', this.handleStat);
