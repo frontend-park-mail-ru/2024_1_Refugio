@@ -211,7 +211,6 @@
 
 .write-letter__attachments__dropdown__wrapper {
     display: none;
-
     position: absolute;
     top: 32px;
     left: 68px;
@@ -293,9 +292,20 @@
     background-color: var(--input-placeholder);
 }
 
+.write-letter__attachments__dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+
+.write-letter__attachments__dropdown::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.write-letter__attachments__dropdown::-webkit-scrollbar-thumb {
+    background-color: var(--input-label-counter-icon);
+    border-radius: 12px;
+}
+
 .write-letter__buttons {
-
-
     display: grid;
     grid-template-areas:
         'send save-draft cancel'

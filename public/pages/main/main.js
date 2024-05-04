@@ -321,11 +321,28 @@ export default class Main {
         this.handleDeselect(e);
     }
 
+    handleShowSurvey = async (e) => {
+        e.preventDefault();
+
+        const iframe = document.createElement('iframe');
+
+        iframe.src = 'https://mailhub.su/survey'; 
+        iframe.height = '300';
+        iframe.width = '400';
+
+        var insertAfterElement = document.querySelector('.main__control-buttons');
+        insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
         this.#config.menu.component.addListeners();
+        this.#parent
+            .querySelector('.main__collapse-rollup-button')
+            .addEventListener('click', this.handleShowSurvey);
+
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));

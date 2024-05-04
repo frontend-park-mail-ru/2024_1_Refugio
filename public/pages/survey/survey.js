@@ -1,3 +1,4 @@
+
 import dispathcher from '../../modules/dispathcher.js';
 import statStore from '../../stores/statStore.js';
 import template from './survey.hbs';
@@ -33,7 +34,6 @@ export default class Survey {
             bad: this.#config.questions[0].min_text,
             good: this.#config.questions[0].max_text,
         };
-        console.log(elements);
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
@@ -44,6 +44,7 @@ export default class Survey {
 
     handleExit() {
         this.#parent
+
             .querySelector('.survey')
             .classList.add('remove');
     }
@@ -75,6 +76,7 @@ export default class Survey {
                 .querySelector('.survey__max-rating-grad').textContent = this.#config.questions[id + 1].max_text;
             statStore.count+=1;
         }
+
     }
 
 
@@ -83,9 +85,6 @@ export default class Survey {
             .querySelectorAll('.survey__rating-buttons__button').forEach((star) => {
                 star.addEventListener('click', (e) => this.handleCheckbox(e, star.dataset.id));
             });
-        this.#parent
-            .querySelector('.survey__close-button')
-            .addEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.survey__send-button')
             .addEventListener('click', this.handleSend);
@@ -98,9 +97,6 @@ export default class Survey {
             .querySelectorAll('.survey__rating-buttons__button').forEach((star) => {
                 star.removeEventListener('click', (e) => this.handleCheckbox(e, star.dataset.id));
             });
-        this.#parent
-            .querySelector('.survey__close-button')
-            .removeEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.survey__send-button')
             .removeEventListener('click', this.handleSend);

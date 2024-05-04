@@ -1,4 +1,5 @@
 .main-root {
+    position: relative;
     display: grid;
     grid-template-areas:
         'header header'
@@ -116,4 +117,32 @@
 .main__header__button_has-icon:hover,
 .main__header__button_has-icon-counter:hover {
     background-color: var(--main-button-secondary);
+}
+
+.main__control-buttons {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: end;
+    align-items: center;
+    grid-column-gap: 12px;
+
+    padding: 12px;
+    background-color: var(--box-background);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    width: 340px;
+
+
+    left: 20px;
+    bottom: 208px;
+    z-index: 1;
+
+}
+
+.main__collapse-rollup-button,
+.main__close-button {
+    display: grid;
+    justify-self: end;
+    cursor: pointer;
 }
