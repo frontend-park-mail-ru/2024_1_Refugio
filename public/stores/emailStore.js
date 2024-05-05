@@ -74,6 +74,14 @@ class emaillStore {
         const status = await response.status;
         mediator.emit('deleteEmail', status);
     }
+
+    async getDrafts() {
+        const response = await ajax(
+            'GET', 'https://mailhub.su/api/v1/emails/draft', null, 'application/json', userStore.getCsrf()
+        );
+        const data = await response.json();
+        this.drafts = data.body.emails;
+    }
 }
 
 export default new emaillStore();

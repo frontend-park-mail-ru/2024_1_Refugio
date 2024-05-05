@@ -18,9 +18,9 @@ export const actionRedirect = (path, pushState, data=undefined) => ({
     value: {path: path, pushState: pushState, data: data},
 })
 
-export const actionRedirectToLetter = (id, pushState) => ({
+export const actionRedirectToLetter = (id, pushState, folder) => ({
     type: 'openLetter', 
-    value: {id: id, pushState: pushState},
+    value: {id: id, pushState: pushState, folder: folder},
 })
 
 export const actionGetUser = () => ({
@@ -91,4 +91,39 @@ export const actionGetStatistic = () => ({
 export const actionStar = (id) => ({
     type: 'star',
     value: {id: id},
+})
+
+export const actionCreateFolder = (value) => ({
+    type: 'createFolder',
+    value: value,
+})
+
+export const actionGetFolders = () => ({
+    type: 'getFolders',
+    value: {},
+})
+
+export const actionUpdateFolder = (id, value) => ({
+    type: 'updateFolder',
+    value: {id: id, value: value},
+})
+
+export const actionDeleteFolder = (id) => ({
+    type: 'deleteFolder',
+    value: id,
+})
+
+export const actionGetFolderEmails = (id) => ({
+    type: 'getFolderEmails',
+    value: id,
+})
+
+export const actionAddLetterToFolder = (value) => ({
+    type: 'addLetterToFolder',
+    value: value,
+})
+
+export const actionGetDrafts = () => ({
+    type: 'getDrafts',
+    value: {},
 })

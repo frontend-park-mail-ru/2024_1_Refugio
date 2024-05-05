@@ -12,7 +12,7 @@
         <div class="menu__folder__text">Отправленные</div>
     </div>
 
-    <div class="menu__folder">
+    <div id="drafts-folder" class="menu__folder">
         <div class="menu__folder__text">Черновики</div>
         <div class="menu__default-folder__counter">1</div>
     </div>
@@ -33,27 +33,22 @@
         <div class="menu__default-folder__counter">1</div>
     </div>
 
-    <div class="menu__folder">
-        <div class="menu__folder__text">Кастомная папка с очень очень очень очень оченьоченьдлинным названием</div>
-        <img class="menu__custom-folder__options" src="/icons/more-options.svg">
-        <div class="menu__custom-folder__dropdown__wrapper">
+    {{#if folders}}
+    {{#each folders}}
+    {{{this}}}
+    {{/each}}
+    {{/if}}
 
+    <div class="menu__new-folder-button">Новая папка</div>
+    <div class="menu__new-folder">
+        <div class="menu__custom-folder__dropdown__wrapper" id="new-wrapper">
             <div class="menu__custom-folder__dropdown">
-                <input type="text" class="menu__folder__dropdown__input" placeholder="ivanovii@mailhub.su">
-                <div class="menu__folder__dropdown__save-button">Сохранить</div>
-                <div class="menu__folder__dropdown__cancel-button">Отмена</div>
-                <div class="menu__folder__dropdown__delete-button">Удалить</div>
-                <div class="menu__custom-folder__dropdown__error">Ошибка</div>
+                <input type="text" class="menu__folder__dropdown__input" id="new-folder-input" placeholder="ivanovii@mailhub.su">
+                <div class="menu__folder__dropdown__save-button" id="new-folder-save">Сохранить</div>
+                <div class="menu__folder__dropdown__cancel-button" id="new-folder-cancel">Отмена</div>
+                <div class="menu__custom-folder__dropdown__error" id="new-folder-error">Ошибка</div>
 
             </div>
         </div>
     </div>
-
-    <div class="menu__folder">
-        <div class="menu__folder__text">С вложениями</div>
-        <div class="menu__default-folder__counter">1</div>
-    </div>
-
-
-    <div class="menu__new-folder-button">Новая папка</div>
 </div>
