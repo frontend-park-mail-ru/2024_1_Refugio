@@ -1,9 +1,7 @@
 import Profile from '../pages/profile/profile.js';
 import BaseView from './base.js';
-import userStore from '../stores/userStore.js';
 import emailStore from '../stores/emailStore.js';
-import dispathcher from '../modules/dispathcher.js';
-import { actionGetUser } from '../actions/userActions.js';
+import folderStore from '../stores/folderStore.js';
 
 /**
  * Класс для рендера страницы логина
@@ -30,7 +28,8 @@ class ProfileView extends BaseView {
      */
     async renderPage() {
         document.title = 'Профиль';
-        this.#config.user = await this.#getUserInfo();
+        this.#config.user = await this.getUserInfo();
+        this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
         if (emailStore.incoming_count > 0) {
@@ -44,14 +43,7 @@ class ProfileView extends BaseView {
         this.addListeners();
     }
 
-    /**
-     * Запрашивает у сервера имя пользователя
-     * @returns {string} имя пользователя
-     */
-    async #getUserInfo() {
-        await dispathcher.do(actionGetUser());
-        return userStore.body;
-    }
+
 
 }
 

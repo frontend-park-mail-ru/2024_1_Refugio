@@ -30,9 +30,10 @@ export default class Stat {
      * Рендер компонента в DOM
      */
     render() {
+        this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
             header: new Header(null, this.#config.header).render(),
-            menu: new Menu(null, this.#config.menu).render(),
+            menu: this.#config.menu.component.render(),
             stat1: this.#config.stat[0],
             stat2: this.#config.stat[1],
             stat3: this.#config.stat[2],
@@ -48,19 +49,9 @@ export default class Stat {
         await dispathcher.do(actionLogout());
     };
 
-    handleSent = async (e) => {
+    handleProfile = (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/sent', true));
-    };
-
-    handleWriteLetter = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true));
-    };
-
-    handleMain = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/main', true));
+        dispathcher.do(actionRedirect('/profile', true));
     };
 
     handleDropdowns(e) {
@@ -99,42 +90,26 @@ export default class Stat {
     }
 
     addListeners() {
+        this.#config.menu.component.addListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .addEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#incoming-folder')
-            .addEventListener('click', this.handleMain);
-        this.#parent.
-            querySelector('.header__logo')
-            .addEventListener('click', this.handleMain);
-        this.#parent
-            .querySelector('#sent-folder')
-            .addEventListener('click', this.handleSent);
+            .querySelector('.header__dropdown__profile-button')
+            .addEventListener('click', this.handleProfile);
 
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
     };
 
     removeListeners() {
+        this.#config.menu.component.removeListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .removeEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#incoming-folder')
-            .removeEventListener('click', this.handleMain);
-        this.#parent.
-            querySelector('.header__logo')
-            .removeEventListener('click', this.handleMain);
-        this.#parent
-            .querySelector('#sent-folder')
-            .removeEventListener('click', this.handleSent);
+            .querySelector('.header__dropdown__profile-button')
+            .removeEventListener('click', this.handleProfile);
 
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);

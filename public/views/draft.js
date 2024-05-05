@@ -8,7 +8,7 @@ import folderStore from '../stores/folderStore.js';
  * Класс для рендера страницы списка писем
  * @class
  */
-class MainView extends BaseView {
+class DraftView extends BaseView {
     #config = {
         header: {
             logo: 'MailHub',
@@ -43,19 +43,18 @@ class MainView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
-        document.title = 'Входящие';
+        document.title = 'Черновики';
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
-        this.#config.content.list_letters = await this.getEmailsInfo();
+        this.#config.content.list_letters = await this.getDraftsInfo();
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;
         } else {
             this.#config.menu.incoming_count = undefined;
         }
         const page = new Main(this.root, this.#config);
-        const survey = new Survey(this.root, this.#config);
         this.components.push(page);
         //this.components.push(survey);
         this.render();
@@ -63,4 +62,4 @@ class MainView extends BaseView {
     }
 }
 
-export default new MainView();
+export default new DraftView();

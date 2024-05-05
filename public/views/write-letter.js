@@ -1,9 +1,7 @@
 import BaseView from './base.js';
 import Write__Letter from '../pages/write-letter/write-letter.js';
-import userStore from '../stores/userStore.js';
 import emailStore from '../stores/emailStore.js';
-import dispathcher from '../modules/dispathcher.js';
-import { actionGetUser } from '../actions/userActions.js';
+import folderStore from '../stores/folderStore.js';
 
 /**
  * Класс для рендера страницы логина
@@ -38,7 +36,8 @@ class WriteLetterView extends BaseView {
             this.#config.menu.incoming_count = emailStore.incoming_count;
         }
         document.title = 'Новое письмо';
-        this.#config.user = await this.#getUserInfo();
+        this.#config.user = await this.getUserInfo();
+        this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
         if (emailStore.incoming_count > 0) {
@@ -50,15 +49,6 @@ class WriteLetterView extends BaseView {
         this.components.push(page);
         this.render();
         this.addListeners();
-    }
-
-    /**
-     * Запрашивает у сервера имя пользователя
-     * @returns {string} имя пользователя
-     */
-    async #getUserInfo() {
-        await dispathcher.do(actionGetUser());
-        return userStore.body;
     }
 
 }

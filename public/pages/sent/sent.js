@@ -31,9 +31,10 @@ export default class Sent {
      */
     render() {
         this.#config.content.sent = true;
+        this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
             header: new Header(null, this.#config.header).render(),
-            menu: new Menu(null, this.#config.menu).render(),
+            menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
@@ -95,11 +96,6 @@ export default class Sent {
         dispathcher.do(actionRedirect('/profile', true));
     };
 
-    handleWriteLetter = (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true));
-    };
-
     handleLetter = async (e, id) => {
         e.preventDefault();
         const letters = this.#config.content.list_letters;
@@ -110,11 +106,6 @@ export default class Sent {
             dispathcher.do(actionUpdateEmail(id, value));
         }
         dispathcher.do(actionRedirectToLetter(id, true));
-    };
-
-    handleIncoming = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/main', true));
     };
 
     handleHeader() {
@@ -270,6 +261,11 @@ export default class Sent {
         this.handleDeselect(e);
     }
 
+    handleStat = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/stat', true));
+    };
+
     // handleMarkAsRead = (e) => {
     //     this.hideError();
     //     e.preventDefault();
@@ -325,7 +321,7 @@ export default class Sent {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
+        this.#config.menu.component.addListeners();
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -366,11 +362,8 @@ export default class Sent {
             .querySelector('.header__dropdown__profile-button')
             .addEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .addEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#incoming-folder')
-            .addEventListener('click', this.handleIncoming);
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
@@ -380,6 +373,7 @@ export default class Sent {
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#config.menu.component.removeListeners();
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').removeEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -391,6 +385,9 @@ export default class Sent {
         this.#parent
             .querySelector('#select-all')
             .removeEventListener('click', this.handleSelectAll);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent
             .querySelector('#deselect')
             .removeEventListener('click', this.handleDeselect);
@@ -419,12 +416,6 @@ export default class Sent {
         this.#parent
             .querySelector('.header__dropdown__profile-button')
             .removeEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.menu__write-letter-button')
-            .removeEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#incoming-folder')
-            .removeEventListener('click', this.handleIncoming);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);

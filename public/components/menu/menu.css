@@ -56,6 +56,15 @@
     transition: background-color 0.1s ease;
 }
 
+.menu__new-folder {
+    position: relative;
+    display: grid;
+
+    padding-left: 10px;
+
+    border-radius: 8px;
+}
+
 .menu__folder_selected {
     background-color: var(--secondary-button-onhover-selected)
 }
@@ -112,7 +121,7 @@
 .menu__custom-folder__dropdown__wrapper {
     display: none;
     position: absolute;
-    top: 36px;
+    top: -12px;
     left: -4px;
     z-index: 1;
     cursor: default;

@@ -8,6 +8,8 @@ import LetterView from "../views/letter.js";
 import SentView from "../views/sent.js";
 import SurveyView from "../views/survey.js";
 import StatView from "../views/stat.js";
+import FolderView from "../views/folder.js";
+import DraftView from "../views/draft.js";
 
 class Router {
     #views
@@ -29,6 +31,7 @@ class Router {
         this.#authViews.set('/sent', SentView);
         this.#authViews.set('/survey', SurveyView);
         this.#authViews.set('/stat', StatView);
+        this.#authViews.set('/drafts', DraftView);
 
 
         this.#historyNum = 0;
@@ -84,12 +87,17 @@ class Router {
         }
     }
 
-    openLetter({ id, pushState }) {
+    openLetter({ id, pushState, folder }) {
         if (this.#currentView) {
             this.#currentView.clear();
         }
-        this.#currentView = new LetterView(id);
-        this.navigate({ path: `/letter?id=${id}`, state: '', pushState });
+        if (!folder) {
+            this.#currentView = new LetterView(id);
+            this.navigate({ path: `/letter?id=${id}`, state: '', pushState });
+        } else {
+            this.#currentView = new FolderView(id);
+            this.navigate({ path: `/folder?id=${id}`, state: '', pushState });
+        }
         this.#currentView.renderPage();
     }
 
@@ -98,6 +106,8 @@ class Router {
             let path = await this.redirect(window.location.pathname + window.location.search);
             if (path.indexOf('/letter?') !== -1) {
                 this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
+            } else if (path.indexOf('/folder?') !== -1) {
+                this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
             } else {
                 this.open({ path: path, pushState: false });
             }
@@ -105,6 +115,8 @@ class Router {
         let path = await this.redirect(window.location.pathname + window.location.search);
         if (path.indexOf('/letter?') !== -1) {
             this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
+        } else if (path.indexOf('/folder?') !== -1) {
+            this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
         } else {
             this.open({ path: path, pushState: false });
         }
