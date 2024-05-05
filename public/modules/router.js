@@ -10,6 +10,7 @@ import SurveyView from "../views/survey.js";
 import StatView from "../views/stat.js";
 import FolderView from "../views/folder.js";
 import DraftView from "../views/draft.js";
+import SpamView from "../views/spam.js";
 
 class Router {
     #views
@@ -32,6 +33,7 @@ class Router {
         this.#authViews.set('/survey', SurveyView);
         this.#authViews.set('/stat', StatView);
         this.#authViews.set('/drafts', DraftView);
+        this.#authViews.set('/spam', SpamView);
 
 
         this.#historyNum = 0;

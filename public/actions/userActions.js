@@ -127,3 +127,8 @@ export const actionGetDrafts = () => ({
     type: 'getDrafts',
     value: {},
 })
+
+export const actionGetSpam = () => ({
+    type: 'getSpam',
+    value: {},
+})
