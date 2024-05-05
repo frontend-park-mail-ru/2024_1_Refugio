@@ -69,6 +69,7 @@ export default class Letter {
             this.#parent.querySelector('#changeDraft').style.display = 'none';
         }
         this.#parent.querySelector('#back').style.display = 'grid';
+        this.#parent.querySelector('#delete').style.display = 'grid';
         const btn = this.#parent.querySelector('#to-spam');
         console.log(this.#config.email.spamStatus);
         if (this.#config.email.spamStatus === true) {
