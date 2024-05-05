@@ -44,7 +44,7 @@ export default class Letter {
             text: this.#config.email.text,
             date: (new Date(this.#config.email.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }),
 
-
+            draft: this.#config.email.draftStatus,
             id: this.#config.email.id,
             replyId: this.#config.email.replyToEmailId,
             replyTopic: this.#config.replyEmail?.topic,
@@ -57,6 +57,18 @@ export default class Letter {
             elements.from = this.#config.email.recipientEmail;
         }
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
+        if (elements.draft) {
+            this.#parent.querySelectorAll('.letter__header__button').forEach((element) => {
+                element.style.display = 'none'
+            });
+            this.#parent.querySelector('#changeDraft').style.display = 'grid';
+        } else {
+            this.#parent.querySelectorAll('.letter__header__button').forEach((element) => {
+                element.style.display = 'grid'
+            });
+            this.#parent.querySelector('#changeDraft').style.display = 'none';
+        }
+        this.#parent.querySelector('#back').style.display = 'grid';
     }
 
     hideError = () => {
@@ -128,7 +140,20 @@ export default class Letter {
             .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
             .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text }));
+        dispathcher.do(actionRedirect('/write_letter', true, { resend: true, topic: topic, sender: sender, date: date, text: text }));
+    };
+
+    handleChangeDraft = (e) => {
+        e.preventDefault();
+        const topic = this.#parent
+            .querySelector('.letter__subject').textContent.trim();
+        const sender = this.#parent
+            .querySelector('.letter__info__from').textContent.trim();
+        const date = this.#parent
+            .querySelector('.letter__info__date').textContent.trim();
+        const text = this.#parent
+            .querySelector('.letter__text').textContent.trim();
+        dispathcher.do(actionRedirect('/write_letter', true, { changeDraft: true, topic: topic, sender: sender, date: date, text: text, id: this.#config.email.id }));
     };
 
     handleReply = (e) => {
@@ -253,6 +278,9 @@ export default class Letter {
         this.#parent
             .querySelector('#reply')
             .addEventListener('click', this.handleReply);
+        this.#parent
+            .querySelector('#changeDraft')
+            .addEventListener('click', this.handleChangeDraft);
         this.#parent.
             querySelector('.letter__header__back-button')
             .addEventListener('click', this.handleBack);
@@ -298,6 +326,9 @@ export default class Letter {
         this.#parent
             .querySelector('#reply')
             .removeEventListener('click', this.handleReply);
+        this.#parent
+            .querySelector('#changeDraft')
+            .removeEventListener('click', this.handleChangeDraft);
         this.#parent.
             querySelector('.letter__header__back-button')
             .removeEventListener('click', this.handleBack);
@@ -345,7 +376,7 @@ export default class Letter {
         }
     }
 
-    handleAddEmailToFolderResponse = ({status, id}) => {
+    handleAddEmailToFolderResponse = ({ status, id }) => {
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirectToLetter(id, true, true));
