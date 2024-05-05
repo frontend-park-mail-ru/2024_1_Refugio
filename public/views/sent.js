@@ -1,7 +1,5 @@
 import BaseView from './base.js';
-import dispathcher from '../modules/dispathcher.js';
-import { actionGetUser, actionGetSent } from '../actions/userActions.js';
-import userStore from '../stores/userStore.js';
+import folderStore from '../stores/folderStore.js';
 import emailStore from '../stores/emailStore.js';
 import Sent from '../pages/sent/sent.js';
 
@@ -195,10 +193,11 @@ class SentView extends BaseView {
      */
     async renderPage() {
         document.title = 'Отправленные';
-        this.#config.user = await this.#getUserInfo();
+        this.#config.user = await this.getUserInfo();
+        this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
-        this.#config.content.list_letters = await this.#getEmailsInfo();
+        this.#config.content.list_letters = await this.getSentInfo();
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;
         } else {
@@ -208,24 +207,6 @@ class SentView extends BaseView {
         this.components.push(page);
         this.render();
         this.addListeners();
-    }
-
-    /**
-     * Запрашивает у сервера имя пользователя
-     * @returns {string} имя пользователя
-     */
-    async #getUserInfo() {
-        await dispathcher.do(actionGetUser());
-        return userStore.body;
-    }
-
-    /**
-     * Запрашивает у сервера список писем пользователся
-     * @returns {Array<object>} список писем
-     */
-    async #getEmailsInfo() {
-        await dispathcher.do(actionGetSent());
-        return emailStore.sent;
     }
 }
 

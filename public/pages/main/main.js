@@ -40,7 +40,6 @@ export default class Main {
             contains_letters: this.#config.content.list_letters.length !== 0,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
-
     }
 
     selectedListLetters = []
@@ -339,9 +338,9 @@ export default class Main {
      */
     addListeners() {
         this.#config.menu.component.addListeners();
-        this.#parent
-            .querySelector('.main__collapse-rollup-button')
-            .addEventListener('click', this.handleShowSurvey);
+        // this.#parent
+        //     .querySelector('.main__collapse-rollup-button')
+        //     .addEventListener('click', this.handleShowSurvey);
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {

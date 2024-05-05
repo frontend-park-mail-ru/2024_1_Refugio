@@ -1,6 +1,7 @@
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
 import statStore from "../stores/statStore.js";
+import folderStore from "../stores/folderStore.js";
 import router from "../modules/router.js";
 
 const handlers = [
@@ -25,6 +26,10 @@ const handlers = [
     {type: 'sendStat', method: statStore.send.bind(statStore)},
     {type: 'stat', method: statStore.getStat.bind(statStore)},
     {type: 'star', method: statStore.changeStar.bind(statStore)},
+    {type: 'createFolder', method: folderStore.create.bind(folderStore)},
+    {type: 'getFolders', method: folderStore.getFolders.bind(folderStore)},
+    {type: 'updateFolder', method: folderStore.update.bind(folderStore)},
+    {type: 'deleteFolder', method: folderStore.delete.bind(folderStore)},
 ];
 
 export default handlers;

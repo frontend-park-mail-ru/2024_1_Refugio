@@ -92,3 +92,23 @@ export const actionStar = (id) => ({
     type: 'star',
     value: {id: id},
 })
+
+export const actionCreateFolder = (value) => ({
+    type: 'createFolder',
+    value: value,
+})
+
+export const actionGetFolders = () => ({
+    type: 'getFolders',
+    value: {},
+})
+
+export const actionUpdateFolder = (id, value) => ({
+    type: 'updateFolder',
+    value: {id: id, value: value},
+})
+
+export const actionDeleteFolder = (id) => ({
+    type: 'deleteFolder',
+    value: id,
+})
