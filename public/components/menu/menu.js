@@ -33,7 +33,6 @@ export default class Menu {
                 id: folder.id,
             }));
         });
-        console.log(this.#config.result);
         const renderResult = [];
         this.#config.result.forEach((folder) => {
             renderResult.unshift(folder.render());
@@ -50,6 +49,11 @@ export default class Menu {
     handleSent = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/sent', true));
+    };
+
+    handleDrafts = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/drafts', true));
     };
 
     handleWriteLetter = (e) => {
@@ -100,13 +104,15 @@ export default class Menu {
     }
 
     addListeners() {
-        console.log(this.#config.result);
         this.#config.result.forEach((folder) => {
             folder.addListeners();
         });
         this.#parent
             .querySelector('#sent-folder')
             .addEventListener('click', this.handleSent);
+        this.#parent
+            .querySelector('#drafts-folder')
+            .addEventListener('click', this.handleDrafts);
         this.#parent
             .querySelector('.menu__write-letter-button')
             .addEventListener('click', this.handleWriteLetter);
@@ -136,6 +142,9 @@ export default class Menu {
             .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
         this.#parent
+            .querySelector('#drafts-folder')
+            .removeEventListener('click', this.handleDrafts);
+        this.#parent
             .querySelector('.menu__write-letter-button')
             .removeEventListener('click', this.handleWriteLetter);
         this.#parent
@@ -162,7 +171,6 @@ export default class Menu {
         errorSign.style.display = 'none';
         switch (status) {
             case 200:
-                console.log(window.location.search);
                 if (!window.location.search) {
                     dispathcher.do(actionRedirect(window.location.pathname + window.location.search, false));
                 } else {
@@ -176,7 +184,7 @@ export default class Menu {
         }
     }
 
-    handleFolderUpdateResponse = ({status, id}) => {
+    handleFolderUpdateResponse = ({ status, id }) => {
         let errorSign = this.#parent
             .querySelector(`#f-error-${id}`);
         errorSign.style.display = 'none';
@@ -185,7 +193,11 @@ export default class Menu {
                 if (!window.location.search) {
                     dispathcher.do(actionRedirect(window.location.pathname + window.location.search, false));
                 } else {
-                    dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
+                    if (window.location.pathname === '/letter') {
+                        dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
+                    } else if (window.location.pathname === '/folder') {
+                        dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false, true));
+                    }
                 }
                 break;
             default:

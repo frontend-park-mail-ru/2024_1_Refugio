@@ -6,6 +6,17 @@
             <img src="/icons/arrow-previous.svg" alt="" class="letter__header__button letter__header__back-button">
             <div id="delete" class="letter__header__button">Удалить</div>
             <div id="to-folder" class="letter__header__button">В папку</div>
+            <div class="dropdown__wrapper__month">
+                <div class="dropdown__month">
+                    {{#if folders}}
+                    {{#each folders}}
+                    <p data-id="{{this.id}}" class="letter__folder">{{this.name}}</p>
+                    {{/each}}
+                    {{else}}
+                    Нет папок!
+                    {{/if}}
+                </div>
+            </div>
             <div id="to-spam" class="letter__header__button">Спам</div>
             <div id="mark-as-read" class="letter__header__button">Пометить прочитанным</div>
             <div id="mark-as-unread" class="letter__header__button">Помететить непрочитанным</div>

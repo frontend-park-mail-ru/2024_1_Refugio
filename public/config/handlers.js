@@ -30,6 +30,9 @@ const handlers = [
     {type: 'getFolders', method: folderStore.getFolders.bind(folderStore)},
     {type: 'updateFolder', method: folderStore.update.bind(folderStore)},
     {type: 'deleteFolder', method: folderStore.delete.bind(folderStore)},
+    {type: 'getFolderEmails', method: folderStore.getFolderEmails.bind(folderStore)},
+    {type: 'addLetterToFolder', method: folderStore.addLetter.bind(folderStore)},
+    {type: 'getDrafts', method: emailStore.getDrafts.bind(emailStore)},
 ];
 
 export default handlers;

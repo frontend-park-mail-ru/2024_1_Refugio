@@ -85,6 +85,40 @@ export default class Write__Letter {
         dispathcher.do(actionRedirect('/stat', true));
     };
 
+    handleDraft = async (e) => {
+        e.preventDefault();
+        const toInput = document.querySelector('.write-letter__to__input');
+        const topicInput = document.querySelector('.write-letter__subject__input');
+        const textInput = document.querySelector('.write-letter__text');
+
+        const to = toInput.value.trim();
+        let topic = topicInput.value.trim();
+        let text = textInput.value.trim();
+
+        if (!topic) {
+            topic = "Без темы";
+        }
+
+        if (!text) {
+            text = "Пустое письмо";
+        }
+
+        const newLetter = {
+            readStatus: false,
+            topic: topic,
+            text: text,
+            recipientEmail: to,
+            senderEmail: this.#config.user.login,
+            draftStatus: true, 
+        };
+        if (this.#config.values?.replyId) {
+            console.log(this.#config.values.replyId);
+            newLetter.replyToEmailId = this.#config.values.replyId;
+        }
+        dispathcher.do(actionSend(newLetter));
+    };
+    
+
     handleSend = async (e) => {
         e.preventDefault();
         const toInput = document.querySelector('.write-letter__to__input');
@@ -253,6 +287,9 @@ export default class Write__Letter {
         this.#parent
             .querySelector('.write-letter__buttons__cancel-button')
             .addEventListener('click', this.handleBack);
+        this.#parent
+            .querySelector('.write-letter__buttons__save-draft-button')
+            .addEventListener('click', this.handleDraft);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)
@@ -278,6 +315,9 @@ export default class Write__Letter {
         this.#parent
             .querySelector('.write-letter__buttons__cancel-button')
             .removeEventListener('click', this.handleBack);
+        this.#parent
+            .querySelector('.write-letter__buttons__save-draft-button')
+            .removeEventListener('click', this.handleDraft);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('send', this.handleSendResponse)

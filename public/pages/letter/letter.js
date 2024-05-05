@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';
@@ -51,6 +51,7 @@ export default class Letter {
             userLetter: this.#config.email.senderEmail.charAt(0),
             header: new Header(null, config.header).render(),
             menu: this.#config.menu.component.render(),
+            folders: this.#config.menu.folders,
         };
         if (elements.from === userStore.body.login) {
             elements.from = this.#config.email.recipientEmail;
@@ -203,11 +204,28 @@ export default class Letter {
             .removeEventListener('click', this.handleBack);
     }
 
+    handleFolder = (e) => {
+        e.preventDefault();
+        this.#parent.querySelector('.dropdown__wrapper__month').classList.add('show');
+    }
+
+    handleSaveFolder = async (e, id) => {
+        e.preventDefault();
+        const value = {
+            emailId: this.#config.email.id,
+            folderId: Number(id),
+        }
+        dispathcher.do(actionAddLetterToFolder(value));
+    };
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
         this.#config.menu.component.addListeners();
+        this.#parent.querySelectorAll('.letter__folder').forEach((folder) => {
+            folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        })
         this.#parent
             .querySelector('.letter__info__icon')
             .addEventListener('click', this.handleStatus);
@@ -238,11 +256,14 @@ export default class Letter {
         this.#parent.
             querySelector('.letter__header__back-button')
             .addEventListener('click', this.handleBack);
+        this.#parent.
+            querySelector('#to-folder')
+            .addEventListener('click', this.handleFolder);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
-
+        mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
     }
 
     /**
@@ -280,10 +301,14 @@ export default class Letter {
         this.#parent.
             querySelector('.letter__header__back-button')
             .removeEventListener('click', this.handleBack);
+        this.#parent.
+            querySelector('#to-folder')
+            .removeEventListener('click', this.handleFolder);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
+        mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
     }
 
     handleExitResponse = (status) => {
@@ -316,6 +341,16 @@ export default class Letter {
                 const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
+                break;
+        }
+    }
+
+    handleAddEmailToFolderResponse = ({status, id}) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirectToLetter(id, true, true));
+                break;
+            default:
                 break;
         }
     }

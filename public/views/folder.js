@@ -1,14 +1,13 @@
 import Main from '../pages/main/main.js';
 import BaseView from './base.js';
 import emailStore from '../stores/emailStore.js';
-import Survey from '../pages/survey/survey.js';
 import folderStore from '../stores/folderStore.js';
 
 /**
  * Класс для рендера страницы списка писем
  * @class
  */
-class MainView extends BaseView {
+export default class FolderView extends BaseView {
     #config = {
         header: {
             logo: 'MailHub',
@@ -29,38 +28,41 @@ class MainView extends BaseView {
                 // },
             ],
         },
+        folderNumber: undefined,
     };
 
     /**
      * Конструктор класса
      * @constructor
      */
-    constructor() {
+    constructor(folderNumber) {
         super();
+        this.#config.folderNumber = folderNumber;
     }
 
     /**
      * Функция рендера страницы
      */
     async renderPage() {
-        document.title = 'Входящие';
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
+        this.#config.menu.folders.forEach((element) => {
+            if (element.id === Number(this.#config.folderNumber)) {
+                document.title = element.name;
+            }
+        });
         this.#config.header.username = this.#config.user.firstname;
         this.#config.header.avatar = this.#config.user.avatar;
-        this.#config.content.list_letters = await this.getEmailsInfo();
+        this.#config.content.list_letters = await this.getFolderInfo(this.#config.folderNumber);
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;
         } else {
             this.#config.menu.incoming_count = undefined;
         }
         const page = new Main(this.root, this.#config);
-        const survey = new Survey(this.root, this.#config);
         this.components.push(page);
         //this.components.push(survey);
         this.render();
         this.addListeners();
     }
 }
-
-export default new MainView();

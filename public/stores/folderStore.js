@@ -45,6 +45,22 @@ class folderStore {
         this.folders = data.body.folders;
         return this.folders;
     }
+
+    async getFolderEmails(id) {
+        const response = await ajax(
+            'GET', `https://mailhub.su/api/v1/folder/all_emails/${id}`, null, 'application/json', userStore.getCsrf()
+        );
+        const data = await response.json();
+        this.emails = data.body.folders;
+    }
+
+    async addLetter(value) {
+        const response = await ajax(
+            'POST', `https://mailhub.su/api/v1/folder/add_email`, JSON.stringify(value), 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('addLetterToFolder', {status:status, id: value.folderId});
+    }
 }
 
 export default new folderStore();

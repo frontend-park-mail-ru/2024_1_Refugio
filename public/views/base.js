@@ -2,7 +2,8 @@ import dispathcher from "../modules/dispathcher.js";
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
 import statStore from "../stores/statStore.js";
-import { actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming } from "../actions/userActions.js";
+import { actionGetDrafts, actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming, actionGetFolderEmails } from "../actions/userActions.js";
+import folderStore from "../stores/folderStore.js";
 /**
  * Класс для рендера абстрактной страницы
  * @class
@@ -81,5 +82,15 @@ export default class BaseView {
     async getEmailsInfo() {
         await dispathcher.do(actionGetIncoming());
         return emailStore.incoming;
+    }
+
+    async getDraftsInfo() {
+        await dispathcher.do(actionGetDrafts());
+        return emailStore.drafts;
+    }
+
+    async getFolderInfo(id) {
+        await dispathcher.do(actionGetFolderEmails(id));
+        return folderStore.emails;
     }
 }
