@@ -33,6 +33,7 @@ const handlers = [
     {type: 'getFolderEmails', method: folderStore.getFolderEmails.bind(folderStore)},
     {type: 'addLetterToFolder', method: folderStore.addLetter.bind(folderStore)},
     {type: 'getDrafts', method: emailStore.getDrafts.bind(emailStore)},
+    {type: 'getSpam', method: emailStore.getSpam.bind(emailStore)},
 ];
 
 export default handlers;

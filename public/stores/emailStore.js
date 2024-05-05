@@ -82,6 +82,14 @@ class emaillStore {
         const data = await response.json();
         this.drafts = data.body.emails;
     }
+
+    async getSpam() {
+        const response = await ajax(
+            'GET', 'https://mailhub.su/api/v1/emails/spam', null, 'application/json', userStore.getCsrf()
+        );
+        const data = await response.json();
+        this.spam = data.body.emails;
+    }
 }
 
 export default new emaillStore();
