@@ -8,16 +8,24 @@
             <input type="text" class="write-letter__to__input" placeholder="ivanovii@mailhub.su" value="{{replySender}}"
                 disabled>
             {{else}}
+            {{#if changeDraft}}
+            <input type="text" class="write-letter__to__input" placeholder="ivanovii@mailhub.su" value="{{sender}}">
+            {{else}}
             <input type="text" class="write-letter__to__input" placeholder="ivanovii@mailhub.su">
+            {{/if}}
             {{/if}}
             <div class="write-letter__to__error">Ошибка</div>
         </div>
         <div class="write-letter__subject">
             <span class="write-letter__subject__label">Тема</span>
             {{#if replyId}}
-            <input type="text" class="write-letter__subject__input" value="{{topic}}">
+            <input type="text" class="write-letter__subject__input" value="{{topic}}" placeholder="О чём хотите написать?">
+            {{else}}
+            {{#if changeDraft}}
+            <input type="text" class="write-letter__subject__input" value="{{topic}}" placeholder="О чём хотите написать?">
             {{else}}
             <input type="text" class="write-letter__subject__input" placeholder="О чём хотите написать?">
+            {{/if}}
             {{/if}}
             <div class="write-letter__subject__error">Ошибка</div>
         </div>
@@ -105,11 +113,15 @@
         <textarea class="write-letter__text" placeholder="Текст письма"
             maxlength="4096">&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;Ответ на&#13;&#10;------Исходное письмо------&#13;&#10;{{date}} {{sender}}&#13;&#10;{{topic}}&#13;&#10;&#13;&#10;{{text}}&#13;&#10;------Исходное письмо------&#13;&#10;</textarea>
         {{else}}
-        {{#if sender}}
+        {{#if resend}}
         <textarea class="write-letter__text" placeholder="Текст письма"
             maxlength="4096">&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;------Пересылаемое письмо------&#13;&#10;{{date}} {{sender}}&#13;&#10;{{topic}}&#13;&#10;&#13;&#10;{{text}}&#13;&#10;------Пересылаемое письмо------&#13;&#10;</textarea>
         {{else}}
+        {{#if changeDraft}}
+        <textarea class="write-letter__text" placeholder="Текст письма" maxlength="4096">{{text}}</textarea>
+        {{else}}
         <textarea class="write-letter__text" placeholder="Текст письма" maxlength="4096"></textarea>
+        {{/if}}
         {{/if}}
         {{/if}}
 
