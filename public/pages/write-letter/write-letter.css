@@ -18,11 +18,8 @@
     overflow: auto;
 
     margin: 0 16px 2px 0;
-}
-
-.write-letter__to {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    background-color: var(--box-background);
+    border-radius: 8px;
 }
 
 .write-letter__to,
@@ -37,8 +34,6 @@
     align-items: center;
 
     padding: 8px 16px 0;
-    background-color: var(--box-background);
-
 }
 
 .write-letter__to__label,
@@ -105,7 +100,6 @@
     justify-content: start;
 
     padding: 8px 0 8px 68px;
-    background-color: var(--box-background);
 }
 
 .write-letter__attachments__attach-button {
@@ -308,17 +302,14 @@
 .write-letter__buttons {
     display: grid;
     grid-template-areas:
-        'send save-draft cancel'
-        'error error error';
-    grid-template-columns: auto auto 1fr;
+        'send save-draft cancel .'
+        'error error error error';
+    grid-template-columns: repeat(3, auto) 1fr;
     grid-column-gap: 8px;
     justify-content: start;
 
     padding: 16px 20px 0 20px;
     height: fit-content;
-    background-color: var(--box-background);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
     transform: scale(1);
 }
 
@@ -394,8 +385,7 @@
 
 .write-letter__text {
     padding: 8px 24px 8px 24px;
-    border-left: 4px solid var(--box-background);
-    border-right: 4px solid var(--box-background);
+    margin: 0 4px;
 
     background-color: var(--input-background);
     overflow: auto;

@@ -1,8 +1,9 @@
 <div class="header">
+    <img src="/icons/menu-roll-up.svg" class="header__rollup-button">
     <div class="header__logo">
         MAILHUB
     </div>
-    <input type="text" class="header__search-wrapper__input" placeholder="Поиск на почте">
+    {{!-- <input type="text" class="header__search-wrapper__input" placeholder="Поиск на почте"> --}}
     {{#if avatar}}
     <img class="header__avatar" src="{{avatar}}" alt="{{userLetter}}">
     {{else}}

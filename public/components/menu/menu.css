@@ -251,3 +251,16 @@
     background-color: var(--secondary-button-onhover-selected);
     color: var(--text);
 }
+
+@media (max-width: 650px) {
+    .menu {
+        padding: 0 8px 8px 4px;
+        width: 155px;
+    }
+}
+
+@media (max-width: 450px) {
+    .menu {
+        display: none;
+    }
+}

@@ -2,9 +2,10 @@
     display: grid;
     grid-template-areas:
         'header header'
-        'menu content';
+        'menu content'
+        'menu .';
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
 
     height: 100%;
 }
@@ -18,6 +19,8 @@
     overflow: auto;
 
     margin: 0 16px 2px 0;
+    background-color: var(--box-background);
+    border-radius: 8px;
 }
 
 .letter__error {
@@ -25,8 +28,6 @@
     align-items: center;
 
     padding: 2px 16px;
-
-    background-color: var(--box-background);
 
     color: var(--negative);
     font-size: 13px;
@@ -44,9 +45,6 @@
     align-items: center;
 
     padding: 8px;
-    background-color: var(--box-background);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
 .letter__header__button {
@@ -76,8 +74,6 @@
 .letter__subject {
     padding-left: 16px;
 
-    background-color: var(--box-background);
-
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 0;
@@ -92,7 +88,6 @@
     grid-column-gap: 8px;
 
     padding: 8px;
-    background-color: var(--box-background);
 }
 
 .letter__info__icon {
@@ -141,7 +136,6 @@
     justify-content: start;
 
     padding: 8px 0 8px 68px;
-    background-color: var(--box-background);
 }
 
 .letter__attachments__view-button {
@@ -206,8 +200,6 @@
     visibility: hidden;
     overflow-wrap: anywhere;
 }
-
-
 
 
 .letter__attachments__dropdown__wrapper {
@@ -309,9 +301,6 @@
 
 .letter__text {
     padding: 8px 24px 8px 24px;
-    background-color: var(--box-background);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 
     overflow-x: hidden;
     overflow-y: auto;
