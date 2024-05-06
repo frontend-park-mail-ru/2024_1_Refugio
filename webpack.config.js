@@ -2,8 +2,9 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import autoprefixer from 'autoprefixer';
-import cssnano from 'cssnano';
+// import autoprefixer from 'autoprefixer';
+// import cssnano from 'cssnano';
+import CopyPlugin from 'copy-webpack-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const _resolve = (...args) => path.resolve(__dirname, ...args);
@@ -15,7 +16,7 @@ export default (env) => {
     output: {
       path: _resolve('build'),
       filename: '[name].[contenthash].js',
-      clean: false,
+      clean: true,
       publicPath: '/', // This should be the root of your server
     },
 
@@ -25,8 +26,13 @@ export default (env) => {
         inject: 'body', // This line injects all your JavaScript files into the body of your HTML
       }),
       new webpack.ProgressPlugin(),
-      autoprefixer,
-      cssnano,
+      // autoprefixer,
+      // cssnano,
+      new CopyPlugin({
+        patterns: [
+          { from: 'sw.js', to: 'sw.js' },
+        ],
+      }),
 
     ],
     module: {
@@ -50,30 +56,30 @@ export default (env) => {
               options: {
                 postcssOptions: {
                   plugins: [
-                    [
-                      'autoprefixer',
-                    ],
-                    [
-                      'cssnano',
-                      {
-                        preset: 'default',
-                      },
-                    ],
+                    // [
+                    //   'autoprefixer',
+                    // ],
+                    // [
+                    //   'cssnano',
+                    //   {
+                    //     preset: 'default',
+                    //   },
+                    // ],
                   ],
                 },
               },
             },]
         },
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-            },
-          },
-        },
+        // {
+        //   test: /\.js$/,
+        //   exclude: /node_modules/,
+        //   use: {
+        //     loader: 'babel-loader',
+        //     options: {
+        //       presets: ['@babel/preset-env'],
+        //     },
+        //   },
+        // },
 
       ]
     },

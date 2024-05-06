@@ -1,5 +1,7 @@
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
+import statStore from "../stores/statStore.js";
+import folderStore from "../stores/folderStore.js";
 import router from "../modules/router.js";
 
 const handlers = [
@@ -17,12 +19,21 @@ const handlers = [
     {type: 'getSent', method: emailStore.getSent.bind(emailStore)},
     {type: 'getEmail', method: emailStore.getEmail.bind(emailStore)},
     {type: 'send', method: emailStore.send.bind(emailStore)},
-
     {type: 'updateEmail', method: emailStore.updateEmail.bind(emailStore)},
     {type: 'deleteEmail', method: emailStore.deleteEmail.bind(emailStore)},
-
     {type: 'avatarUpload', method: userStore.avatarUpload.bind(userStore)},
-
+    {type: 'questions', method: statStore.getQuestions.bind(statStore)},
+    {type: 'sendStat', method: statStore.send.bind(statStore)},
+    {type: 'stat', method: statStore.getStat.bind(statStore)},
+    {type: 'star', method: statStore.changeStar.bind(statStore)},
+    {type: 'createFolder', method: folderStore.create.bind(folderStore)},
+    {type: 'getFolders', method: folderStore.getFolders.bind(folderStore)},
+    {type: 'updateFolder', method: folderStore.update.bind(folderStore)},
+    {type: 'deleteFolder', method: folderStore.delete.bind(folderStore)},
+    {type: 'getFolderEmails', method: folderStore.getFolderEmails.bind(folderStore)},
+    {type: 'addLetterToFolder', method: folderStore.addLetter.bind(folderStore)},
+    {type: 'getDrafts', method: emailStore.getDrafts.bind(emailStore)},
+    {type: 'getSpam', method: emailStore.getSpam.bind(emailStore)},
 ];
 
 export default handlers;

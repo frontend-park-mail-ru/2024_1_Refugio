@@ -29,6 +29,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .menu__write-letter-button:hover {
@@ -41,6 +42,7 @@
 }
 
 .menu__folder {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
@@ -51,6 +53,20 @@
     border-radius: 8px;
 
     cursor: pointer;
+    transition: background-color 0.1s ease;
+}
+
+.menu__new-folder {
+    position: relative;
+    display: grid;
+
+    padding-left: 10px;
+
+    border-radius: 8px;
+}
+
+.menu__folder_selected {
+    background-color: var(--secondary-button-onhover-selected)
 }
 
 .menu__folder:hover {
@@ -73,9 +89,10 @@
     padding: 0 6px;
 
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: 0;
     line-height: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .menu__trash-folder__clear {
@@ -85,17 +102,138 @@
     font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
+    border-radius: 20px;
+    transition: background-color 0.1s ease;
 }
 
 .menu__trash-folder__clear:hover,
 .menu__custom-folder__options:hover {
     background-color: var(--input-placeholder);
-    border-radius: 20px;
 }
 
 .menu__custom-folder__options {
     margin-right: 6px;
     padding: 6px;
+    border-radius: 20px;
+    transition: background-color 0.1s ease;
+}
+
+.menu__custom-folder__dropdown__wrapper {
+    display: none;
+    position: absolute;
+    top: -12px;
+    left: -4px;
+    z-index: 1;
+    cursor: default;
+}
+
+.menu__custom-folder__dropdown {
+    display: grid;
+    grid-template-rows: repeat(4, auto);
+    justify-items: center;
+
+    margin-top: 10px;
+    padding: 8px 8px 4px;
+    width: 208px;
+    background: var(--box-background);
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+}
+
+
+.menu__folder__dropdown__input {
+    margin-bottom: 16px;
+    padding: 12px;
+    border-radius: 8px;
+
+    font-size: 16px;
+    letter-spacing: 0;
+    font-weight: 400;
+    line-height: 20px;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 36px;
+    transition: background-color 0.1s ease;
+}
+
+.menu__folder__dropdown__input::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.menu__folder__dropdown__input:focus {
+    outline: none;
+}
+
+.menu__folder__dropdown__save-button {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 8px;
+    padding: 10px 16px;
+    height: 36px;
+
+    border-radius: 8px;
+    background-color: var(--main-button);
+
+    color: var(--main-button-secondary);
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+    transition: background-color 0.1s ease;
+}
+
+.menu__folder__dropdown__save-button:hover {
+    background-color: var(--main-button-hover);
+}
+
+.menu__folder__dropdown__cancel-button,
+.menu__folder__dropdown__delete-button {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 16px;
+    height: 36px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+    transition: background-color 0.1s ease;
+}
+
+.menu__folder__dropdown__cancel-button:hover,
+.menu__folder__dropdown__delete-button:hover {
+    background-color: var(--main-button-secondary);
+}
+
+.menu__folder__dropdown__save-button:active,
+.menu__folder__dropdown__cancel-button:active,
+.menu__folder__dropdown__delete-button:active {
+    transform: scale(0.99);
+}
+
+.menu__custom-folder__dropdown__error {
+    display: none;
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    overflow-wrap: anywhere;
 }
 
 .menu__new-folder-button {
@@ -115,6 +253,7 @@
     line-height: 20px;
 
     cursor: pointer;
+    transition: background-color 0.1s ease;
 }
 
 .menu__new-folder-button:hover {
@@ -122,236 +261,158 @@
     color: var(--text);
 }
 
-/* 
-
-
-.menu__standard__counter__button:active {
-    transform: scale(0.99);
-}
-
-
-
-
-.menu__trash__button {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    align-content: center;
-
-    padding: 10px 0 10px 10px;
-
-    height: 36px;
-    width: 100%;
-
-    background-color: transparent;
-    border-radius: 8px;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    transition: all 0.1s ease;
-    outline: none;
-
-    input {
-        background-color: transparent;
-
-        color: var(--text);
-        font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0;
-        line-height: 20px;
-
-        cursor: pointer;
-        transition: all 0.1s ease;
-
+@media (max-width: 700px) {
+    .menu {
+        padding: 0 8px 8px 4px;
+        width: 155px;
     }
 
-    a {
-        padding: 0 6px 0 6px;
+    .menu__write-letter-button {
+        margin-bottom: 9px;
+        height: 32px;
+        font-size: 14px;
+    }
 
-        color: var(--text);
+    .menu__folder {
+        padding-left: 8px;
+        height: 32px;
+    }
+
+    .menu__new-folder {
+        padding-left: 8px;
+    }
+
+    .menu__folder__text {
+        font-size: 14px;
+    }
+
+    .menu__trash-folder__clear {
+        font-size: 10px;
+    }
+
+    .menu__custom-folder__dropdown__wrapper {
+        left: 0;
+    }
+
+    .menu__custom-folder__dropdown {
+        padding: 4px;
+        width: 147px;
+    }
+
+    .menu__folder__dropdown__input {
+        margin-bottom: 8px;
+        padding: 10px 10px 11px;
+        font-size: 15px;
+        height: 32px;
+    }
+
+    .menu__folder__dropdown__save-button {
+        margin-bottom: 4px;
+        padding: 10px 16px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .menu__folder__dropdown__cancel-button,
+    .menu__folder__dropdown__delete-button {
+        height: 36px;
+        padding: 8px 14px;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .menu__new-folder-button {
+        padding-left: 8px;
+        margin-top: 9px;
+        height: 32px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 500px) {
+    /* .menu {
+        display: none;
+    } */
+
+    .menu {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 62px;
+        bottom: 0;
+        padding: 0 4px 8px 4px;
+        width: 100%;
+        background-color: var(--background);
+    }
+
+    .menu__write-letter-button {    
+        margin-bottom: 11px;
+        height: 36px;
+        font-size: 15px;
+    }
+    
+    .menu__folder {
+        padding-left: 18px;
+        height: 36px;
+    }
+    
+    .menu__new-folder {
+        padding-left: 10px;
+    }
+    
+    .menu__folder__text {
+        font-size: 15px;
+    }
+
+    .menu__default-folder__counter {
+        padding: 0 10px;
+    }
+    
+    .menu__trash-folder__clear {
         font-size: 12px;
-        font-weight: 400;
-        letter-spacing: 0;
-        line-height: 20px;
-        text-decoration: none;
     }
-}
-
-.menu__trash__button:hover {
-    background-color: var(--secondary-button-onhover-selected)
-}
-
-.menu__trash__button:active {
-    transform: scale(0.99);
-}
-
-.menu__custom__button__wrapper {
-    position: relative;
-}
-
-.menu__custom__button {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    align-content: center;
-
-    padding: 10px 0 10px 10px;
-
-    height: 36px;
-    width: 100%;
-
-    background-color: transparent;
-    border-radius: 8px;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    transition: all 0.1s ease;
-    outline: none;
-
-    input {
-        background-color: transparent;
-
-        color: var(--text);
+    
+    .menu__custom-folder__dropdown__wrapper {
+        top: -12px;
+        left: 10px;
+    }
+    
+    .menu__custom-folder__dropdown {    
+        margin-top: 10px;
+        padding: 8px 8px 4px;
+        width: 208px;
+    }
+    
+    
+    .menu__folder__dropdown__input {
+        margin-bottom: 16px;
+        padding: 12px;
+        font-size: 16px;
+        height: 36px;
+    }
+    
+    .menu__folder__dropdown__input::placeholder {
+        font-size: 16px;
+    }
+    
+    .menu__folder__dropdown__save-button {
+        margin-bottom: 8px;
+        padding: 10px 16px;
+        height: 36px;
         font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0;
-        line-height: 20px;
-
-        cursor: pointer;
-        transition: all 0.1s ease;
     }
-
-    span {
-        padding: 0 6px 0 6px;
-
-        color: var(--text);
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0;
-        line-height: 20px;
-    }
-}
-
-.menu__custom__button:hover {
-    background-color: var(--secondary-button-onhover-selected)
-}
-
-
-.menu__custom__button:active {
-    transform: scale(0.99);
-}
-
-
-
-.dropdown__wrapper__edit-folder {
-    position: absolute;
-    right: 0;
-    top: 100%;
-
-    background: var(--input-background);
-    border-radius: 8px;
-    z-index: 1;
-
-    box-shadow: 0px 3px 5px -1px var(--box-background);
-
-    margin-top: 0px;
-}
-
-.dropdown__edit-folder {
-    display: grid;
-    grid-template-rows: repeat(2, 1fr);
-    gap: 2px;
-
-    padding: 8px;
-}
-
-.dropdown__edit-folder__profile__button,
-.dropdown__edit-folder__logout__button {
-    padding: 5px 8px 5px 8px;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.dropdown__edit-folder__profile__button:hover,
-.dropdown__edit-folder__logout__button:hover {
-    background-color: var(--secondary-button-onhover-selected);
-
-    input {
-        background-color: var(--secondary-button-onhover-selected);
-    }
-}
-
-.dropdown__edit-folder__profile__button input,
-.dropdown__edit-folder__logout__button input {
-    background-color: transparent;
-
-    color: var(--text);
-    font-size: 15px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 20px;
-
-    cursor: pointer;
-}
-
-.menu__new-folder__button {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: space-between;
-    align-content: center;
-
-    margin-top: 11px;
-    padding: 10px 0 10px 10px;
-
-    height: 36px;
-    width: 100%;
-
-    background-color: transparent;
-    border-radius: 8px;
-
-    text-align: center;
-
-    cursor: pointer;
-
-    transition: all 0.1s ease;
-    outline: none;
-
-    input {
-        background-color: transparent;
-
-        color: var(--input-placeholder);
+    
+    .menu__folder__dropdown__cancel-button,
+    .menu__folder__dropdown__delete-button {
+        padding: 10px 16px;
+        height: 36px;
         font-size: 15px;
-        font-weight: 500;
-        letter-spacing: 0;
-        line-height: 20px;
-
-        cursor: pointer;
-        transition: all 0.1s ease;
     }
-
-    span {
-        padding: 0 6px 0 6px;
-
-        color: var(--text);
-        font-size: 14px;
-        font-weight: 400;
-        letter-spacing: 0;
-        line-height: 20px;
+    
+    .menu__new-folder-button {
+        padding-left: 18px;
+        margin-top: 11px;
+        height: 36px;
+        font-size: 15px;
     }
 }
-
-.menu__new-folder__button:hover {
-    background-color: var(--secondary-button-onhover-selected);
-
-    input {
-        color: var(--text);
-    }
-}
-
-.menu__new-folder__button:active {
-    transform: scale(0.99);
-} */

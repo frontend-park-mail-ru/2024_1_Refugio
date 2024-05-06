@@ -168,7 +168,6 @@ export default class Login {
         this.#parent
             .querySelector('.login-box__authorization-method-switch__method_passive')
             .removeEventListener('click', this.renderSignup);
-
         mediator.off('login', this.handleLoginResponse);
     }
 
@@ -185,7 +184,7 @@ export default class Login {
                 errorSign.classList.add('show');
                 break;
             default:
-                errorSign.textContent = 'Ошибка на нашей стороне, уже исправляем';
+                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
                 errorSign.classList.add('show');
                 break;
         }

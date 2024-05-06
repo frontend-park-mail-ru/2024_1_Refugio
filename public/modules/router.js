@@ -6,12 +6,18 @@ import ProfileView from "../views/profile.js";
 import writeLetter from "../views/write-letter.js";
 import LetterView from "../views/letter.js";
 import SentView from "../views/sent.js";
+import SurveyView from "../views/survey.js";
+import StatView from "../views/stat.js";
+import FolderView from "../views/folder.js";
+import DraftView from "../views/draft.js";
+import SpamView from "../views/spam.js";
 
 class Router {
     #views
     #authViews
     #currentView
     #redirectView
+    #historyNum
 
     constructor() {
         this.#views = new Map();
@@ -24,15 +30,28 @@ class Router {
         this.#authViews.set('/profile', ProfileView);
         this.#authViews.set('/write_letter', writeLetter);
         this.#authViews.set('/sent', SentView);
+        this.#authViews.set('/survey', SurveyView);
+        this.#authViews.set('/stat', StatView);
+        this.#authViews.set('/drafts', DraftView);
+        this.#authViews.set('/spam', SpamView);
+
+
+        this.#historyNum = 0;
     }
 
     navigate({ path, state = '', pushState }) {
+        this.#historyNum += 1;
         if (pushState) {
             window.history.pushState(state, '', `${path}`)
         } else {
             window.history.replaceState(state, '', `${path}`)
         }
     }
+
+    canGoBack() {
+        return this.#historyNum;
+    }
+
 
     async redirect(href) {
         let isAuth = await userStore.verifyAuth();
@@ -70,12 +89,17 @@ class Router {
         }
     }
 
-    openLetter({ id, pushState }) {
+    openLetter({ id, pushState, folder }) {
         if (this.#currentView) {
             this.#currentView.clear();
         }
-        this.#currentView = new LetterView(id);
-        this.navigate({ path: `/letter?id=${id}`, state: '', pushState });
+        if (!folder) {
+            this.#currentView = new LetterView(id);
+            this.navigate({ path: `/letter?id=${id}`, state: '', pushState });
+        } else {
+            this.#currentView = new FolderView(id);
+            this.navigate({ path: `/folder?id=${id}`, state: '', pushState });
+        }
         this.#currentView.renderPage();
     }
 
@@ -84,6 +108,8 @@ class Router {
             let path = await this.redirect(window.location.pathname + window.location.search);
             if (path.indexOf('/letter?') !== -1) {
                 this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
+            } else if (path.indexOf('/folder?') !== -1) {
+                this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
             } else {
                 this.open({ path: path, pushState: false });
             }
@@ -91,6 +117,8 @@ class Router {
         let path = await this.redirect(window.location.pathname + window.location.search);
         if (path.indexOf('/letter?') !== -1) {
             this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
+        } else if (path.indexOf('/folder?') !== -1) {
+            this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
         } else {
             this.open({ path: path, pushState: false });
         }

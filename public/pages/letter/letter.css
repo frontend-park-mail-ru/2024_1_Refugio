@@ -2,9 +2,10 @@
     display: grid;
     grid-template-areas:
         'header header'
-        'menu content';
+        'menu content'
+        'menu .';
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto 1fr;
 
     height: 100%;
 }
@@ -15,21 +16,37 @@
 
     display: grid;
     grid-template-rows: repeat(5, auto);
+    /* FIX */
     overflow: auto;
 
     margin: 0 16px 2px 0;
+    background-color: var(--box-background);
+    border-radius: 8px;
+}
+
+.letter__error {
+    display: none;
+    align-items: center;
+
+    padding: 2px 16px;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    overflow-wrap: anywhere;
 }
 
 .letter__header {
+    position: relative;
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
 
     padding: 8px;
-    background-color: var(--box-background);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
 .letter__header__button {
@@ -37,7 +54,7 @@
     align-items: center;
 
     padding: 4px 16px;
-    height: 30px;
+    min-height: 30px;
     border-radius: 8px;
 
     font-size: 14px;
@@ -47,6 +64,7 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
 .letter__header__button:hover,
@@ -55,16 +73,9 @@
     background-color: var(--main-button-secondary)
 }
 
-.letter__header__button:active {
-    transform: scale(0.99);
-
-}
-
 .letter__subject {
     padding-left: 16px;
 
-    background-color: var(--box-background);
-    
     font-size: 20px;
     font-weight: 500;
     letter-spacing: 0;
@@ -79,13 +90,16 @@
     grid-column-gap: 8px;
 
     padding: 8px;
-    background-color: var(--box-background);
 }
 
 .letter__info__icon {
     margin: 0 1px;
-    border-radius: 8px;
+    border-radius: 100px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
+    transition: background-color 0.1s ease;
+
 }
 
 .letter__info__icon:hover {
@@ -117,13 +131,13 @@
 }
 
 .letter__attachments {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(3, auto);
     grid-column-gap: 8px;
     justify-content: start;
 
     padding: 8px 0 8px 68px;
-    background-color: var(--box-background);
 }
 
 .letter__attachments__view-button {
@@ -189,14 +203,111 @@
     overflow-wrap: anywhere;
 }
 
+
+.letter__attachments__dropdown__wrapper {
+    display: none;
+    position: absolute;
+    top: 32px;
+    left: 68px;
+    z-index: 1;
+}
+
+.letter__attachments__dropdown {
+    display: grid;
+    grid-template-rows: repeat(fit-content, auto);
+    align-content: start;
+    overflow: auto;
+
+    margin-top: 10px;
+    max-height: 340px;
+    width: 310px;
+    background: var(--input-background);
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+}
+
+.letter__attachments__dropdown__file {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-column-gap: 8px;
+
+    padding: 8px 6px 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.1s ease;
+}
+
+.letter__attachments__dropdown__file:hover {
+    background: var(--secondary-button-onhover-selected);
+}
+
+.letter__attachments__dropdown__file__name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    /* line-height: 20px; */
+}
+
+.letter__attachments__dropdown__file__size {
+    display: inline-block;
+    align-items: center;
+
+    margin-top: 2px;
+    max-width: 33px;
+    color: var(--input-label-counter-icon);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.letter__attachments__dropdown__file__delete-button {
+    display: grid;
+    align-items: center;
+
+    color: var(--text);
+    border-radius: 20px;
+    padding: 0 4px;
+
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+    cursor: pointer;
+}
+
+.letter__attachments__dropdown__file__delete-button:hover {
+    background-color: var(--input-placeholder);
+}
+
+.letter__attachments__dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+
+.letter__attachments__dropdown::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.letter__attachments__dropdown::-webkit-scrollbar-thumb {
+    background-color: var(--input-label-counter-icon);
+    border-radius: 12px;
+}
+
+
 .letter__text {
     padding: 8px 24px 8px 24px;
-    background-color: var(--box-background);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     white-space: pre-wrap;
+    word-break: break-word;
 
     font-size: 16px;
     font-weight: 400;
@@ -204,15 +315,78 @@
     line-height: 20px;
 }
 
-/*.letter__content__body__text::-webkit-scrollbar {
-    width: 6px;
+.letter__text::-webkit-scrollbar {
+    width: 4px;
 }
 
-.letter__content__body__text::-webkit-scrollbar-track {
+.letter__text::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
-.letter__content__body__text::-webkit-scrollbar-thumb {
+.letter__text::-webkit-scrollbar-thumb {
     background-color: var(--input-label-counter-icon);
     border-radius: 12px;
-} */
+}
+
+.letter__header__dropdown__wrapper {
+    display: grid;
+    position: absolute;
+    top: 32px;
+    left: 60px;
+    z-index: 1;
+    cursor: default;
+    visibility: hidden;
+}
+
+.letter__header__dropdown {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, auto);
+
+    justify-items: center;
+
+    margin-top: 10px;
+    padding: 8px 8px 4px;
+    width: 100px;
+    background: var(--input-background);
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+}
+
+.letter__folder {
+    padding: 5px 8px 5px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    transition: background-color 0.1s ease;
+}
+
+.letter__folder:hover {
+    background-color: var(--secondary-button-onhover-selected);
+}
+
+
+
+@media (max-width: 700px) {
+    .letter-content {
+        margin: 0 4px 2px 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .letter-root {
+        grid-template-areas:
+            'header'
+            'content';
+        grid-template-rows: repeat(2, auto);
+        align-content: start;
+    }
+
+    .letter-content {
+        margin: 0 4px 2px;
+    }
+
+}

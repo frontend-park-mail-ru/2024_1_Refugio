@@ -112,6 +112,15 @@ export default class Signup {
                 firstNameError.classList.add('show');
                 firstNameInput.classList.add('input-background-error');
                 isValidForm = false;
+            } else {
+                const firstNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+                if (!firstNameRegex.test(firstName)) {
+                    firstNameError.textContent = "Некорректное имя";
+                    firstNameError.classList.add('show');
+                    firstNameInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
+
             }
         }
 
@@ -128,6 +137,14 @@ export default class Signup {
                 lastNameError.classList.add('show');
                 lastNameInput.classList.add('input-background-error');
                 isValidForm = false;
+            }else {
+                const lastNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+                if (!lastNameRegex.test(lastName)) {
+                    lastNameError.textContent = "Некорректная фамилия";
+                    lastNameError.classList.add('show');
+                    lastNameInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
             }
         }
 
@@ -192,7 +209,7 @@ export default class Signup {
         const passwordConfirmError = this.#parent
             .querySelector('#password-confirm-error');
         if (!passwordConfirm) {
-            passwordConfirmError.textContent = 'Введите пароль';
+            passwordConfirmError.textContent = 'Введите пароль ещё раз';
             passwordConfirmError.classList.add('show');
             passwordConfirmInput.classList.add('input-background-error');
             isValidForm = false;
@@ -211,11 +228,11 @@ export default class Signup {
             dateError.textContent = 'Дата рождения превосходит сегодняшнее число';
             dateError.classList.add('show');
             isValidForm = false;
-        } else if (([1, 3, 5, 8 ,10].includes(monthIndex) && Number(birthdayDay) === 31) || (monthIndex===1 && Number(birthdayDay) === 30)) {
+        } else if (([1, 3, 5, 8, 10].includes(monthIndex) && Number(birthdayDay) === 31) || (monthIndex === 1 && Number(birthdayDay) === 30)) {
             dateError.textContent = 'В этом месяце нет такого числа';
             dateError.classList.add('show');
             isValidForm = false;
-        } else if (monthIndex===1 && Number(birthdayDay) === 29 && birthday.getMonth() !== 1) {
+        } else if (monthIndex === 1 && Number(birthdayDay) === 29 && birthday.getMonth() !== 1) {
             dateError.textContent = 'В этом месяце в невисокосном году нет такого числа';
             dateError.classList.add('show');
             isValidForm = false;
@@ -284,8 +301,7 @@ export default class Signup {
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
-                value.dropdown.classList.remove('show__dropdown__wrapper');
-                value.dropdown.classList.add('hide__dropdown__wrapper');
+                value.dropdown.classList.remove('show');
             });
         }
 
@@ -294,13 +310,12 @@ export default class Signup {
             if (elements[key].button.contains(target)) {
                 hasTarget = true;
                 let showDropdown = true;
-                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                if (elements[key].dropdown.classList.contains('show')) {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
                 if (showDropdown) {
-                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
-                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show');
                 }
             }
         })
@@ -383,7 +398,7 @@ export default class Signup {
                 dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
-                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
         }

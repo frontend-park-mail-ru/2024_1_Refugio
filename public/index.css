@@ -5,45 +5,43 @@
 @import 'pages/write-letter/write-letter.css';
 @import 'pages/sent/sent.css';
 @import 'pages/main/main.css';
+@import 'pages/survey/survey.css';
+@import 'pages/stat/stat.css';
 
-@font-face {
-    font-family: 'Roboto';
-    src: url(static/fonts/Roboto-Thin.ttf);
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+.roboto-thin {
+    font-family: "Roboto", sans-serif;
     font-weight: 100;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url(static/fonts/Roboto-Light.ttf);
+.roboto-light {
+    font-family: "Roboto", sans-serif;
     font-weight: 300;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url(static/fonts/Roboto-Regular.ttf);
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url(static/fonts/Roboto-Medium.ttf);
+.roboto-medium {
+    font-family: "Roboto", sans-serif;
     font-weight: 500;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url(static/fonts/Roboto-Bold.ttf);
+.roboto-bold {
+    font-family: "Roboto", sans-serif;
     font-weight: 700;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url(static/fonts/Roboto-Black.ttf);
+.roboto-black {
+    font-family: "Roboto", sans-serif;
     font-weight: 900;
     font-style: normal;
 }
@@ -70,7 +68,6 @@
     padding: 0;
     border: none;
     box-sizing: border-box;
-    transition: all 0.1s ease;
 }
 
 body {
@@ -84,6 +81,7 @@ body {
 }
 
 #root {
+    position: relative;
     height: 100vh;
 }
 
@@ -119,6 +117,10 @@ label {
 
 .remove {
     display: none;
+}
+
+.no-click {
+    cursor: not-allowed;
 }
 
 .input-background-error {

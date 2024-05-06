@@ -51,48 +51,48 @@
     padding: 0 16px 6px;
 }
 
-.profile__form__first-name-input-wrapper {
+.profile__first-name-input-wrapper {
     grid-area: first-name;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__middle-name-input-wrapper {
+.profile__middle-name-input-wrapper {
     grid-area: middle-name;
     margin: 2px 16px 0 8px;
 }
 
-.profile__form__last-name-input-wrapper {
+.profile__last-name-input-wrapper {
     grid-area: last-name;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__bio-input-wrapper {
+.profile__bio-input-wrapper {
     grid-area: bio;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__phone-input-wrapper {
+.profile__phone-input-wrapper {
     grid-area: phone;
     margin: 2px 16px 0 8px;
 }
 
-.profile__form__password-input-wrapper {
+.profile__password-input-wrapper {
     grid-area: password;
     margin: 2px 8px 0 16px;
 }
 
-.profile__form__password-confirm-input-wrapper {
+.profile__password-confirm-input-wrapper {
     grid-area: password-confirm;
     margin: 2px 16px 0 8px;
 }
 
-.profile__form__first-name-input-wrapper,
-.profile__form__middle-name-input-wrapper,
-.profile__form__last-name-input-wrapper,
-.profile__form__bio-input-wrapper,
-.profile__form__phone-input-wrapper,
-.profile__form__password-input-wrapper,
-.profile__form__password-confirm-input-wrapper {
+.profile__first-name-input-wrapper,
+.profile__middle-name-input-wrapper,
+.profile__last-name-input-wrapper,
+.profile__bio-input-wrapper,
+.profile__phone-input-wrapper,
+.profile__password-input-wrapper,
+.profile__password-confirm-input-wrapper {
     display: grid;
     grid-template-areas:
         'label'
@@ -101,13 +101,13 @@
     grid-row-gap: 2px;
 }
 
-.profile__form__first-name-input-wrapper label,
-.profile__form__middle-name-input-wrapper label,
-.profile__form__last-name-input-wrapper label,
-.profile__form__bio-input-wrapper label,
-.profile__form__phone-input-wrapper label,
-.profile__form__password-input-wrapper label,
-.profile__form__password-confirm-input-wrapper label {
+.profile__first-name-input-wrapper label,
+.profile__middle-name-input-wrapper label,
+.profile__last-name-input-wrapper label,
+.profile__bio-input-wrapper label,
+.profile__phone-input-wrapper label,
+.profile__password-input-wrapper label,
+.profile__password-confirm-input-wrapper label {
     grid-area: label;
 
     margin-top: 2px;
@@ -119,13 +119,13 @@
 }
 
 
-.profile__form__first-name-input-wrapper__input,
-.profile__form__middle-name-input-wrapper__input,
-.profile__form__last-name-input-wrapper__input,
-.profile__form__bio-input-wrapper__input,
-.profile__form__phone-input-wrapper__input,
-.profile__form__password-input-wrapper__input,
-.profile__form__password-confirm-input-wrapper__input {
+.profile__first-name-input-wrapper__input,
+.profile__middle-name-input-wrapper__input,
+.profile__last-name-input-wrapper__input,
+.profile__bio-input-wrapper__input,
+.profile__phone-input-wrapper__input,
+.profile__password-input-wrapper__input,
+.profile__password-confirm-input-wrapper__input {
     grid-area: input;
 
     padding: 12px;
@@ -138,32 +138,34 @@
 
     box-sizing: border-box;
     width: 100%;
+    transition: background-color 0.1s ease;
 }
 
-.profile__form__first-name-input-wrapper__input::placeholder,
-.profile__form__middle-name-input-wrapper__input::placeholder,
-.profile__form__last-name-input-wrapper__input::placeholder,
-.profile__form__bio-input-wrapper__input::placeholder,
-.profile__form__phone-input-wrapper__input::placeholder,
-.profile__form__password-input-wrapper__input::placeholder,
-.profile__form__password-confirm-input-wrapper__input::placeholder {
+.profile__first-name-input-wrapper__input::placeholder,
+.profile__middle-name-input-wrapper__input::placeholder,
+.profile__last-name-input-wrapper__input::placeholder,
+.profile__bio-input-wrapper__input::placeholder,
+.profile__phone-input-wrapper__input::placeholder,
+.profile__password-input-wrapper__input::placeholder,
+.profile__password-confirm-input-wrapper__input::placeholder {
     font-size: 16px;
     font-weight: 400;
     letter-spacing: 0;
     line-height: 20px;
 }
 
-.profile__form__first-name-input-wrapper__input:focus,
-.profile__form__middle-name-input-wrapper__input:focus,
-.profile__form__last-name-input-wrapper__input:focus,
-.profile__form__bio-input-wrapper__input:focus,
-.profile__form__phone-input-wrapper__input:focus,
-.profile__form__password-input-wrapper__input:focus,
-.profile__form__password-confirm-input-wrapper__input:focus {
+.profile__first-name-input-wrapper__input:focus,
+.profile__middle-name-input-wrapper__input:focus,
+.profile__last-name-input-wrapper__input:focus,
+.profile__bio-input-wrapper__input:focus,
+.profile__phone-input-wrapper__input:focus,
+.profile__password-input-wrapper__input:focus,
+.profile__password-confirm-input-wrapper__input:focus {
     outline: none;
 }
 
-.profile__form__avatar-load-wrapper {
+.profile__avatar-load-wrapper {
+    position: relative;
     grid-area: avatar;
     display: grid;
     grid-template-areas:
@@ -175,8 +177,17 @@
     padding-top: 18px;
 }
 
-.profile__form__avatar-load-wrapper__avatar {
+.profile__avatar-load-container {
     grid-area: avatar;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+
+    margin-bottom: 16px;
+    border-radius: 50%;
+}
+
+.profile__avatar-load-wrapper__avatar {
     display: grid;
     align-items: center;
     justify-items: center;
@@ -185,15 +196,32 @@
     border-radius: 50%;
     background-color: var(--input-label-counter-icon);
     font-size: 24px;
-    margin-bottom: 16px;
+    cursor: pointer;
+    object-fit: cover;
 }
 
 
-.profile__form__avatar-load-wrapper__avatar-set-button {
+.profile__avatar-load-wrapper__avatar-set-icon {
+    top: 77px;
+    height: 48px;
+    width: 48px;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.profile__avatar-load-container:hover .profile__avatar-load-wrapper__avatar-set-icon {
+    opacity: 1;
+}
+
+.profile__avatar-load-container:hover .profile__avatar-load-wrapper__avatar {
+    filter: brightness(0.5);
+}
+
+
+
+.profile__avatar-load-wrapper__avatar-set-button {
     grid-area: set;
-}
-
-.profile__form__avatar-load-wrapper__avatar-set-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -209,37 +237,46 @@
     line-height: 20px;
 
     cursor: pointer;
+    transition: background-color 0.1s ease;
+
 }
 
-.profile__form__avatar-load-wrapper__avatar-set-button:hover {
-
-    background-color: var(--secondary-button-onhover-selected)
+.profile__avatar-load-wrapper__avatar-set-button:hover,
+.profile__buttons__reset-button:hover,
+.profile__buttons__cancel-button:hover {
+    background-color: var(--main-button-secondary);
 }
 
-.profile__form__save-button-wrapper {
+
+.profile__buttons {
     grid-area: button;
 
     display: grid;
     grid-template-areas:
-        'button'
-        'error';
-    grid-row-gap: 8px;
-    margin: 26px 16px 0 16px;
+        'save reset cancel'
+        'error error error';
+    grid-template-columns: auto auto 1fr;
+    justify-items: start;
+    grid-column-gap: 8px;
 
-    text-align: center;
+    padding: 16px 20px 0 20px;
+    background-color: var(--box-background);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    transform: scale(1);
 }
 
-.profile__form__save-button-wrapper__button {
-    grid-area: button;
+.profile__buttons__save-button {
+    grid-area: save;
     display: flex;
     align-items: center;
-    justify-content: center;
 
-    padding: 10px 16px;
+    margin-right: 16px;
+    padding: 10px 20px;
     height: 36px;
 
-    background-color: var(--main-button);
     border-radius: 8px;
+    background-color: var(--main-button);
 
     color: var(--main-button-secondary);
     font-size: 15px;
@@ -249,22 +286,46 @@
 
     cursor: pointer;
     transform: scale(1);
+    transition: background-color 0.1s ease;
 }
 
-.profile__form__save-button-wrapper__button:hover {
+.profile__buttons__save-button:hover {
     background-color: var(--main-button-hover);
 }
 
-.profile__form__save-button-wrapper__button:active {
-    transform: scale(0.99);
+.profile__buttons__reset-button {
+    grid-area: reset;
+    transition: background-color 0.1s ease;
 }
 
-.profile__form__avatar-load-wrapper__avatar-load-input {
-    display: none;
+.profile__buttons__cancel-button {
+    grid-area: cancel;
+    transition: background-color 0.1s ease;
 }
 
-.profile__error {
+.profile__buttons__reset-button,
+.profile__buttons__cancel-button {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 12px;
+    height: 36px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+}
+
+.profile__buttons__error {
     grid-area: error;
+    display: grid;
+    align-items: center;
 
     color: var(--negative);
     font-size: 13px;
@@ -274,4 +335,215 @@
 
     visibility: hidden;
     overflow-wrap: anywhere;
+}
+
+.profile__buttons__save-button:active,
+.profile__buttons__reset-button:active,
+.profile__buttons__cancel-button:active {
+    transform: scale(0.99);
+}
+
+.profile__avatar-load-wrapper__avatar-load-input {
+    display: none;
+}
+
+@media (max-width: 1000px) {
+
+
+    .profile-content {
+        width: calc(100% - 4px);
+    }
+
+    .profile__header {
+        padding: 12px 28px;
+        font-size: 22px;
+    }
+
+    .profile__form {
+        display: grid;
+        grid-template-areas:
+            'first-name middle-name'
+            'last-name last-name'
+            'gender gender'
+            'avatar avatar'
+            'birthday  birthday'
+            'bio phone'
+            'password password-confirm'
+            'button button';
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 8px 4px;
+    }
+
+    .profile__first-name-input-wrapper,
+    .profile__bio-input-wrapper,
+    .profile__password-input-wrapper {
+        margin: 2px 4px 0 8px;
+    }
+
+    .profile__middle-name-input-wrapper,
+    .profile__phone-input-wrapper,
+    .profile__password-confirm-input-wrapper {
+        margin: 2px 8px 0 4px;
+    }
+
+    .profile__last-name-input-wrapper {
+        margin: 2px 8px 0 8px;
+    }
+
+    .profile__first-name-input-wrapper label,
+    .profile__middle-name-input-wrapper label,
+    .profile__last-name-input-wrapper label,
+    .profile__bio-input-wrapper label,
+    .profile__phone-input-wrapper label,
+    .profile__password-input-wrapper label,
+    .profile__password-confirm-input-wrapper label {
+        font-size: 14px;
+    }
+
+
+    .profile__first-name-input-wrapper__input,
+    .profile__middle-name-input-wrapper__input,
+    .profile__last-name-input-wrapper__input,
+    .profile__bio-input-wrapper__input,
+    .profile__phone-input-wrapper__input,
+    .profile__password-input-wrapper__input,
+    .profile__password-confirm-input-wrapper__input {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .profile__first-name-input-wrapper__input::placeholder,
+    .profile__middle-name-input-wrapper__input::placeholder,
+    .profile__last-name-input-wrapper__input::placeholder,
+    .profile__bio-input-wrapper__input::placeholder,
+    .profile__phone-input-wrapper__input::placeholder,
+    .profile__password-input-wrapper__input::placeholder,
+    .profile__password-confirm-input-wrapper__input::placeholder {
+        font-size: 15px;
+    }
+
+    .profile__avatar-load-wrapper {
+        padding-top: 12px;
+    }
+
+    .profile__avatar-load-container {
+        margin-bottom: 12px;
+    }
+
+    .profile__avatar-load-wrapper__avatar {
+        width: 166px;
+        height: 166px;
+        font-size: 24px;
+    }
+
+    .profile__avatar-load-wrapper__avatar-set-button {
+        padding: 10px 16px;
+        height: 36px;
+        font-size: 15px;
+    }
+
+    .profile__buttons {
+        padding: 12px 20px 0 20px;
+
+        display: grid;
+        grid-template-areas:
+            '. save save .'
+            '. reset cancel .'
+            'error error error error';
+        grid-template-rows: repeat(3, auto);
+        grid-template-columns: 1fr auto auto 1fr;
+        grid-row-gap: 4px;
+        grid-column-gap: 8px;
+    }
+
+    .profile__buttons__save-button {
+        padding: 10px 20px;
+        height: 32px;
+
+        font-size: 14px;
+
+        
+        justify-content: center;
+        justify-self: stretch;
+        margin: 0;
+
+    }
+
+    .profile__buttons__reset-button,
+    .profile__buttons__cancel-button {
+        display: flex;
+        align-items: center;
+
+        padding: 10px 12px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .birthday__input-block  {
+        justify-content: start;
+        gap: 8px;
+    }
+
+    .birthday__input__day,
+    .birthday__input__month,
+    .birthday__input__year {
+        width: fit-content;
+        p {
+            padding-left: 8px;
+        }
+    }
+
+    .birthday__input__day__value-img,
+    .birthday__input__month__value-img,
+    .birthday__input__year__value-img {
+        height: 40px;
+        grid-template-columns: auto 36px;
+        align-content: center;
+        align-items: center;
+    }
+
+    .birthday__input__day__value-img p {
+        width: 28px;
+    }
+
+    .birthday__input__month__value-img p {
+        width: 76px;
+    }
+
+    .birthday__input__year__value-img p {
+        width: 45px;
+    }
+
+    .birthday__input__icon {
+        overflow: hidden;
+    }
+
+    .dropdown__wrapper__day,
+    .dropdown__wrapper__month,
+    .dropdown__wrapper__year {
+        margin-top: 34px;
+    }
+
+    .dropdown__wrapper__day {
+        min-width: 64px;
+    }
+    
+    .dropdown__wrapper__month {
+        min-width: 112px;
+    }
+    
+    .dropdown__wrapper__year {
+        min-width: 81px;
+    }
+
+    .gender-select {
+        margin: 0 16px;
+    }
+}
+
+@media (max-width: 500px) {
+    .profile-content {
+        width: calc(100%-4px);
+        margin: 0 4px;
+    } 
 }

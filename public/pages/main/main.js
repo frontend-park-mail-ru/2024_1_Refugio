@@ -3,8 +3,9 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
+import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
 import template from './main.hbs'
+import emailStore from '../../stores/emailStore.js';
 
 
 /**
@@ -31,15 +32,24 @@ export default class Main {
      */
     render() {
         this.#config.content.sent = false;
+        this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
-            header: new Header(null, this.#config.header).render(),
-            menu: new Menu(null, this.#config.menu).render(),
+            header: new Header(this.#parent, this.#config.header).render(),
+            menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
+            contains_letters: this.#config.content.list_letters.length !== 0,
+            folders: this.#config.menu.folders,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
 
     selectedListLetters = []
+
+    hideError = () => {
+        const oldError = this.#parent
+            .querySelector('.letter__error');
+        oldError.classList.remove('appear');
+    };
 
     handleDropdowns(e) {
         const target = e.target;
@@ -48,6 +58,10 @@ export default class Main {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
+            },
+            folder: {
+                button: document.querySelector('#move-to'),
+                dropdown: document.querySelector('.main__header__dropdown__wrapper'),
             }
         }
 
@@ -89,32 +103,52 @@ export default class Main {
         dispathcher.do(actionRedirect('/profile', true));
     };
 
-    handleWriteLetter = (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true));
-    };
-
     handleLetter = async (e, id) => {
         e.preventDefault();
+        const letters = this.#config.content.list_letters;
+        const value = letters.find(item => String(item.id) === id);
+        value.dateOfDispatch = undefined;
+        if (value.readStatus === false) {
+            value.readStatus = true;
+            dispathcher.do(actionUpdateEmail(id, value));
+        }
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
-    handleSent = async (e) => {
+    handleStat = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/sent', true));
+        dispathcher.do(actionRedirect('/stat', true));
     };
 
     handleHeader() {
-        const unselectedButtons = document.querySelector('.main__content__header__unselected-buttons');
-        const selectedButtons = document.querySelector('.main__content__header__selected-buttons');
+        const unselectedButtons = {
+            select_all: document.querySelector('#select-all'),
+            mark_all_as_read: document.querySelector('#mark-all-as-read'),
+        };
+        const selectedButtons = {
+            deselect: document.querySelector('#deselect'),
+            delete: document.querySelector('#delete'),
+            move_to: document.querySelector('#move-to'),
+            spam: document.querySelector('#spam'),
+            mark_as_read: document.querySelector('#mark-as-read'),
+            mark_as_unread: document.querySelector('#mark-as-unread'),
+        };
 
         if (this.selectedListLetters.length > 0) {
-            selectedButtons.classList.remove('remove');
-            unselectedButtons.classList.add('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.add('appear');
+            });
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            });
             document.querySelector('#selected-letters-counter').textContent = this.selectedListLetters.length;
         } else {
-            selectedButtons.classList.add('remove');
-            unselectedButtons.classList.remove('remove');
+            Object.values(selectedButtons).forEach(button => {
+                button.classList.remove('appear');
+            });
+            Object.values(unselectedButtons).forEach(button => {
+                button.classList.add('appear');
+            });
         }
     }
 
@@ -126,16 +160,16 @@ export default class Main {
 
         if (letter.classList.contains('selected-list-letter')) {
             letter.classList.remove('selected-list-letter');
-            const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+            const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
             icon.parentNode.removeChild(icon);
             avatar.classList.remove('remove');
-            this.selectedListLetters.pop(letter);
+            this.selectedListLetters = this.selectedListLetters.filter(element => element !== letter);
         } else {
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -152,11 +186,11 @@ export default class Main {
         const img = document.createElement('img');
         img.alt = '';
         if (statusImg === null) {
-            img.src = '../../static/icons/read-on-offer__256.svg';
+            img.src = '/icons/read-on-offer__256.svg';
             img.classList.add('list-letter__status-offer');
         }
         else {
-            img.src = '../../static/icons/read-on__256.svg';
+            img.src = '/icons/read-on__256.svg';
         }
         statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -174,9 +208,9 @@ export default class Main {
             const avatar = letter.querySelector('.list-letter__avatar')
             letter.classList.add('selected-list-letter');
             const icon = document.createElement('img');
-            icon.src = '../../static/icons/done.svg';
+            icon.src = '/icons/done.svg';
             icon.alt = '';
-            icon.classList.add('list-letter__avatar-checkbox-centered');
+            icon.classList.add('list-letter__avatar__checkbox_centered');
             avatar.parentNode.appendChild(icon);
             avatar.classList.add('remove');
             this.selectedListLetters.push(letter);
@@ -191,7 +225,7 @@ export default class Main {
             if (letter.classList.contains('selected-list-letter')) {
                 const avatar = letter.querySelector('.list-letter__avatar')
                 letter.classList.remove('selected-list-letter');
-                const icon = letter.querySelectorAll('.list-letter__avatar-checkbox-centered')[1];
+                const icon = letter.querySelectorAll('.list-letter__avatar__checkbox_centered')[1];
                 icon.parentNode.removeChild(icon);
                 avatar.classList.remove('remove');
                 this.selectedListLetters.pop(letter);
@@ -201,6 +235,7 @@ export default class Main {
     }
 
     handleMarkAllAsRead = (e) => {
+        this.hideError();
         e.preventDefault();
 
         const letters = this.#config.content.list_letters;
@@ -213,7 +248,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -224,10 +259,10 @@ export default class Main {
                 dispathcher.do(actionUpdateEmail(item.id, item));
             }
         })
-
     }
 
     handleDelete = (e) => {
+        this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
             const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
@@ -240,6 +275,7 @@ export default class Main {
     }
 
     handleMarkAsRead = (e) => {
+        this.hideError();
         e.preventDefault();
         const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
         const letters = this.#config.content.list_letters;
@@ -251,7 +287,7 @@ export default class Main {
                 const statusChild = letter.querySelector('.list-letter__status img');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on-offer__256.svg';
+                img.src = '/icons/read-on-offer__256.svg';
                 img.classList.add('list-letter__status-offer');
                 statusChild.parentNode.replaceChild(img, statusChild);
 
@@ -266,6 +302,7 @@ export default class Main {
     }
 
     handleMarkAsUnread = (e) => {
+        this.hideError();
         e.preventDefault();
         const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
 
@@ -274,10 +311,9 @@ export default class Main {
             if (item.readStatus === true && selectedIds.includes(String(item.id))) {
                 const letter = document.querySelector(`[data-id="${item.id}"]`);
                 const statusChild = letter.querySelector('.list-letter__status img');
-                //const statusImg = letter.querySelector('.list-letter__status-offer');
                 const img = document.createElement('img');
                 img.alt = '';
-                img.src = '../../static/icons/read-on__256.svg';
+                img.src = '/icons/read-on__256.svg';
                 statusChild.parentNode.replaceChild(img, statusChild);
 
                 item.readStatus = false;
@@ -289,10 +325,63 @@ export default class Main {
         this.handleDeselect(e);
     }
 
+    handleShowSurvey = async (e) => {
+        e.preventDefault();
+
+        const iframe = document.createElement('iframe');
+
+        iframe.src = 'https://mailhub.su/survey';
+        iframe.height = '300';
+        iframe.width = '400';
+
+        var insertAfterElement = document.querySelector('.main__control-buttons');
+        insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
+    }
+
+    handleRollUpMenu = (e) => {
+        e.preventDefault();
+        const menu = document.querySelector('.menu');
+        if (menu.classList.contains('appear')) {
+            menu.classList.remove('appear');
+        } else {
+            menu.classList.add('appear');
+        }
+    }
+
+    handleSaveFolder = (e, id) => {
+        this.hideError();
+        e.preventDefault();
+        this.selectedListLetters.forEach(item => {
+            const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
+
+            const value = {
+                emailId: Number(item.dataset.id),
+                folderId: Number(id),
+            }
+            dispathcher.do(actionAddLetterToFolder(value));
+        });
+        this.handleDeselect(e);
+        this.handleHeader();
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#config.menu.component.addListeners();
+        // this.#parent
+        //     .querySelector('.main__collapse-rollup-button')
+        //     .addEventListener('click', this.handleShowSurvey);
+
+
+        this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
+            folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        })
+
+        this.#parent
+            .querySelector('.header__rollup-button')
+            .addEventListener('click', this.handleRollUpMenu);
+
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
@@ -334,19 +423,25 @@ export default class Main {
             .querySelector('.header__dropdown__profile-button')
             .addEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .addEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#sent-folder')
-            .addEventListener('click', this.handleSent);
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
+        mediator.on('updateEmail', this.handleUpdateEmailResponse);
+        mediator.on('deleteEmail', this.handleDeleteEmailResponse);
+        mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
+
     }
 
     /**
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#config.menu.component.removeListeners();
+
+        this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
+            folder.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        })
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').removeEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -372,7 +467,7 @@ export default class Main {
             .removeEventListener('click', this.handleMarkAsRead);
         this.#parent
             .querySelector('#mark-as-unread')
-            .addEventListener('click', this.handleMarkAsUnread);
+            .removeEventListener('click', this.handleMarkAsUnread);
 
 
 
@@ -387,19 +482,60 @@ export default class Main {
             .querySelector('.header__dropdown__profile-button')
             .removeEventListener('click', this.handleProfile);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .removeEventListener('click', this.handleWriteLetter);
-        this.#parent
-            .querySelector('#sent-folder')
-            .removeEventListener('click', this.handleSent);
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
+        mediator.off('updateEmail', this.handleUpdateEmailResponse);
+        mediator.off('deleteEmail', this.handleDeleteEmailResponse);
+        mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
+
     }
 
     handleExitResponse = (status) => {
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                break;
+        }
+    }
+
+    handleUpdateEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                const counter = this.#parent.querySelector('.menu__default-folder__counter');
+                if (emailStore.incoming_count > 0) {
+                    counter.textContent = emailStore.incoming_count;
+                } else {
+                    counter.textContent = '';
+                }
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
+                break;
+        }
+    }
+
+    handleDeleteEmailResponse = (status) => {
+        switch (status) {
+            case 200:
+                break;
+            default:
+                const error = this.#parent.querySelector('.letter__error');
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
+                break;
+        }
+    }
+
+    handleAddEmailToFolderResponse = ({ status, id }) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirectToLetter(id, true, true));
                 break;
             default:
                 break;

@@ -6,6 +6,7 @@ import dispathcher from '../../modules/dispathcher.js';
 import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './profile.hbs'
+import router from '../../modules/router.js';
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -35,7 +36,7 @@ export default class Profile {
      */
     render() {
         const config = this.#config;
-
+        this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
             userLetter: this.#config.header.username.charAt(0),
             firstname: this.#config.user.firstname,
@@ -45,7 +46,7 @@ export default class Profile {
             description: this.#config.user.description,
             phoneNumber: this.#config.user.phonenumber,
             header: new Header(null, config.header).render(),
-            menu: new Menu(null, config.menu).render(),
+            menu: this.#config.menu.component.render(),
             birthday_select: new Birthday_Select(null, config).render(),
             gender_select: new Gender_Select(null, config).render(),
         };
@@ -59,17 +60,17 @@ export default class Profile {
     handleSaveForm = async (e) => {
         e.preventDefault();
 
-        const firstNameInput = document.querySelector('.profile__form__first-name-input-wrapper__input');
-        const middleNameInput = document.querySelector('.profile__form__middle-name-input-wrapper__input');
-        const lastNameInput = document.querySelector('.profile__form__last-name-input-wrapper__input');
+        const firstNameInput = document.querySelector('.profile__first-name-input-wrapper__input');
+        const middleNameInput = document.querySelector('.profile__middle-name-input-wrapper__input');
+        const lastNameInput = document.querySelector('.profile__last-name-input-wrapper__input');
         const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent;
         const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent;
         const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
-        const bioInput = document.querySelector('.profile__form__bio-input-wrapper__input');
-        const phoneNumberInput = document.querySelector('.profile__form__phone-input-wrapper__input');
-        const passwordInput = document.querySelector('.profile__form__password-input-wrapper__input');
-        const passwordConfirmInput = document.querySelector('.profile__form__password-confirm-input-wrapper__input');
+        const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
+        const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
+        // const passwordInput = document.querySelector('.profile__password-input-wrapper__input');
+        // const passwordConfirmInput = document.querySelector('.profile__password-confirm-input-wrapper__input');
 
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
@@ -81,8 +82,8 @@ export default class Profile {
         const gender = genderInput.checked ? 'Female' : 'Male';
         const bio = bioInput.value.trim();
         let phoneNumber = phoneNumberInput.value.trim();
-        const password = passwordInput.value;
-        const passwordConfirm = passwordConfirmInput.value;
+        // const password = passwordInput.value;
+        // const passwordConfirm = passwordConfirmInput.value;
 
         let oldError = this.#parent
             .querySelector('#first-name-error');
@@ -115,19 +116,23 @@ export default class Profile {
         oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('#password-error');
+            .querySelector('#load-avatar-error');
         oldError.classList.remove('show');
-        oldError = passwordInput;
-        oldError.classList.remove('input-background-error');
+
+        // oldError = this.#parent
+        //     .querySelector('#password-error');
+        // oldError.classList.remove('show');
+        // oldError = passwordInput;
+        // oldError.classList.remove('input-background-error');
+
+        // oldError = this.#parent
+        //     .querySelector('#password-confirm-error');
+        // oldError.classList.remove('show');
+        // oldError = passwordConfirmInput;
+        // oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
-            .querySelector('#password-confirm-error');
-        oldError.classList.remove('show');
-        oldError = passwordConfirmInput;
-        oldError.classList.remove('input-background-error');
-
-        oldError = this.#parent
-            .querySelector('#save-error');
+            .querySelector('#buttons-error');
         oldError.classList.remove('show');
 
 
@@ -145,16 +150,35 @@ export default class Profile {
                 firstNameError.classList.add('show');
                 firstNameInput.classList.add('input-background-error');
                 isValidForm = false;
+            } else {
+                const firstNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+                if (!firstNameRegex.test(firstName)) {
+                    firstNameError.textContent = "Некорректное имя";
+                    firstNameError.classList.add('show');
+                    firstNameInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
+
             }
         }
 
         const middleNameError = this.#parent
             .querySelector('#middle-name-error');
-        if (middleName.length > MAX_INPUT_LENGTH) {
-            middleNameError.textContent = "Слишком длинное отчество";
-            middleNameError.classList.add('show');
-            middleNameInput.classList.add('input-background-error');
-            isValidForm = false;
+        if (middleName) {
+            if (middleName.length > MAX_INPUT_LENGTH) {
+                middleNameError.textContent = "Слишком длинное отчество";
+                middleNameError.classList.add('show');
+                middleNameInput.classList.add('input-background-error');
+                isValidForm = false;
+            } else {
+                const middleNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+                if (!middleNameRegex.test(middleName)) {
+                    middleNameError.textContent = "Некорректное отчество";
+                    middleNameError.classList.add('show');
+                    middleNameInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
+            }
         }
 
         const lastNameError = this.#parent
@@ -170,6 +194,14 @@ export default class Profile {
                 lastNameError.classList.add('show');
                 lastNameInput.classList.add('input-background-error');
                 isValidForm = false;
+            } else {
+                const lastNameRegex = /[\p{Letter}\p{Mark}]+/gu;
+                if (!lastNameRegex.test(lastName)) {
+                    lastNameError.textContent = "Некорректная фамилия";
+                    lastNameError.classList.add('show');
+                    lastNameInput.classList.add('input-background-error');
+                    isValidForm = false;
+                }
             }
         }
 
@@ -199,55 +231,50 @@ export default class Profile {
             }
         }
 
-        const passwordError = this.#parent
-            .querySelector('#password-error');
-        if (password.length > 4 * MAX_INPUT_LENGTH) {
-            passwordError.textContent = "Слишком длинный пароль";
-            passwordError.classList.add('show');
-            passwordInput.classList.add('input-background-error');
-            isValidForm = false;
-        } else {
-            if (password && password.length < 8) {
-                passwordError.textContent = "Минимальная длина 8 символов";
-                passwordError.classList.add('show');
-                passwordInput.classList.add('input-background-error');
-                isValidForm = false;
-            } else {
-                const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
-                if (password && !passwordRegex.test(password)) {
-                    passwordError.textContent = "Недопустимые символы";
-                    passwordError.classList.add('show');
-                    passwordInput.classList.add('input-background-error');
-                    isValidForm = false;
-                }
-            }
-        }
+        // const passwordError = this.#parent
+        //     .querySelector('#password-error');
+        // if (password.length > 4 * MAX_INPUT_LENGTH) {
+        //     passwordError.textContent = "Слишком длинный пароль";
+        //     passwordError.classList.add('show');
+        //     passwordInput.classList.add('input-background-error');
+        //     isValidForm = false;
+        // } else {
+        //     if (password && password.length < 8) {
+        //         passwordError.textContent = "Минимальная длина 8 символов";
+        //         passwordError.classList.add('show');
+        //         passwordInput.classList.add('input-background-error');
+        //         isValidForm = false;
+        //     } else {
+        //         const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
+        //         if (password && !passwordRegex.test(password)) {
+        //             passwordError.textContent = "Недопустимые символы";
+        //             passwordError.classList.add('show');
+        //             passwordInput.classList.add('input-background-error');
+        //             isValidForm = false;
+        //         }
+        //     }
+        // }
 
-        const passwordConfirmError = this.#parent
-            .querySelector('#password-confirm-error');
-        if (passwordConfirm.length > 4 * MAX_INPUT_LENGTH) {
-            passwordConfirmError.textContent = "Слишком длинный пароль";
-            passwordConfirmError.classList.add('show');
-            passwordConfirmInput.classList.add('input-background-error');
-            isValidForm = false;
-        } else {
-            if (password && !passwordConfirm) {
-                passwordConfirmError.textContent = 'Введите пароль ещё раз';
-                passwordConfirmError.classList.add('show');
-                passwordConfirmInput.classList.add('input-background-error');
-                isValidForm = false;
-            } else {
-                if (password && password !== passwordConfirm) {
-                    passwordConfirmError.textContent = 'Пароли не совпадают';
-                    passwordConfirmError.classList.add('show');
-                    passwordConfirmInput.classList.add('input-background-error');
-                    isValidForm = false;
-                }
-            }
-        }
+        // const passwordConfirmError = this.#parent
+        //     .querySelector('#password-confirm-error');
+
+        // if (password && !passwordConfirm) {
+        //     passwordConfirmError.textContent = 'Введите пароль ещё раз';
+        //     passwordConfirmError.classList.add('show');
+        //     passwordConfirmInput.classList.add('input-background-error');
+        //     isValidForm = false;
+        // } else {
+        //     if (password && password !== passwordConfirm) {
+        //         passwordConfirmError.textContent = 'Пароли не совпадают';
+        //         passwordConfirmError.classList.add('show');
+        //         passwordConfirmInput.classList.add('input-background-error');
+        //         isValidForm = false;
+        //     }
+
+        // }
 
         const dateError = this.#parent
-            .querySelector('#save-error');
+            .querySelector('#buttons-error');
         if (birthday > new Date()) {
             dateError.textContent = 'Дата рождения превосходит сегодняшнее число';
             dateError.classList.add('show');
@@ -296,7 +323,6 @@ export default class Profile {
     }
 
     handleDropdowns(e) {
-
         const target = e.target;
 
         if (document.querySelector('.birthday__input__day__value-img') === null) { return; }
@@ -323,8 +349,7 @@ export default class Profile {
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
-                value.dropdown.classList.remove('show__dropdown__wrapper');
-                value.dropdown.classList.add('hide__dropdown__wrapper');
+                value.dropdown.classList.remove('show');
             });
         }
 
@@ -333,17 +358,15 @@ export default class Profile {
             if (elements[key].button.contains(target)) {
                 hasTarget = true;
                 let showDropdown = true;
-                if (elements[key].dropdown.classList.contains('show__dropdown__wrapper')) {
+                if (elements[key].dropdown.classList.contains('show')) {
                     showDropdown = false;
                 }
                 hideAllDropdowns();
                 if (showDropdown) {
-                    elements[key].dropdown.classList.remove('hide__dropdown__wrapper');
-                    elements[key].dropdown.classList.add('show__dropdown__wrapper');
+                    elements[key].dropdown.classList.add('show');
                 }
             }
         })
-
 
         if (elements.day.dropdown.contains(target) && target.tagName === 'P') {
             document.querySelector('.birthday__input__day__value-img p').textContent = target.textContent;
@@ -356,8 +379,8 @@ export default class Profile {
                 if (elements.year.dropdown.contains(target) && target.tagName === 'P') {
                     document.querySelector('.birthday__input__year__value-img p').textContent = target.textContent;
                 }
-
             }
+
         }
         if (!hasTarget) {
             hideAllDropdowns();
@@ -369,108 +392,186 @@ export default class Profile {
         await dispathcher.do(actionLogout());
     };
 
-    handleWriteLetter = async (e) => {
+    handleStat = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/write_letter', true));
+        dispathcher.do(actionRedirect('/stat', true));
     };
 
-    handleMain = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/main', true));
-    };
+    reader = new FileReader();
+
 
     handleAvatarUpload = async (e) => {
         e.preventDefault();
-        const input = this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar-load-input');
+        const input = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input');
         const handleAvatarProcessing = async () => {
             const file = input.files[0];
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const img1 = this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar');
-                img1.src = event.target.result;
-                const img2 = this.#parent.querySelector('.header__avatar');
-                img2.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
+            const error = this.#parent
+                .querySelector('#load-avatar-error');
+            if (file.size > 5 * 1024 * 1024) {
+                error.textContent = 'Файл превышает максимальный размер 5 МБ';
+                error.classList.add('show');
+                return;
+            }
+
+            if (!file.type.match('image.*')) {
+                error.textContent = 'Некорректный формат файла';
+                error.classList.add('show');
+                return;
+            }
+
+            this.reader.readAsDataURL(file);
             input.removeEventListener('change', handleAvatarProcessing);
             const formData = new FormData();
-            formData.append('file', this.#parent.querySelector('.profile__form__avatar-load-wrapper__avatar-load-input').files[0]);
+            formData.append('file', this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input').files[0]);
             dispathcher.do(actionAvatarUpload(formData))
         };
         input.addEventListener('change', handleAvatarProcessing);
         input.click();
+    }
+
+    handleAvatarUpdate = () => {
+        if (this.reader.result !== null) {
+            const img1 = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar');
+            const img2 = this.#parent.querySelector('.header__avatar');
+            console.log(img1.tagName);
+            if (img1.tagName === 'IMG') {
+                img1.src = this.reader.result;
+                img2.src = this.reader.result;
+            } else {
+                dispathcher.do(actionRedirect('/profile', false));
+            }
+        }
+    }
+
+    handleBack = async (e) => {
+        e.preventDefault();
+        if (router.canGoBack() > 1) {
+            window.history.back();
+        }
+        document
+            .querySelector('.profile__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
+    }
+
+    handleReset = (e) => {
+        e.preventDefault();
+        const firstNameInput = document.querySelector('.profile__first-name-input-wrapper__input');
+        const middleNameInput = document.querySelector('.profile__middle-name-input-wrapper__input');
+        const lastNameInput = document.querySelector('.profile__last-name-input-wrapper__input');
+
+        const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent = '1';
+        const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent = 'Январь';
+        const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent = '2024';
+        // const genderInput = document.querySelector('.cl-switch input')
+
+        const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
+        const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
+        // const passwordInput = document.querySelector('.profile__password-input-wrapper__input');
+        // const passwordConfirmInput = document.querySelector('.profile__password-confirm-input-wrapper__input');
+
+        firstNameInput.value = '';
+        middleNameInput.value = '';
+        lastNameInput.value = '';
+        bioInput.value = '';
+        phoneNumberInput.value = '';
+        // passwordInput.value = '';
+        // passwordConfirmInput.value = '';
 
     }
 
-    handleSent = async (e) => {
+    handleRollUpMenu = (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/sent', true));
-    };
+        const menu = document.querySelector('.menu');
+        if (menu.classList.contains('appear')) {
+            menu.classList.remove('appear');
+        } else {
+            menu.classList.add('appear');
+        }
+    }
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
         this.#parent
-            .querySelector('.profile__form__save-button-wrapper__button')
-            .addEventListener('click', this.handleSaveForm);
+            .querySelector('.header__rollup-button')
+            .addEventListener('click', this.handleRollUpMenu);
+        this.#config.menu.component.addListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .addEventListener('click', this.handleWriteLetter);
+            .querySelector('.profile__buttons__save-button')
+            .addEventListener('click', this.handleSaveForm);
         this.#parent
-            .querySelector('#incoming-folder')
-            .addEventListener('click', this.handleMain);
-        this.#parent.
-            querySelector('.header__logo')
-            .addEventListener('click', this.handleMain);
+            .querySelector('.profile__buttons__cancel-button')
+            .addEventListener('click', this.handleBack);
         this.#parent
-            .querySelector('#sent-folder')
-            .addEventListener('click', this.handleSent);
+            .querySelector('.profile__buttons__reset-button')
+            .addEventListener('click', this.handleReset);
+        this.#parent
+            .querySelector('.header__dropdown__logout-button')
+            .addEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
         this.#parent
-            .querySelector('.profile__form__avatar-load-wrapper__avatar-set-button')
+            .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .addEventListener('click', this.handleAvatarUpload);
+        this.#parent
+            .querySelector('.header__dropdown__stat-button')
+            .addEventListener('click', this.handleStat);
+        this.#parent
+            .querySelector('.profile__avatar-load-container')
+            .addEventListener('click', this.handleAvatarUpload);
+
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateUser', this.handleUpdateResponse);
+        mediator.on('avatarUpload', this.handleAvatarResponse);
+        mediator.on('logout', this.handleExitResponse);
+
     }
 
     /**
      * Удаляет листенеры
      */
     removeListeners() {
-        this.#parent
-            .querySelector('.profile__form__save-button-wrapper__button')
-            .removeEventListener('click', this.handleSaveForm);
+        this.#config.menu.component.removeListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
         this.#parent
-            .querySelector('.menu__write-letter-button')
-            .removeEventListener('click', this.handleWriteLetter);
+            .querySelector('.header__dropdown__stat-button')
+            .removeEventListener('click', this.handleStat);
         this.#parent
-            .querySelector('#incoming-folder')
-            .removeEventListener('click', this.handleMain);
-        this.#parent.
-            querySelector('.header__logo')
-            .removeEventListener('click', this.handleMain);
+            .querySelector('.profile__buttons__save-button')
+            .removeEventListener('click', this.handleSaveForm);
         this.#parent
-            .querySelector('#sent-folder')
-            .removeEventListener('click', this.handleSent);
+            .querySelector('.profile__buttons__cancel-button')
+            .removeEventListener('click', this.handleBack);
+        this.#parent
+            .querySelector('.profile__buttons__reset-button')
+            .removeEventListener('click', this.handleReset);
+        this.#parent
+            .querySelector('.header__dropdown__logout-button')
+            .removeEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.cl-switch input')
             .removeEventListener('change', this.handleCheckbox);
         this.#parent
-            .querySelector('.profile__form__avatar-load-wrapper__avatar-set-button')
+            .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .removeEventListener('click', this.handleAvatarUpload);
+        this.#parent
+            .querySelector('.profile__avatar-load-container')
+            .removeEventListener('click', this.handleAvatarUpload);
+
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
         mediator.off('updateUser', this.handleUpdateResponse);
+        mediator.off('avatarUpload', this.handleAvatarResponse);
+        mediator.off('logout', this.handleExitResponse);
     }
 
     handleExitResponse = (status) => {
@@ -485,14 +586,38 @@ export default class Profile {
 
     handleUpdateResponse = (status) => {
         const error = this.#parent
-            .querySelector('#save-error');
+            .querySelector('#buttons-error');
         switch (status) {
             case 200:
                 // dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
-                error.textContent = 'Проблемы на нашей стороне. Уже исправляем!';
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
+                break;
+        }
+    }
+
+    handleAvatarResponse = (status) => {
+        const error = this.#parent
+            .querySelector('#load-avatar-error');
+        switch (status) {
+            case 200:
+                this.handleAvatarUpdate();
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+                break;
+        }
+    }
+
+    handleExitResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
                 break;
         }
     }
