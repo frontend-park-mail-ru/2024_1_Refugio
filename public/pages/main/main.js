@@ -352,8 +352,6 @@ export default class Main {
         this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
-            const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
-
             const value = {
                 emailId: Number(item.dataset.id),
                 folderId: Number(id),
