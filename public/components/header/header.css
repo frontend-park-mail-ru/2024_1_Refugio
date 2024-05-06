@@ -82,7 +82,8 @@
     z-index: 999;
 
     display: grid;
-    grid-template-rows: repeat(3, auto);
+    grid-template-rows: repeat(2, auto);
+    /* исправить */
     gap: 2px;
     padding: 8px;
 
@@ -113,7 +114,11 @@
     background-color: var(--secondary-button-onhover-selected);
 }
 
-@media (max-width: 650px) {
+.header__rollup-button:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
     .header {
         padding: 4px;
         height: 44px;
@@ -123,7 +128,6 @@
         min-width: 143px;
 
         font-size: 20px;
-        font-weight: 900;
         letter-spacing: 4px;
         line-height: 30px;
     }
@@ -135,13 +139,29 @@
 
     .header__dropdown {
         top: 48px;
+        right: 8px;
     }
 }
 
-@media (max-width: 450px) {
+@media (max-width: 500px) {
+    .header {
+        padding: 4px 12px;
+        height: 62px;
+    }
+
+    .header__avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .header__dropdown {
+        right: 12px;
+        top: 66px;
+    }
+
     .header__rollup-button {
         display: grid;
-        width: 36px;
+        width: 32px;
     }
 
     .header__logo {
@@ -150,5 +170,6 @@
         font-weight: 900;
         letter-spacing: 7px;
         line-height: 54px;
+        cursor: default;
     }
 }

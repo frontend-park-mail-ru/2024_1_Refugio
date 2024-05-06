@@ -1,6 +1,6 @@
 .birthday__input-group {
-    grid-area:birthday;
-    
+    grid-area: birthday;
+
     display: grid;
     grid-template-rows: auto, auto;
     grid-row-gap: 2px;
@@ -79,7 +79,8 @@
     padding-left: 0;
     left: 0;
     background: var(--input-background);
-    border-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     z-index: 1;
     visibility: hidden;
 
@@ -97,7 +98,7 @@
     letter-spacing: 0;
     line-height: 20px;
 
-    margin-top: 32px;
+    margin-top: 38px;
 }
 
 .dropdown__wrapper__day {
@@ -158,4 +159,58 @@
 .dropdown__wrapper__year p:hover {
     background-color: var(--secondary-button-onhover-selected);
     border-radius: 8px;
+}
+
+@media (max-width: 500px), (max-height: 780px) {
+    .birthday__input__day,
+    .birthday__input__month,
+    .birthday__input__year {
+        width: fit-content;
+        p {
+            padding-left: 8px;
+        }
+    }
+
+    .birthday__input__day__value-img,
+    .birthday__input__month__value-img,
+    .birthday__input__year__value-img {
+        height: 40px;
+        grid-template-columns: auto 36px;
+        align-content: center;
+        align-items: center;
+    }
+
+    .birthday__input__day__value-img p {
+        width: 28px;
+    }
+
+    .birthday__input__month__value-img p {
+        width: 76px;
+    }
+
+    .birthday__input__year__value-img p {
+        width: 45px;
+    }
+
+    .birthday__input__icon {
+        overflow: hidden;
+    }
+
+    .dropdown__wrapper__day,
+    .dropdown__wrapper__month,
+    .dropdown__wrapper__year {
+        margin-top: 34px;
+    }
+
+    .dropdown__wrapper__day {
+        min-width: 64px;
+    }
+    
+    .dropdown__wrapper__month {
+        min-width: 112px;
+    }
+    
+    .dropdown__wrapper__year {
+        min-width: 81px;
+    }
 }

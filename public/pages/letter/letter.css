@@ -15,7 +15,8 @@
     align-content: start;
 
     display: grid;
-    grid-template-rows: repeat(6, auto);
+    grid-template-rows: repeat(5, auto);
+    /* FIX */
     overflow: auto;
 
     margin: 0 16px 2px 0;
@@ -324,4 +325,25 @@
 .letter__text::-webkit-scrollbar-thumb {
     background-color: var(--input-label-counter-icon);
     border-radius: 12px;
+}
+
+@media (max-width: 700px) {
+    .letter-content {    
+        margin: 0 4px 2px 0;
+    }
+}
+
+@media (max-width: 500px) {
+    .letter-root {
+        grid-template-areas:
+            'header'
+            'content';
+        grid-template-rows: repeat(2, auto);
+        align-content: start;
+    }
+
+    .letter-content {
+        margin: 0 4px 2px;
+    }
+
 }

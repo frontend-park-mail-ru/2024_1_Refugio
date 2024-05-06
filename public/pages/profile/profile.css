@@ -346,3 +346,204 @@
 .profile__avatar-load-wrapper__avatar-load-input {
     display: none;
 }
+
+@media (max-width: 1000px) {
+
+
+    .profile-content {
+        width: calc(100% - 4px);
+    }
+
+    .profile__header {
+        padding: 12px 28px;
+        font-size: 22px;
+    }
+
+    .profile__form {
+        display: grid;
+        grid-template-areas:
+            'first-name middle-name'
+            'last-name last-name'
+            'gender gender'
+            'avatar avatar'
+            'birthday  birthday'
+            'bio phone'
+            'password password-confirm'
+            'button button';
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 8px 4px;
+    }
+
+    .profile__first-name-input-wrapper,
+    .profile__bio-input-wrapper,
+    .profile__password-input-wrapper {
+        margin: 2px 4px 0 8px;
+    }
+
+    .profile__middle-name-input-wrapper,
+    .profile__phone-input-wrapper,
+    .profile__password-confirm-input-wrapper {
+        margin: 2px 8px 0 4px;
+    }
+
+    .profile__last-name-input-wrapper {
+        margin: 2px 8px 0 8px;
+    }
+
+    .profile__first-name-input-wrapper label,
+    .profile__middle-name-input-wrapper label,
+    .profile__last-name-input-wrapper label,
+    .profile__bio-input-wrapper label,
+    .profile__phone-input-wrapper label,
+    .profile__password-input-wrapper label,
+    .profile__password-confirm-input-wrapper label {
+        font-size: 14px;
+    }
+
+
+    .profile__first-name-input-wrapper__input,
+    .profile__middle-name-input-wrapper__input,
+    .profile__last-name-input-wrapper__input,
+    .profile__bio-input-wrapper__input,
+    .profile__phone-input-wrapper__input,
+    .profile__password-input-wrapper__input,
+    .profile__password-confirm-input-wrapper__input {
+        padding: 10px;
+        font-size: 15px;
+    }
+
+    .profile__first-name-input-wrapper__input::placeholder,
+    .profile__middle-name-input-wrapper__input::placeholder,
+    .profile__last-name-input-wrapper__input::placeholder,
+    .profile__bio-input-wrapper__input::placeholder,
+    .profile__phone-input-wrapper__input::placeholder,
+    .profile__password-input-wrapper__input::placeholder,
+    .profile__password-confirm-input-wrapper__input::placeholder {
+        font-size: 15px;
+    }
+
+    .profile__avatar-load-wrapper {
+        padding-top: 12px;
+    }
+
+    .profile__avatar-load-container {
+        margin-bottom: 12px;
+    }
+
+    .profile__avatar-load-wrapper__avatar {
+        width: 166px;
+        height: 166px;
+        font-size: 24px;
+    }
+
+    .profile__avatar-load-wrapper__avatar-set-button {
+        padding: 10px 16px;
+        height: 36px;
+        font-size: 15px;
+    }
+
+    .profile__buttons {
+        padding: 12px 20px 0 20px;
+
+        display: grid;
+        grid-template-areas:
+            '. save save .'
+            '. reset cancel .'
+            'error error error error';
+        grid-template-rows: repeat(3, auto);
+        grid-template-columns: 1fr auto auto 1fr;
+        grid-row-gap: 4px;
+        grid-column-gap: 8px;
+    }
+
+    .profile__buttons__save-button {
+        padding: 10px 20px;
+        height: 32px;
+
+        font-size: 14px;
+
+        
+        justify-content: center;
+        justify-self: stretch;
+        margin: 0;
+
+    }
+
+    .profile__buttons__reset-button,
+    .profile__buttons__cancel-button {
+        display: flex;
+        align-items: center;
+
+        padding: 10px 12px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .birthday__input-block  {
+        justify-content: start;
+        gap: 8px;
+    }
+
+    .birthday__input__day,
+    .birthday__input__month,
+    .birthday__input__year {
+        width: fit-content;
+        p {
+            padding-left: 8px;
+        }
+    }
+
+    .birthday__input__day__value-img,
+    .birthday__input__month__value-img,
+    .birthday__input__year__value-img {
+        height: 40px;
+        grid-template-columns: auto 36px;
+        align-content: center;
+        align-items: center;
+    }
+
+    .birthday__input__day__value-img p {
+        width: 28px;
+    }
+
+    .birthday__input__month__value-img p {
+        width: 76px;
+    }
+
+    .birthday__input__year__value-img p {
+        width: 45px;
+    }
+
+    .birthday__input__icon {
+        overflow: hidden;
+    }
+
+    .dropdown__wrapper__day,
+    .dropdown__wrapper__month,
+    .dropdown__wrapper__year {
+        margin-top: 34px;
+    }
+
+    .dropdown__wrapper__day {
+        min-width: 64px;
+    }
+    
+    .dropdown__wrapper__month {
+        min-width: 112px;
+    }
+    
+    .dropdown__wrapper__year {
+        min-width: 81px;
+    }
+
+    .gender-select {
+        margin: 0 16px;
+    }
+}
+
+@media (max-width: 500px) {
+    .profile-content {
+        width: calc(100%-4px);
+        margin: 0 4px;
+    } 
+}

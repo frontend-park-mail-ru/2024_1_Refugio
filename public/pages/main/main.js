@@ -325,12 +325,22 @@ export default class Main {
 
         const iframe = document.createElement('iframe');
 
-        iframe.src = 'https://mailhub.su/survey'; 
+        iframe.src = 'https://mailhub.su/survey';
         iframe.height = '300';
         iframe.width = '400';
 
         var insertAfterElement = document.querySelector('.main__control-buttons');
         insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
+    }
+
+    handleRollUpMenu = (e) => {
+        e.preventDefault();
+        const menu = document.querySelector('.menu');
+        if (menu.classList.contains('appear')) {
+            menu.classList.remove('appear');
+        } else {
+            menu.classList.add('appear');
+        }
     }
 
     /**
@@ -341,6 +351,12 @@ export default class Main {
         // this.#parent
         //     .querySelector('.main__collapse-rollup-button')
         //     .addEventListener('click', this.handleShowSurvey);
+
+
+        this.#parent
+            .querySelector('.header__rollup-button')
+            .addEventListener('click', this.handleRollUpMenu);
+
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
