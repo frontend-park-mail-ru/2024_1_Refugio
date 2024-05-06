@@ -145,7 +145,7 @@ export default class Menu {
         mediator.on('folderDropdown', this.handleFolderDropdown);
         mediator.on('createFolder', this.handleFolderCreateResponse);
         mediator.on('updateFolder', this.handleFolderUpdateResponse);
-        mediator.on('deleteFolder', this.handleFolderUpdateResponse);
+        mediator.on('deleteFolder', this.handleFolderDeleteResponse);
     }
 
     removeListeners() {
@@ -176,7 +176,7 @@ export default class Menu {
         mediator.off('folderDropdown', this.handleFolderDropdown);
         mediator.off('createFolder', this.handleFolderCreateResponse);
         mediator.off('updateFolder', this.handleFolderUpdateResponse);
-        mediator.off('deleteFolder', this.handleFolderUpdateResponse);
+        mediator.off('deleteFolder', this.handleFolderDeleteResponse);
     }
 
     handleFolderCreateResponse = (status) => {
@@ -187,6 +187,8 @@ export default class Menu {
             case 200:
                 if (!window.location.search) {
                     dispathcher.do(actionRedirect(window.location.pathname + window.location.search, false));
+                } else if (window.location.pathname === '/folder') {
+                    dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false, true));
                 } else {
                     dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
                 }
@@ -211,6 +213,33 @@ export default class Menu {
                         dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
                     } else if (window.location.pathname === '/folder') {
                         dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false, true));
+                    }
+                }
+                break;
+            default:
+                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
+                errorSign.style.display = 'block';
+                break;
+        }
+    }
+
+    handleFolderDeleteResponse = ({ status, id }) => {
+        let errorSign = this.#parent
+            .querySelector(`#f-error-${id}`);
+        errorSign.style.display = 'none';
+        switch (status) {
+            case 200:
+                if (!window.location.search) {
+                    dispathcher.do(actionRedirect(window.location.pathname + window.location.search, false));
+                } else {
+                    if (window.location.pathname === '/letter') {
+                        dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
+                    } else if (window.location.pathname === '/folder') {
+                        if (window.location.search.slice(4) === String(id)) {
+                            dispathcher.do(actionRedirect('/main', false));
+                        } else {
+                            dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false, true));
+                        }
                     }
                 }
                 break;

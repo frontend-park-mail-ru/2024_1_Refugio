@@ -97,7 +97,7 @@ export default class Letter {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
-            }
+            },
         }
 
         const hideAllDropdowns = () => {
