@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter } from '../../actions/userActions.js';
+import { actionLogout,actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';

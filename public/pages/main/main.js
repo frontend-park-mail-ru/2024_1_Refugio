@@ -3,7 +3,7 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
+import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
 import template from './main.hbs'
 import emailStore from '../../stores/emailStore.js';
 
@@ -38,6 +38,7 @@ export default class Main {
             menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
             contains_letters: this.#config.content.list_letters.length !== 0,
+            folders: this.#config.menu.folders,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
     }
@@ -57,6 +58,10 @@ export default class Main {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
+            },
+            folder: {
+                button: document.querySelector('#move-to'),
+                dropdown: document.querySelector('.main__header__dropdown__wrapper'),
             }
         }
 
@@ -343,6 +348,22 @@ export default class Main {
         }
     }
 
+    handleSaveFolder = (e, id) => {
+        this.hideError();
+        e.preventDefault();
+        this.selectedListLetters.forEach(item => {
+            const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
+
+            const value = {
+                emailId: Number(item.dataset.id),
+                folderId: Number(id),
+            }
+            dispathcher.do(actionAddLetterToFolder(value));
+        });
+        this.handleDeselect(e);
+        this.handleHeader();
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -352,6 +373,10 @@ export default class Main {
         //     .querySelector('.main__collapse-rollup-button')
         //     .addEventListener('click', this.handleShowSurvey);
 
+
+        this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
+            folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        })
 
         this.#parent
             .querySelector('.header__rollup-button')
@@ -404,6 +429,8 @@ export default class Main {
         mediator.on('logout', this.handleExitResponse)
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
+        mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
+
     }
 
     /**
@@ -411,6 +438,10 @@ export default class Main {
      */
     removeListeners() {
         this.#config.menu.component.removeListeners();
+
+        this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
+            folder.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        })
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').removeEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -457,6 +488,8 @@ export default class Main {
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
+        mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
+
     }
 
     handleExitResponse = (status) => {
@@ -495,6 +528,16 @@ export default class Main {
                 const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
+                break;
+        }
+    }
+
+    handleAddEmailToFolderResponse = ({ status, id }) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirectToLetter(id, true, true));
+                break;
+            default:
                 break;
         }
     }
