@@ -254,7 +254,7 @@ export default class Letter {
 
     handleFolder = (e) => {
         e.preventDefault();
-        this.#parent.querySelector('.dropdown__wrapper__month').classList.add('show');
+        this.#parent.querySelector('.letter__header__dropdown__wrapper').classList.add('show');
     }
 
     handleSaveFolder = async (e, id) => {
@@ -266,10 +266,24 @@ export default class Letter {
         dispathcher.do(actionAddLetterToFolder(value));
     };
 
+    handleRollUpMenu = (e) => {
+        e.preventDefault();
+        const menu = document.querySelector('.menu');
+        if (menu.classList.contains('appear')) {
+            menu.classList.remove('appear');
+        } else {
+            menu.classList.add('appear');
+        }
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent
+            .querySelector('.header__rollup-button')
+            .addEventListener('click', this.handleRollUpMenu);
         this.#config.menu.component.addListeners();
         this.#parent.querySelectorAll('.letter__folder').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));

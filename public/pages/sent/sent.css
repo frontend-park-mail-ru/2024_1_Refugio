@@ -23,6 +23,8 @@
     overflow: auto;
 
     margin: 0 16px 2px 0;
+    background-color: var(--box-background);
+    border-radius: 8px;
 }
 
 .letter__error {
@@ -30,8 +32,6 @@
     align-items: center;
 
     padding: 2px 16px;
-
-    background-color: var(--box-background);
 
     color: var(--negative);
     font-size: 13px;
@@ -49,8 +49,6 @@
     align-items: center;
 
     padding: 8px;
-    background-color: var(--box-background);
-    border-radius: 8px 8px 0 0;
 }
 
 .main__header__button {

@@ -14,24 +14,24 @@
 
     <div id="drafts-folder" class="menu__folder">
         <div class="menu__folder__text">Черновики</div>
-        <div class="menu__default-folder__counter">1</div>
+        <div class="menu__default-folder__counter"></div>
     </div>
     <div id="spam-folder" class="menu__folder">
         <div class="menu__folder__text">Спам</div>
-        <div class="menu__default-folder__counter">1</div>
+        <div class="menu__default-folder__counter"></div>
     </div>
-    <div class="menu__folder">
+    {{!-- <div class="menu__folder">
         <div class="menu__folder__text">Корзина</div>
         <div class="menu__trash-folder__clear">Очистить</div>
     </div>
     <div class="menu__folder">
         <div class="menu__folder__text">Непрочитанные</div>
-        <div class="menu__default-folder__counter">1</div>
+        <div class="menu__default-folder__counter"></div>
     </div>
     <div class="menu__folder">
         <div class="menu__folder__text">С вложениями</div>
-        <div class="menu__default-folder__counter">1</div>
-    </div>
+        <div class="menu__default-folder__counter"></div>
+    </div> --}}
 
     {{#if folders}}
     {{#each folders}}
@@ -43,7 +43,7 @@
     <div class="menu__new-folder">
         <div class="menu__custom-folder__dropdown__wrapper" id="new-wrapper">
             <div class="menu__custom-folder__dropdown">
-                <input type="text" class="menu__folder__dropdown__input" id="new-folder-input" placeholder="ivanovii@mailhub.su">
+                <input type="text" class="menu__folder__dropdown__input" id="new-folder-input" placeholder="Папка">
                 <div class="menu__folder__dropdown__save-button" id="new-folder-save">Сохранить</div>
                 <div class="menu__folder__dropdown__cancel-button" id="new-folder-cancel">Отмена</div>
                 <div class="menu__custom-folder__dropdown__error" id="new-folder-error">Ошибка</div>

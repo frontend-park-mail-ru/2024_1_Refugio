@@ -27,3 +27,39 @@
 
     cursor: default;
 }
+
+@media (max-width: 600px) {
+    .signup-wrapper {
+        grid-template-areas:
+            'logo'
+            'signup-box'
+            '.';
+        grid-template-rows: 1fr auto 1fr;
+        grid-template-columns: auto;
+    }
+
+    .signup-logo {
+        writing-mode: unset;
+        transform: none;
+    }
+}
+
+@media (max-width: 500px), ((max-width: 600px) and (max-height: 780px)) {
+    .signup-wrapper {
+        grid-template-areas:
+            'logo'
+            'signup-box'
+            '.';
+        grid-template-rows: 1fr auto 1fr;
+        grid-template-columns: auto;
+    }
+
+    .signup-logo {
+        writing-mode: unset;
+        transform: none;
+
+        font-size: 50px;
+        letter-spacing: 12px;
+        line-height: 52px;
+    }
+}

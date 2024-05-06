@@ -3,10 +3,6 @@
     grid-template-rows: repeat(auto-fit, auto);
     align-content: start;
     overflow-y: auto;
-    background-color: var(--box-background);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-
 }
 
 .list-letters::-webkit-scrollbar {

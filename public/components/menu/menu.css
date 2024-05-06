@@ -130,11 +130,10 @@
 .menu__custom-folder__dropdown {
     display: grid;
     grid-template-rows: repeat(4, auto);
-    gap: 8px;
     justify-items: center;
 
     margin-top: 10px;
-    padding: 8px;
+    padding: 8px 8px 4px;
     width: 208px;
     background: var(--box-background);
     border-radius: 8px;
@@ -143,7 +142,7 @@
 
 
 .menu__folder__dropdown__input {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
     padding: 12px;
     border-radius: 8px;
 
@@ -173,6 +172,7 @@
     display: flex;
     align-items: center;
 
+    margin-bottom: 8px;
     padding: 10px 16px;
     height: 36px;
 
@@ -259,4 +259,160 @@
 .menu__new-folder-button:hover {
     background-color: var(--secondary-button-onhover-selected);
     color: var(--text);
+}
+
+@media (max-width: 700px) {
+    .menu {
+        padding: 0 8px 8px 4px;
+        width: 155px;
+    }
+
+    .menu__write-letter-button {
+        margin-bottom: 9px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .menu__folder {
+        padding-left: 8px;
+        height: 32px;
+    }
+
+    .menu__new-folder {
+        padding-left: 8px;
+    }
+
+    .menu__folder__text {
+        font-size: 14px;
+    }
+
+    .menu__trash-folder__clear {
+        font-size: 10px;
+    }
+
+    .menu__custom-folder__dropdown__wrapper {
+        left: 0;
+    }
+
+    .menu__custom-folder__dropdown {
+        padding: 4px;
+        width: 147px;
+    }
+
+    .menu__folder__dropdown__input {
+        margin-bottom: 8px;
+        padding: 10px 10px 11px;
+        font-size: 15px;
+        height: 32px;
+    }
+
+    .menu__folder__dropdown__save-button {
+        margin-bottom: 4px;
+        padding: 10px 16px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .menu__folder__dropdown__cancel-button,
+    .menu__folder__dropdown__delete-button {
+        height: 36px;
+        padding: 8px 14px;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .menu__new-folder-button {
+        padding-left: 8px;
+        margin-top: 9px;
+        height: 32px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 500px) {
+    /* .menu {
+        display: none;
+    } */
+
+    .menu {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 62px;
+        bottom: 0;
+        padding: 0 4px 8px 4px;
+        width: 100%;
+        background-color: var(--background);
+    }
+
+    .menu__write-letter-button {    
+        margin-bottom: 11px;
+        height: 36px;
+        font-size: 15px;
+    }
+    
+    .menu__folder {
+        padding-left: 18px;
+        height: 36px;
+    }
+    
+    .menu__new-folder {
+        padding-left: 10px;
+    }
+    
+    .menu__folder__text {
+        font-size: 15px;
+    }
+
+    .menu__default-folder__counter {
+        padding: 0 10px;
+    }
+    
+    .menu__trash-folder__clear {
+        font-size: 12px;
+    }
+    
+    .menu__custom-folder__dropdown__wrapper {
+        top: -12px;
+        left: 10px;
+    }
+    
+    .menu__custom-folder__dropdown {    
+        margin-top: 10px;
+        padding: 8px 8px 4px;
+        width: 208px;
+    }
+    
+    
+    .menu__folder__dropdown__input {
+        margin-bottom: 16px;
+        padding: 12px;
+        font-size: 16px;
+        height: 36px;
+    }
+    
+    .menu__folder__dropdown__input::placeholder {
+        font-size: 16px;
+    }
+    
+    .menu__folder__dropdown__save-button {
+        margin-bottom: 8px;
+        padding: 10px 16px;
+        height: 36px;
+        font-size: 15px;
+    }
+    
+    .menu__folder__dropdown__cancel-button,
+    .menu__folder__dropdown__delete-button {
+        padding: 10px 16px;
+        height: 36px;
+        font-size: 15px;
+    }
+    
+    .menu__new-folder-button {
+        padding-left: 18px;
+        margin-top: 11px;
+        height: 36px;
+        font-size: 15px;
+    }
 }

@@ -159,3 +159,10 @@
 .cl-switch>input:checked:disabled+span::after {
     background-color: var(--text);
 }
+
+@media (max-width: 500px), (max-height: 780px) {
+
+    .gender-select {
+        margin: 14px 16px 0 16px;
+    }
+}

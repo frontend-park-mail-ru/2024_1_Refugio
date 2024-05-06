@@ -129,7 +129,6 @@
 .signup-box__first-name-input-wrapper__input,
 .signup-box__last-name-input-wrapper__input {
     box-sizing: border-box;
-
     width: 100%;
 }
 
@@ -316,4 +315,118 @@
 
 .signup-box__signup-button-wrapper__button:active {
     transform: scale(0.99);
+}
+
+@media (max-width: 500px), (max-height: 780px) {
+    .signup-box {
+        padding: 16px 0 4px;
+        max-height: 688px;
+        width: 300px;
+    }
+
+    .signup-box__authorization-method-switch {
+        margin: 0 16px 22px 16px;
+        padding: 2px;
+        height: 40px;
+    }
+
+    .signup-box__authorization-method-switch__method {
+        font-size: 14px;
+    }
+
+    .signup-box__first-name-input-wrapper {
+        margin: 2px 8px 0 16px;
+    }
+
+    .signup-box__last-name-input-wrapper {
+        margin: 2px 16px 0 8px;
+    }
+
+    .signup-box__first-name-input-wrapper label,
+    .signup-box__last-name-input-wrapper label {
+        margin-top: 2px;
+        font-size: 13px;
+    }
+
+    .signup-box__first-name-input-wrapper__input,
+    .signup-box__last-name-input-wrapper__input {
+        padding: 10px 12px;
+        font-size: 15px;
+    }
+
+    .signup-box__first-name-input-wrapper__input::placeholder,
+    .signup-box__last-name-input-wrapper__input::placeholder {
+        font-size: 15px;
+    }
+
+    .signup-box__email-input-wrapper {
+        margin: 12px 16px 0 16px;
+    }
+
+    .signup-box__email-input-wrapper label {
+        margin-top: 2px;
+        font-size: 13px;
+    }
+
+    .signup-box__email-input-wrapper__email-input,
+    .signup-box__email-input-wrapper__email-domain-input {
+        font-size: 15px;
+    }
+
+    .signup-box__email-input-wrapper__email-input {
+        padding: 10px 2px 10px 12px;
+        width: 168px;
+    }
+
+    .signup-box__email-input-wrapper__email-domain-input {
+        padding: 10px 12px 10px 0;
+        width: 100px;
+    }
+
+
+    .signup-box__email-input-wrapper__email-input::placeholder,
+    .signup-box__email-input-wrapper__email-domain-input::placeholder {
+        font-size: 15px;
+    }
+
+    .signup-box__password-input-wrapper {
+        margin: 2px 16px 0 16px;
+    }
+
+    .signup-box__password-confirm-input-wrapper {
+        margin: 2px 16px 0 16px;
+        height: 78px;
+    }
+
+    .signup-box__password-input-wrapper label,
+    .signup-box__password-confirm-input-wrapper label {
+        margin-top: 2px;
+        font-size: 13px;
+    }
+
+    .signup-box__password-input-wrapper__input,
+    .signup-box__password-confirm-input-wrapper__input {
+        padding: 12px;
+        height: 40px;
+        width: 100%;
+
+        font-size: 23px;
+        letter-spacing: 1px;
+    }
+
+    .signup-box__password-input-wrapper__input::placeholder,
+    .signup-box__password-confirm-input-wrapper__input::placeholder {
+        font-size: 15px;
+    }
+
+    .signup-box__signup-button-wrapper {
+        grid-row-gap: 8px;
+        margin: 18px 16px 0 16px;
+    }
+
+    .signup-box__signup-button-wrapper__button {
+        padding: 10px 16px;
+        height: 32px;
+        font-size: 14px;
+    }
 }
