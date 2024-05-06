@@ -50,12 +50,13 @@ export default class Write__Letter {
             sender: this.#config.values?.sender,
             date: this.#config.values?.date,
             topic: this.#config.values?.topic,
+            text: this.#config.values?.text,
             replyId: this.#config.values?.replyId,
             replySender: this.#config.values?.replySender,
             header: new Header(null, config.header).render(),
             menu: this.#config.menu.component.render(),
         };
-        if (this.#config.values?.text) {
+        if (this.#config.values?.text && !this.#config.values?.changeDraft) {
             elements.text = this.registerHelper(this.#config.values?.text);
         }
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
