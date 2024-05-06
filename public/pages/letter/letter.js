@@ -69,6 +69,14 @@ export default class Letter {
             this.#parent.querySelector('#changeDraft').style.display = 'none';
         }
         this.#parent.querySelector('#back').style.display = 'grid';
+        this.#parent.querySelector('#delete').style.display = 'grid';
+        const btn = this.#parent.querySelector('#to-spam');
+        console.log(this.#config.email.spamStatus);
+        if (this.#config.email.spamStatus === true) {
+            btn.style.backgroundColor = '#393939';
+        } else {
+            btn.style.backgroundColor = '#191919';
+        };
     }
 
     hideError = () => {
@@ -198,6 +206,21 @@ export default class Letter {
         }
     }
 
+    handleSpam = async (e) => {
+        this.hideError();
+        e.preventDefault();
+        const id = this.#config.email.id;
+        const value = this.#config.email;
+        const btn = this.#parent.querySelector('#to-spam');
+        if (Boolean(value.spamStatus) === false) {
+            btn.style.backgroundColor = '#393939';
+        } else {
+            btn.style.backgroundColor = '#191919';
+        };
+        value.spamStatus = !value.spamStatus;
+        dispathcher.do(actionUpdateEmail(id, value));
+    }
+
     handleMarkAsUnread = async (e) => {
         this.hideError();
         e.preventDefault();
@@ -287,6 +310,9 @@ export default class Letter {
             .querySelector('#mark-as-unread')
             .addEventListener('click', this.handleMarkAsUnread);
         this.#parent
+            .querySelector('#to-spam')
+            .addEventListener('click', this.handleSpam);
+        this.#parent
             .querySelector('#resend')
             .addEventListener('click', this.handleResend);
         this.#parent
@@ -328,6 +354,9 @@ export default class Letter {
         this.#parent
             .querySelector('#mark-as-read')
             .removeEventListener('click', this.handleMarkAsRead);
+        this.#parent
+            .querySelector('#to-spam')
+            .removeEventListener('click', this.handleSpam);
         this.#parent
             .querySelector('.header__dropdown__stat-button')
             .removeEventListener('click', this.handleStat);

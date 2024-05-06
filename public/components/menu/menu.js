@@ -51,6 +51,11 @@ export default class Menu {
         dispathcher.do(actionRedirect('/sent', true));
     };
 
+    handleSpam = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/spam', true));
+    };
+
     handleDrafts = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/drafts', true));
@@ -101,6 +106,12 @@ export default class Menu {
             element.style.display = 'none';
         });
         this.#parent.querySelector('.menu__new-folder-button').style.display = 'grid';
+        this.#parent.querySelectorAll('.menu__custom-folder__options').forEach((element) => {
+            element.style.display = 'grid';
+        });
+        this.#parent.querySelectorAll('.menu__folder__text').forEach((element) => {
+            element.style.display = 'grid';
+        });
     }
 
     addListeners() {
@@ -113,6 +124,9 @@ export default class Menu {
         this.#parent
             .querySelector('#drafts-folder')
             .addEventListener('click', this.handleDrafts);
+        this.#parent
+            .querySelector('#spam-folder')
+            .addEventListener('click', this.handleSpam);
         this.#parent
             .querySelector('.menu__write-letter-button')
             .addEventListener('click', this.handleWriteLetter);
