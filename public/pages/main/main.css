@@ -157,6 +157,7 @@
         grid-template-areas:
             'header'
             'content';
+        grid-template-columns: 1fr;
         grid-template-rows: repeat(2, auto);
         align-content: start;
     }

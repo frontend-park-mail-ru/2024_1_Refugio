@@ -254,7 +254,7 @@ export default class Letter {
 
     handleFolder = (e) => {
         e.preventDefault();
-        this.#parent.querySelector('.dropdown__wrapper__month').classList.add('show');
+        this.#parent.querySelector('.letter__header__dropdown__wrapper').classList.add('show');
     }
 
     handleSaveFolder = async (e, id) => {
