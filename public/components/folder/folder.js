@@ -79,12 +79,18 @@ export default class Folder {
         dispathcher.do(actionRedirectToLetter(this.#config.id, true, true));
     }
 
+    handleWrapper = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
     addListeners() {
         this.#parent.querySelector(`#f-options-${this.#config.id}`).addEventListener('click', this.handleOptions);
         this.#parent.querySelector(`#f-cancel-${this.#config.id}`).addEventListener('click', this.handleCancel);
         this.#parent.querySelector(`#f-save-${this.#config.id}`).addEventListener('click', this.handleSave);
         this.#parent.querySelector(`#f-delete-${this.#config.id}`).addEventListener('click', this.handleDelete);
         this.#parent.querySelector(`#f-folder-${this.#config.id}`).addEventListener('click', this.handleFolder);
+        this.#parent.querySelector(`#f-wrapper-${this.#config.id}`).addEventListener('click', this.handleWrapper);
     }
 
     /**
@@ -96,5 +102,6 @@ export default class Folder {
         this.#parent.querySelector(`#f-save-${this.#config.id}`).removeEventListener('click', this.handleSave);
         this.#parent.querySelector(`#f-delete-${this.#config.id}`).removeEventListener('click', this.handleDelete);
         this.#parent.querySelector(`#f-folder-${this.#config.id}`).removeEventListener('click', this.handleFolder);
+        this.#parent.querySelector(`#f-wrapper-${this.#config.id}`).removeEventListener('click', this.handleWrapper);
     }
 }
