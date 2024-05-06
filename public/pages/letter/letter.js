@@ -92,20 +92,23 @@ export default class Letter {
 
     handleDropdowns(e) {
         const target = e.target;
-
         const elements = {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
             },
+            folder: {
+                button: document.querySelector('#to-folder'),
+                dropdown: document.querySelector('.letter__header__dropdown__wrapper'),
+            }
         }
-
+        
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
                 value.dropdown.classList.remove('show');
             });
         }
-
+        
         let hasTarget = false;
         Object.keys(elements).forEach(key => {
             if (elements[key].button.contains(target)) {
@@ -252,10 +255,11 @@ export default class Letter {
             .removeEventListener('click', this.handleBack);
     }
 
-    handleFolder = (e) => {
-        e.preventDefault();
-        this.#parent.querySelector('.letter__header__dropdown__wrapper').classList.add('show');
-    }
+    // handleFolder = (e) => {
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     this.#parent.querySelector('.letter__header__dropdown__wrapper').classList.add('show');
+    // }
 
     handleSaveFolder = async (e, id) => {
         e.preventDefault();
@@ -324,9 +328,9 @@ export default class Letter {
         this.#parent.
             querySelector('.letter__header__back-button')
             .addEventListener('click', this.handleBack);
-        this.#parent.
-            querySelector('#to-folder')
-            .addEventListener('click', this.handleFolder);
+        // this.#parent.
+        //     querySelector('#to-folder')
+        //     .addEventListener('click', this.handleFolder);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
@@ -375,9 +379,9 @@ export default class Letter {
         this.#parent.
             querySelector('.letter__header__back-button')
             .removeEventListener('click', this.handleBack);
-        this.#parent.
-            querySelector('#to-folder')
-            .removeEventListener('click', this.handleFolder);
+        // this.#parent.
+        //     querySelector('#to-folder')
+        //     .removeEventListener('click', this.handleFolder);
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
