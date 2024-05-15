@@ -587,8 +587,15 @@ export default class Profile {
     handleUpdateResponse = (status) => {
         const error = this.#parent
             .querySelector('#buttons-error');
+        const saveButton = this.#parent.querySelector('.profile__buttons__save-button');
+
+
         switch (status) {
             case 200:
+                saveButton.textContent = "Успешно сохранено";
+                setTimeout(() => {
+                    saveButton.textContent = "Сохранить";
+                }, 3000)
                 // dispathcher.do(actionRedirect('/main', true));
                 break;
             default:

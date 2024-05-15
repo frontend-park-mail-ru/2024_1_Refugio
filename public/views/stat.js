@@ -32,6 +32,7 @@ class StatView extends BaseView {
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.login = this.#config.user.login;
         this.#config.header.avatar = this.#config.user.avatar;
         this.#config.stat = await this.getStatInfo();
         if (emailStore.incoming_count > 0) {

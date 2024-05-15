@@ -14,7 +14,7 @@
     align-content: start;
 
     display: grid;
-    grid-template-rows: repeat(2, auto) 1fr auto;
+    grid-template-rows: repeat(3, auto) 1fr auto;
     overflow: auto;
 
     margin: 0 16px 2px 0;
@@ -205,11 +205,13 @@
 }
 
 .write-letter__attachments__dropdown__wrapper {
-    display: none;
+    display: grid;
     position: absolute;
     top: 32px;
     left: 68px;
     z-index: 1;
+
+    visibility: hidden;
 }
 
 .write-letter__attachments__dropdown {

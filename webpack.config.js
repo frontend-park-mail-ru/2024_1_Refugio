@@ -26,8 +26,8 @@ export default (env) => {
         inject: 'body', // This line injects all your JavaScript files into the body of your HTML
       }),
       new webpack.ProgressPlugin(),
-      autoprefixer,
-      cssnano,
+      // autoprefixer,
+      // cssnano,
       new CopyPlugin({
         patterns: [
           { from: 'sw.js', to: 'sw.js' },
@@ -51,35 +51,36 @@ export default (env) => {
           use: [
             'style-loader',
             'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: [
-                    [
-                      'autoprefixer',
-                    ],
-                    [
-                      'cssnano',
-                      {
-                        preset: 'default',
-                      },
-                    ],
-                  ],
-                },
-              },
-            },]
+            // {
+            //   loader: 'postcss-loader',
+            //   options: {
+            //     postcssOptions: {
+            //       plugins: [
+            //         [
+            //           'autoprefixer',
+            //         ],
+            //         [
+            //           'cssnano',
+            //           {
+            //             preset: 'default',
+            //           },
+            //         ],
+            //       ],
+            //     },
+            //   },
+            // },
+          ]
         },
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env'],
-            },
-          },
-        },
+        // {
+        //   test: /\.js$/,
+        //   exclude: /node_modules/,
+        //   use: {
+        //     loader: 'babel-loader',
+        //     options: {
+        //       presets: ['@babel/preset-env'],
+        //     },
+        //   },
+        // },
 
       ]
     },
