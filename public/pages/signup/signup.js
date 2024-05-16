@@ -420,7 +420,6 @@ export default class Signup {
         switch (data.status) {
             case 200:
                 window.location.href = data.link;
-                // window.open(data.link, '_blank');
 
                 break;
             default:

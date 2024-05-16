@@ -501,9 +501,10 @@ export default class Main {
     }
 
     handleUpdateEmailResponse = (status) => {
+        const counter = this.#parent.querySelector('.menu__default-folder__counter');
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
-                const counter = this.#parent.querySelector('.menu__default-folder__counter');
                 if (emailStore.incoming_count > 0) {
                     counter.textContent = emailStore.incoming_count;
                 } else {
@@ -511,7 +512,6 @@ export default class Main {
                 }
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
@@ -519,11 +519,11 @@ export default class Main {
     }
 
     handleDeleteEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;

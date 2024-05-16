@@ -1,7 +1,6 @@
 import dispathcher from "../modules/dispathcher.js";
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
-import statStore from "../stores/statStore.js";
 import { actionGetSpam, actionGetDrafts, actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming, actionGetFolderEmails } from "../actions/userActions.js";
 import folderStore from "../stores/folderStore.js";
 /**

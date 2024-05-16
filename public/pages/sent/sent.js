@@ -449,11 +449,12 @@ export default class Sent {
     }
 
     handleUpdateEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
+
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
@@ -461,11 +462,12 @@ export default class Sent {
     }
 
     handleDeleteEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
+
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;

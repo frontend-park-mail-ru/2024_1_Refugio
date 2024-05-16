@@ -4,8 +4,6 @@ import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionRedirect, actionLogout } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
-import router from '../../modules/router.js';
-import statStore from '../../stores/statStore.js';
 
 /**
  * Класс обертки страницы

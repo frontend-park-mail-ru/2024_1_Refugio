@@ -6,8 +6,6 @@ import ProfileView from "../views/profile.js";
 import writeLetter from "../views/write-letter.js";
 import LetterView from "../views/letter.js";
 import SentView from "../views/sent.js";
-import SurveyView from "../views/survey.js";
-import StatView from "../views/stat.js";
 import FolderView from "../views/folder.js";
 import DraftView from "../views/draft.js";
 import SpamView from "../views/spam.js";
@@ -30,8 +28,6 @@ class Router {
         this.#authViews.set('/profile', ProfileView);
         this.#authViews.set('/write_letter', writeLetter);
         this.#authViews.set('/sent', SentView);
-        this.#authViews.set('/survey', SurveyView);
-        this.#authViews.set('/stat', StatView);
         this.#authViews.set('/drafts', DraftView);
         this.#authViews.set('/spam', SpamView);
 
