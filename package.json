@@ -5,6 +5,7 @@
   "description": "Frontend проекта \"Почта\" команды Refugio",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint public --fix",
     "start": "DEBUG=* node server",
     "build": "webpack --env mode=development",
     "build:prod": "webpack --env mode=production",

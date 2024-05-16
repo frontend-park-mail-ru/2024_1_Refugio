@@ -90,6 +90,18 @@ class UserStore {
         const status = await response.status;
         mediator.emit('avatarUpload', status);
     }
+
+    async getAuthUrlSignUpVK() {
+        const response = await ajax(
+            'GET', `https://mailhub.su/api/v1/testAuth/auth-vk/getAuthUrlSignUpVK`, null, 'application/json', this.#csrf
+        );
+
+        const status = await response.status;
+        const data = await response.json();
+        const link =  data.body.AuthURL;
+        console.log(link);
+        mediator.emit('getAuthUrlSignUpVK', { status, link });
+    }
 }
 
 export default new UserStore();

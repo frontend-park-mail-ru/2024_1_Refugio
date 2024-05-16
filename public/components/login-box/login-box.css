@@ -89,7 +89,7 @@
     grid-area: email-input;
 
     padding: 12px 2px 12px 12px;
-    width: 220px;
+    width: 210px;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
@@ -98,10 +98,17 @@
     grid-area: domain-input;
 
     padding: 12px 12px 12px 0;
-    width: 108px;
+    width: 118px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
+
+    background-color: var(--input-background);
+    color: var(--text);
 }
+
+/* .login-box__email-input-wrapper__email-domain-input option {
+    width: 500px;
+} */
 
 .login-box__password-input-wrapper__input {
     grid-area: input;
@@ -150,8 +157,10 @@
 .login-box__login-button-wrapper {
     display: grid;
     grid-template-areas:
-        'button'
-        'error';
+        'button vk'
+        'error error';
+    grid-template-columns: 1fr auto;
+    grid-column-gap: 8px;
     grid-row-gap: 8px;
     margin: 26px 16px 0 16px;
 
@@ -182,16 +191,42 @@
     transition: background-color 0.1s ease;
 }
 
+.login-box__login-button-wrapper__vk-button {
+    grid-area: vk;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+    height: 36px;
+
+    background-color: var(--vk);
+    border-radius: 8px;
+
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+
+    transition: background-color 0.1s ease;
+}
+
 .login-box__login-button-wrapper__button:hover {
     background-color: var(--main-button-hover);
 }
 
-.login-box__login-button-wrapper__button:active {
+.login-box__login-button-wrapper__button:active,
+.login-box__login-button-wrapper__vk-button:active {
     transform: scale(0.99);
 }
 
 
-@media (max-width: 500px), (max-height: 780px) {
+@media (max-width: 500px),
+(max-height: 780px) {
 
     .login-box {
         padding: 16px 0 4px;
@@ -265,7 +300,8 @@
         margin: 18px 16px 0 16px;
     }
 
-    .login-box__login-button-wrapper__button {
+    .login-box__login-button-wrapper__button,
+    .login-box__login-button-wrapper__vk-button {
         padding: 10px 16px;
         height: 32px;
         font-size: 14px;

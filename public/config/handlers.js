@@ -34,6 +34,8 @@ const handlers = [
     {type: 'addLetterToFolder', method: folderStore.addLetter.bind(folderStore)},
     {type: 'getDrafts', method: emailStore.getDrafts.bind(emailStore)},
     {type: 'getSpam', method: emailStore.getSpam.bind(emailStore)},
+    {type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore)},
+
 ];
 
 export default handlers;

@@ -76,7 +76,7 @@ export default class Letter {
             btn.style.backgroundColor = '#393939';
         } else {
             btn.style.backgroundColor = '#191919';
-        };
+        }
     }
 
     hideError = () => {
@@ -195,7 +195,7 @@ export default class Letter {
             icon.src = '/icons/read-on__256.svg';
         } else {
             icon.src = '/icons/read-on-offer__256.svg';
-        };
+        }
         value.readStatus = !value.readStatus;
         dispathcher.do(actionUpdateEmail(id, value));
     }
@@ -223,7 +223,7 @@ export default class Letter {
             btn.style.backgroundColor = '#393939';
         } else {
             btn.style.backgroundColor = '#191919';
-        };
+        }
         value.spamStatus = !value.spamStatus;
         dispathcher.do(actionUpdateEmail(id, value));
     }

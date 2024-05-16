@@ -100,7 +100,7 @@ export default class Stat {
 
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
-    };
+    }
 
     removeListeners() {
         this.#config.menu.component.removeListeners();
@@ -113,7 +113,7 @@ export default class Stat {
 
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
-    };
+    }
 
     handleExitResponse = (status) => {
         switch (status) {

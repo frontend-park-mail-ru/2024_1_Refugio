@@ -34,7 +34,7 @@ export default class Write__Letter {
         let lines = text.split('\n');
         lines = lines.map(line => '\t' + line);
         return lines.join('\n');
-    };
+    }
 
 
     /**
@@ -141,7 +141,7 @@ export default class Write__Letter {
                         toInput.classList.add('input-background-error');
                         isValidForm = false;
                     } else {
-                        const toRegex = /^[a-zA-Z0-9._%+-]+@mailhub.su$/;
+                        const toRegex = /^[a-zA-Z0-9._%+-]+@.+\..+$/;
                         if (!toRegex.test(to)) {
                             toError.textContent = "Некорректное имя ящика получателя";
                             toError.classList.add('appear');
@@ -336,7 +336,7 @@ export default class Write__Letter {
                         toInput.classList.add('input-background-error');
                         isValidForm = false;
                     } else {
-                        const toRegex = /^[a-zA-Z0-9._%+-]+@mailhub.su$/;
+                        const toRegex = /^[a-zA-Z0-9._%+-]+@.+\..+$/;
                         if (!toRegex.test(to)) {
                             toError.textContent = "Некорректное имя ящика получателя";
                             toError.classList.add('appear');
@@ -432,7 +432,7 @@ export default class Write__Letter {
                         toInput.classList.add('input-background-error');
                         isValidForm = false;
                     } else {
-                        const toRegex = /^[a-zA-Z0-9._%+-]+@mailhub.su$/;
+                        const toRegex = /^[a-zA-Z0-9._%+-]+@.+\..+$/;
                         if (!toRegex.test(to)) {
                             toError.textContent = "Некорректное имя ящика получателя";
                             toError.classList.add('appear');
@@ -538,10 +538,37 @@ export default class Write__Letter {
         }
     }
 
+    handleAttach = async (e) => {
+        e.preventDefault();
+        const input = this.#parent.querySelector('.write-letter__attachments__attach-input');
+        const handleFileProcessing = async () => {
+            const file = input.files[0];
+            const error = this.#parent
+                .querySelector('.write-letter__attachments__error');
+            if (file.size > 100 * 1024 * 1024) {
+                error.textContent = 'Файл превышает максимальный размер 100 МБ';
+                error.classList.add('show');
+                return;
+            }
+
+            this.reader.readAsDataURL(file);
+            input.removeEventListener('change', handleFileProcessing);
+            const formData = new FormData();
+            formData.append('file', this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input').files[0]);
+            dispathcher.do(actionAvatarUpload(formData))
+        };
+        input.addEventListener('change', handleFileProcessing);
+        input.click();
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent
+            .querySelector('.write-letter__attachments__attach-button')
+            .addEventListener('click', this.handleAttach);
 
         this.#parent
             .querySelector('.header__rollup-button')
@@ -575,6 +602,7 @@ export default class Write__Letter {
                 .querySelector('.write-letter__buttons__save-draft-button')
                 .addEventListener('click', this.handleDraft);
         }
+
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)

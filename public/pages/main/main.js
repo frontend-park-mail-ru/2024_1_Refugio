@@ -334,7 +334,7 @@ export default class Main {
         iframe.height = '300';
         iframe.width = '400';
 
-        var insertAfterElement = document.querySelector('.main__control-buttons');
+        let insertAfterElement = document.querySelector('.main__control-buttons');
         insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
     }
 

@@ -132,3 +132,8 @@ export const actionGetSpam = () => ({
     type: 'getSpam',
     value: {},
 })
+
+export const actionGetAuthUrlSignUpVK = () => ({
+    type: 'getAuthUrlSignUpVK',
+    value: {},
+})

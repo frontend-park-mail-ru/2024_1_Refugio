@@ -278,8 +278,10 @@
 
     display: grid;
     grid-template-areas:
-        'button'
-        'error';
+        'button vk'
+        'error error';
+    grid-template-columns: 1fr auto;
+    grid-column-gap: 8px;
     grid-row-gap: 8px;
     margin: 26px 16px 0 16px;
 
@@ -287,7 +289,7 @@
 }
 
 .signup-box__signup-button-wrapper__button {
-    grid-area: button;
+    grid-area:button;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -308,12 +310,35 @@
     transform: scale(1);
     transition: background-color 0.1s ease;
 }
+.signup-box__signup-button-wrapper__vk-button {
+    grid-area: vk;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px 16px;
+    height: 36px;
+
+    background-color: var(--vk);
+    border-radius: 8px;
+
+    color: white;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    cursor: pointer;
+    transform: scale(1);
+    transition: background-color 0.1s ease;
+}
 
 .signup-box__signup-button-wrapper__button:hover {
     background-color: var(--main-button-hover);
 }
 
-.signup-box__signup-button-wrapper__button:active {
+.signup-box__signup-button-wrapper__button:active,
+.signup-box__signup-button-wrapper__vk-button:active {
     transform: scale(0.99);
 }
 
@@ -424,7 +449,8 @@
         margin: 18px 16px 0 16px;
     }
 
-    .signup-box__signup-button-wrapper__button {
+    .signup-box__signup-button-wrapper__button,
+    .signup-box__signup-button-wrapper__vk-button {
         padding: 10px 16px;
         height: 32px;
         font-size: 14px;

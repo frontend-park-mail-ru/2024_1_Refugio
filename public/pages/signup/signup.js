@@ -1,4 +1,4 @@
-import { actionRedirect, actionSignup } from '../../actions/userActions.js';
+import { actionRedirect, actionSignup, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
@@ -137,7 +137,7 @@ export default class Signup {
                 lastNameError.classList.add('show');
                 lastNameInput.classList.add('input-background-error');
                 isValidForm = false;
-            }else {
+            } else {
                 const lastNameRegex = /[\p{Letter}\p{Mark}]+/gu;
                 if (!lastNameRegex.test(lastName)) {
                     lastNameError.textContent = "Некорректная фамилия";
@@ -346,10 +346,18 @@ export default class Signup {
         }
     }
 
+    handleVkSignup = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionGetAuthUrlSignUpVK());
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent.
+            querySelector('.signup-box__signup-button-wrapper__vk-button')
+            .addEventListener('click', this.handleVkSignup);
         this.#parent
             .querySelector('.signup-box__signup-button-wrapper__button')
             .addEventListener('click', this.handleSignup);
@@ -366,6 +374,7 @@ export default class Signup {
         document
             .addEventListener('keydown', this.handleEnterKey);
         mediator.on('signup', this.handleSignupResponse);
+        mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse)
     }
 
     /**
@@ -388,6 +397,7 @@ export default class Signup {
         document
             .removeEventListener('keydown', this.handleEnterKey);
         mediator.off('signup', this.handleSignupResponse);
+        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
     }
 
     handleSignupResponse = (status) => {
@@ -399,6 +409,22 @@ export default class Signup {
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+                break;
+        }
+    }
+
+    handleVkSignupResponse = (data) => {
+        const error = this.#parent
+            .querySelector('#signup-error');
+        switch (data.status) {
+            case 200:
+                window.location.href = data.link;
+                // window.open(data.link, '_blank');
+
+                break;
+            default:
+                error.textContent = 'VKПроблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
         }
