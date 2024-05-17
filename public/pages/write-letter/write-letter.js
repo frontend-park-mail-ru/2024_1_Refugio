@@ -538,11 +538,17 @@ export default class Write__Letter {
         }
     }
 
-    handleAttach = async (e) => {
+    attachments = [];
+
+    handleFile = async (e) => {
         e.preventDefault();
         const input = this.#parent.querySelector('.write-letter__attachments__attach-input');
         const handleFileProcessing = async () => {
             const file = input.files[0];
+            input.removeEventListener('change', handleFileProcessing);
+
+            this.attachments.push(file);
+            console.log(this.attachments);
             const error = this.#parent
                 .querySelector('.write-letter__attachments__error');
             if (file.size > 100 * 1024 * 1024) {
@@ -551,11 +557,11 @@ export default class Write__Letter {
                 return;
             }
 
-            this.reader.readAsDataURL(file);
-            input.removeEventListener('change', handleFileProcessing);
-            const formData = new FormData();
-            formData.append('file', this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input').files[0]);
-            dispathcher.do(actionAvatarUpload(formData))
+            // this.reader.readAsDataURL(file);
+            // input.removeEventListener('change', handleFileProcessing);
+            // const formData = new FormData();
+            // formData.append('file', this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input').files[0]);
+            // dispathcher.do(actionAvatarUpload(formData))
         };
         input.addEventListener('change', handleFileProcessing);
         input.click();
@@ -568,7 +574,7 @@ export default class Write__Letter {
 
         this.#parent
             .querySelector('.write-letter__attachments__attach-button')
-            .addEventListener('click', this.handleAttach);
+            .addEventListener('click', this.handleFile);
 
         this.#parent
             .querySelector('.header__rollup-button')

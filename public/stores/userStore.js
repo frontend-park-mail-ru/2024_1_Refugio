@@ -100,6 +100,12 @@ class UserStore {
         const data = await response.json();
         const link =  data.body.AuthURL;
         console.log(link);
+
+        // const response1 = await ajax(
+        //     'GET', `https://mailhub.su/api/v1/testAuth/auth-vk/getAuthUrlSignUpVK`, null, 'application/json', this.#csrf
+        // );
+        // console.log(response1);
+
         mediator.emit('getAuthUrlSignUpVK', { status, link });
     }
 }

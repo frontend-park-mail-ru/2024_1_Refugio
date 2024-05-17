@@ -419,7 +419,7 @@ export default class Signup {
             .querySelector('#signup-error');
         switch (data.status) {
             case 200:
-                window.location.href = data.link;
+                // window.location.href = data.link;
 
                 break;
             default:
