@@ -2,10 +2,9 @@
     display: grid;
     grid-template-areas:
         'header header'
-        'menu content'
-        'menu .';
+        'menu content';
     grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto 1fr;
 
     height: 100%;
 }
@@ -15,12 +14,11 @@
     align-content: start;
 
     display: grid;
-    grid-template-rows: repeat(5, auto);
-    /* FIX */
+    grid-template-rows: repeat(6, auto);
     overflow: auto;
 
     margin: 0 16px 2px 0;
-    background-color: var(--box-background);
+    /* background-color: var(--box-background); */
     border-radius: 8px;
 }
 
@@ -30,6 +28,7 @@
 
     padding: 2px 16px;
 
+    background-color: var(--box-background);
     color: var(--negative);
     font-size: 13px;
     font-weight: 400;
@@ -45,6 +44,8 @@
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
+    background-color: var(--box-background);
+
 
     padding: 8px;
 }
@@ -75,6 +76,7 @@
 
 .letter__subject {
     padding-left: 16px;
+    background-color: var(--box-background);
 
     font-size: 20px;
     font-weight: 500;
@@ -90,6 +92,7 @@
     grid-column-gap: 8px;
 
     padding: 8px;
+    background-color: var(--box-background);
 }
 
 .letter__info__icon {
@@ -138,6 +141,7 @@
     justify-content: start;
 
     padding: 8px 0 8px 68px;
+    background-color: var(--box-background);
 }
 
 .letter__attachments__view-button {
@@ -205,11 +209,12 @@
 
 
 .letter__attachments__dropdown__wrapper {
-    display: none;
+    display: grid;
     position: absolute;
     top: 32px;
     left: 68px;
     z-index: 1;
+    visibility: hidden;
 }
 
 .letter__attachments__dropdown {
@@ -308,6 +313,8 @@
     overflow-y: auto;
     white-space: pre-wrap;
     word-break: break-word;
+
+    background-color: var(--box-background);
 
     font-size: 16px;
     font-weight: 400;

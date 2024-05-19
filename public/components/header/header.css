@@ -82,8 +82,7 @@
     z-index: 999;
 
     display: grid;
-    grid-template-rows: repeat(2, auto);
-    /* исправить */
+    grid-template-rows: repeat(3, auto);
     gap: 2px;
     padding: 8px;
 
@@ -96,10 +95,9 @@
 
 .header__dropdown__profile-button,
 .header__dropdown__logout-button,
-.header__dropdown__stat-button {
+.header__dropdown__login-label {
     padding: 5px 8px 5px 8px;
     border-radius: 8px;
-    cursor: pointer;
 
     font-size: 15px;
     font-weight: 400;
@@ -108,9 +106,17 @@
     transition: background-color 0.1s ease;
 }
 
+.header__dropdown__profile-button,
+.header__dropdown__logout-button {
+    cursor: pointer;
+}
+
+.header__dropdown__login-label {
+    cursor: default;
+}
+
 .header__dropdown__profile-button:hover,
-.header__dropdown__logout-button:hover,
-.header__dropdown__stat-button:hover {
+.header__dropdown__logout-button:hover {
     background-color: var(--secondary-button-onhover-selected);
 }
 

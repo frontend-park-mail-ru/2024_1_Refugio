@@ -2,8 +2,8 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-// import autoprefixer from 'autoprefixer';
-// import cssnano from 'cssnano';
+import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
 import CopyPlugin from 'copy-webpack-plugin';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -51,24 +51,25 @@ export default (env) => {
           use: [
             'style-loader',
             'css-loader',
-            {
-              loader: 'postcss-loader',
-              options: {
-                postcssOptions: {
-                  plugins: [
-                    // [
-                    //   'autoprefixer',
-                    // ],
-                    // [
-                    //   'cssnano',
-                    //   {
-                    //     preset: 'default',
-                    //   },
-                    // ],
-                  ],
-                },
-              },
-            },]
+            // {
+            //   loader: 'postcss-loader',
+            //   options: {
+            //     postcssOptions: {
+            //       plugins: [
+            //         [
+            //           'autoprefixer',
+            //         ],
+            //         [
+            //           'cssnano',
+            //           {
+            //             preset: 'default',
+            //           },
+            //         ],
+            //       ],
+            //     },
+            //   },
+            // },
+          ]
         },
         // {
         //   test: /\.js$/,

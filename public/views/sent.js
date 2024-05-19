@@ -196,6 +196,7 @@ class SentView extends BaseView {
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.login = this.#config.user.login;
         this.#config.header.avatar = this.#config.user.avatar;
         this.#config.content.list_letters = await this.getSentInfo();
         if (emailStore.incoming_count > 0) {

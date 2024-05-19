@@ -25,6 +25,7 @@ export default class Header {
         const header = {
             avatar: this.#config.avatar,
             userLetter: this.#config.username.charAt(0),
+            login: this.#config.login,
         };
         return template(header);
     }

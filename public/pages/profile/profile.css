@@ -43,10 +43,11 @@
         'birthday avatar'
         'gender avatar'
         'bio phone'
-        'password password-confirm'
         'button button';
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
+
+    /* FIX */
 
     padding: 0 16px 6px;
 }
@@ -368,10 +369,11 @@
             'avatar avatar'
             'birthday  birthday'
             'bio phone'
-            'password password-confirm'
             'button button';
         grid-template-columns: repeat(2, 1fr);
         padding: 0 8px 4px;
+
+        /* FIX */
     }
 
     .profile__first-name-input-wrapper,

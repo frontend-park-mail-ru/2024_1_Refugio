@@ -100,15 +100,19 @@ export default class Letter {
             folder: {
                 button: document.querySelector('#to-folder'),
                 dropdown: document.querySelector('.letter__header__dropdown__wrapper'),
+            },
+            files: {
+                button: document.querySelector('.letter__attachments__view-button'),
+                dropdown: document.querySelector('.letter__attachments__dropdown__wrapper'),
             }
         }
-        
+
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
                 value.dropdown.classList.remove('show');
             });
         }
-        
+
         let hasTarget = false;
         Object.keys(elements).forEach(key => {
             if (elements[key].button.contains(target)) {

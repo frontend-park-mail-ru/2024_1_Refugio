@@ -40,6 +40,7 @@ export default class LetterView extends BaseView {
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.login = this.#config.user.login;
         this.#config.header.avatar = this.#config.user.avatar;
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;

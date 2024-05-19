@@ -18,6 +18,14 @@ export default class List_letter {
         this.#parent = parent;
     }
 
+    cleanText = (text) => {
+        console.log(text);
+        let cleanedText = text.replaceAll("--", "").replaceAll("Исходное письмо", "").replaceAll("Ответ на", "").replaceAll("Пересылаемое письмо" ,"");
+
+
+        return cleanedText;
+    }
+
     /**
      * рендерит компонент в DOM
      */
@@ -27,7 +35,7 @@ export default class List_letter {
             avatar: this.#config.avatar,
             from: this.#config.from,
             subject: this.#config.subject,
-            text: this.#config.text,
+            text: this.cleanText(this.#config.text),
             date: (new Date(this.#config.date)).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
             // sent: this.#config.sent,
             id: this.#config.id,

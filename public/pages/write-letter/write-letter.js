@@ -237,7 +237,7 @@ export default class Write__Letter {
                         toInput.classList.add('input-background-error');
                         isValidForm = false;
                     } else {
-                        const toRegex = /^[a-zA-Z0-9._%+-]+@mailhub.su$/;
+                        const toRegex = /^[a-zA-Z0-9._%+-]+@.+\..+$/;
                         if (!toRegex.test(to)) {
                             toError.textContent = "Некорректное имя ящика получателя";
                             toError.classList.add('appear');
@@ -486,6 +486,10 @@ export default class Write__Letter {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
+            },
+            files: {
+                button: document.querySelector('.write-letter__attachments__view-button'),
+                dropdown: document.querySelector('.write-letter__attachments__dropdown__wrapper'),
             }
         }
 
