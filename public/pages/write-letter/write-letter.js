@@ -207,9 +207,9 @@ export default class Write__Letter {
             .querySelector('.write-letter__buttons__error');
         oldError.classList.remove('show');
 
-        // oldError = this.#parent
-        //     .querySelector('.write-letter__attachments__error');
-        // oldError.classList.remove('show');
+        oldError = this.#parent
+            .querySelector('.write-letter__attachments__error');
+        oldError.classList.remove('show');
 
         let isValidForm = true;
         const toError = this.#parent.querySelector('.write-letter__to__error');
@@ -402,9 +402,9 @@ export default class Write__Letter {
             .querySelector('.write-letter__buttons__error');
         oldError.classList.remove('show');
 
-        // oldError = this.#parent
-        //     .querySelector('.write-letter__attachments__error');
-        // oldError.classList.remove('show');
+        oldError = this.#parent
+            .querySelector('.write-letter__attachments__error');
+        oldError.classList.remove('show');
 
         let isValidForm = true;
         const toError = this.#parent.querySelector('.write-letter__to__error');
@@ -538,6 +538,29 @@ export default class Write__Letter {
         }
     }
 
+
+    createNewAttachment = (fileName, fileSize) => {
+        const newAttachment = document.createElement('div');
+        newAttachment.setAttribute('class', 'write-letter__attachments__dropdown__file');
+
+        const name = document.createElement('div');
+        name.setAttribute('class', 'write-letter__attachments__dropdown__file__name');
+        name.textContent = fileName;
+        newAttachment.appendChild(name);
+
+        const size = document.createElement('div');
+        size.setAttribute('class', 'write-letter__attachments__dropdown__file__size');
+        size.textContent = fileSize;
+        newAttachment.appendChild(size);
+
+        const deleteButton = document.createElement('div');
+        deleteButton.setAttribute('class', 'write-letter__attachments__dropdown__file__delete-button');
+        deleteButton.textContent = "Удалить";
+        newAttachment.appendChild(deleteButton);
+
+        return newAttachment;
+    }
+
     attachments = [];
 
     handleFile = async (e) => {
@@ -556,6 +579,14 @@ export default class Write__Letter {
                 error.classList.add('show');
                 return;
             }
+
+            const newAttachment = this.createNewAttachment(file.name, file.size);
+
+            const attachmentsList = this.#parent.querySelector('.write-letter__attachments__dropdown');
+            attachmentsList.appendChild(newAttachment);
+
+
+
 
             // this.reader.readAsDataURL(file);
             // input.removeEventListener('change', handleFileProcessing);
