@@ -350,7 +350,7 @@ export default class Signup {
         e.preventDefault();
 
         dispathcher.do(actionRedirect('/vk-auth-helper', true));
-        
+
         // dispathcher.do(actionGetAuthUrlSignUpVK());
     }
 

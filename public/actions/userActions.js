@@ -142,3 +142,8 @@ export const actionGetVkAuthInfo= (code) => ({
     type: 'getVkAuthInfo',
     value: code,
 })
+
+export const actionVkAuthSignup= (value) => ({
+    type: 'vkSignup',
+    value: value,
+})

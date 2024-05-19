@@ -127,6 +127,19 @@ class UserStore {
         const data = await response.json();
         mediator.emit('getVkAuthInfo', data);
     }
+
+    async actionVkAuthSignup(newUser) {
+        const response = await ajax(
+            'POST', 'https://mailhub.su/api/v1/testAuth/auth-vk/signupVK', JSON.stringify(newUser), 'application/json', this.#csrf
+        );
+        console.log(this);
+        const status = await response.status;
+        if (status < 300) {
+            this.isAuth = true;
+        }
+        this.#csrf = await response.headers.get('X-Csrf-Token');
+        mediator.emit('vkSignup', status);
+    }
 }
 
 export default new UserStore();

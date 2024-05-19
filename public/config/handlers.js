@@ -31,7 +31,7 @@ const handlers = [
     {type: 'getSpam', method: emailStore.getSpam.bind(emailStore)},
     {type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore)},
     {type: 'getVkAuthInfo', method: userStore.actionGetVkAuthInfo.bind(userStore)},
-
+    {type: 'vkSignup', method: userStore.actionVkAuthSignup.bind(userStore)},
 
 ];
 
