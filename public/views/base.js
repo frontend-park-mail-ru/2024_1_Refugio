@@ -1,7 +1,7 @@
 import dispathcher from "../modules/dispathcher.js";
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
-import { actionGetSpam, actionGetDrafts, actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming, actionGetFolderEmails } from "../actions/userActions.js";
+import { actionGetSpam, actionGetDrafts, actionGetEmail, actionGetFolders, actionGetUser, actionGetSent, actionGetIncoming, actionGetFolderEmails } from "../actions/userActions.js";
 import folderStore from "../stores/folderStore.js";
 /**
  * Класс для рендера абстрактной страницы
@@ -59,10 +59,10 @@ export default class BaseView {
         return userStore.body;
     }
 
-    async getStatInfo() {
-        await dispathcher.do(actionGetStatistic());
-        return statStore.stat;
-    }
+    // async getStatInfo() {
+    //     await dispathcher.do(actionGetStatistic());
+    //     return statStore.stat;
+    // }
 
     /**
      * Запрашивает у сервера список писем пользователся

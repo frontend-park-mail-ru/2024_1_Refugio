@@ -9,6 +9,8 @@ import SentView from "../views/sent.js";
 import FolderView from "../views/folder.js";
 import DraftView from "../views/draft.js";
 import SpamView from "../views/spam.js";
+import VkAuthHelperView from "../views/vk-auth-helper.js";
+
 
 class Router {
     #views
@@ -30,6 +32,8 @@ class Router {
         this.#authViews.set('/sent', SentView);
         this.#authViews.set('/drafts', DraftView);
         this.#authViews.set('/spam', SpamView);
+        this.#authViews.set('/vk-auth-helper', VkAuthHelperView);
+
 
 
         this.#historyNum = 0;
@@ -51,13 +55,19 @@ class Router {
 
     async redirect(href) {
         let isAuth = await userStore.verifyAuth();
+        const authCodeRegex = /^\/auth-vk\/auth\?code=[a-zA-Z0-9]+$/;
+        const signupRegex = /^\/signup$/;
+        const authHelperRegex = /^\/vk-auth-helper$/;
+
         if (!isAuth) {
-            if (href === '/signup') {
+            let params = (new URL(document.location)).searchParams;
+            console.log(params.get("data"));
+            if (authCodeRegex.test(href) || signupRegex.test(href) || authHelperRegex.test(href)) {
                 return href;
-            } else {
-                this.redirectView = href;
-                return '/login';
             }
+            this.redirectView = href;
+            return '/login';
+
         }
         if (href === '' || href === '/' || href === '/login' || href === '/signup') {
             return '/main';

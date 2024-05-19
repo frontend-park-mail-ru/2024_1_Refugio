@@ -348,7 +348,10 @@ export default class Signup {
 
     handleVkSignup = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionGetAuthUrlSignUpVK());
+
+        dispathcher.do(actionRedirect('/vk-auth-helper', true));
+        
+        // dispathcher.do(actionGetAuthUrlSignUpVK());
     }
 
     /**
@@ -419,7 +422,7 @@ export default class Signup {
             .querySelector('#signup-error');
         switch (data.status) {
             case 200:
-                // window.location.href = data.link;
+                window.location.href = data.link;
 
                 break;
             default:

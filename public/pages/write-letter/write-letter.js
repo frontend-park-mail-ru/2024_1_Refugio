@@ -664,14 +664,13 @@ export default class Write__Letter {
     }
 
     handleSendResponse = (status) => {
+        const error = this.#parent
+            .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
-                const error = this.#parent
-                    .querySelector('.write-letter__buttons__error');
-
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
