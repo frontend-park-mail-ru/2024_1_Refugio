@@ -42,12 +42,18 @@ export default class Sent {
 
     selectedListLetters = []
 
+    /**
+     * Функция, регулирующая отображение ошибки
+     */
     hideError = () => {
         const oldError = this.#parent
             .querySelector('.letter__error');
         oldError.classList.remove('appear');
     };
 
+    /**
+     * Функция, регулирующая отображения всех всплывающих окон на странице
+     */
     handleDropdowns(e) {
         const target = e.target;
 
@@ -91,11 +97,17 @@ export default class Sent {
         await dispathcher.do(actionLogout());
     };
 
+    /**
+     * Функция перехода на страницу профиля
+     */
     handleProfile = (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/profile', true));
     };
 
+    /**
+     * Функция перехода на страницу письма
+     */
     handleLetter = async (e, id) => {
         e.preventDefault();
         const letters = this.#config.content.list_letters;
@@ -108,6 +120,9 @@ export default class Sent {
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
+    /**
+     * Функция отображения хедера
+     */
     handleHeader() {
         const unselectedButtons = {
             select_all: document.querySelector('#select-all'),
@@ -140,6 +155,9 @@ export default class Sent {
         }
     }
 
+    /**
+     * Функция выделения одного письма
+     */
     handleCheckbox = (e, id) => {
         e.preventDefault();
         e.stopPropagation();
@@ -165,6 +183,9 @@ export default class Sent {
         this.handleHeader();
     }
 
+    /**
+     * Функция отметки одного письма прочитанным/непрочитанным
+     */
     handleStatus = async (e, id) => {
         e.preventDefault();
         e.stopPropagation();
@@ -189,6 +210,9 @@ export default class Sent {
         dispathcher.do(actionUpdateEmail(id, value));
     }
 
+    /**
+     * Функция выделения всех писем
+     */
     handleSelectAll = (e) => {
         e.preventDefault();
 
@@ -206,6 +230,9 @@ export default class Sent {
         this.handleHeader();
     }
 
+    /**
+     * Функция отмены выделения
+     */
     handleDeselect = (e) => {
         e.preventDefault();
 
@@ -249,6 +276,9 @@ export default class Sent {
     //     })
     // }
 
+    /**
+     * Функция удаления письма
+     */
     handleDelete = (e) => {
         this.hideError();
         e.preventDefault();
@@ -318,7 +348,7 @@ export default class Sent {
     // }
 
     /**
-     * Добавляет листенеры на компоненты
+     * Функция всплывания окна меню для мобильной версии
      */
     handleRollUpMenu = (e) => {
         e.preventDefault();
@@ -438,6 +468,9 @@ export default class Sent {
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 
+    /**
+     * Функция обработки ответа на запрос выхода из аккаунта
+     */
     handleExitResponse = (status) => {
         switch (status) {
             case 200:
@@ -448,6 +481,9 @@ export default class Sent {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос обновления письма
+     */
     handleUpdateEmailResponse = (status) => {
         switch (status) {
             case 200:
@@ -460,6 +496,9 @@ export default class Sent {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос удаления письма
+     */
     handleDeleteEmailResponse = (status) => {
         switch (status) {
             case 200:

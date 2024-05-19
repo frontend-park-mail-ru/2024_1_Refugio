@@ -2,6 +2,7 @@ import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
 import statStore from "../stores/statStore.js";
 import folderStore from "../stores/folderStore.js";
+import draftStore from "../stores/draftStore.js";
 import router from "../modules/router.js";
 
 const handlers = [
@@ -28,12 +29,17 @@ const handlers = [
     {type: 'star', method: statStore.changeStar.bind(statStore)},
     {type: 'createFolder', method: folderStore.create.bind(folderStore)},
     {type: 'getFolders', method: folderStore.getFolders.bind(folderStore)},
+    {type: 'getLetterFolders', method: folderStore.getLetterFolders.bind(folderStore)},
     {type: 'updateFolder', method: folderStore.update.bind(folderStore)},
     {type: 'deleteFolder', method: folderStore.delete.bind(folderStore)},
     {type: 'getFolderEmails', method: folderStore.getFolderEmails.bind(folderStore)},
     {type: 'addLetterToFolder', method: folderStore.addLetter.bind(folderStore)},
-    {type: 'getDrafts', method: emailStore.getDrafts.bind(emailStore)},
+    {type: 'deleteLetterFromFolder', method: folderStore.deleteLetter.bind(folderStore)},
+    {type: 'getDrafts', method: draftStore.getDrafts.bind(draftStore)},
     {type: 'getSpam', method: emailStore.getSpam.bind(emailStore)},
+    {type: 'addDraft', method: draftStore.create.bind(draftStore)},
+    {type: 'sendDraft', method: draftStore.send.bind(draftStore)},
+    {type: 'updateDraft', method: draftStore.update.bind(draftStore)},
 ];
 
 export default handlers;

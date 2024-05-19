@@ -21,8 +21,17 @@
             </div>
             <div id="move-to" class="main__header__button">В папку
             </div>
+            {{#if folder_id}}
+            <div id="move-from" class="main__header__button">Убрать из папки
+            </div>
+            {{/if}}
+            {{#if spam}}
+            <div id="spam" class="main__header__button">Из спама
+            </div>
+            {{else}}
             <div id="spam" class="main__header__button">Спам
             </div>
+            {{/if}}
             <div id="mark-as-read" class="main__header__button ">Пометить прочитанными
             </div>
             <div id="mark-as-unread" class="main__header__button ">Пометить непрочитанными

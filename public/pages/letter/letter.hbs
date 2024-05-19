@@ -9,11 +9,25 @@
             <div id="delete" class="letter__header__button">Удалить</div>
             <div id="to-folder" class="letter__header__button">В папку</div>
 
-            <div class="letter__header__dropdown__wrapper">
+            <div class="letter__header__dropdown__wrapper" id="save-wrapper">
                 <div class="letter__header__dropdown">
                     {{#if folders}}
                     {{#each folders}}
                     <p data-id="{{this.id}}" class="letter__folder">{{this.name}}</p>
+                    {{/each}}
+                    {{else}}
+                    Нет папок!
+                    {{/if}}
+                </div>
+            </div>
+
+            <div id="from-folder" class="letter__header__button">Убрать из папки</div>
+
+            <div class="letter__header__dropdown__wrapper" id="delete-wrapper">
+                <div class="letter__header__dropdown">
+                    {{#if delete_folders}}
+                    {{#each delete_folders}}
+                    <p data-id="{{this.id}}" class="letter__folder-delete">{{this.name}}</p>
                     {{/each}}
                     {{else}}
                     Нет папок!

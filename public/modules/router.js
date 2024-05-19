@@ -12,6 +12,10 @@ import FolderView from "../views/folder.js";
 import DraftView from "../views/draft.js";
 import SpamView from "../views/spam.js";
 
+/**
+ * Класс роутера
+ * @class
+ */
 class Router {
     #views
     #authViews
@@ -19,6 +23,10 @@ class Router {
     #redirectView
     #historyNum
 
+    /**
+     * Конструктор класса
+     * @constructor
+     */
     constructor() {
         this.#views = new Map();
         this.#authViews = new Map();
@@ -39,6 +47,9 @@ class Router {
         this.#historyNum = 0;
     }
 
+    /**
+     * Функция записи путей в историю браузера
+     */
     navigate({ path, state = '', pushState }) {
         this.#historyNum += 1;
         if (pushState) {
@@ -48,11 +59,16 @@ class Router {
         }
     }
 
+    /**
+     * Функция проверки прдыдущей записи в истории
+     */
     canGoBack() {
         return this.#historyNum;
     }
 
-
+    /**
+     * Функция формирования пути
+     */
     async redirect(href) {
         let isAuth = await userStore.verifyAuth();
         if (!isAuth) {
@@ -76,6 +92,9 @@ class Router {
         }
     }
 
+    /**
+     * Функция перехода на другой адрес
+     */
     open({ path, state = '', pushState, data }) {
         if (this.#currentView) {
             this.#currentView.clear();
@@ -89,6 +108,9 @@ class Router {
         }
     }
 
+    /**
+     * Функция перехода на адрес письма
+     */
     openLetter({ id, pushState, folder }) {
         if (this.#currentView) {
             this.#currentView.clear();
@@ -103,6 +125,9 @@ class Router {
         this.#currentView.renderPage();
     }
 
+    /**
+     * Функция старта приложения
+     */
     async start() {
         window.addEventListener('popstate', async () => {
             let path = await this.redirect(window.location.pathname + window.location.search);
