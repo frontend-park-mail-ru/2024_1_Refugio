@@ -551,8 +551,8 @@ export default class Write__Letter {
             console.log(this.attachments);
             const error = this.#parent
                 .querySelector('.write-letter__attachments__error');
-            if (file.size > 100 * 1024 * 1024) {
-                error.textContent = 'Файл превышает максимальный размер 100 МБ';
+            if (file.size > 20 * 1024 * 1024) {
+                error.textContent = 'Файл превышает максимальный размер 20 МБ';
                 error.classList.add('show');
                 return;
             }

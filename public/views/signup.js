@@ -1,13 +1,15 @@
 import Signup from '../pages/signup/signup.js';
 import BaseView from './base.js';
 
-const config = {
-};
 /**
  * Класс для рендера страницы списка писем
  * @class
  */
 class SignupView extends BaseView {
+
+    #config = {
+        vkUser: undefined,
+    }
 
     /**
          * Конструктор класса
@@ -20,9 +22,10 @@ class SignupView extends BaseView {
     /**
      * Функция рендера страницы
      */
-    renderPage() {
+    renderPage(vkUser = undefined) {
+        this.#config.vkUser = vkUser;
+        const page = new Signup(this.root, this.#config);
         document.title = 'Создание ящика';
-        const page = new Signup(this.root, config);
         this.components.push(page);
         this.render();
         this.addListeners();

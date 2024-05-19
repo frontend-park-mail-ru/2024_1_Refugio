@@ -116,9 +116,16 @@ class UserStore {
         const status = await response.status;
         const data = await response.json();
         const link =  data.body.AuthURL;
-        console.log(link);
-
         mediator.emit('getAuthUrlSignUpVK', { status, link });
+    }
+
+    async actionGetVkAuthInfo(code) {
+        const response = await ajax(
+            'GET', `https://mailhub.su/api/v1/testAuth/auth-vk/auth?code=${code}`, null, 'application/json', this.#csrf
+        );
+
+        const data = await response.json();
+        mediator.emit('getVkAuthInfo', data);
     }
 }
 

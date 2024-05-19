@@ -9,6 +9,7 @@ import SentView from "../views/sent.js";
 import FolderView from "../views/folder.js";
 import DraftView from "../views/draft.js";
 import SpamView from "../views/spam.js";
+
 import VkAuthHelperView from "../views/vk-auth-helper.js";
 
 
@@ -32,7 +33,7 @@ class Router {
         this.#authViews.set('/sent', SentView);
         this.#authViews.set('/drafts', DraftView);
         this.#authViews.set('/spam', SpamView);
-        this.#authViews.set('/vk-auth-helper', VkAuthHelperView);
+        this.#authViews.set('/vk-auth-helper', new VkAuthHelperView());
 
 
 
@@ -52,7 +53,6 @@ class Router {
         return this.#historyNum;
     }
 
-
     async redirect(href) {
         let isAuth = await userStore.verifyAuth();
         const authCodeRegex = /^\/auth-vk\/auth\?code=[a-zA-Z0-9]+$/;
@@ -60,16 +60,20 @@ class Router {
         const authHelperRegex = /^\/vk-auth-helper$/;
 
         if (!isAuth) {
-            let params = (new URL(document.location)).searchParams;
-            console.log(params.get("data"));
-            if (authCodeRegex.test(href) || signupRegex.test(href) || authHelperRegex.test(href)) {
+            if (signupRegex.test(href)) {
+                return href;
+            }
+            if (authCodeRegex.test(href)) {
+                return href;
+            }
+            if (authHelperRegex.test(href)) {
                 return href;
             }
             this.redirectView = href;
             return '/login';
 
         }
-        if (href === '' || href === '/' || href === '/login' || href === '/signup') {
+        if (href === '' || href === '/' || href === '/login' || href === '/signup' || authCodeRegex.test(href)) {
             return '/main';
         } else {
             if (this.#redirectView) {
@@ -109,6 +113,15 @@ class Router {
         this.#currentView.renderPage();
     }
 
+    openVkAuth({ id, pushState }) {
+        if (this.#currentView) {
+            this.#currentView.clear();
+        }
+        this.#currentView = new VkAuthHelperView();
+        this.navigate({ path: `/auth-vk/auth?code=${id}`, state: '', pushState });
+        this.#currentView.renderPage();
+    }
+
     async start() {
         window.addEventListener('popstate', async () => {
             let path = await this.redirect(window.location.pathname + window.location.search);
@@ -116,6 +129,8 @@ class Router {
                 this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
             } else if (path.indexOf('/folder?') !== -1) {
                 this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
+            } else if (path.indexOf('/auth-vk/auth?') !== -1) {
+                this.openVkAuth({ id: href.replace('/auth-vk/auth?code=', ''), pushState: false });
             } else {
                 this.open({ path: path, pushState: false });
             }
@@ -125,7 +140,10 @@ class Router {
             this.openLetter({ id: path.replace('/letter?id=', ''), pushState: false });
         } else if (path.indexOf('/folder?') !== -1) {
             this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
-        } else {
+        } else if (path.indexOf('/auth-vk/auth?') !== -1) {
+            this.openVkAuth({ id: href.replace('/auth-vk/auth?code=', ''), pushState: false });
+        }
+        else {
             this.open({ path: path, pushState: false });
         }
     }

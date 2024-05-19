@@ -30,6 +30,8 @@ const handlers = [
     {type: 'getDrafts', method: emailStore.getDrafts.bind(emailStore)},
     {type: 'getSpam', method: emailStore.getSpam.bind(emailStore)},
     {type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore)},
+    {type: 'getVkAuthInfo', method: userStore.actionGetVkAuthInfo.bind(userStore)},
+
 
 ];
 

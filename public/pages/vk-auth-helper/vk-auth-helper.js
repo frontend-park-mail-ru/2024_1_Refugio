@@ -1,5 +1,5 @@
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionSend, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './vk-auth-helper.hbs'
 import router from '../../modules/router.js';
@@ -35,7 +35,11 @@ export default class Vk__Auth__Helper {
 
     handleAjax = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionGetAuthUrlSignUpVK());
+        // dispathcher.do(actionGetAuthUrlSignUpVK());
+        // let params = (new URL(document.location)).searchParams;
+        // console.log(params.get("data"));
+        dispathcher.do(actionGetVkAuthInfo('855ab871bba885204e'));
+
     }
 
     /**
@@ -43,7 +47,11 @@ export default class Vk__Auth__Helper {
      */
     addListeners() {
         this.#parent.addEventListener("click", this.handleAjax);
-        mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse);
+        this.#parent.addEventListener("load", this.handleAjax);
+        mediator.on('getVkAuthInfo', this.handleVkAuthInfoResponse)
+
+
+        // mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
 
     /**
@@ -51,19 +59,20 @@ export default class Vk__Auth__Helper {
      */
     removeListeners() {
         this.#parent.removeEventListener("click", this.handleAjax);
-        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse);
+        this.#parent.removeEventListener("load", this.handleAjax);
+        mediator.off('getVkAuthInfo', this.handleVkAuthInfoResponse)
+
+
+
+        // mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
 
-    handleVkSignupResponse = (data) => {
-        const error = this.#parent
-            .querySelector('#signup-error');
+    handleVkAuthInfoResponse = (data) => {
         switch (data.status) {
             case 200:
-                window.location.href = data.link;
+                dispathcher.do(actionRedirect('/signup', true, data.body.VKUser))
                 break;
             default:
-                error.textContent = 'VKПроблема на нашей стороне. Уже исправляем';
-                error.classList.add('show');
                 break;
         }
     }

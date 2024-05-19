@@ -71,7 +71,6 @@ export default class Letter {
         this.#parent.querySelector('#back').style.display = 'grid';
         this.#parent.querySelector('#delete').style.display = 'grid';
         const btn = this.#parent.querySelector('#to-spam');
-        console.log(this.#config.email.spamStatus);
         if (this.#config.email.spamStatus === true) {
             btn.style.backgroundColor = '#393939';
         } else {
