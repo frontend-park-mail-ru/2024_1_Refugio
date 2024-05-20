@@ -54,7 +54,7 @@ export default class Profile {
     }
 
     /**
-     * Функция авторизации
+     * Функция сохранения настроек профиля
      */
 
     handleSaveForm = async (e) => {
@@ -310,6 +310,9 @@ export default class Profile {
         dispathcher.do(actionUpdateUser(editedUser))
     };
 
+    /**
+     * Функция выбора пола
+     */
     handleCheckbox(e) {
 
         e.preventDefault();
@@ -322,6 +325,9 @@ export default class Profile {
         }
     }
 
+    /**
+     * Функция, регулирующая отображения всех всплывающих окон на странице
+     */
     handleDropdowns(e) {
         const target = e.target;
 
@@ -387,11 +393,17 @@ export default class Profile {
         }
     }
 
+    /**
+     * Функция выхода из аккаунта
+     */
     handleExit = async (e) => {
         e.preventDefault();
         await dispathcher.do(actionLogout());
     };
 
+    /**
+     * Функция перехода на страницу статистики
+     */
     handleStat = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/stat', true));
@@ -399,7 +411,9 @@ export default class Profile {
 
     reader = new FileReader();
 
-
+    /**
+     * Функция загрузки аватара
+     */
     handleAvatarUpload = async (e) => {
         e.preventDefault();
         const input = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input');
@@ -429,6 +443,9 @@ export default class Profile {
         input.click();
     }
 
+    /**
+     * Функция обновления аватара
+     */
     handleAvatarUpdate = () => {
         if (this.reader.result !== null) {
             const img1 = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar');
@@ -443,6 +460,9 @@ export default class Profile {
         }
     }
 
+    /**
+     * Функция перехода на предыдущую страницу
+     */
     handleBack = async (e) => {
         e.preventDefault();
         if (router.canGoBack() > 1) {
@@ -453,6 +473,9 @@ export default class Profile {
             .removeEventListener('click', this.handleBack);
     }
 
+    /**
+     * Функция сброса настроек
+     */
     handleReset = (e) => {
         e.preventDefault();
         const firstNameInput = document.querySelector('.profile__first-name-input-wrapper__input');
@@ -479,6 +502,9 @@ export default class Profile {
 
     }
 
+    /**
+     * Функция всплывания окна меню для мобильной версии
+     */
     handleRollUpMenu = (e) => {
         e.preventDefault();
         const menu = document.querySelector('.menu');
@@ -574,6 +600,9 @@ export default class Profile {
         mediator.off('logout', this.handleExitResponse);
     }
 
+    /**
+     * Функция обработки ответа на запрос выхода из аккаунта
+     */
     handleExitResponse = (status) => {
         switch (status) {
             case 200:
@@ -584,6 +613,9 @@ export default class Profile {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос изменения профиля
+     */
     handleUpdateResponse = (status) => {
         const error = this.#parent
             .querySelector('#buttons-error');
@@ -605,6 +637,9 @@ export default class Profile {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос изменения аватара
+     */
     handleAvatarResponse = (status) => {
         const error = this.#parent
             .querySelector('#load-avatar-error');

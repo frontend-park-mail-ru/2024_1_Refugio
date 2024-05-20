@@ -1,4 +1,5 @@
 import Main from '../pages/main/main.js';
+import Sent from '../pages/sent/sent.js';
 import BaseView from './base.js';
 import emailStore from '../stores/emailStore.js';
 import Survey from '../pages/survey/survey.js';
@@ -55,7 +56,7 @@ class DraftView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
-        const page = new Main(this.root, this.#config);
+        const page = new Sent(this.root, this.#config);
         this.components.push(page);
         //this.components.push(survey);
         this.render();

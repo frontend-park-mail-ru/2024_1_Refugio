@@ -2,17 +2,28 @@ import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
 import emailStore from "./emailStore.js";
 
+/**
+ * Класс хранилища для пользователя и авторизации
+ * @class
+ */
 class UserStore {
     body
     isAuth
     #csrf
 
+    /**
+     * Конструктор класса
+     * @constructor
+     */
     constructor() {
         this.body = undefined;
         this.isAuth = false;
         this.#csrf = undefined;
     }
 
+    /**
+     * Функция формирования запроса проверки авторизации на сервере
+     */
     async verifyAuth() {
         const response = await ajax(
             'GET', 'https://mailhub.su/api/v1/verify-auth', null, 'application/json', this.#csrf
@@ -22,6 +33,9 @@ class UserStore {
         return this.isAuth;
     }
 
+    /**
+     * Функция формирования запроса разлогинивания на сервере
+     */
     async logout() {
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/auth/logout', null, 'application/json', this.#csrf
@@ -35,6 +49,9 @@ class UserStore {
         mediator.emit('logout', status);
     }
 
+    /**
+     * Функция формирования запроса авторизации на сервере
+     */
     async login(newUser) {
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/auth/login', JSON.stringify(newUser), 'application/json', this.#csrf
@@ -48,6 +65,9 @@ class UserStore {
         mediator.emit('login', status);
     }
 
+    /**
+     * Функция формирования запроса регистрации на сервере
+     */
     async signup(newUser) {
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/auth/signup', JSON.stringify(newUser), 'application/json', this.#csrf
@@ -60,10 +80,16 @@ class UserStore {
         mediator.emit('signup', status);
     }
 
+    /**
+     * Функция возвращения токена csrf
+     */
     getCsrf() {
         return this.#csrf
     }
 
+    /**
+     * Функция формирования запроса получения информации о пользователе с сервера 
+     */
     async getUser() {
         const response = await ajax(
             'GET', 'https://mailhub.su/api/v1/user/get', null, 'application/json', this.#csrf
@@ -75,6 +101,9 @@ class UserStore {
         }
     }
 
+    /**
+     * Функция формирования запроса обновления настроек пользователя на сервере
+     */
     async updateUser(newUser) {
         const response = await ajax(
             'PUT', 'https://mailhub.su/api/v1/user/update', JSON.stringify(newUser), 'application/json', this.#csrf
@@ -83,6 +112,9 @@ class UserStore {
         mediator.emit('updateUser', status);
     }
 
+    /**
+     * Функция формирования запроса загрузки аватара на сервер
+     */
     async avatarUpload(file) {
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/user/avatar/upload', file.file, undefined, this.#csrf

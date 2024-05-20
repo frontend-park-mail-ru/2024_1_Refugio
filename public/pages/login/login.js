@@ -171,7 +171,9 @@ export default class Login {
         mediator.off('login', this.handleLoginResponse);
     }
 
-
+    /**
+     * Функция обработки ответа на запрос авторизации
+     */
     handleLoginResponse = (status) => {
         let errorSign = this.#parent
             .querySelector('#login-error');
