@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';
@@ -59,10 +59,7 @@ export default class Letter {
         }
         elements.delete_folders = this.#config.menu.letter_folders;
         elements.delete_folders.forEach((delete_folder)=> {
-            const newFolder = elements.folders.filter((folder) => {
-                folder.id !== delete_folder.id;
-            });
-            console.log(newFolder);
+            elements.folders = elements.folders.filter((folder) => folder.id !== delete_folder.id);
         })
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
         if (elements.draft) {
@@ -324,6 +321,15 @@ export default class Letter {
         dispathcher.do(actionAddLetterToFolder(value));
     };
 
+    handleDeleteFolder = async (e, id) => {
+        e.preventDefault();
+        const value = {
+            emailId: this.#config.email.id,
+            folderId: Number(id),
+        }
+        dispathcher.do(actionDeleteLetterFromFolder(value));
+    };
+
     /**
      * Функция всплывания окна меню для мобильной версии
      */
@@ -346,9 +352,12 @@ export default class Letter {
             .querySelector('.header__rollup-button')
             .addEventListener('click', this.handleRollUpMenu);
         this.#config.menu.component.addListeners();
-        this.#parent.querySelectorAll('.letter__folder').forEach((folder) => {
+        this.#parent.querySelectorAll('.letter__folder-save').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
-        })
+        });
+        this.#parent.querySelectorAll('.letter__folder-delete').forEach((folder) => {
+            folder.addEventListener('click', (e) => this.handleDeleteFolder(e, folder.dataset.id));
+        });
         this.#parent
             .querySelector('.letter__info__icon')
             .addEventListener('click', this.handleStatus);
