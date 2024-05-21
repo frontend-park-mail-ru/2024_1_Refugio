@@ -73,6 +73,11 @@ export const actionLogout = () => ({
     value: {},
 })
 
+export const actionDeleteAccount = (id) => ({
+    type: 'deleteAccount',
+    value: id,
+})
+
 export const actionGetQuestions = () => ({
     type: 'questions',
     value: {},
@@ -143,9 +148,14 @@ export const actionGetVkAuthInfo = (code) => ({
     value: code,
 })
 
-export const actionVkAuthSignup = (value) => ({
+export const actionVkLogin = (code) => ({
+    type: 'vkLogin',
+    value: code,
+})
+
+export const actionVkAuthSignup = (newUser, authtoken) => ({
     type: 'vkSignup',
-    value: value,
+    value: {newUser: newUser, authtoken: authtoken},
 })
 
 export const actionAttachFile = (file) => ({
@@ -162,3 +172,9 @@ export const actionBindAttachmnetsToLetter = (letterId, attachmentId) => ({
     type: 'bindAttachmentToLetter',
     value: { letterId: letterId, attachmentId: attachmentId }
 })
+
+export const actionGetAttachments = (id) => ({
+    type: 'getAttachments',
+    value: id,
+})
+

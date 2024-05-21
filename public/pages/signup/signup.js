@@ -349,9 +349,10 @@ export default class Signup {
     handleVkSignup = async (e) => {
         e.preventDefault();
 
-        dispathcher.do(actionRedirect('/vk-auth-helper', true));
+        dispathcher.do(actionRedirect('/vk-signup-helper', true));
 
         // dispathcher.do(actionGetAuthUrlSignUpVK());
+
     }
 
     /**

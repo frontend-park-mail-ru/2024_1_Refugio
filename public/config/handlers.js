@@ -30,11 +30,17 @@ const handlers = [
     {type: 'getDrafts', method: emailStore.getDrafts.bind(emailStore)},
     {type: 'getSpam', method: emailStore.getSpam.bind(emailStore)},
     {type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore)},
-    {type: 'getVkAuthInfo', method: userStore.actionGetVkAuthInfo.bind(userStore)},
-    {type: 'vkSignup', method: userStore.actionVkAuthSignup.bind(userStore)},
+    {type: 'getVkAuthInfo', method: userStore.getVkAuthInfo.bind(userStore)},
+    {type: 'vkSignup', method: userStore.vkAuthSignup.bind(userStore)},
     {type: 'attachFile', method: emailStore.attachFile.bind(emailStore)},
     {type: 'deleteAttachment', method: emailStore.deleteAttachment.bind(emailStore)},
     {type: 'bindAttachmentToLetter', method: emailStore.bindAttachmentToLetter.bind(emailStore)},
+    {type: 'getAttachments', method: emailStore.getAttachments.bind(emailStore)},
+    {type: 'vkLogin', method: userStore.vkLogin.bind(userStore)},
+    {type: 'deleteAccount', method: userStore.deleteAccount.bind(userStore)},
+
+
+
 
 
 

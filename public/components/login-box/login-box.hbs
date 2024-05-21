@@ -30,6 +30,10 @@
     <div class="login-box__login-button-wrapper">
         <div class="login-box__login-button-wrapper__button">Войти</div>
         <div class="login-box__login-button-wrapper__vk-button">VK ID</div>
+        {{#if error}}
+        <div id="login-error" class="login-box__error show">{{error}}</div>
+        {{else}}
         <div id="login-error" class="login-box__error">Ошибка</div>
+        {{/if}}
     </div>
 </div>

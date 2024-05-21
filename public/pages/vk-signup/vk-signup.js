@@ -94,14 +94,14 @@ export default class Vk__Signup {
         const newUser = {
             // birthday: "string",
             firstname: this.#config.vkUser.firstname,
-            gender: this.#config.vkUser.gender,
+            gender: (this.#config.vkUser.gender === undefined) ? "Male" : this.#config.vkUser.gender,
             id: 0,
             login: email + "@mailhub.su",
             surname: this.#config.vkUser.surname,
             vkId: this.#config.vkUser.vkId,
         };
 
-        dispathcher.do(actionVkAuthSignup(newUser, this.#config.vkUser.authToken));
+        dispathcher.do(actionVkAuthSignup(newUser, this.#config.authtoken));
     };
 
     /**
@@ -164,6 +164,7 @@ export default class Vk__Signup {
             .querySelector('#vk-signup-error');
         switch (status) {
             case 200:
+                dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';

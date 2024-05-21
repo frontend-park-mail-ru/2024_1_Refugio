@@ -10,7 +10,9 @@ import FolderView from "../views/folder.js";
 import DraftView from "../views/draft.js";
 import SpamView from "../views/spam.js";
 
-import VkAuthHelperView from "../views/vk-auth-helper.js";
+import VkSignupHelperView from "../views/vk-signup-helper.js";
+import VkLoginHelperView from "../views/vk-login-helper.js";
+
 
 
 class Router {
@@ -33,7 +35,9 @@ class Router {
         this.#authViews.set('/sent', SentView);
         this.#authViews.set('/drafts', DraftView);
         this.#authViews.set('/spam', SpamView);
-        this.#authViews.set('/vk-auth-helper', new VkAuthHelperView());
+        this.#authViews.set('/vk-signup-helper', new VkSignupHelperView());
+        this.#authViews.set('/vk-login-helper', new VkLoginHelperView());
+
 
 
 
@@ -117,7 +121,7 @@ class Router {
         if (this.#currentView) {
             this.#currentView.clear();
         }
-        this.#currentView = new VkAuthHelperView();
+        this.#currentView = new VkSignupHelperView();
         this.navigate({ path: `/auth-vk/auth?code=${id}`, state: '', pushState });
         this.#currentView.renderPage();
     }

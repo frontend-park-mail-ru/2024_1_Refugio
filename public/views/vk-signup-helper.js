@@ -1,11 +1,11 @@
 import BaseView from './base.js';
-import Vk__Auth__Helper from '../pages/vk-auth-helper/vk-auth-helper.js'
+import Vk__Signup__Helper from '../pages/vk-signup-helper/vk-signup-helper.js'
 
 /**
  * Класс для рендера страницы списка писем
  * @class
  */
-export default class VkAuthHelperView extends BaseView {
+export default class VkSignupHelperView extends BaseView {
 
     #config = {
     }
@@ -22,7 +22,7 @@ export default class VkAuthHelperView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
-        const page = new Vk__Auth__Helper(this.root, this.#config);
+        const page = new Vk__Signup__Helper(this.root, this.#config);
         this.components.push(page);
         this.render();
         this.addListeners();

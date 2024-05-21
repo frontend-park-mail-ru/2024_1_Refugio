@@ -6,6 +6,8 @@ import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, act
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';
+import List_attachment from '../../components/list-attachment/list-attachment.js';
+import List_attachments from '../../components/list-attachments/list-attachments.js';
 
 
 //const MAX_INPUT_LENGTH = 64;
@@ -52,6 +54,8 @@ export default class Letter {
             header: new Header(null, config.header).render(),
             menu: this.#config.menu.component.render(),
             folders: this.#config.menu.folders,
+            list_attachments: new List_attachments(null, this.#config.files).render(),
+
         };
         if (elements.from === userStore.body.login) {
             elements.from = this.#config.email.recipientEmail;

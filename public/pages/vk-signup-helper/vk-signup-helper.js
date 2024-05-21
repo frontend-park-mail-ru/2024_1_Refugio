@@ -1,7 +1,7 @@
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
-import template from './vk-auth-helper.hbs'
+import template from './vk-signup-helper.hbs'
 import router from '../../modules/router.js';
 
 
@@ -9,7 +9,7 @@ import router from '../../modules/router.js';
  * Класс обертки страницы
  * @class
  */
-export default class Vk__Auth__Helper {
+export default class Vk__Signup__Helper {
     #parent;
     #config;
 
@@ -35,7 +35,6 @@ export default class Vk__Auth__Helper {
 
     handleAjax = async (e) => {
         e.preventDefault();
-        // dispathcher.do(actionGetAuthUrlSignUpVK());
         // let params = (new URL(document.location)).searchParams;
         // console.log(params.get("data"));
         dispathcher.do(actionGetVkAuthInfo('855ab871bba885204e'));
@@ -70,10 +69,10 @@ export default class Vk__Auth__Helper {
     handleVkAuthInfoResponse = (data) => {
         switch (data.status) {
             case 200:
-                console.log(data.body);
-                dispathcher.do(actionRedirect('/signup', true, data.body.body.VKUser))
+                dispathcher.do(actionRedirect('/signup', true, data))
                 break;
             default:
+                alert('беда');
                 break;
         }
     }

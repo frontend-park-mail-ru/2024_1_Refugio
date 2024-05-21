@@ -105,19 +105,26 @@ class emaillStore {
 
     async deleteAttachment(id) {
         const response = await ajax(
-            'POST', `https://mailhub.su/api/v1/email/delete/file/${id}`, null, undefined, userStore.getCsrf()
+            'DELETE', `https://mailhub.su/api/v1/email/delete/file/${id}`, null, 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
         mediator.emit('deleteAttachment', { status, id });
     }
 
     async bindAttachmentToLetter({ letterId, attachmentId }) {
-        console.log(letterId, attachmentId);
         const response = await ajax(
             'POST', `https://mailhub.su/api/v1/email/${letterId}/file/${attachmentId}`, null, undefined, userStore.getCsrf()
         );
         const status = await response.status;
         mediator.emit('bindAttachmentToLetter', status);
+    }
+
+    async getAttachments(id) {
+        const response = await ajax(
+            'GET', `https://mailhub.su/api/v1/email/${id}/get/files/`, null, 'application/json', userStore.getCsrf()
+        );
+        const data = await response.json();
+        this.files = data.body.files;
     }
 }
 

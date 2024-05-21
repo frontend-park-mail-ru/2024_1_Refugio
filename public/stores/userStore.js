@@ -23,33 +23,34 @@ class UserStore {
     }
 
     async logout() {
-        // const response = await ajax(
-        //     'POST', 'https://mailhub.su/api/v1/auth/logout', null, 'application/json', this.#csrf
-        // );
-
-
         const response = await ajax(
-            'GET', 'https://mailhub.su/api/v1/user/get', null, 'application/json', this.#csrf
+            'POST', 'https://mailhub.su/api/v1/auth/logout', null, 'application/json', this.#csrf
         );
 
-        const data = await response.json();
-        const id = data.body.user.id;
-        console.log(id);
+        const status = await response.status;
+        if (status < 300) {
+            this.isAuth = false;
+            this.body = undefined;
+        }
+        emailStore.clean();
+        mediator.emit('logout', status);
+    }
 
-        const response1 = await ajax(
+    async deleteAccount(id) {
+
+        const response = await ajax(
             'DELETE', `https://mailhub.su/api/v1/user/delete/${id}`, null, 'application/json', this.#csrf
         );
 
-        const data1 = await response1;
-        console.log(data1);
+        const data = await response;
 
-        // const status = await response.status;
-        // if (status < 300) {
-        //     this.isAuth = false;
-        //     this.body = undefined;
-        // }
-        // emailStore.clean();
-        // mediator.emit('logout', status);
+        const status = await response.status;
+        if (status < 300) {
+            this.isAuth = false;
+            this.body = undefined;
+        }
+        emailStore.clean();
+        mediator.emit('deleteAccount', status);
     }
 
     async login(newUser) {
@@ -119,22 +120,23 @@ class UserStore {
         mediator.emit('getAuthUrlSignUpVK', { status, link });
     }
 
-    async actionGetVkAuthInfo(code) {
+    async getVkAuthInfo(code) {
         const response = await ajax(
-            'GET', `https://mailhub.su/api/v1/testAuth/auth-vk/auth?code=${code}`, null, 'application/json', this.#csrf
+            'GET', `https://mailhub.su/api/v1/testAuth/auth-vk/auth/${code}`, null, 'application/json', this.#csrf
         );
 
         const status = await response.status;
         const body = await response.json();
+        const headers = await response.headers;
+        const authtoken = headers.get('authtoken');
 
-        mediator.emit('getVkAuthInfo', { status, body });
+        mediator.emit('getVkAuthInfo', { status, body, authtoken });
     }
 
-    async actionVkAuthSignup(newUser, authToken=1234) {
+    async vkAuthSignup({ newUser, authtoken }) {
         const response = await ajax(
-            'POST', `https://mailhub.su/api/v1/testAuth/auth-vk/signupVK?code=${authToken}`, JSON.stringify(newUser), 'application/json', this.#csrf
+            'POST', `https://mailhub.su/api/v1/testAuth/auth-vk/signupVK`, JSON.stringify(newUser), 'application/json', this.#csrf, authtoken
         );
-        console.log(this);
 
         const status = await response.status;
         if (status < 300) {
@@ -142,6 +144,20 @@ class UserStore {
         }
         this.#csrf = await response.headers.get('X-Csrf-Token');
         mediator.emit('vkSignup', status);
+    }
+
+    async vkLogin(code) {
+        const response = await ajax(
+            'GET', `https://mailhub.su/api/v1/testAuth/auth-vk/loginVK/${code}`, null, 'application/json', this.#csrf
+        );
+
+        const status = await response.status;
+        if (status < 300) {
+            this.isAuth = true;
+        }
+        this.#csrf = await response.headers.get('X-Csrf-Token');
+        const data = await response.json();
+        mediator.emit('vkLogin', data);
     }
 }
 

@@ -3,7 +3,7 @@ import Header from '../../components/header/header.js';
 import Birthday_Select from '../../components/birthday-select/birthday-select.js';
 import Gender_Select from '../../components/gender-select/gender-select.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload } from '../../actions/userActions.js';
+import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload, actionDeleteAccount } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './profile.hbs'
 import router from '../../modules/router.js';
@@ -344,6 +344,10 @@ export default class Profile {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
+            },
+            deleteConfirmation: {
+                button: document.querySelector('.profile__buttons__delete-account-button'),
+                dropdown: document.querySelector('.profile__buttons__delete-account-button__dropdown__wrapper'),
             }
         }
 
@@ -489,11 +493,19 @@ export default class Profile {
         }
     }
 
+    handleDeleteConfirm = async (e) => {
+        e.preventDefault();
+        console.log(this.#config.user.id);
+        dispathcher.do(actionDeleteAccount(this.#config.user.id));
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
+        this.#parent
+            .querySelector('.profile__buttons__delete-account-button__dropdown__yes')
+            .addEventListener('click', this.handleDeleteConfirm);
         this.#parent
             .querySelector('.header__rollup-button')
             .addEventListener('click', this.handleRollUpMenu);
@@ -531,6 +543,8 @@ export default class Profile {
         mediator.on('updateUser', this.handleUpdateResponse);
         mediator.on('avatarUpload', this.handleAvatarResponse);
         mediator.on('logout', this.handleExitResponse);
+        mediator.on('deleteAccount', this.handleDeleteAccountResponse);
+
 
     }
 
@@ -572,6 +586,8 @@ export default class Profile {
         mediator.off('updateUser', this.handleUpdateResponse);
         mediator.off('avatarUpload', this.handleAvatarResponse);
         mediator.off('logout', this.handleExitResponse);
+        mediator.off('deleteAccount', this.handleDeleteAccountResponse);
+
     }
 
     handleExitResponse = (status) => {
@@ -584,12 +600,24 @@ export default class Profile {
         }
     }
 
+    handleDeleteAccountResponse = (status) => {
+        const error = this.#parent
+            .querySelector('#buttons-error');
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+                break;
+        }
+    }
+
     handleUpdateResponse = (status) => {
         const error = this.#parent
             .querySelector('#buttons-error');
         const saveButton = this.#parent.querySelector('.profile__buttons__save-button');
-
-
         switch (status) {
             case 200:
                 saveButton.textContent = "Успешно сохранено";

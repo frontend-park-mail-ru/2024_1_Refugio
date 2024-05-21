@@ -10,6 +10,7 @@ class SignupView extends BaseView {
 
     #config = {
         vkUser: undefined,
+        authtoken: undefined,
     }
 
     /**
@@ -23,10 +24,11 @@ class SignupView extends BaseView {
     /**
      * Функция рендера страницы
      */
-    renderPage(vkUser = undefined) {
-        this.#config.vkUser = vkUser;
+    renderPage(data = undefined) {
+        this.#config.vkUser = data?.body?.body?.VKUser;
+        this.#config.authtoken = data?.authtoken;
         let page;
-        if (vkUser) {
+        if (data?.body?.body?.VKUser) {
             page = new Vk__Signup(this.root, this.#config);
 
         } else {
