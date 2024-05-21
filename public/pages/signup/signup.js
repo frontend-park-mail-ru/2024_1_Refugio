@@ -265,6 +265,9 @@ export default class Signup {
         dispathcher.do(actionRedirect('/login', true));
     };
 
+    /**
+     * Функция обработки изменения поля пола
+     */
     handleCheckbox(e) {
         console.log(this);
 
@@ -278,6 +281,9 @@ export default class Signup {
         }
     }
 
+    /**
+     * Функция регуляции всех всплывающих окон на странице
+     */
     handleDropdowns(e) {
         const target = e.target;
 
@@ -400,6 +406,9 @@ export default class Signup {
         mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
     }
 
+    /**
+     * Функция обработки ответа на запрос регистрации
+     */
     handleSignupResponse = (status) => {
         const error = this.#parent
             .querySelector('#signup-error');

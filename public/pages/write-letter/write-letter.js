@@ -2,6 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionSend, actionUpdateEmail } from '../../actions/userActions.js';
+import { actionAddDraft, actionSendDraft, actionUpdateDraft } from '../../actions/draftActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './write-letter.hbs'
 import router from '../../modules/router.js';
@@ -99,6 +100,7 @@ export default class Write__Letter {
         let topic = topicInput.value.trim();
         let text = textInput.value.trim();
 
+<<<<<<< HEAD
         let oldError = this.#parent
             .querySelector('.write-letter__to__error');
         oldError.classList.remove('appear');
@@ -157,6 +159,8 @@ export default class Write__Letter {
             return;
         }
 
+=======
+>>>>>>> a1951e838c218c24864de0626c42627a8a1ab505
         if (!topic) {
             topic = "Без темы";
         }
@@ -167,17 +171,17 @@ export default class Write__Letter {
 
         const newLetter = {
             readStatus: false,
+            draftStatus: true,
             topic: topic,
             text: text,
             recipientEmail: to,
             senderEmail: this.#config.user.login,
-            draftStatus: true,
         };
         if (this.#config.values?.replyId) {
             console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
-        dispathcher.do(actionSend(newLetter));
+        dispathcher.do(actionAddDraft(newLetter));
     };
 
 
@@ -294,6 +298,7 @@ export default class Write__Letter {
         let topic = topicInput.value.trim();
         let text = textInput.value.trim();
 
+<<<<<<< HEAD
         let oldError = this.#parent
             .querySelector('.write-letter__to__error');
         oldError.classList.remove('appear');
@@ -352,6 +357,8 @@ export default class Write__Letter {
             return;
         }
 
+=======
+>>>>>>> a1951e838c218c24864de0626c42627a8a1ab505
         if (!topic) {
             topic = "Без темы";
         }
@@ -372,7 +379,7 @@ export default class Write__Letter {
             console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
-        dispathcher.do(actionUpdateEmail(this.#config.values?.id, newLetter));
+        dispathcher.do(actionUpdateDraft(this.#config.values?.id, newLetter));
     };
 
 
@@ -476,7 +483,7 @@ export default class Write__Letter {
             console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
-        dispathcher.do(actionUpdateEmail(this.#config.values?.id, newLetter));
+        dispathcher.do(actionSendDraft(this.#config.values?.id, newLetter));
     };
 
     handleDropdowns(e) {
@@ -606,6 +613,7 @@ export default class Write__Letter {
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)
+        mediator.on('addDraft', this.handleSendResponse)
         mediator.on('updateEmail', this.handleSendResponse)
     }
 
@@ -644,6 +652,7 @@ export default class Write__Letter {
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('send', this.handleSendResponse)
+        mediator.off('addDraft', this.handleSendResponse)
         mediator.off('updateEmail', this.handleSendResponse)
     }
 

@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';
@@ -12,7 +12,7 @@ import userStore from '../../stores/userStore.js';
 
 
 /**
- * Класс обертки страницы
+ * Класс страницы
  * @class
  */
 export default class Letter {
@@ -55,7 +55,12 @@ export default class Letter {
         };
         if (elements.from === userStore.body.login) {
             elements.from = this.#config.email.recipientEmail;
+            elements.userLetter = this.#config.email.recipientEmail.charAt(0)
         }
+        elements.delete_folders = this.#config.menu.letter_folders;
+        elements.delete_folders.forEach((delete_folder)=> {
+            elements.folders = elements.folders.filter((folder) => folder.id !== delete_folder.id);
+        })
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
         if (elements.draft) {
             this.#parent.querySelectorAll('.letter__header__button').forEach((element) => {
@@ -71,7 +76,6 @@ export default class Letter {
         this.#parent.querySelector('#back').style.display = 'grid';
         this.#parent.querySelector('#delete').style.display = 'grid';
         const btn = this.#parent.querySelector('#to-spam');
-        console.log(this.#config.email.spamStatus);
         if (this.#config.email.spamStatus === true) {
             btn.style.backgroundColor = '#393939';
         } else {
@@ -79,17 +83,26 @@ export default class Letter {
         }
     }
 
+    /**
+     * Функция регуляции отображения ошибки
+     */
     hideError = () => {
         const oldError = this.#parent
             .querySelector('.letter__error');
         oldError.classList.remove('appear');
     };
 
+    /**
+     * Фунция перехода на страницу статистики
+     */
     handleStat = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/stat', true));
     };
 
+    /**
+     * Функция, регулирующая отображения всех всплывающих окон на странице
+     */
     handleDropdowns(e) {
         const target = e.target;
         const elements = {
@@ -99,7 +112,11 @@ export default class Letter {
             },
             folder: {
                 button: document.querySelector('#to-folder'),
-                dropdown: document.querySelector('.letter__header__dropdown__wrapper'),
+                dropdown: document.querySelector('#save-wrapper'),
+            },
+            delete_folder: {
+                button: document.querySelector('#from-folder'),
+                dropdown: document.querySelector('#delete-wrapper'),
             },
             files: {
                 button: document.querySelector('.letter__attachments__view-button'),
@@ -133,18 +150,24 @@ export default class Letter {
     }
 
     /**
-     * Функция авторизации
+     * Функция выхода из аккаунта
      */
     handleExit = async (e) => {
         e.preventDefault();
         await dispathcher.do(actionLogout());
     };
 
+    /**
+     * Функция перехода на страницу профиля
+     */
     handleProfile = async (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/profile', true));
     };
 
+    /**
+     * Функция перессылки письма
+     */
     handleResend = (e) => {
         e.preventDefault();
         const topic = this.#parent
@@ -158,6 +181,9 @@ export default class Letter {
         dispathcher.do(actionRedirect('/write_letter', true, { resend: true, topic: topic, sender: sender, date: date, text: text }));
     };
 
+    /**
+     * Функция редактирования черновика
+     */
     handleChangeDraft = (e) => {
         e.preventDefault();
         const topic = this.#parent
@@ -171,6 +197,9 @@ export default class Letter {
         dispathcher.do(actionRedirect('/write_letter', true, { changeDraft: true, topic: topic, sender: sender, date: date, text: text, id: this.#config.email.id }));
     };
 
+    /**
+     * Функция ответа на письмо
+     */
     handleReply = (e) => {
         e.preventDefault();
         const topic = this.#parent
@@ -184,6 +213,9 @@ export default class Letter {
         dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text, replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
+    /**
+     * Функция отметки одного письма прочитанным/непрочитанным
+     */
     handleStatus = async (e) => {
         this.hideError();
         e.preventDefault();
@@ -200,6 +232,9 @@ export default class Letter {
         dispathcher.do(actionUpdateEmail(id, value));
     }
 
+    /**
+     * Фунция отметки выделенных писем прочитанными
+     */
     handleMarkAsRead = async (e) => {
         this.hideError();
         e.preventDefault();
@@ -213,6 +248,9 @@ export default class Letter {
         }
     }
 
+    /**
+     * Функция отметки письма спамом
+     */
     handleSpam = async (e) => {
         this.hideError();
         e.preventDefault();
@@ -225,9 +263,12 @@ export default class Letter {
             btn.style.backgroundColor = '#191919';
         }
         value.spamStatus = !value.spamStatus;
-        dispathcher.do(actionUpdateEmail(id, value));
+        dispathcher.do(actionUpdateEmail(id, value, true));
     }
 
+    /**
+     * Функция отметки выделенных писем непрочитанными
+     */
     handleMarkAsUnread = async (e) => {
         this.hideError();
         e.preventDefault();
@@ -241,22 +282,25 @@ export default class Letter {
         }
     }
 
+    /**
+     * Функция удаления писем
+     */
     handleDelete = async (e) => {
         this.hideError();
         e.preventDefault();
         const id = this.#config.email.id;
-        this.handleBack(e);
         dispathcher.do(actionDeleteEmail(id));
     }
 
+    /**
+     * Функция перехода на предыдущую страницу
+     */
     handleBack = async (e) => {
         e.preventDefault();
+        this.removeListeners();
         if (router.canGoBack() > 1) {
             window.history.back();
         }
-        document
-            .querySelector('.letter__header__back-button')
-            .removeEventListener('click', this.handleBack);
     }
 
     // handleFolder = (e) => {
@@ -265,6 +309,9 @@ export default class Letter {
     //     this.#parent.querySelector('.letter__header__dropdown__wrapper').classList.add('show');
     // }
 
+    /**
+     * Функция перемещения письма в папку
+     */
     handleSaveFolder = async (e, id) => {
         e.preventDefault();
         const value = {
@@ -274,6 +321,18 @@ export default class Letter {
         dispathcher.do(actionAddLetterToFolder(value));
     };
 
+    handleDeleteFolder = async (e, id) => {
+        e.preventDefault();
+        const value = {
+            emailId: this.#config.email.id,
+            folderId: Number(id),
+        }
+        dispathcher.do(actionDeleteLetterFromFolder(value));
+    };
+
+    /**
+     * Функция всплывания окна меню для мобильной версии
+     */
     handleRollUpMenu = (e) => {
         e.preventDefault();
         const menu = document.querySelector('.menu');
@@ -293,9 +352,12 @@ export default class Letter {
             .querySelector('.header__rollup-button')
             .addEventListener('click', this.handleRollUpMenu);
         this.#config.menu.component.addListeners();
-        this.#parent.querySelectorAll('.letter__folder').forEach((folder) => {
+        this.#parent.querySelectorAll('.letter__folder-save').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
-        })
+        });
+        this.#parent.querySelectorAll('.letter__folder-delete').forEach((folder) => {
+            folder.addEventListener('click', (e) => this.handleDeleteFolder(e, folder.dataset.id));
+        });
         this.#parent
             .querySelector('.letter__info__icon')
             .addEventListener('click', this.handleStatus);
@@ -338,6 +400,7 @@ export default class Letter {
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse);
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
+        mediator.on('updateSpam', this.handleDeleteEmailResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
         mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
     }
@@ -389,10 +452,14 @@ export default class Letter {
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse);
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
+        mediator.off('updateSpam', this.handleDeleteEmailResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
     }
 
+    /**
+     * Функция обработки ответа на запрос выхода из аккаунта
+     */
     handleExitResponse = (status) => {
         switch (status) {
             case 200:
@@ -403,6 +470,9 @@ export default class Letter {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос изменения письма
+     */
     handleUpdateEmailResponse = (status) => {
         const error = this.#parent.querySelector('.letter__error');
         switch (status) {
@@ -415,10 +485,14 @@ export default class Letter {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос удаления письма
+     */
     handleDeleteEmailResponse = (status) => {
         const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
+                dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
@@ -427,6 +501,9 @@ export default class Letter {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос добавления письма в папку
+     */
     handleAddEmailToFolderResponse = ({ status, id }) => {
         switch (status) {
             case 200:

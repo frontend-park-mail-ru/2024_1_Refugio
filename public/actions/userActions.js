@@ -58,9 +58,9 @@ export const actionSend = (value) => ({
     value: value,
 })
 
-export const actionUpdateEmail = (id, value) => ({
+export const actionUpdateEmail = (id, value, spam) => ({
     type: 'updateEmail',
-    value: {id: id, value: value},
+    value: {id: id, value: value, spam: spam},
 })
 
 export const actionDeleteEmail = (id) => ({
@@ -103,6 +103,11 @@ export const actionGetFolders = () => ({
     value: {},
 })
 
+export const actionGetLetterFolders = (id) => ({
+    type: 'getLetterFolders',
+    value: id,
+})
+
 export const actionUpdateFolder = (id, value) => ({
     type: 'updateFolder',
     value: {id: id, value: value},
@@ -123,9 +128,9 @@ export const actionAddLetterToFolder = (value) => ({
     value: value,
 })
 
-export const actionGetDrafts = () => ({
-    type: 'getDrafts',
-    value: {},
+export const actionDeleteLetterFromFolder = (value) => ({
+    type: 'deleteLetterFromFolder',
+    value: value,
 })
 
 export const actionGetSpam = () => ({

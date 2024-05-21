@@ -49,6 +49,7 @@ class SpamView extends BaseView {
         this.#config.header.login = this.#config.user.login;
         this.#config.header.avatar = this.#config.user.avatar;
         this.#config.content.list_letters = await this.getSpamInfo();
+        this.#config.spam = true;
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;
         } else {

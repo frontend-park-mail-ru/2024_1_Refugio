@@ -1,8 +1,16 @@
 import handlers from '../config/handlers.js'
 
+/**
+ * Класс диспетчера
+ * @class
+ */
 class Dispatcher {
     #handlers;
 
+    /**
+     * Конструктор класса
+     * @constructor
+     */
     constructor() {
         this.#handlers = new Map();
         handlers.forEach((handler) => {
@@ -10,6 +18,9 @@ class Dispatcher {
         })
     }
 
+    /**
+     * Функция обработки экшенов
+     */
     async do(action) {
         const func = this.#handlers.get(action.type);
         if (func) {
