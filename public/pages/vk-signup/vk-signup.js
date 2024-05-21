@@ -99,10 +99,9 @@ export default class Vk__Signup {
             login: email + "@mailhub.su",
             surname: this.#config.vkUser.surname,
             vkId: this.#config.vkUser.vkId,
-            authToken: '855ab871bba885204e',
         };
 
-        dispathcher.do(actionVkAuthSignup(newUser));
+        dispathcher.do(actionVkAuthSignup(newUser, this.#config.vkUser.authToken));
     };
 
     /**
@@ -165,7 +164,6 @@ export default class Vk__Signup {
             .querySelector('#vk-signup-error');
         switch (status) {
             case 200:
-                dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';

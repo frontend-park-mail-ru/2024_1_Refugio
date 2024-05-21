@@ -1,7 +1,7 @@
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionSend, actionUpdateEmail } from '../../actions/userActions.js';
+import { actionLogout, actionBindAttachmnetsToLetter, actionRedirect, actionSend, actionUpdateEmail, actionAttachFile, actionDeleteAttachment } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './write-letter.hbs'
 import router from '../../modules/router.js';
@@ -281,6 +281,7 @@ export default class Write__Letter {
             console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
+
         dispathcher.do(actionSend(newLetter));
     };
 
@@ -539,9 +540,12 @@ export default class Write__Letter {
     }
 
 
-    createNewAttachment = (fileName, fileSize) => {
+    createNewAttachment = (fileName, fileSize, id) => {
+        fileSize = fileSize / 1048576;
+        fileSize = String(fileSize).substr(0, 3) + ' МБ';
         const newAttachment = document.createElement('div');
         newAttachment.setAttribute('class', 'write-letter__attachments__dropdown__file');
+        newAttachment.setAttribute('data-id', id);
 
         const name = document.createElement('div');
         name.setAttribute('class', 'write-letter__attachments__dropdown__file__name');
@@ -556,22 +560,28 @@ export default class Write__Letter {
         const deleteButton = document.createElement('div');
         deleteButton.setAttribute('class', 'write-letter__attachments__dropdown__file__delete-button');
         deleteButton.textContent = "Удалить";
+        deleteButton.addEventListener('click', (e) => this.deleteAttachment(e, id));
         newAttachment.appendChild(deleteButton);
 
         return newAttachment;
     }
 
     attachments = [];
+    currentFile;
 
-    handleFile = async (e) => {
+    addAttachment = async (e) => {
         e.preventDefault();
+
+        const oldError = this.#parent
+            .querySelector('.write-letter__attachments__error');
+        oldError.classList.remove('show');
+
         const input = this.#parent.querySelector('.write-letter__attachments__attach-input');
         const handleFileProcessing = async () => {
             const file = input.files[0];
+            this.currentFile = file;
             input.removeEventListener('change', handleFileProcessing);
 
-            this.attachments.push(file);
-            console.log(this.attachments);
             const error = this.#parent
                 .querySelector('.write-letter__attachments__error');
             if (file.size > 20 * 1024 * 1024) {
@@ -580,22 +590,113 @@ export default class Write__Letter {
                 return;
             }
 
-            const newAttachment = this.createNewAttachment(file.name, file.size);
-
-            const attachmentsList = this.#parent.querySelector('.write-letter__attachments__dropdown');
-            attachmentsList.appendChild(newAttachment);
-
-
-
-
-            // this.reader.readAsDataURL(file);
-            // input.removeEventListener('change', handleFileProcessing);
-            // const formData = new FormData();
-            // formData.append('file', this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input').files[0]);
-            // dispathcher.do(actionAvatarUpload(formData))
+            const formData = new FormData();
+            formData.append('file', this.#parent.querySelector('.write-letter__attachments__attach-input').files[0]);
+            dispathcher.do(actionAttachFile(formData))
         };
         input.addEventListener('change', handleFileProcessing);
         input.click();
+    }
+
+    renderAttachment = (id) => {
+        console.log(this.attachments);
+        const file = this.currentFile;
+        this.attachments.push({ file, id });
+        const viewButton = this.#parent.querySelector('.write-letter__attachments__view-button');
+        const deleteAllButton = this.#parent.querySelector('.write-letter__attachments__delete-all-button');
+
+        const numberOfFiles = this.attachments.length;
+
+
+        if (numberOfFiles === 1) {
+            viewButton.classList.add('appear');
+            deleteAllButton.classList.add('appear');
+        }
+
+        const newAttachment = this.createNewAttachment(file.name, file.size, id);
+
+        const attachmentsList = this.#parent.querySelector('.write-letter__attachments__dropdown');
+        attachmentsList.appendChild(newAttachment);
+
+        const numberOfFilesLabel = this.#parent.querySelector('.write-letter__attachments__view-button__label');
+        const attachmentsTotalSize = this.#parent.querySelector('.write-letter__attachments__view-button__counter');
+
+        if ((numberOfFiles % 10 === 1) && (numberOfFiles % 100 !== 11)) {
+            numberOfFilesLabel.textContent = `${numberOfFiles} файл`;
+        } else {
+            if ((numberOfFiles % 10 === 2 || numberOfFiles % 10 === 3 || numberOfFiles % 10 === 4) && (numberOfFiles % 100 !== 12) && (numberOfFiles % 100 !== 13) && (numberOfFiles % 100 !== 14)) {
+                numberOfFilesLabel.textContent = `${numberOfFiles} файла`;
+            } else {
+                numberOfFilesLabel.textContent = `${numberOfFiles} файлов`;
+            }
+        }
+
+
+        let fileSize = file.size;
+        fileSize = fileSize / 1048576;
+        if (attachmentsTotalSize.textContent === '') {
+            attachmentsTotalSize.textContent = String(fileSize).substr(0, 4) + ' МБ';
+        } else {
+            const prevTotalSize = attachmentsTotalSize.textContent.substr(0, (attachmentsTotalSize.textContent).length - 3);
+            attachmentsTotalSize.textContent = String(Number(prevTotalSize) + fileSize).substr(0, 4) + ' МБ';
+        }
+    }
+
+    deleteAllAttachments = async (e) => {
+        for (let attachment of this.attachments) {
+            this.deleteAttachment(e, attachment.id);
+        }
+    }
+
+    deleteAttachment = async (e, id) => {
+        e.preventDefault();
+        const oldError = this.#parent
+            .querySelector('.write-letter__attachments__error');
+        oldError.classList.remove('show');
+        dispathcher.do(actionDeleteAttachment(id));
+    }
+
+    renderDeleteAttachment = (id) => {
+        const object = this.attachments.find(item => item.id === id);
+        this.attachments = this.attachments.filter(item => item.id !== id);
+        const attachment = document.querySelectorAll(`[data-id="${object.id}"]`)[0];
+        const attachmentsList = this.#parent.querySelector('.write-letter__attachments__dropdown');
+        attachmentsList.removeChild(attachment);
+        const numberOfFiles = this.attachments.length;
+        if (numberOfFiles === 0) {
+            const attachmentsTotalSize = this.#parent.querySelector('.write-letter__attachments__view-button__counter');
+            attachmentsTotalSize.textContent = '';
+            const viewButton = this.#parent.querySelector('.write-letter__attachments__view-button');
+            const deleteAllButton = this.#parent.querySelector('.write-letter__attachments__delete-all-button');
+            viewButton.classList.remove('appear');
+            deleteAllButton.classList.remove('appear');
+        } else {
+            const numberOfFilesLabel = this.#parent.querySelector('.write-letter__attachments__view-button__label');
+            if ((numberOfFiles % 10 === 1) && (numberOfFiles % 100 !== 11)) {
+                numberOfFilesLabel.textContent = `${numberOfFiles} файл`;
+            } else {
+                if ((numberOfFiles % 10 === 2 || numberOfFiles % 10 === 3 || numberOfFiles % 10 === 4) && (numberOfFiles % 100 !== 12) && (numberOfFiles % 100 !== 13) && (numberOfFiles % 100 !== 14)) {
+                    numberOfFilesLabel.textContent = `${numberOfFiles} файла`;
+                } else {
+                    numberOfFilesLabel.textContent = `${numberOfFiles} файлов`;
+                }
+            }
+
+
+            const attachmentsTotalSize = this.#parent.querySelector('.write-letter__attachments__view-button__counter');
+            let fileSize = object.file.size;
+            fileSize = fileSize / 1048576;
+            const prevTotalSize = attachmentsTotalSize.textContent.substr(0, (attachmentsTotalSize.textContent).length - 3);
+            const newTotalSize = (Number(prevTotalSize) - fileSize >= 0) ? (Number(prevTotalSize) - fileSize) : 0;
+            attachmentsTotalSize.textContent = String(newTotalSize).substr(0, 4) + ' МБ';
+        }
+    }
+
+    bindAttachmnetsToLetter = async (id) => {
+        for (let attachment of this.attachments) {
+            const attachmentId = attachment.id;
+            dispathcher.do(actionBindAttachmnetsToLetter( id, attachmentId ));
+        }
     }
 
     /**
@@ -605,7 +706,12 @@ export default class Write__Letter {
 
         this.#parent
             .querySelector('.write-letter__attachments__attach-button')
-            .addEventListener('click', this.handleFile);
+            .addEventListener('click', this.addAttachment);
+        this.#parent
+            .querySelector('.write-letter__attachments__delete-all-button')
+            .addEventListener('click', this.deleteAllAttachments)
+
+
 
         this.#parent
             .querySelector('.header__rollup-button')
@@ -641,9 +747,14 @@ export default class Write__Letter {
         }
 
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
-        mediator.on('send', this.handleSendResponse)
-        mediator.on('updateEmail', this.handleSendResponse)
+        mediator.on('logout', this.handleExitResponse);
+        mediator.on('send', this.handleSendResponse);
+        mediator.on('updateEmail', this.handleSendResponse);
+        mediator.on('attachFile', this.attachFileResponse);
+        mediator.on('deleteAttachment', this.handleDeleteAttachmentResponse);
+        mediator.on('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
+
+
     }
 
     /**
@@ -682,6 +793,11 @@ export default class Write__Letter {
         mediator.off('logout', this.handleExitResponse)
         mediator.off('send', this.handleSendResponse)
         mediator.off('updateEmail', this.handleSendResponse)
+        mediator.off('attachFile', this.attachFileResponse);
+        mediator.off('deleteAttachment', this.handleDeleteAttachmentResponse);
+        mediator.off('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
+
+
     }
 
     handleExitResponse = (status) => {
@@ -690,11 +806,53 @@ export default class Write__Letter {
                 dispathcher.do(actionRedirect('/login', true));
                 break;
             default:
-                break;
         }
     }
 
-    handleSendResponse = (status) => {
+    handleSendResponse = ({ id, status }) => {
+        const error = this.#parent
+            .querySelector('.write-letter__buttons__error');
+        switch (status) {
+            case 200:
+                if (this.attachments.length !== 0) {
+                    this.bindAttachmnetsToLetter(id);
+                } else {
+                    dispathcher.do(actionRedirect('/main', true));
+                }
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+        }
+    }
+
+    attachFileResponse = ({ status, id }) => {
+        const error = this.#parent
+            .querySelector('.write-letter__attachments__error');
+        switch (status) {
+            case 200:
+                this.renderAttachment(id);
+                break;
+            default:
+                error.textContent = 'Ошибка загрузки файла';
+                error.classList.add('show');
+        }
+    }
+
+    handleDeleteAttachmentResponse = ({ status, id }) => {
+        const error = this.#parent
+            .querySelector('.write-letter__attachments__error');
+        switch (status) {
+            case 200:
+                this.renderDeleteAttachment(id);
+                break;
+            default:
+                error.textContent = 'Ошибка удаления файла';
+                error.classList.add('show');
+        }
+    }
+
+    handleBindAttachmentToLetterResponse = (status) => {
         const error = this.#parent
             .querySelector('.write-letter__buttons__error');
         switch (status) {
@@ -704,7 +862,6 @@ export default class Write__Letter {
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
-                break;
         }
     }
 }

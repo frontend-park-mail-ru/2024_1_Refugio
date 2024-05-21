@@ -13,14 +13,14 @@ export const actionSignup = (value) => ({
     value: value,
 })
 
-export const actionRedirect = (path, pushState, data=undefined) => ({
-    type: 'open', 
-    value: {path: path, pushState: pushState, data: data},
+export const actionRedirect = (path, pushState, data = undefined) => ({
+    type: 'open',
+    value: { path: path, pushState: pushState, data: data },
 })
 
 export const actionRedirectToLetter = (id, pushState, folder) => ({
-    type: 'openLetter', 
-    value: {id: id, pushState: pushState, folder: folder},
+    type: 'openLetter',
+    value: { id: id, pushState: pushState, folder: folder },
 })
 
 export const actionGetUser = () => ({
@@ -30,7 +30,7 @@ export const actionGetUser = () => ({
 
 export const actionAvatarUpload = (file) => ({
     type: 'avatarUpload',
-    value: {file: file},
+    value: { file: file },
 })
 
 export const actionUpdateUser = (value) => ({
@@ -60,12 +60,12 @@ export const actionSend = (value) => ({
 
 export const actionUpdateEmail = (id, value) => ({
     type: 'updateEmail',
-    value: {id: id, value: value},
+    value: { id: id, value: value },
 })
 
 export const actionDeleteEmail = (id) => ({
     type: 'deleteEmail',
-    value: {id: id},
+    value: { id: id },
 })
 
 export const actionLogout = () => ({
@@ -80,7 +80,7 @@ export const actionGetQuestions = () => ({
 
 export const actionSendStat = (id, value) => ({
     type: 'sendStat',
-    value: {id: id, value: value},
+    value: { id: id, value: value },
 })
 
 export const actionGetStatistic = () => ({
@@ -90,7 +90,7 @@ export const actionGetStatistic = () => ({
 
 export const actionStar = (id) => ({
     type: 'star',
-    value: {id: id},
+    value: { id: id },
 })
 
 export const actionCreateFolder = (value) => ({
@@ -105,7 +105,7 @@ export const actionGetFolders = () => ({
 
 export const actionUpdateFolder = (id, value) => ({
     type: 'updateFolder',
-    value: {id: id, value: value},
+    value: { id: id, value: value },
 })
 
 export const actionDeleteFolder = (id) => ({
@@ -138,12 +138,27 @@ export const actionGetAuthUrlSignUpVK = () => ({
     value: {},
 })
 
-export const actionGetVkAuthInfo= (code) => ({
+export const actionGetVkAuthInfo = (code) => ({
     type: 'getVkAuthInfo',
     value: code,
 })
 
-export const actionVkAuthSignup= (value) => ({
+export const actionVkAuthSignup = (value) => ({
     type: 'vkSignup',
     value: value,
+})
+
+export const actionAttachFile = (file) => ({
+    type: 'attachFile',
+    value: { file: file },
+})
+
+export const actionDeleteAttachment = (id) => ({
+    type: 'deleteAttachment',
+    value: id,
+})
+
+export const actionBindAttachmnetsToLetter = (letterId, attachmentId) => ({
+    type: 'bindAttachmentToLetter',
+    value: { letterId: letterId, attachmentId: attachmentId }
 })

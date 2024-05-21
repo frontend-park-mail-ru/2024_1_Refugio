@@ -32,6 +32,12 @@ const handlers = [
     {type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore)},
     {type: 'getVkAuthInfo', method: userStore.actionGetVkAuthInfo.bind(userStore)},
     {type: 'vkSignup', method: userStore.actionVkAuthSignup.bind(userStore)},
+    {type: 'attachFile', method: emailStore.attachFile.bind(emailStore)},
+    {type: 'deleteAttachment', method: emailStore.deleteAttachment.bind(emailStore)},
+    {type: 'bindAttachmentToLetter', method: emailStore.bindAttachmentToLetter.bind(emailStore)},
+
+
+
 
 ];
 

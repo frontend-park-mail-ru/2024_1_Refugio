@@ -70,7 +70,8 @@ export default class Vk__Auth__Helper {
     handleVkAuthInfoResponse = (data) => {
         switch (data.status) {
             case 200:
-                dispathcher.do(actionRedirect('/signup', true, data.body.VKUser))
+                console.log(data.body);
+                dispathcher.do(actionRedirect('/signup', true, data.body.body.VKUser))
                 break;
             default:
                 break;

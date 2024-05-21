@@ -51,7 +51,9 @@ class emaillStore {
             'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        mediator.emit('send', status);
+        const data = await response.json();
+        const id = data.body.email.id;
+        mediator.emit('send', { id, status });
     }
 
     async updateEmail({ id, value }) {
@@ -89,6 +91,33 @@ class emaillStore {
         );
         const data = await response.json();
         this.spam = data.body.emails;
+    }
+
+    async attachFile(file) {
+        const response = await ajax(
+            'POST', 'https://mailhub.su/api/v1/email/addfile', file.file, undefined, userStore.getCsrf()
+        );
+        const status = await response.status;
+        const data = await response.json();
+        const id = data.body.FileId;
+        mediator.emit('attachFile', { status, id });
+    }
+
+    async deleteAttachment(id) {
+        const response = await ajax(
+            'POST', `https://mailhub.su/api/v1/email/delete/file/${id}`, null, undefined, userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('deleteAttachment', { status, id });
+    }
+
+    async bindAttachmentToLetter({ letterId, attachmentId }) {
+        console.log(letterId, attachmentId);
+        const response = await ajax(
+            'POST', `https://mailhub.su/api/v1/email/${letterId}/file/${attachmentId}`, null, undefined, userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('bindAttachmentToLetter', status);
     }
 }
 
