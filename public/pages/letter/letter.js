@@ -32,6 +32,28 @@ export default class Letter {
         this.#parent = parent;
     }
 
+    #calculateFilesNumber = (number) => {
+        let numberLabel = '';
+        if ((number % 10 === 1) && (number % 100 !== 11)) {
+            number.textContent = `${number} файл`;
+        } else {
+            if ((number % 10 === 2 || number % 10 === 3 || number % 10 === 4) && (number % 100 !== 12) && (number % 100 !== 13) && (number % 100 !== 14)) {
+                numberLabel = `${number} файла`;
+            } else {
+                numberLabel = `${number} файлов`;
+            }
+        }
+        return numberLabel;
+    }
+
+    #calculateTotalSize = (files) => {
+        let result = 0;
+        files.forEach((file) => {
+            result += file.id;
+        });
+        return result;
+    }
+
     /**
      * Рендер компонента в DOM
      */
@@ -55,7 +77,8 @@ export default class Letter {
             menu: this.#config.menu.component.render(),
             folders: this.#config.menu.folders,
             list_attachments: new List_attachments(null, this.#config.files).render(),
-
+            files_number: this.#calculateFilesNumber(this.#config.files.length),
+            total_size: this.#calculateTotalSize(this.#config.files)
         };
         if (elements.from === userStore.body.login) {
             elements.from = this.#config.email.recipientEmail;
@@ -95,7 +118,8 @@ export default class Letter {
 
     handleDropdowns(e) {
         const target = e.target;
-        const elements = {
+
+        let elements = {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
@@ -104,11 +128,15 @@ export default class Letter {
                 button: document.querySelector('#to-folder'),
                 dropdown: document.querySelector('.letter__header__dropdown__wrapper'),
             },
-            files: {
+
+        }
+        if (document.querySelector('.letter__attachments__view-button')) {
+            elements['files'] = {
                 button: document.querySelector('.letter__attachments__view-button'),
                 dropdown: document.querySelector('.letter__attachments__dropdown__wrapper'),
             }
         }
+
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
@@ -287,10 +315,44 @@ export default class Letter {
         }
     }
 
+    downloadURI = async (url, filename) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+
+
+    downloadAttachment = async (e, id) => {
+        e.preventDefault();
+        const attachment = this.#config.files.find(item => item.id == id);
+        const url = attachment.fileId;
+        const fileName = attachment.id;
+        await this.downloadURI(url, fileName);
+    }
+
+    downloadAllAttachments = async (e) => {
+        for (let attachment of this.#config.files) {
+            this.downloadAttachment(e, attachment.id);
+        }
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent
+            .querySelectorAll('.list-attachment').forEach((file) => {
+                file.querySelector('.list-attachment__delete-button').
+                    addEventListener('click', (e) => this.downloadAttachment(e, file.dataset.id));
+            })
+        this.#parent
+            ?.querySelector('.letter__attachments__download-all-button')
+            ?.addEventListener('click', this.downloadAllAttachments);
 
         this.#parent
             .querySelector('.header__rollup-button')

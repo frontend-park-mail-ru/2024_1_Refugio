@@ -542,7 +542,7 @@ export default class Write__Letter {
 
     createNewAttachment = (fileName, fileSize, id) => {
         fileSize = fileSize / 1048576;
-        fileSize = String(fileSize).substr(0, 3) + ' МБ';
+        fileSize = String(fileSize).substring(0, 3) + ' МБ';
         const newAttachment = document.createElement('div');
         newAttachment.setAttribute('class', 'write-letter__attachments__dropdown__file');
         newAttachment.setAttribute('data-id', id);
@@ -635,10 +635,10 @@ export default class Write__Letter {
         let fileSize = file.size;
         fileSize = fileSize / 1048576;
         if (attachmentsTotalSize.textContent === '') {
-            attachmentsTotalSize.textContent = String(fileSize).substr(0, 4) + ' МБ';
+            attachmentsTotalSize.textContent = String(fileSize).substring(0, 4) + ' МБ';
         } else {
-            const prevTotalSize = attachmentsTotalSize.textContent.substr(0, (attachmentsTotalSize.textContent).length - 3);
-            attachmentsTotalSize.textContent = String(Number(prevTotalSize) + fileSize).substr(0, 4) + ' МБ';
+            const prevTotalSize = attachmentsTotalSize.textContent.substring(0, (attachmentsTotalSize.textContent).length - 3);
+            attachmentsTotalSize.textContent = String(Number(prevTotalSize) + fileSize).substring(0, 4) + ' МБ';
         }
     }
 
@@ -686,9 +686,9 @@ export default class Write__Letter {
             const attachmentsTotalSize = this.#parent.querySelector('.write-letter__attachments__view-button__counter');
             let fileSize = object.file.size;
             fileSize = fileSize / 1048576;
-            const prevTotalSize = attachmentsTotalSize.textContent.substr(0, (attachmentsTotalSize.textContent).length - 3);
+            const prevTotalSize = attachmentsTotalSize.textContent.substring(0, (attachmentsTotalSize.textContent).length - 3);
             const newTotalSize = (Number(prevTotalSize) - fileSize >= 0) ? (Number(prevTotalSize) - fileSize) : 0;
-            attachmentsTotalSize.textContent = String(newTotalSize).substr(0, 4) + ' МБ';
+            attachmentsTotalSize.textContent = String(newTotalSize).substring(0, 4) + ' МБ';
         }
     }
 
