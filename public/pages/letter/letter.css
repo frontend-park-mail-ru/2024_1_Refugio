@@ -310,6 +310,8 @@
 }
 
 .letter__folder {
+    width: 100%;
+
     padding: 5px 8px 5px 8px;
     border-radius: 8px;
     cursor: pointer;
@@ -319,6 +321,10 @@
     letter-spacing: 0;
     line-height: 20px;
     transition: background-color 0.1s ease;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .letter__folder:hover {
