@@ -108,9 +108,7 @@ export default class Vk__Signup {
      * Функция рендера страницы авторизации
      */
     renderLogin = async (e) => {
-
         e.preventDefault();
-
         dispathcher.do(actionRedirect('/login', true));
     };
 

@@ -29,26 +29,27 @@ export default class Vk__Signup__Helper {
      * Рендер компонента в DOM
      */
     render() {
-        const config = this.#config;
-        this.#parent.insertAdjacentHTML('beforeend', template());
+        // const config = this.#config;
+        // this.#parent.insertAdjacentHTML('beforeend', template());
+        this.handleAjax();
     }
 
-    handleAjax = async (e) => {
-        e.preventDefault();
-        // let params = (new URL(document.location)).searchParams;
-        // console.log(params.get("data"));
-        dispathcher.do(actionGetVkAuthInfo('855ab871bba885204e'));
+    handleAjax = async () => {
+        const searchParams = new URLSearchParams(window.location.search);
 
+        const code = searchParams.get("code");
+        console.log(code);
+        dispathcher.do(actionGetVkAuthInfo(code));
+
+        // dispathcher.do(actionGetVkAuthInfo('855ab871bba885204e'));
     }
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-        this.#parent.addEventListener("click", this.handleAjax);
-        this.#parent.addEventListener("load", this.handleAjax);
-        mediator.on('getVkAuthInfo', this.handleVkAuthInfoResponse)
 
+        mediator.on('getVkAuthInfo', this.handleVkAuthInfoResponse)
 
         // mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
@@ -57,8 +58,6 @@ export default class Vk__Signup__Helper {
      * Удаляет листенеры
      */
     removeListeners() {
-        this.#parent.removeEventListener("click", this.handleAjax);
-        this.#parent.removeEventListener("load", this.handleAjax);
         mediator.off('getVkAuthInfo', this.handleVkAuthInfoResponse)
 
 

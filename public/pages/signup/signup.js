@@ -1,4 +1,4 @@
-import { actionRedirect, actionSignup } from '../../actions/userActions.js';
+import { actionRedirect, actionSignup, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
@@ -355,9 +355,9 @@ export default class Signup {
     handleVkSignup = async (e) => {
         e.preventDefault();
 
-        dispathcher.do(actionRedirect('/vk-signup-helper', true));
-
-        // dispathcher.do(actionGetAuthUrlSignUpVK());
+        // dispathcher.do(actionRedirect('/vk-signup-helper', true));
+        console.log('getUrl');
+        dispathcher.do(actionGetAuthUrlSignUpVK());
 
     }
 
@@ -432,11 +432,12 @@ export default class Signup {
             .querySelector('#signup-error');
         switch (data.status) {
             case 200:
+                console.log(data);
                 window.location.href = data.link;
 
                 break;
             default:
-                error.textContent = 'VKПроблема на нашей стороне. Уже исправляем';
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
         }

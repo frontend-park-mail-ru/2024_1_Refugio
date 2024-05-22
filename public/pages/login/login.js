@@ -1,7 +1,7 @@
 import Login_Box from '../../components/login-box/login-box.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogin, actionRedirect } from '../../actions/userActions.js';
+import { actionLogin, actionRedirect, actionGetAuthUrlLoginVK } from '../../actions/userActions.js';
 import template from './login.hbs'
 
 const MAX_INPUT_LENGTH = 64;
@@ -143,9 +143,9 @@ export default class Login {
 
     handleVkLogin = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionRedirect('/vk-login-helper', true));
-
-        // dispathcher.do(actionGetAuthUrlSignUpVK());
+        // dispathcher.do(actionRedirect('/vk-login-helper', true));
+        console.log('работаем братья');
+        dispathcher.do(actionGetAuthUrlLoginVK());
     }
 
     /**
@@ -164,6 +164,8 @@ export default class Login {
             .querySelector('.login-box__authorization-method-switch__method_passive')
             .addEventListener('click', this.renderSignup);
         mediator.on('login', this.handleLoginResponse);
+        mediator.on('getAuthUrlLoginVK', this.handleVkLoginResponse)
+
 
     }
 
@@ -180,6 +182,8 @@ export default class Login {
             .querySelector('.login-box__authorization-method-switch__method_passive')
             .removeEventListener('click', this.renderSignup);
         mediator.off('login', this.handleLoginResponse);
+        mediator.off('getAuthUrlLoginVK', this.handleVkLoginResponse)
+
     }
 
     /**
@@ -199,6 +203,20 @@ export default class Login {
             default:
                 errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
                 errorSign.classList.add('show');
+                break;
+        }
+    }
+
+    handleVkLoginResponse = (data) => {
+        const error = this.#parent
+            .querySelector('#login-error');
+        switch (data.status) {
+            case 200:
+                window.location.href = data.link;
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
                 break;
         }
     }

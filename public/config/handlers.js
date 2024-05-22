@@ -36,6 +36,8 @@ const handlers = [
     { type: 'updateDraft', method: draftStore.update.bind(draftStore) },
     { type: 'getSpam', method: emailStore.getSpam.bind(emailStore) },
     { type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore) },
+    { type: 'getAuthUrlLoginVK', method: userStore.getAuthUrlLoginVK.bind(userStore) },
+
     { type: 'getVkAuthInfo', method: userStore.getVkAuthInfo.bind(userStore) },
     { type: 'vkSignup', method: userStore.vkAuthSignup.bind(userStore) },
     { type: 'attachFile', method: emailStore.attachFile.bind(emailStore) },

@@ -17,9 +17,6 @@ import VkLoginHelperView from "../views/vk-login-helper.js";
  * @class
  */
 
-
-
-
 class Router {
     #views
     #authViews
@@ -78,8 +75,8 @@ class Router {
     async redirect(href) {
         let isAuth = await userStore.verifyAuth();
         const authCodeRegex = /^\/auth-vk\/auth\?code=[a-zA-Z0-9]+$/;
+        const authLoginCodeRegex = /^\/auth-vk\/loginVK\?code=[a-zA-Z0-9]+$/;
         const signupRegex = /^\/signup$/;
-        const authHelperRegex = /^\/vk-auth-helper$/;
 
         if (!isAuth) {
             if (signupRegex.test(href)) {
@@ -88,7 +85,7 @@ class Router {
             if (authCodeRegex.test(href)) {
                 return href;
             }
-            if (authHelperRegex.test(href)) {
+            if (authLoginCodeRegex.test(href)) {
                 return href;
             }
             this.redirectView = href;
@@ -153,6 +150,15 @@ class Router {
         this.#currentView.renderPage();
     }
 
+    openVkLogin({ id, pushState }) {
+        if (this.#currentView) {
+            this.#currentView.clear();
+        }
+        this.#currentView = new VkLoginHelperView();
+        this.navigate({ path: `/auth-vk/loginVK?code=${id}`, state: '', pushState });
+        this.#currentView.renderPage();
+    }
+
     async start() {
         window.addEventListener('popstate', async () => {
             let path = await this.redirect(window.location.pathname + window.location.search);
@@ -161,7 +167,9 @@ class Router {
             } else if (path.indexOf('/folder?') !== -1) {
                 this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
             } else if (path.indexOf('/auth-vk/auth?') !== -1) {
-                this.openVkAuth({ id: href.replace('/auth-vk/auth?code=', ''), pushState: false });
+                this.openVkAuth({ id: path.replace('/auth-vk/auth?code=', ''), pushState: false });
+            } else if (path.indexOf('/auth-vk/loginVK?') !== -1) {
+                this.openVkLogin({ id: path.replace('/auth-vk/loginVK?code=', ''), pushState: false });
             } else {
                 this.open({ path: path, pushState: false });
             }
@@ -172,9 +180,10 @@ class Router {
         } else if (path.indexOf('/folder?') !== -1) {
             this.openLetter({ id: path.replace('/folder?id=', ''), pushState: false, folder: true });
         } else if (path.indexOf('/auth-vk/auth?') !== -1) {
-            this.openVkAuth({ id: href.replace('/auth-vk/auth?code=', ''), pushState: false });
-        }
-        else {
+            this.openVkAuth({ id: path.replace('/auth-vk/auth?code=', ''), pushState: false });
+        } else if (path.indexOf('/auth-vk/loginVK?') !== -1) {
+            this.openVkLogin({ id: path.replace('/auth-vk/loginVK?code=', ''), pushState: false });
+        } else {
             this.open({ path: path, pushState: false });
         }
     }
