@@ -1,14 +1,10 @@
 import dispathcher from "../modules/dispathcher.js";
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
-<<<<<<< HEAD
-import { actionGetSpam, actionGetDrafts, actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming, actionGetFolderEmails } from "../actions/userActions.js";
-=======
+import { actionGetSpam, actionGetEmail, actionGetFolders, actionGetUser, actionGetSent, actionGetIncoming, actionGetFolderEmails, actionGetLetterFolders, actionGetAttachments } from "../actions/userActions.js";
 import draftStore from "../stores/draftStore.js";
 import statStore from "../stores/statStore.js";
-import { actionGetSpam, actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming, actionGetFolderEmails, actionGetLetterFolders } from "../actions/userActions.js";
 import { actionGetDrafts } from "../actions/draftActions.js";
->>>>>>> a1951e838c218c24864de0626c42627a8a1ab505
 import folderStore from "../stores/folderStore.js";
 /**
  * Класс для рендера абстрактной страницы
@@ -138,5 +134,10 @@ export default class BaseView {
     async getFolderInfo(id) {
         await dispathcher.do(actionGetFolderEmails(id));
         return folderStore.emails;
+    }
+
+    async getAttachments(id) {
+        await dispathcher.do(actionGetAttachments(id));
+        return emailStore.files;
     }
 }

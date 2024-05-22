@@ -141,10 +141,20 @@ export default class Login {
     };
 
 
+    handleVkLogin = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/vk-login-helper', true));
+
+        // dispathcher.do(actionGetAuthUrlSignUpVK());
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent.
+            querySelector('.login-box__login-button-wrapper__vk-button')
+            .addEventListener('click', this.handleVkLogin);
         this.#parent
             .querySelector('.login-box__login-button-wrapper__button')
             .addEventListener('click', this.handleLogin);
@@ -154,6 +164,7 @@ export default class Login {
             .querySelector('.login-box__authorization-method-switch__method_passive')
             .addEventListener('click', this.renderSignup);
         mediator.on('login', this.handleLoginResponse);
+
     }
 
     /**

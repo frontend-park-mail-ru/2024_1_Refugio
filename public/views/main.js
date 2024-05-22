@@ -18,14 +18,6 @@ class MainView extends BaseView {
         menu: {},
         content: {
             list_letters: [
-                // {
-                //     status: undefined,
-                //     photoId: '/static/img/avatar_32_32.svg',
-                //     from: 'ivanovii@mail.ru',
-                //     subject: 'Subject',
-                //     text: 'Some text about fish',
-                //     date: '12/12/2012'
-                // },
             ],
         },
     };
@@ -56,7 +48,6 @@ class MainView extends BaseView {
         }
         const page = new Main(this.root, this.#config);
         this.components.push(page);
-        //this.components.push(survey);
         this.render();
         this.addListeners();
     }

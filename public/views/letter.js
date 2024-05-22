@@ -14,6 +14,7 @@ export default class LetterView extends BaseView {
             avatar: '',
         },
         letterNumber: undefined,
+        files: {}
     }
 
     /**
@@ -48,10 +49,13 @@ export default class LetterView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
+        this.#config.files = await this.getAttachments(this.#config.letterNumber);
         const page = new Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
         this.addListeners();
     }
+
+
 
 }

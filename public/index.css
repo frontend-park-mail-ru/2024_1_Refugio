@@ -5,6 +5,8 @@
 @import 'pages/write-letter/write-letter.css';
 @import 'pages/sent/sent.css';
 @import 'pages/main/main.css';
+@import 'pages/vk-signup/vk-signup.css';
+@import 'components/list-attachment/list-attachment.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 

@@ -232,66 +232,7 @@
     box-shadow: 0px 3px 5px -1px var(--box-background);
 }
 
-.letter__attachments__dropdown__file {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    grid-column-gap: 8px;
 
-    padding: 8px 6px 8px 12px;
-    border-radius: 8px;
-    transition: background-color 0.1s ease;
-}
-
-.letter__attachments__dropdown__file:hover {
-    background: var(--secondary-button-onhover-selected);
-}
-
-.letter__attachments__dropdown__file__name {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0;
-    /* line-height: 20px; */
-}
-
-.letter__attachments__dropdown__file__size {
-    display: inline-block;
-    align-items: center;
-
-    margin-top: 2px;
-    max-width: 33px;
-    color: var(--input-label-counter-icon);
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0;
-    line-height: 18px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.letter__attachments__dropdown__file__delete-button {
-    display: grid;
-    align-items: center;
-
-    color: var(--text);
-    border-radius: 20px;
-    padding: 0 4px;
-
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 18px;
-    cursor: pointer;
-}
-
-.letter__attachments__dropdown__file__delete-button:hover {
-    background-color: var(--input-placeholder);
-}
 
 .letter__attachments__dropdown::-webkit-scrollbar {
     width: 4px;
@@ -316,6 +257,10 @@
     word-break: break-word;
 
     background-color: var(--box-background);
+
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
 
     font-size: 16px;
     font-weight: 400;

@@ -1,9 +1,10 @@
-import template from './login-box.hbs'
+import template from './vk-signup-box.hbs'
+
 /**
  * Класс обертки компонента
  * @class
  */
-export default class Login_box {
+export default class Vk_Signup_box {
     #parent;
     #config;
 
@@ -14,18 +15,15 @@ export default class Login_box {
      * @param {object} config 
      */
     constructor(parent, config) {
-        this.#config=config;
-        this.#parent=parent;
+        this.#config = config;
+        this.#parent = parent;
     }
+
 
     /**
      * рендерит компонент в DOM
      */
     render() {
-
-        const elements = {
-            error: this.#config.error,
-        };
-        return template(elements);
+        return template();
     }
 }

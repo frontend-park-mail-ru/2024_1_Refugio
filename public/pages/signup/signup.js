@@ -1,4 +1,4 @@
-import { actionRedirect, actionSignup, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
+import { actionRedirect, actionSignup } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
@@ -354,7 +354,11 @@ export default class Signup {
 
     handleVkSignup = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionGetAuthUrlSignUpVK());
+
+        dispathcher.do(actionRedirect('/vk-signup-helper', true));
+
+        // dispathcher.do(actionGetAuthUrlSignUpVK());
+
     }
 
     /**
