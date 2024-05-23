@@ -58,7 +58,7 @@ export default class Letter {
             elements.userLetter = this.#config.email.recipientEmail.charAt(0)
         }
         elements.delete_folders = this.#config.menu.letter_folders;
-        elements.delete_folders.forEach((delete_folder)=> {
+        elements.delete_folders.forEach((delete_folder) => {
             elements.folders = elements.folders.filter((folder) => folder.id !== delete_folder.id);
         })
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
@@ -80,7 +80,7 @@ export default class Letter {
             btn.style.backgroundColor = '#393939';
         } else {
             btn.style.backgroundColor = '#191919';
-        };
+        }
     }
 
     /**
@@ -227,7 +227,7 @@ export default class Letter {
             icon.src = '/icons/read-on__256.svg';
         } else {
             icon.src = '/icons/read-on-offer__256.svg';
-        };
+        }
         value.readStatus = !value.readStatus;
         dispathcher.do(actionUpdateEmail(id, value));
     }
@@ -261,7 +261,7 @@ export default class Letter {
             btn.style.backgroundColor = '#393939';
         } else {
             btn.style.backgroundColor = '#191919';
-        };
+        }
         value.spamStatus = !value.spamStatus;
         dispathcher.do(actionUpdateEmail(id, value, true));
     }
@@ -474,11 +474,11 @@ export default class Letter {
      * Функция обработки ответа на запрос изменения письма
      */
     handleUpdateEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
@@ -489,12 +489,12 @@ export default class Letter {
      * Функция обработки ответа на запрос удаления письма
      */
     handleDeleteEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;

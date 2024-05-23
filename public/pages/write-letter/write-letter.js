@@ -1,7 +1,7 @@
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionSend, actionUpdateEmail } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionSend } from '../../actions/userActions.js';
 import { actionAddDraft, actionSendDraft, actionUpdateDraft } from '../../actions/draftActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './write-letter.hbs'
@@ -35,7 +35,7 @@ export default class Write__Letter {
         let lines = text.split('\n');
         lines = lines.map(line => '\t' + line);
         return lines.join('\n');
-    };
+    }
 
 
     /**
@@ -117,9 +117,9 @@ export default class Write__Letter {
             senderEmail: this.#config.user.login,
         };
         if (this.#config.values?.replyId) {
-            console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
+        console.log('here');
         dispathcher.do(actionAddDraft(newLetter));
     };
 
@@ -517,14 +517,13 @@ export default class Write__Letter {
     }
 
     handleSendResponse = (status) => {
+        const error = this.#parent
+            .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             default:
-                const error = this.#parent
-                    .querySelector('.write-letter__buttons__error');
-
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;

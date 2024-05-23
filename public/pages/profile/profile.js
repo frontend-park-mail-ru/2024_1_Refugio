@@ -485,6 +485,7 @@ export default class Profile {
         const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent = '1';
         const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent = 'Январь';
         const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent = '2024';
+        console.log(birthdayDay.textContent, birthdayMonth.textContent, birthdayYear.textContent);
         // const genderInput = document.querySelector('.cl-switch input')
 
         const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
@@ -650,16 +651,6 @@ export default class Profile {
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
-                break;
-        }
-    }
-
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
                 break;
         }
     }

@@ -43,6 +43,7 @@ class draftStore {
             'POST', 'https://mailhub.su/api/v1/email/adddraft', JSON.stringify(newDraft), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
+        console.log(status);
         mediator.emit('addDraft', status);
     }
 
