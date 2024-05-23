@@ -26,16 +26,13 @@ export default class List_attachments {
      * @returns {Array} массив объектов класса писем
      */
     #renderConfig(files) {
-        let size = 105674;
         const result = [];
         files.forEach((file) => {
-
             result.push(new List_attachment(null, {
                 id: file.id,
-                name: file.fileId,
-                size: String(size / 1048576).substring(0, 3),
+                name: file.fileName,
+                size: String(file.fileSize / 1048576).substring(0, 3),
             }).render(),);
-            size *= 2;
         });
         return result;
     }

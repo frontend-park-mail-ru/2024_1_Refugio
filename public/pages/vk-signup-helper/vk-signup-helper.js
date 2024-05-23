@@ -1,7 +1,6 @@
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
-import template from './vk-signup-helper.hbs'
 import router from '../../modules/router.js';
 
 
@@ -29,8 +28,6 @@ export default class Vk__Signup__Helper {
      * Рендер компонента в DOM
      */
     render() {
-        // const config = this.#config;
-        // this.#parent.insertAdjacentHTML('beforeend', template());
         this.handleAjax();
     }
 
