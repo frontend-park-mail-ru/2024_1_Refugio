@@ -37,7 +37,6 @@ export default class Vk__Login__Helper {
         console.log(code);
         console.log('login helper');
         dispathcher.do(actionVkLogin(code));
-        // dispathcher.do(actionVkLogin('855ab871bba885204e'));
 
     }
 
@@ -45,33 +44,18 @@ export default class Vk__Login__Helper {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-        mediator.on('getVkAuthInfo', this.handleVkAuthInfoResponse);
         mediator.on('vkLogin', this.handleVkLoginResponse);
-
-
-        // mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
 
     /**
      * Удаляет листенеры
      */
     removeListeners() {
-        mediator.off('getVkAuthInfo', this.handleVkAuthInfoResponse);
         mediator.off('vkLogin', this.handleVkLoginResponse);
 
 
 
         // mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse);
-    }
-
-    handleVkAuthInfoResponse = (data) => {
-        switch (data.status) {
-            case 200:
-                dispathcher.do(actionRedirect('/signup', true, data))
-                break;
-            default:
-                alert('беда');
-        }
     }
 
     handleVkLoginResponse = (data) => {
