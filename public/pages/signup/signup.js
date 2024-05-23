@@ -1,4 +1,4 @@
-import { actionRedirect, actionSignup, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
+import { actionRedirect, actionSignup, actionLogin, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
@@ -13,6 +13,7 @@ const MAX_INPUT_LENGTH = 64;
 export default class Signup {
     #parent;
     #config;
+    #newUser;
 
     /**
      * Конструктор класса
@@ -243,7 +244,7 @@ export default class Signup {
         }
 
         // create JSON object with user data
-        const newUser = {
+        this.#newUser = {
             login: email + "@mailhub.su",
             firstname: firstName,
             password: password,
@@ -252,7 +253,7 @@ export default class Signup {
             birthday: birthdayString,
         };
 
-        dispathcher.do(actionSignup(newUser));
+        dispathcher.do(actionSignup(this.#newUser));
     };
 
     /**
@@ -385,6 +386,8 @@ export default class Signup {
             .addEventListener('keydown', this.handleEnterKey);
         mediator.on('signup', this.handleSignupResponse);
         mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse)
+        mediator.on('login', this.handleLoginResponse);
+
     }
 
     /**
@@ -408,6 +411,8 @@ export default class Signup {
             .removeEventListener('keydown', this.handleEnterKey);
         mediator.off('signup', this.handleSignupResponse);
         mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
+        mediator.off('login', this.handleLoginResponse);
+
     }
 
     /**
@@ -418,7 +423,7 @@ export default class Signup {
             .querySelector('#signup-error');
         switch (status) {
             case 200:
-                dispathcher.do(actionRedirect('/login', true));
+                dispathcher.do(actionLogin(this.#newUser));
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
@@ -439,6 +444,24 @@ export default class Signup {
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
+                break;
+        }
+    }
+
+    handleLoginResponse = (status) => {
+        let errorSign = this.#parent
+            .querySelector('#signup-error');
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/main', true));
+                break;
+            case 401:
+                errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
+                errorSign.classList.add('show');
+                break;
+            default:
+                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
+                errorSign.classList.add('show');
                 break;
         }
     }

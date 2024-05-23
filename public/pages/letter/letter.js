@@ -49,7 +49,7 @@ export default class Letter {
     #calculateTotalSize = (files) => {
         let result = 0;
         files.forEach((file) => {
-            result += file.id;
+            result += file.fileSize;
         });
         return result;
     }
