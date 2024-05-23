@@ -43,7 +43,9 @@ class draftStore {
             'POST', 'https://mailhub.su/api/v1/email/adddraft', JSON.stringify(newDraft), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        mediator.emit('addDraft', status);
+        const data = await response.json();
+        const id = data.body.email.id;
+        mediator.emit('addDraft', { id, status });
     }
 
     /**
@@ -54,14 +56,16 @@ class draftStore {
             'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(value), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        if (status===200) {
+        const data = await response.json();
+        const responseId = data.body.email.id;
+        if (status === 200) {
             const response = await ajax(
                 'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
             );
             const status = await response.status;
-            mediator.emit('send', status);
+            mediator.emit('send', { responseId, status });
         } else {
-            mediator.emit('send', status);
+            mediator.emit('send', { responseId, status });
         }
     }
 
@@ -73,14 +77,16 @@ class draftStore {
             'POST', 'https://mailhub.su/api/v1/email/adddraft', JSON.stringify(value), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        if (status===200) {
+        const data = await response.json();
+        const responseId = data.body.email.id;
+        if (status === 200) {
             const response = await ajax(
                 'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
             );
             const status = await response.status;
-            mediator.emit('send', status);
+            mediator.emit('send', { responseId, status });
         } else {
-            mediator.emit('send', status);
+            mediator.emit('send', { responseId, status });
         }
     }
 }

@@ -3,7 +3,6 @@ import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
 import { actionGetSpam, actionGetEmail, actionGetFolders, actionGetUser, actionGetSent, actionGetIncoming, actionGetFolderEmails, actionGetLetterFolders, actionGetAttachments } from "../actions/userActions.js";
 import draftStore from "../stores/draftStore.js";
-import statStore from "../stores/statStore.js";
 import { actionGetDrafts } from "../actions/draftActions.js";
 import folderStore from "../stores/folderStore.js";
 /**

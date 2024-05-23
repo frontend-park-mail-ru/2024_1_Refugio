@@ -1,7 +1,7 @@
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionBindAttachmnetsToLetter, actionRedirect, actionSend, actionUpdateEmail, actionAttachFile, actionDeleteAttachment } from '../../actions/userActions.js';
+import { actionLogout, actionBindAttachmnetsToLetter, actionRedirect, actionSend, actionAttachFile, actionDeleteAttachment } from '../../actions/userActions.js';
 import { actionAddDraft, actionSendDraft, actionUpdateDraft } from '../../actions/draftActions.js';
 
 import mediator from '../../modules/mediator.js';
@@ -636,7 +636,6 @@ export default class Write__Letter {
         mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)
         mediator.on('addDraft', this.handleSendResponse)
-        mediator.on('updateEmail', this.handleSendResponse)
         mediator.on('attachFile', this.attachFileResponse);
         mediator.on('deleteAttachment', this.handleDeleteAttachmentResponse);
         mediator.on('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
@@ -680,7 +679,6 @@ export default class Write__Letter {
         mediator.off('logout', this.handleExitResponse)
         mediator.off('send', this.handleSendResponse)
         mediator.off('addDraft', this.handleSendResponse)
-        mediator.off('updateEmail', this.handleSendResponse)
         mediator.off('attachFile', this.attachFileResponse);
         mediator.off('deleteAttachment', this.handleDeleteAttachmentResponse);
         mediator.off('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
