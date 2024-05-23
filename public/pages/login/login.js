@@ -143,8 +143,6 @@ export default class Login {
 
     handleVkLogin = async (e) => {
         e.preventDefault();
-        // dispathcher.do(actionRedirect('/vk-login-helper', true));
-        console.log('работаем братья');
         dispathcher.do(actionGetAuthUrlLoginVK());
     }
 

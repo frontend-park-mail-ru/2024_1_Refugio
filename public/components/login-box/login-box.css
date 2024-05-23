@@ -89,7 +89,7 @@
     grid-area: email-input;
 
     padding: 12px 2px 12px 12px;
-    width: 210px;
+    width: 200px;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
@@ -98,7 +98,7 @@
     grid-area: domain-input;
 
     padding: 12px 12px 12px 0;
-    width: 118px;
+    width: 128px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 

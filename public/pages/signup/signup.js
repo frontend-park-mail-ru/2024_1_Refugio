@@ -270,7 +270,6 @@ export default class Signup {
      * Функция обработки изменения поля пола
      */
     handleCheckbox(e) {
-        console.log(this);
 
         e.preventDefault();
         if (this.checked) {
@@ -355,9 +354,6 @@ export default class Signup {
 
     handleVkSignup = async (e) => {
         e.preventDefault();
-
-        // dispathcher.do(actionRedirect('/vk-signup-helper', true));
-        console.log('getUrl');
         dispathcher.do(actionGetAuthUrlSignUpVK());
 
     }
@@ -380,7 +376,6 @@ export default class Signup {
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
 
-        this.#parent
         document.addEventListener('click', this.handleDropdowns);
         document
             .addEventListener('keydown', this.handleEnterKey);

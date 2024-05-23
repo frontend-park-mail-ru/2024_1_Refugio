@@ -35,7 +35,6 @@ export default class Vk__Signup__Helper {
         const searchParams = new URLSearchParams(window.location.search);
 
         const code = searchParams.get("code");
-        console.log(code);
         dispathcher.do(actionGetVkAuthInfo(code));
 
         // dispathcher.do(actionGetVkAuthInfo('855ab871bba885204e'));

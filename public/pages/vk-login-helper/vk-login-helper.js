@@ -45,6 +45,8 @@ export default class Vk__Login__Helper {
      */
     addListeners() {
         mediator.on('vkLogin', this.handleVkLoginResponse);
+        mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse)
+        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
     }
 
     /**
@@ -64,10 +66,21 @@ export default class Vk__Login__Helper {
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             case 401:
-                dispathcher.do(actionRedirect('/login', true, "Сначала зарегистрируйтесь через VK ID"));
+                dispathcher.do(actionGetAuthUrlSignUpVK());
                 break;
             default:
                 dispathcher.do(actionRedirect('/login', true, "Проблема на нашей стороне, уже исправляем"));
+        }
+    }
+
+    handleVkSignupResponse = (data) => {
+        switch (data.status) {
+            case 200:
+                window.location.href = data.link;
+                break;
+            default:
+                dispathcher.do(actionRedirect('/login', true, "Проблема на нашей стороне, уже исправляем"));
+                break;
         }
     }
 }

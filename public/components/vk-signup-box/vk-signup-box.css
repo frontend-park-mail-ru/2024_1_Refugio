@@ -5,6 +5,9 @@
     display: grid;
     grid-template-areas:
         'method-switch method-switch'
+        'first-name last-name'
+        'birthday birthday'
+        'gender gender'
         'email email'
         'signup signup';
     grid-template-columns: repeat(2, 1fr);
@@ -57,6 +60,76 @@
 .vk-signup-box__authorization-method-switch__method_passive:active {
     transform: scale(0.99);
 }
+
+.vk-signup-box__first-name-input-wrapper {
+    grid-area: first-name;
+    display: grid;
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
+    grid-row-gap: 2px;
+    margin: 2px 8px 0 16px;
+}
+
+.vk-signup-box__last-name-input-wrapper {
+    grid-area: last-name;
+    display: grid;
+    grid-template-areas:
+        'label'
+        'input'
+        'error';
+    grid-row-gap: 2px;
+    margin: 2px 16px 0 8px;
+}
+
+.vk-signup-box__first-name-input-wrapper label,
+.vk-signup-box__last-name-input-wrapper label {
+    grid-area: label;
+
+    margin-top: 2px;
+
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+
+.vk-signup-box__first-name-input-wrapper__input,
+.vk-signup-box__last-name-input-wrapper__input {
+    grid-area: input;
+
+    padding: 12px;
+    border-radius: 8px;
+
+    font-size: 16px;
+    letter-spacing: 0;
+    font-weight: 400;
+    line-height: 20px;
+
+    transition: background-color 0.1s ease;
+}
+
+.vk-signup-box__first-name-input-wrapper__input::placeholder,
+.vk-signup-box__last-name-input-wrapper__input::placeholder {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.vk-signup-box__first-name-input-wrapper__input:focus,
+.vk-signup-box__last-name-input-wrapper__input:focus {
+    outline: none;
+}
+
+
+.vk-signup-box__first-name-input-wrapper__input,
+.vk-signup-box__last-name-input-wrapper__input {
+    box-sizing: border-box;
+    width: 100%;
+}
+
 
 .vk-signup-box__email-input-wrapper {
     grid-area: email;
@@ -121,6 +194,7 @@
     outline: none;
 }
 
+
 .vk-signup-box__error {
     grid-area: error;
 
@@ -141,6 +215,7 @@
     grid-template-areas:
         'vk'
         'error';
+    grid-template-columns: repeat(1, 1fr);
     grid-column-gap: 8px;
     grid-row-gap: 8px;
     margin: 26px 16px 0 16px;
@@ -171,11 +246,6 @@
     transition: background-color 0.1s ease;
 }
 
-.vk-signup-box__signup-button-wrapper__button:hover {
-    background-color: var(--main-button-hover);
-}
-
-.vk-signup-box__signup-button-wrapper__button:active,
 .vk-signup-box__signup-button-wrapper__vk-button:active {
     transform: scale(0.99);
 }
@@ -252,42 +322,13 @@
         font-size: 15px;
     }
 
-    .vk-signup-box__password-input-wrapper {
-        margin: 2px 16px 0 16px;
-    }
-
-    .vk-signup-box__password-confirm-input-wrapper {
-        margin: 2px 16px 0 16px;
-        height: 78px;
-    }
-
-    .vk-signup-box__password-input-wrapper label,
-    .vk-signup-box__password-confirm-input-wrapper label {
-        margin-top: 2px;
-        font-size: 13px;
-    }
-
-    .vk-signup-box__password-input-wrapper__input,
-    .vk-signup-box__password-confirm-input-wrapper__input {
-        padding: 12px;
-        height: 40px;
-        width: 100%;
-
-        font-size: 23px;
-        letter-spacing: 1px;
-    }
-
-    .vk-signup-box__password-input-wrapper__input::placeholder,
-    .vk-signup-box__password-confirm-input-wrapper__input::placeholder {
-        font-size: 15px;
-    }
+    
 
     .vk-signup-box__signup-button-wrapper {
         grid-row-gap: 8px;
         margin: 18px 16px 0 16px;
     }
 
-    .vk-signup-box__signup-button-wrapper__button,
     .vk-signup-box__signup-button-wrapper__vk-button {
         padding: 10px 16px;
         height: 32px;
