@@ -23,6 +23,7 @@ class Router {
     #currentView
     #redirectView
     #historyNum
+    oldView
 
     /**
      * Конструктор класса
@@ -109,11 +110,7 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
-        if (this.#currentView) {
-            this.#currentView.clear();
-        }
-
-
+        this.oldView = this.#currentView;
         this.#currentView = this.#views.get(path) || this.#authViews.get(path);
         this.navigate({ path, state, pushState });
         if (data) {
@@ -121,6 +118,7 @@ class Router {
         } else {
             this.#currentView.renderPage();
         }
+        this.oldView?.clear();
     }
 
     /**
