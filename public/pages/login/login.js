@@ -177,10 +177,53 @@ export default class Login {
         }
     }
 
+    handleLoginError = (e) => {
+        e.preventDefault();
+        const emailInput = document.querySelector('.login-box__email-input-wrapper__email-input');
+        const emailDomainInput = this.#parent
+            .querySelector('.login-box__email-input-wrapper__email-domain-input');
+        let oldError = this.#parent
+            .querySelector('#email-error');
+        oldError.classList.remove('show');
+        oldError = emailInput;
+        oldError.classList.remove('input-background-error');
+        oldError = emailDomainInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#login-error');
+        oldError.classList.remove('show');
+    }
+
+    handlePasswordError = (e) => {
+        e.preventDefault();
+        const passwordInput = document.querySelector('.login-box__password-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#password-error');
+        oldError.classList.remove('show');
+        oldError = passwordInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#login-error');
+        oldError.classList.remove('show');
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent.
+            querySelector('.login-box__email-input-wrapper__email-input')
+            .addEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.login-box__email-input-wrapper__email-domain-input')
+            .addEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.login-box__password-input-wrapper__input')
+            .addEventListener('click', this.handlePasswordError);
+
         this.#parent.
             querySelector('.eye')
             .addEventListener('click', this.switchEye);
@@ -231,14 +274,21 @@ export default class Login {
      * Функция обработки ответа на запрос авторизации
      */
     handleLoginResponse = (status) => {
-        let errorSign = this.#parent
+        const errorSign = this.#parent
             .querySelector('#login-error');
+        const emailInput = document.querySelector('.login-box__email-input-wrapper__email-input');
+        const passwordInput = document.querySelector('.login-box__password-input-wrapper__input');
+        const emailDomainInput = this.#parent
+            .querySelector('.login-box__email-input-wrapper__email-domain-input');
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             case 401:
-                errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
+                errorSign.textContent = 'Неверное имя ящика и/или пароль';
+                emailInput.classList.add('input-background-error');
+                emailDomainInput.classList.add('input-background-error');
+                passwordInput.classList.add('input-background-error');
                 errorSign.classList.add('show');
                 break;
             default:

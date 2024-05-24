@@ -109,7 +109,6 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
-        if (window.location.pathname === '/write_letter') { };
         if (this.#currentView) {
             this.#currentView.clear();
         }

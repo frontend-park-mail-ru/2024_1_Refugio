@@ -323,6 +323,8 @@ export default class Signup {
                 if (showDropdown) {
                     elements[key].dropdown.classList.add('show');
                 }
+                const oldError = document.querySelector('#signup-error');
+                oldError.classList.remove('show');
             }
         })
 
@@ -421,10 +423,104 @@ export default class Signup {
         }
     }
 
+    handleFirstNameError = (e) => {
+        e.preventDefault();
+        const firstNameInput = document.querySelector('.signup-box__first-name-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#first-name-error');
+        oldError.classList.remove('show');
+        oldError = firstNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+    handleLastNameError = (e) => {
+        e.preventDefault();
+        const lastNameInput = document.querySelector('.signup-box__last-name-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#last-name-error');
+        oldError.classList.remove('show');
+        oldError = lastNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+
+    handleLoginError = (e) => {
+        e.preventDefault();
+        const emailInput = document.querySelector('.signup-box__email-input-wrapper__email-input');
+        const emailDomainInput = this.#parent
+            .querySelector('.signup-box__email-input-wrapper__email-domain-input');
+        let oldError = this.#parent
+            .querySelector('#email-error');
+        oldError.classList.remove('show');
+        oldError = emailInput;
+        oldError.classList.remove('input-background-error');
+        oldError = emailDomainInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+    handlePasswordError = (e) => {
+        e.preventDefault();
+        const passwordInput = document.querySelector('.signup-box__password-input-wrapper__input');
+
+        let oldError = this.#parent
+            .querySelector('#password-error');
+        oldError.classList.remove('show');
+        oldError = passwordInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+    handlePasswordConfirmError = (e) => {
+        e.preventDefault();
+        const passwordConfirmInput = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#password-confirm-error');
+        oldError.classList.remove('show');
+        oldError = passwordConfirmInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent.
+            querySelector('.signup-box__first-name-input-wrapper__input')
+            .addEventListener('click', this.handleFirstNameError);
+        this.#parent.
+            querySelector('.signup-box__last-name-input-wrapper__input')
+            .addEventListener('click', this.handleLastNameError);
+
+        this.#parent.
+            querySelector('.signup-box__email-input-wrapper__email-input')
+            .addEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.signup-box__email-input-wrapper__email-domain-input')
+            .addEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.signup-box__password-input-wrapper__input')
+            .addEventListener('click', this.handlePasswordError);
+
+
+        this.#parent.
+            querySelector('.signup-box__password-confirm-input-wrapper__input')
+            .addEventListener('click', this.handlePasswordConfirmError);
 
         this.#parent.
             querySelector('.eye1')
