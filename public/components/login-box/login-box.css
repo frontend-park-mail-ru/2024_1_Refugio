@@ -62,6 +62,7 @@
 }
 
 .login-box__password-input-wrapper {
+    position: relative;
     display: grid;
     grid-template-areas:
         'label'
@@ -69,13 +70,21 @@
         'error';
     grid-row-gap: 2px;
     margin: 2px 16px 0 16px;
+}
 
+.eye {
+    position: absolute;
+    inset: 28px 5px auto auto;
+    border-radius: 100px;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--secondary-button-onhover-selected);
+    }
 }
 
 .login-box__email-input-wrapper label,
-
-
-
 .login-box__email-input-wrapper__email-input,
 .login-box__email-input-wrapper__email-domain-input {
     font-size: 16px;
@@ -118,12 +127,21 @@
     width: 328px;
     border-radius: 8px;
 
-    font-size: 25px;
-    letter-spacing: 1px;
+
     font-weight: 400;
     line-height: 20px;
 
     transition: background-color 0.1s ease;
+}
+
+.login-box__password-input-wrapper__input-password {
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+.login-box__password-input-wrapper__input-text {
+    font-size: 16px;
+    letter-spacing: 0;
 }
 
 .login-box__email-input-wrapper__email-input::placeholder,

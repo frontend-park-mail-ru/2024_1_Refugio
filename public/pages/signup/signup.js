@@ -358,10 +358,93 @@ export default class Signup {
 
     }
 
+    switchEye1 = (e) => {
+        console.log(1);
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-input-wrapper__input');
+        const eye = document.querySelector('.eye1')
+        if (eye.classList.contains('eye_opened')) {
+            eye.src = '/icons/eye_closed.svg';
+            eye.classList.remove('eye_opened')
+            eye.classList.add('eye_closed');
+            input.type = 'text';
+            input.classList.remove('signup-box__password-input-wrapper__input-password');
+            input.classList.add('signup-box__password-input-wrapper__input-text');
+        } else {
+            eye.src = '/icons/eye_opened.svg';
+            eye.classList.add('eye_opened')
+            eye.classList.remove('eye_closed');
+            input.type = 'password';
+            input.classList.add('signup-box__password-input-wrapper__input-password');
+            input.classList.remove('signup-box__password-input-wrapper__input-text');
+        }
+    }
+
+    handleEye1 = (e) => {
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-input-wrapper__input');
+
+        if (input.value.length > 0) {
+            document.querySelector('.eye1').classList.remove('remove');
+        } else {
+            document.querySelector('.eye1').classList.add('remove');
+        }
+    }
+
+    switchEye2 = (e) => {
+        console.log(3);
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
+        const eye = document.querySelector('.eye2')
+        if (eye.classList.contains('eye_opened')) {
+            eye.src = '/icons/eye_closed.svg';
+            eye.classList.remove('eye_opened')
+            eye.classList.add('eye_closed');
+            input.type = 'text';
+            input.classList.remove('signup-box__password-input-wrapper__input-password');
+            input.classList.add('signup-box__password-input-wrapper__input-text');
+        } else {
+            eye.src = '/icons/eye_opened.svg';
+            eye.classList.add('eye_opened')
+            eye.classList.remove('eye_closed');
+            input.type = 'password';
+            input.classList.add('signup-box__password-input-wrapper__input-password');
+            input.classList.remove('signup-box__password-input-wrapper__input-text');
+        }
+    }
+
+    handleEye2 = (e) => {
+        console.log(4);
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
+        if (input.value.length > 0) {
+            document.querySelector('.eye2').classList.remove('remove');
+        } else {
+            document.querySelector('.eye2').classList.add('remove');
+        }
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+
+        this.#parent.
+            querySelector('.eye1')
+            .addEventListener('click', this.switchEye1);
+
+        this.#parent.
+            querySelector('.signup-box__password-input-wrapper__input')
+            .addEventListener('input', this.handleEye1);
+
+        this.#parent.
+            querySelector('.eye2')
+            .addEventListener('click', this.switchEye2);
+
+        this.#parent.
+            querySelector('.signup-box__password-confirm-input-wrapper__input')
+            .addEventListener('input', this.handleEye2);
+
         this.#parent.
             querySelector('.signup-box__signup-button-wrapper__vk-button')
             .addEventListener('click', this.handleVkSignup);

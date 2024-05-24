@@ -200,6 +200,7 @@
 
 .signup-box__password-input-wrapper {
     grid-area: password;
+    position: relative;
     display: grid;
     grid-template-areas: 'label'
         'input'
@@ -210,6 +211,7 @@
 
 .signup-box__password-confirm-input-wrapper {
     grid-area: password-confirm;
+    position: relative;
     display: grid;
     grid-template-areas: 'label'
         'input'
@@ -217,6 +219,19 @@
     grid-row-gap: 2px;
     margin: 2px 16px 0 16px;
     height: 86px;
+}
+
+.eye1,
+.eye2 {
+    position: absolute;
+    inset: 28px 5px auto auto;
+    border-radius: 100px;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--secondary-button-onhover-selected);
+    }
 }
 
 .signup-box__password-input-wrapper label,
@@ -240,12 +255,21 @@
     width: 328px;
     border-radius: 8px;
 
-    font-size: 25px;
-    letter-spacing: 1px;
     font-weight: 400;
     line-height: 20px;
     transition: background-color 0.1s ease;
 }
+
+.signup-box__password-input-wrapper__input-password {
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+
+.signup-box__password-input-wrapper__input-text {
+    font-size: 16px;
+    letter-spacing: 0;
+}
+
 
 .signup-box__password-input-wrapper__input::placeholder,
 .signup-box__password-confirm-input-wrapper__input::placeholder {
@@ -289,7 +313,7 @@
 }
 
 .signup-box__signup-button-wrapper__button {
-    grid-area:button;
+    grid-area: button;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -310,6 +334,7 @@
     transform: scale(1);
     transition: background-color 0.1s ease;
 }
+
 .signup-box__signup-button-wrapper__vk-button {
     grid-area: vk;
     display: flex;
@@ -342,7 +367,8 @@
     transform: scale(0.99);
 }
 
-@media (max-width: 500px), (max-height: 780px) {
+@media (max-width: 500px),
+(max-height: 780px) {
     .signup-box {
         padding: 16px 0 4px;
         max-height: 688px;

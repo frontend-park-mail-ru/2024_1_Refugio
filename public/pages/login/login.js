@@ -146,10 +146,50 @@ export default class Login {
         dispathcher.do(actionGetAuthUrlLoginVK());
     }
 
+    switchEye = (e) => {
+        e.preventDefault();
+        const input = document.querySelector('.login-box__password-input-wrapper__input');
+        const eye = document.querySelector('.eye')
+        if (eye.classList.contains('eye_opened')) {
+            eye.src = '/icons/eye_closed.svg';
+            eye.classList.remove('eye_opened')
+            eye.classList.add('eye_closed');
+            input.type = 'text';
+            input.classList.remove('login-box__password-input-wrapper__input-password');
+            input.classList.add('login-box__password-input-wrapper__input-text');
+        } else {
+            eye.src = '/icons/eye_opened.svg';
+            eye.classList.add('eye_opened')
+            eye.classList.remove('eye_closed');
+            input.type = 'password';
+            input.classList.add('login-box__password-input-wrapper__input-password');
+            input.classList.remove('login-box__password-input-wrapper__input-text');
+        }
+    }
+
+    handleEye = (e) => {
+        e.preventDefault();
+        const input = document.querySelector('.login-box__password-input-wrapper__input');
+        if (input.value.length > 0) {
+            document.querySelector('.eye').classList.remove('remove');
+        } else {
+            document.querySelector('.eye').classList.add('remove');
+        }
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent.
+            querySelector('.eye')
+            .addEventListener('click', this.switchEye);
+
+        this.#parent.
+            querySelector('.login-box__password-input-wrapper__input')
+            .addEventListener('input', this.handleEye);
+
+
         this.#parent.
             querySelector('.login-box__login-button-wrapper__vk-button')
             .addEventListener('click', this.handleVkLogin);
@@ -171,6 +211,9 @@ export default class Login {
      * Удаляет листенеры
     */
     removeListeners() {
+        this.#parent.
+            querySelector('.eye')
+            .removeEventListener('click', this.handleEye);
         this.#parent
             .querySelector('.login-box__login-button-wrapper__button')
             .removeEventListener('click', this.handleLogin);
