@@ -359,7 +359,6 @@ export default class Signup {
     }
 
     switchEye1 = (e) => {
-        console.log(1);
         e.preventDefault();
         const input = document.querySelector('.signup-box__password-input-wrapper__input');
         const eye = document.querySelector('.eye1')
@@ -392,7 +391,6 @@ export default class Signup {
     }
 
     switchEye2 = (e) => {
-        console.log(3);
         e.preventDefault();
         const input = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
         const eye = document.querySelector('.eye2')
@@ -414,7 +412,6 @@ export default class Signup {
     }
 
     handleEye2 = (e) => {
-        console.log(4);
         e.preventDefault();
         const input = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
         if (input.value.length > 0) {

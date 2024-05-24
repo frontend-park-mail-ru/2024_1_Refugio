@@ -49,9 +49,9 @@ export default class Letter {
     #calculateTotalSize = (files) => {
         let result = 0;
         files.forEach((file) => {
-            result += file.fileSize;
+            result += Number(file.fileSize) / 1048576;
         });
-        return result;
+        return String(result).substring(0,4);
     }
 
     /**
