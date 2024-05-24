@@ -110,15 +110,10 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
-        this.oldView = this.#currentView;
+        this.#currentView?.clear();
         this.#currentView = this.#views.get(path) || this.#authViews.get(path);
         this.navigate({ path, state, pushState });
-        if (data) {
-            this.#currentView.renderPage(data);
-        } else {
-            this.#currentView.renderPage();
-        }
-        this.oldView?.clear();
+        this.#currentView.renderPage(data);
     }
 
     /**
