@@ -609,12 +609,14 @@ export default class Signup {
         switch (data.status) {
             case 200:
                 window.location.href = data.link;
-
+                break;
+            case 400:
+                error.textContent = 'Это имя ящика уже занято';
+                error.classList.add('show');
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
-                break;
         }
     }
 
@@ -632,7 +634,6 @@ export default class Signup {
             default:
                 errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
                 errorSign.classList.add('show');
-                break;
         }
     }
 }

@@ -332,10 +332,13 @@ export default class Vk__Signup {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
+            case 400:
+                error.textContent = 'Это имя ящика уже занято';
+                error.classList.add('show');
+                break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
-                break;
         }
     }
 }
