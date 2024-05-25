@@ -5,6 +5,7 @@ import { actionGetSpam, actionGetEmail, actionGetFolders, actionGetUser, actionG
 import draftStore from "../stores/draftStore.js";
 import { actionGetDrafts } from "../actions/draftActions.js";
 import folderStore from "../stores/folderStore.js";
+import router from "../modules/router.js";
 /**
  * Класс для рендера абстрактной страницы
  * @class
@@ -26,6 +27,7 @@ export default class BaseView {
      */
     render() {
         this.components.forEach((component) => component.render());
+        router.isLoading = false;
     }
 
     /**

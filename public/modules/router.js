@@ -23,7 +23,7 @@ class Router {
     #currentView
     #redirectView
     #historyNum
-    oldView
+    isLoading = false
 
     /**
      * Конструктор класса
@@ -110,10 +110,30 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
-        this.#currentView?.clear();
-        this.#currentView = this.#views.get(path) || this.#authViews.get(path);
-        this.navigate({ path, state, pushState });
-        this.#currentView.renderPage(data);
+        if (!this.isLoading) {
+            this.isLoading = true;
+            this.#currentView?.clear();
+            this.#currentView = this.#views.get(path) || this.#authViews.get(path);
+            this.navigate({ path, state, pushState });
+            this.#currentView.renderPage(data);
+        }
+
+
+        // if (this.#currentView) {
+        //     this.#currentView.addEventListener('DOMContentLoaded', () => {
+        //         console.log(this.#currentView);
+        //         this.#currentView?.clear();
+        //         this.#currentView = this.#views.get(path) || this.#authViews.get(path);
+        //         this.navigate({ path, state, pushState });
+        //         this.#currentView.renderPage(data);
+        //     })
+        // } else {
+        //     console.log(this.#currentView);
+        //     this.#currentView?.clear();
+        //     this.#currentView = this.#views.get(path) || this.#authViews.get(path);
+        //     this.navigate({ path, state, pushState });
+        //     this.#currentView.renderPage(data);
+        // }
     }
 
     /**
