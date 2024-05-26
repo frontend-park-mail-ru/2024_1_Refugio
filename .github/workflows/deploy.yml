@@ -40,5 +40,5 @@ jobs:
            script: |
              cd ../..
              cd var/www/html/2024_1_Refugio/
-             sudo npm ci
-             sudo npm run build:prod
+             npm ci
+             npm run build:prod
