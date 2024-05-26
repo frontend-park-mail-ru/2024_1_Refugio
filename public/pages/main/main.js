@@ -650,6 +650,7 @@ export default class Main {
      * Функция обработки ответа на запрос добавления письма в спам
      */
     handleSpamResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 if (this.#config.spam) {
@@ -659,7 +660,6 @@ export default class Main {
                 }
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;

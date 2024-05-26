@@ -1,4 +1,3 @@
-import Main from '../pages/main/main.js';
 import Sent from '../pages/sent/sent.js';
 import BaseView from './base.js';
 import emailStore from '../stores/emailStore.js';

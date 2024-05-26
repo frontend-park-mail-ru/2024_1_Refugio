@@ -118,9 +118,9 @@ export default class Write__Letter {
             senderEmail: this.#config.user.login,
         };
         if (this.#config.values?.replyId) {
-            console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
+        console.log('here');
         dispathcher.do(actionAddDraft(newLetter));
     };
 

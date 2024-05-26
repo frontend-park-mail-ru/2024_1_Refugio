@@ -42,7 +42,7 @@ class SpamView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
-        document.title = 'Черновики';
+        document.title = 'Спам';
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;

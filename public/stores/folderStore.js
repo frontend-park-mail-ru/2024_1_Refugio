@@ -35,7 +35,8 @@ class folderStore {
             'POST', 'https://mailhub.su/api/v1/folder/add', JSON.stringify(newFolder), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        mediator.emit('createFolder', status);
+        await this.getFolders();
+        mediator.emit('createFolder', {status: status, folders: this.folders});
     }
 
     /**
@@ -46,7 +47,7 @@ class folderStore {
             'PUT', `https://mailhub.su/api/v1/folder/update/${id}`, JSON.stringify(value), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        mediator.emit('updateFolder', {status:status, id: id});
+        mediator.emit('updateFolder', {status:status, id: id, name: value.name});
     }
 
     /**

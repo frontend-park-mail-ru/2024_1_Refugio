@@ -494,6 +494,7 @@ export default class Profile {
         const middleNameInput = document.querySelector('.profile__middle-name-input-wrapper__input');
         const lastNameInput = document.querySelector('.profile__last-name-input-wrapper__input');
 
+
         // const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent = '1';
         // const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent = 'Январь';
         // const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent = '2024';

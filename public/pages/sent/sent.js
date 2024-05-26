@@ -3,7 +3,7 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail } from '../../actions/userActions.js';
 import template from './sent.hbs'
 
 
@@ -249,104 +249,6 @@ export default class Sent {
         this.handleHeader();
     }
 
-    // handleMarkAllAsRead = (e) => {
-    //     this.hideError();
-    //     e.preventDefault();
-
-    //     const letters = this.#config.content.list_letters;
-    //     if (letters.length === 0) {
-    //         return;
-    //     }
-    //     letters.forEach(item => {
-    //         if (item.readStatus === false) {
-    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
-    //             const statusChild = letter.querySelector('.list-letter__status img');
-    //             const img = document.createElement('img');
-    //             img.alt = '';
-    //             img.src = '/icons/read-on-offer__256.svg';
-    //             img.classList.add('list-letter__status-offer');
-    //             statusChild.parentNode.replaceChild(img, statusChild);
-
-
-    //             item.readStatus = true;
-    //             item.dateOfDispatch = undefined;
-
-    //             dispathcher.do(actionUpdateEmail(item.id, item));
-    //         }
-    //     })
-    // }
-
-    /**
-     * Функция удаления письма
-     */
-    handleDelete = (e) => {
-        this.hideError();
-        e.preventDefault();
-        this.selectedListLetters.forEach(item => {
-            const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
-            letter[0].remove();
-            dispathcher.do(actionDeleteEmail(item.dataset.id));
-            this.selectedListLetters = this.selectedListLetters.filter(el => el !== item);
-        });
-        this.handleDeselect(e);
-    }
-
-    handleStat = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/stat', true));
-    };
-
-    // handleMarkAsRead = (e) => {
-    //     this.hideError();
-    //     e.preventDefault();
-    //     const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
-    //     const letters = this.#config.content.list_letters;
-    //     letters.forEach(item => {
-
-    //         if (item.readStatus === false && selectedIds.includes(String(item.id))) {
-
-    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
-    //             const statusChild = letter.querySelector('.list-letter__status img');
-    //             const img = document.createElement('img');
-    //             img.alt = '';
-    //             img.src = '/icons/read-on-offer__256.svg';
-    //             img.classList.add('list-letter__status-offer');
-    //             statusChild.parentNode.replaceChild(img, statusChild);
-
-
-    //             item.readStatus = true
-    //             item.dateOfDispatch = undefined;
-
-    //             dispathcher.do(actionUpdateEmail(item.id, item));
-    //         }
-    //     })
-    //     this.handleDeselect(e);
-    // }
-
-    // handleMarkAsUnread = (e) => {
-    //     this.hideError();
-    //     e.preventDefault();
-    //     const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
-
-    //     const letters = this.#config.content.list_letters;
-    //     letters.forEach(item => {
-    //         if (item.readStatus === true && selectedIds.includes(String(item.id))) {
-    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
-    //             const statusChild = letter.querySelector('.list-letter__status img');
-    //             const img = document.createElement('img');
-    //             img.alt = '';
-    //             img.src = '/icons/read-on__256.svg';
-    //             statusChild.parentNode.replaceChild(img, statusChild);
-
-    //             item.readStatus = false;
-    //             item.dateOfDispatch = undefined;
-
-    //             dispathcher.do(actionUpdateEmail(item.id, item));
-    //         }
-    //     })
-    //     this.handleDeselect(e);
-    // }
-
     /**
      * Функция всплывания окна меню для мобильной версии
      */
@@ -486,7 +388,6 @@ export default class Sent {
      */
     handleUpdateEmailResponse = (status) => {
         const error = this.#parent.querySelector('.letter__error');
-
         switch (status) {
             case 200:
                 break;
@@ -502,7 +403,6 @@ export default class Sent {
      */
     handleDeleteEmailResponse = (status) => {
         const error = this.#parent.querySelector('.letter__error');
-
         switch (status) {
             case 200:
                 break;
