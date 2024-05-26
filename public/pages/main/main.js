@@ -416,7 +416,7 @@ export default class Main {
         iframe.height = '300';
         iframe.width = '400';
 
-        var insertAfterElement = document.querySelector('.main__control-buttons');
+        let insertAfterElement = document.querySelector('.main__control-buttons');
         insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
     }
 
@@ -613,9 +613,10 @@ export default class Main {
      * Функция обработки ответа на запрос обновления письма
      */
     handleUpdateEmailResponse = (status) => {
+        const counter = this.#parent.querySelector('.menu__default-folder__counter');
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
-                const counter = this.#parent.querySelector('.menu__default-folder__counter');
                 if (emailStore.incoming_count > 0) {
                     counter.textContent = emailStore.incoming_count;
                 } else {
@@ -623,7 +624,6 @@ export default class Main {
                 }
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
@@ -634,11 +634,11 @@ export default class Main {
      * Функция обработки ответа на запрос удаления письма
      */
     handleDeleteEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
@@ -649,6 +649,7 @@ export default class Main {
      * Функция обработки ответа на запрос добавления письма в спам
      */
     handleSpamResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 if (this.#config.spam) {
@@ -658,7 +659,6 @@ export default class Main {
                 }
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;

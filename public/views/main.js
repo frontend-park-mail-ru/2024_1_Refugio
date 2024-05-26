@@ -1,7 +1,6 @@
 import Main from '../pages/main/main.js';
 import BaseView from './base.js';
 import emailStore from '../stores/emailStore.js';
-import Survey from '../pages/survey/survey.js';
 import folderStore from '../stores/folderStore.js';
 
 /**
@@ -56,7 +55,6 @@ class MainView extends BaseView {
             this.#config.menu.incoming_count = undefined;
         }
         const page = new Main(this.root, this.#config);
-        const survey = new Survey(this.root, this.#config);
         this.components.push(page);
         //this.components.push(survey);
         this.render();
