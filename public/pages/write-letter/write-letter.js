@@ -874,6 +874,8 @@ export default class Write__Letter {
     }
 
     handleTypingSendResponse = ({ data, status }) => {
+        const error = this.#parent
+            .querySelector('.write-letter__buttons__error');
         const id = data.body.email.id;
         switch (status) {
             case 200:
@@ -898,6 +900,8 @@ export default class Write__Letter {
 
                 break;
             default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
         }
     }
 }

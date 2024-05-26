@@ -7,6 +7,7 @@ import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectTo
 import template from './main.hbs'
 
 import emailStore from '../../stores/emailStore.js';
+import userStore from '../../stores/userStore.js';
 
 
 /**
@@ -45,6 +46,26 @@ export default class Main {
             folder_id: this.#config.folderNumber,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
+        if (emailStore.incoming_count > emailStore.old_incoming_count) {
+            emailStore.old_incoming_count = emailStore.incoming_count;
+            this.notification(emailStore.incoming_count)
+        }
+
+        
+    }
+
+    notification = (text) => {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+                }
+            });
+        }
     }
 
     selectedListLetters = []
