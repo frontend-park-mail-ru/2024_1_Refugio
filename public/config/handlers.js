@@ -32,8 +32,12 @@ const handlers = [
     { type: 'deleteLetterFromFolder', method: folderStore.deleteLetter.bind(folderStore) },
     { type: 'getDrafts', method: draftStore.getDrafts.bind(draftStore) },
     { type: 'addDraft', method: draftStore.create.bind(draftStore) },
+    { type: 'typingAddDraft', method: draftStore.typingCreate.bind(draftStore) },
+
     { type: 'sendDraft', method: draftStore.send.bind(draftStore) },
     { type: 'updateDraft', method: draftStore.update.bind(draftStore) },
+    { type: 'typingUpdateDraft', method: draftStore.typingUpdate.bind(draftStore) },
+
     { type: 'getSpam', method: emailStore.getSpam.bind(emailStore) },
     { type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore) },
     { type: 'getAuthUrlLoginVK', method: userStore.getAuthUrlLoginVK.bind(userStore) },

@@ -1,3 +1,5 @@
+import { actionRedirect } from '../../actions/userActions.js'
+import dispathcher from '../../modules/dispathcher.js';
 import template from './header.hbs'
 /**
  * Класс обертки компонента
@@ -14,8 +16,8 @@ export default class Header {
      * @param {object} config 
      */
     constructor(parent, config) {
-        this.#config=config;
-        this.#parent=parent;
+        this.#config = config;
+        this.#parent = parent;
     }
 
     /**
@@ -28,6 +30,27 @@ export default class Header {
             login: this.#config.login,
         };
         return template(header);
+    }
+
+
+    handleLogoButton = async (e) => {
+        e.preventDefault();
+        console.log('logo');
+        dispathcher.do(actionRedirect('/main', true));
+    }
+
+
+
+    addListeners() {
+        this.#parent
+            .querySelector('.header__logo')
+            .addEventListener('click', this.handleLogoButton);
+    }
+
+    removeListeners() {
+        this.#parent
+            .querySelector('.header__logo')
+            .removeEventListener('click', this.handleLogoButton);
     }
 }
 

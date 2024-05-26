@@ -51,7 +51,7 @@ export default class Letter {
         files.forEach((file) => {
             result += Number(file.fileSize) / 1048576;
         });
-        return String(result).substring(0,4);
+        return String(result).substring(0, 4);
     }
 
     /**
@@ -59,6 +59,7 @@ export default class Letter {
      */
     render() {
         const config = this.#config;
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
             status: this.#config.email.readStatus,
@@ -73,7 +74,7 @@ export default class Letter {
             replyId: this.#config.email.replyToEmailId,
             replyTopic: this.#config.replyEmail?.topic,
             userLetter: this.#config.email.senderEmail.charAt(0),
-            header: new Header(null, config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
             folders: this.#config.menu.folders,
             list_attachments: new List_attachments(null, this.#config.files).render(),
@@ -450,6 +451,8 @@ export default class Letter {
             .querySelector('.header__rollup-button')
             .addEventListener('click', this.handleRollUpMenu);
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         this.#parent.querySelectorAll('.letter__folder-save').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         });

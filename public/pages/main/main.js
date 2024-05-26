@@ -34,8 +34,9 @@ export default class Main {
     render() {
         this.#config.content.sent = false;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
         const elements = {
-            header: new Header(this.#parent, this.#config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
             spam: this.#config.spam,
@@ -456,6 +457,8 @@ export default class Main {
      */
     addListeners() {
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         // this.#parent
         //     .querySelector('.main__collapse-rollup-button')
         //     .addEventListener('click', this.handleShowSurvey);

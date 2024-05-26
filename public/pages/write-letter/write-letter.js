@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionBindAttachmnetsToLetter, actionRedirect, actionSend, actionAttachFile, actionDeleteAttachment } from '../../actions/userActions.js';
-import { actionAddDraft, actionSendDraft, actionUpdateDraft } from '../../actions/draftActions.js';
+import { actionTypingAddDraft, actionAddDraft, actionSendDraft, actionUpdateDraft, actionTypingUpdateDraft } from '../../actions/draftActions.js';
 
 import mediator from '../../modules/mediator.js';
 import template from './write-letter.hbs'
@@ -45,6 +45,8 @@ export default class Write__Letter {
     render() {
         const config = this.#config;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
+
         const elements = {
             id: this.#config.values?.id,
             resend: this.#config.values?.resend,
@@ -55,9 +57,10 @@ export default class Write__Letter {
             text: this.#config.values?.text,
             replyId: this.#config.values?.replyId,
             replySender: this.#config.values?.replySender,
-            header: new Header(null, config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
         };
+        console.log(this.#config.values?.changeDraft);
         if (this.#config.values?.text && !this.#config.values?.changeDraft) {
             elements.text = this.registerHelper(this.#config.values?.text);
         }
@@ -118,7 +121,6 @@ export default class Write__Letter {
             senderEmail: this.#config.user.login,
         };
         if (this.#config.values?.replyId) {
-            console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
         dispathcher.do(actionAddDraft(newLetter));
@@ -585,6 +587,71 @@ export default class Write__Letter {
         }
     }
 
+    handleTypingDraftUpdate = async (e) => {
+        e.preventDefault();
+        const toInput = document.querySelector('.write-letter__to__input');
+        const topicInput = document.querySelector('.write-letter__subject__input');
+        const textInput = document.querySelector('.write-letter__text');
+
+        const to = toInput.value.trim();
+        let topic = topicInput.value.trim();
+        let text = textInput.value.trim();
+
+        if (!topic) {
+            topic = "Без темы";
+        }
+
+        if (!text) {
+            text = "Пустое письмо";
+        }
+
+        const newLetter = {
+            readStatus: false,
+            topic: topic,
+            text: text,
+            recipientEmail: to,
+            senderEmail: this.#config.user.login,
+            draftStatus: true,
+        };
+        if (this.#config.values?.replyId) {
+            console.log(this.#config.values.replyId);
+            newLetter.replyToEmailId = this.#config.values.replyId;
+        }
+        dispathcher.do(actionTypingUpdateDraft(this.#config.values?.id, newLetter));
+    };
+
+    handleTypingDraft = async (e) => {
+        e.preventDefault();
+        const toInput = document.querySelector('.write-letter__to__input');
+        const topicInput = document.querySelector('.write-letter__subject__input');
+        const textInput = document.querySelector('.write-letter__text');
+
+        const to = toInput.value.trim();
+        let topic = topicInput.value.trim();
+        let text = textInput.value.trim();
+
+        if (!topic) {
+            topic = "Без темы";
+        }
+
+        if (!text) {
+            text = "Пустое письмо";
+        }
+
+        const newLetter = {
+            readStatus: false,
+            draftStatus: true,
+            topic: topic,
+            text: text,
+            recipientEmail: to,
+            senderEmail: this.#config.user.login,
+        };
+        if (this.#config.values?.replyId) {
+            newLetter.replyToEmailId = this.#config.values.replyId;
+        }
+        dispathcher.do(actionTypingAddDraft(newLetter));
+    };
+
     /**
      * Добавляет листенеры на компоненты
      */
@@ -604,15 +671,13 @@ export default class Write__Letter {
             .addEventListener('click', this.handleRollUpMenu);
 
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.header__dropdown__profile-button')
             .addEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
         this.#parent
             .querySelector('.write-letter__buttons__cancel-button')
             .addEventListener('click', this.handleBack);
@@ -623,6 +688,18 @@ export default class Write__Letter {
             this.#parent
                 .querySelector('.write-letter__buttons__save-draft-button')
                 .addEventListener('click', this.handleDraftUpdate);
+
+            this.#parent
+                .querySelector('.write-letter__text')
+                .addEventListener('input', this.handleTypingDraftUpdate);
+
+            this.#parent
+                .querySelector('.write-letter__to__input')
+                .addEventListener('input', this.handleTypingDraftUpdate);
+
+            this.#parent
+                .querySelector('.write-letter__subject__input')
+                .addEventListener('input', this.handleTypingDraftUpdate);
         } else {
             this.#parent
                 .querySelector('.write-letter__buttons__send-button')
@@ -630,15 +707,29 @@ export default class Write__Letter {
             this.#parent
                 .querySelector('.write-letter__buttons__save-draft-button')
                 .addEventListener('click', this.handleDraft);
+
+            this.#parent
+                .querySelector('.write-letter__text')
+                .addEventListener('input', this.handleTypingDraft);
+            this.#parent
+                .querySelector('.write-letter__to__input')
+                .addEventListener('input', this.handleTypingDraft);
+
+            this.#parent
+                .querySelector('.write-letter__subject__input')
+                .addEventListener('input', this.handleTypingDraft);
         }
 
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)
         mediator.on('addDraft', this.handleSendResponse)
+        mediator.on('typingAddDraft', this.handleTypingSendResponse)
         mediator.on('attachFile', this.attachFileResponse);
         mediator.on('deleteAttachment', this.handleDeleteAttachmentResponse);
         mediator.on('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
+        mediator.on('typingSend', this.handleTypingSendResponse);
+
 
 
     }
@@ -648,6 +739,8 @@ export default class Write__Letter {
      */
     removeListeners() {
         this.#config.menu.component.removeListeners();
+        this.#config.header.component.removeListeners();
+
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .removeEventListener('click', this.handleExit);
@@ -661,6 +754,7 @@ export default class Write__Letter {
             .querySelector('.write-letter__buttons__cancel-button')
             .removeEventListener('click', this.handleBack);
         if (this.#config.values?.changeDraft) {
+            console.log(this.#config?.values?.changeDraft);
             this.#parent
                 .querySelector('.write-letter__buttons__send-button')
                 .removeEventListener('click', this.handleSendUpdate);
@@ -668,6 +762,8 @@ export default class Write__Letter {
                 .querySelector('.write-letter__buttons__save-draft-button')
                 .removeEventListener('click', this.handleDraftUpdate);
         } else {
+            console.log(this.#config.values?.changeDraft);
+
             this.#parent
                 .querySelector('.write-letter__buttons__send-button')
                 .removeEventListener('click', this.handleSend);
@@ -679,11 +775,11 @@ export default class Write__Letter {
         mediator.off('logout', this.handleExitResponse)
         mediator.off('send', this.handleSendResponse)
         mediator.off('addDraft', this.handleSendResponse)
+        mediator.off('typingAddDraft', this.handleTypingSendResponse)
         mediator.off('attachFile', this.attachFileResponse);
         mediator.off('deleteAttachment', this.handleDeleteAttachmentResponse);
         mediator.off('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
-
-
+        mediator.off('typingSend', this.handleTypingSendResponse);
     }
 
     handleExitResponse = (status) => {
@@ -744,6 +840,28 @@ export default class Write__Letter {
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+        }
+    }
+
+    handleTypingSendResponse = ({ responseId, status }) => {
+        const error = this.#parent
+            .querySelector('.write-letter__buttons__error');
+        switch (status) {
+            case 200:
+                // if ('values' in this.#config) {
+                //     console.log(this.#config.values)
+                //     console.log(this.#config.values?.changeDraft)
+                // } else {
+                // }
+                
+                if (this.#config.values?.id) {
+                    this.#config.values.id = responseId;
+                }
+
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';

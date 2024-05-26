@@ -32,9 +32,11 @@ export default class Sent {
     render() {
         this.#config.content.sent = true;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
+
         const elements = {
-            header: new Header(null, this.#config.header).render(),
             menu: this.#config.menu.component.render(),
+            header: this.#config.header.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
@@ -369,6 +371,8 @@ export default class Sent {
             .querySelector('.header__rollup-button')
             .addEventListener('click', this.handleRollUpMenu);
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));

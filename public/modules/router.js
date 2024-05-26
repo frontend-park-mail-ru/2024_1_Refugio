@@ -11,6 +11,7 @@ import DraftView from "../views/draft.js";
 import SpamView from "../views/spam.js";
 import VkSignupHelperView from "../views/vk-signup-helper.js";
 import VkLoginHelperView from "../views/vk-login-helper.js";
+import dispathcher from "./dispathcher.js";
 
 /**
  * Класс роутера
@@ -110,7 +111,12 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
+        // console.log(window.location.pathname, path);
+
         if (!this.isLoading) {
+            // if (window.location.pathname === '/write_letter') {
+            // }
+
             this.isLoading = true;
             this.#currentView?.clear();
             this.#currentView = this.#views.get(path) || this.#authViews.get(path);
