@@ -1,4 +1,4 @@
-import { actionRedirect, actionSignup } from '../../actions/userActions.js';
+import { actionRedirect, actionSignup, actionLogin, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
 import Signup_Box from '../../components/signup-box/signup-box.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
@@ -13,6 +13,7 @@ const MAX_INPUT_LENGTH = 64;
 export default class Signup {
     #parent;
     #config;
+    #newUser;
 
     /**
      * Конструктор класса
@@ -137,7 +138,7 @@ export default class Signup {
                 lastNameError.classList.add('show');
                 lastNameInput.classList.add('input-background-error');
                 isValidForm = false;
-            }else {
+            } else {
                 const lastNameRegex = /[\p{Letter}\p{Mark}]+/gu;
                 if (!lastNameRegex.test(lastName)) {
                     lastNameError.textContent = "Некорректная фамилия";
@@ -243,7 +244,7 @@ export default class Signup {
         }
 
         // create JSON object with user data
-        const newUser = {
+        this.#newUser = {
             login: email + "@mailhub.su",
             firstname: firstName,
             password: password,
@@ -252,7 +253,7 @@ export default class Signup {
             birthday: birthdayString,
         };
 
-        dispathcher.do(actionSignup(newUser));
+        dispathcher.do(actionSignup(this.#newUser));
     };
 
     /**
@@ -269,7 +270,6 @@ export default class Signup {
      * Функция обработки изменения поля пола
      */
     handleCheckbox(e) {
-        console.log(this);
 
         e.preventDefault();
         if (this.checked) {
@@ -323,6 +323,8 @@ export default class Signup {
                 if (showDropdown) {
                     elements[key].dropdown.classList.add('show');
                 }
+                const oldError = document.querySelector('#signup-error');
+                oldError.classList.remove('show');
             }
         })
 
@@ -352,10 +354,193 @@ export default class Signup {
         }
     }
 
+    handleVkSignup = async (e) => {
+        e.preventDefault();
+        dispathcher.do(actionGetAuthUrlSignUpVK());
+
+    }
+
+    switchEye1 = (e) => {
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-input-wrapper__input');
+        const eye = document.querySelector('.eye1')
+        if (eye.classList.contains('eye_opened')) {
+            eye.src = '/icons/eye_closed.svg';
+            eye.classList.remove('eye_opened')
+            eye.classList.add('eye_closed');
+            input.type = 'text';
+            input.classList.remove('signup-box__password-input-wrapper__input-password');
+            input.classList.add('signup-box__password-input-wrapper__input-text');
+        } else {
+            eye.src = '/icons/eye_opened.svg';
+            eye.classList.add('eye_opened')
+            eye.classList.remove('eye_closed');
+            input.type = 'password';
+            input.classList.add('signup-box__password-input-wrapper__input-password');
+            input.classList.remove('signup-box__password-input-wrapper__input-text');
+        }
+    }
+
+    handleEye1 = (e) => {
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-input-wrapper__input');
+
+        if (input.value.length > 0) {
+            document.querySelector('.eye1').classList.remove('remove');
+        } else {
+            document.querySelector('.eye1').classList.add('remove');
+        }
+    }
+
+    switchEye2 = (e) => {
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
+        const eye = document.querySelector('.eye2')
+        if (eye.classList.contains('eye_opened')) {
+            eye.src = '/icons/eye_closed.svg';
+            eye.classList.remove('eye_opened')
+            eye.classList.add('eye_closed');
+            input.type = 'text';
+            input.classList.remove('signup-box__password-input-wrapper__input-password');
+            input.classList.add('signup-box__password-input-wrapper__input-text');
+        } else {
+            eye.src = '/icons/eye_opened.svg';
+            eye.classList.add('eye_opened')
+            eye.classList.remove('eye_closed');
+            input.type = 'password';
+            input.classList.add('signup-box__password-input-wrapper__input-password');
+            input.classList.remove('signup-box__password-input-wrapper__input-text');
+        }
+    }
+
+    handleEye2 = (e) => {
+        e.preventDefault();
+        const input = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
+        if (input.value.length > 0) {
+            document.querySelector('.eye2').classList.remove('remove');
+        } else {
+            document.querySelector('.eye2').classList.add('remove');
+        }
+    }
+
+    handleFirstNameError = (e) => {
+        e.preventDefault();
+        const firstNameInput = document.querySelector('.signup-box__first-name-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#first-name-error');
+        oldError.classList.remove('show');
+        oldError = firstNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+    handleLastNameError = (e) => {
+        e.preventDefault();
+        const lastNameInput = document.querySelector('.signup-box__last-name-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#last-name-error');
+        oldError.classList.remove('show');
+        oldError = lastNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+
+    handleLoginError = (e) => {
+        e.preventDefault();
+        const emailInput = document.querySelector('.signup-box__email-input-wrapper__email-input');
+        const emailDomainInput = this.#parent
+            .querySelector('.signup-box__email-input-wrapper__email-domain-input');
+        let oldError = this.#parent
+            .querySelector('#email-error');
+        oldError.classList.remove('show');
+        oldError = emailInput;
+        oldError.classList.remove('input-background-error');
+        oldError = emailDomainInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+    handlePasswordError = (e) => {
+        e.preventDefault();
+        const passwordInput = document.querySelector('.signup-box__password-input-wrapper__input');
+
+        let oldError = this.#parent
+            .querySelector('#password-error');
+        oldError.classList.remove('show');
+        oldError = passwordInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
+    handlePasswordConfirmError = (e) => {
+        e.preventDefault();
+        const passwordConfirmInput = document.querySelector('.signup-box__password-confirm-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#password-confirm-error');
+        oldError.classList.remove('show');
+        oldError = passwordConfirmInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#signup-error');
+        oldError.classList.remove('show');
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent.
+            querySelector('.signup-box__first-name-input-wrapper__input')
+            .addEventListener('click', this.handleFirstNameError);
+        this.#parent.
+            querySelector('.signup-box__last-name-input-wrapper__input')
+            .addEventListener('click', this.handleLastNameError);
+
+        this.#parent.
+            querySelector('.signup-box__email-input-wrapper__email-input')
+            .addEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.signup-box__email-input-wrapper__email-domain-input')
+            .addEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.signup-box__password-input-wrapper__input')
+            .addEventListener('click', this.handlePasswordError);
+
+
+        this.#parent.
+            querySelector('.signup-box__password-confirm-input-wrapper__input')
+            .addEventListener('click', this.handlePasswordConfirmError);
+
+        this.#parent.
+            querySelector('.eye1')
+            .addEventListener('click', this.switchEye1);
+
+        this.#parent.
+            querySelector('.signup-box__password-input-wrapper__input')
+            .addEventListener('input', this.handleEye1);
+
+        this.#parent.
+            querySelector('.eye2')
+            .addEventListener('click', this.switchEye2);
+
+        this.#parent.
+            querySelector('.signup-box__password-confirm-input-wrapper__input')
+            .addEventListener('input', this.handleEye2);
+
+        this.#parent.
+            querySelector('.signup-box__signup-button-wrapper__vk-button')
+            .addEventListener('click', this.handleVkSignup);
         this.#parent
             .querySelector('.signup-box__signup-button-wrapper__button')
             .addEventListener('click', this.handleSignup);
@@ -367,11 +552,13 @@ export default class Signup {
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
 
-        this.#parent
         document.addEventListener('click', this.handleDropdowns);
         document
             .addEventListener('keydown', this.handleEnterKey);
         mediator.on('signup', this.handleSignupResponse);
+        mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse)
+        mediator.on('login', this.handleLoginResponse);
+
     }
 
     /**
@@ -394,6 +581,9 @@ export default class Signup {
         document
             .removeEventListener('keydown', this.handleEnterKey);
         mediator.off('signup', this.handleSignupResponse);
+        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
+        mediator.off('login', this.handleLoginResponse);
+
     }
 
     /**
@@ -404,12 +594,46 @@ export default class Signup {
             .querySelector('#signup-error');
         switch (status) {
             case 200:
-                dispathcher.do(actionRedirect('/login', true));
+                dispathcher.do(actionLogin(this.#newUser));
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
                 error.classList.add('show');
                 break;
+        }
+    }
+
+    handleVkSignupResponse = (data) => {
+        const error = this.#parent
+            .querySelector('#signup-error');
+        switch (data.status) {
+            case 200:
+                window.location.href = data.link;
+                break;
+            case 400:
+                error.textContent = 'Это имя ящика уже занято';
+                error.classList.add('show');
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+        }
+    }
+
+    handleLoginResponse = (status) => {
+        let errorSign = this.#parent
+            .querySelector('#signup-error');
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/main', true));
+                break;
+            case 401:
+                errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
+                errorSign.classList.add('show');
+                break;
+            default:
+                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
+                errorSign.classList.add('show');
         }
     }
 }

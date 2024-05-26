@@ -3,7 +3,7 @@ import Header from '../../components/header/header.js';
 import Birthday_Select from '../../components/birthday-select/birthday-select.js';
 import Gender_Select from '../../components/gender-select/gender-select.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload } from '../../actions/userActions.js';
+import { actionRedirect, actionUpdateUser, actionLogout, actionAvatarUpload, actionDeleteAccount } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import template from './profile.hbs'
 import router from '../../modules/router.js';
@@ -350,6 +350,10 @@ export default class Profile {
             profile: {
                 button: document.querySelector('.header__avatar'),
                 dropdown: document.querySelector('.header__dropdown'),
+            },
+            deleteConfirmation: {
+                button: document.querySelector('.profile__buttons__delete-account-button'),
+                dropdown: document.querySelector('.profile__buttons__delete-account-button__dropdown__wrapper'),
             }
         }
 
@@ -371,6 +375,8 @@ export default class Profile {
                 if (showDropdown) {
                     elements[key].dropdown.classList.add('show');
                 }
+                const oldError = document.querySelector('#buttons-error');
+                oldError.classList.remove('show');
             }
         })
 
@@ -416,6 +422,12 @@ export default class Profile {
      */
     handleAvatarUpload = async (e) => {
         e.preventDefault();
+        let oldError = this.#parent
+            .querySelector('#load-avatar-error');
+        oldError.classList.remove('show');
+        oldError = this.#parent
+            .querySelector('#buttons-error');
+        oldError.classList.remove('show');
         const input = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar-load-input');
         const handleAvatarProcessing = async () => {
             const file = input.files[0];
@@ -482,10 +494,10 @@ export default class Profile {
         const middleNameInput = document.querySelector('.profile__middle-name-input-wrapper__input');
         const lastNameInput = document.querySelector('.profile__last-name-input-wrapper__input');
 
-        const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent = '1';
-        const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent = 'Январь';
-        const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent = '2024';
-        console.log(birthdayDay.textContent, birthdayMonth.textContent, birthdayYear.textContent);
+
+        // const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent = '1';
+        // const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent = 'Январь';
+        // const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent = '2024';
         // const genderInput = document.querySelector('.cl-switch input')
 
         const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
@@ -516,11 +528,104 @@ export default class Profile {
         }
     }
 
+    handleDeleteConfirm = async (e) => {
+        e.preventDefault();
+        console.log(this.#config.user.id);
+        dispathcher.do(actionDeleteAccount(this.#config.user.id));
+    }
+
+    handleFirstNameError = (e) => {
+        e.preventDefault();
+        const firstNameInput = document.querySelector('.profile__first-name-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#first-name-error');
+        oldError.classList.remove('show');
+        oldError = firstNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#buttons-error');
+        oldError.classList.remove('show');
+    }
+
+    handleLastNameError = (e) => {
+        e.preventDefault();
+        const lastNameInput = document.querySelector('.profile__last-name-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#last-name-error');
+        oldError.classList.remove('show');
+        oldError = lastNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#buttons-error');
+        oldError.classList.remove('show');
+    }
+
+    handleMiddleNameError = (e) => {
+        e.preventDefault();
+        const lastNameInput = document.querySelector('.profile__middle-name-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#middle-name-error');
+        oldError.classList.remove('show');
+        oldError = lastNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#buttons-error');
+        oldError.classList.remove('show');
+    }
+
+    handleBioError = (e) => {
+        e.preventDefault();
+        const lastNameInput = document.querySelector('.profile__bio-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#bio-error');
+        oldError.classList.remove('show');
+        oldError = lastNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#buttons-error');
+        oldError.classList.remove('show');
+    }
+
+    handlePhoneError = (e) => {
+        e.preventDefault();
+        const lastNameInput = document.querySelector('.profile__phone-input-wrapper__input');
+        let oldError = this.#parent
+            .querySelector('#phone-error');
+        oldError.classList.remove('show');
+        oldError = lastNameInput;
+        oldError.classList.remove('input-background-error');
+        oldError = this.#parent
+            .querySelector('#buttons-error');
+        oldError.classList.remove('show');
+    }
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
+        this.#parent.
+            querySelector('.profile__first-name-input-wrapper__input')
+            .addEventListener('click', this.handleFirstNameError);
+        this.#parent.
+            querySelector('.profile__last-name-input-wrapper__input')
+            .addEventListener('click', this.handleLastNameError);
+        this.#parent.
+            querySelector('.profile__middle-name-input-wrapper__input')
+            .addEventListener('click', this.handleMiddleNameError);
+        this.#parent.
+            querySelector('.profile__bio-input-wrapper__input')
+            .addEventListener('click', this.handleBioError);
+        this.#parent.
+            querySelector('.profile__phone-input-wrapper__input')
+            .addEventListener('click', this.handlePhoneError);
 
+
+
+
+
+        this.#parent
+            .querySelector('.profile__buttons__delete-account-button__dropdown__yes')
+            .addEventListener('click', this.handleDeleteConfirm);
         this.#parent
             .querySelector('.header__rollup-button')
             .addEventListener('click', this.handleRollUpMenu);
@@ -558,6 +663,8 @@ export default class Profile {
         mediator.on('updateUser', this.handleUpdateResponse);
         mediator.on('avatarUpload', this.handleAvatarResponse);
         mediator.on('logout', this.handleExitResponse);
+        mediator.on('deleteAccount', this.handleDeleteAccountResponse);
+
 
     }
 
@@ -599,6 +706,8 @@ export default class Profile {
         mediator.off('updateUser', this.handleUpdateResponse);
         mediator.off('avatarUpload', this.handleAvatarResponse);
         mediator.off('logout', this.handleExitResponse);
+        mediator.off('deleteAccount', this.handleDeleteAccountResponse);
+
     }
 
     /**
@@ -617,12 +726,24 @@ export default class Profile {
     /**
      * Функция обработки ответа на запрос изменения профиля
      */
+    handleDeleteAccountResponse = (status) => {
+        const error = this.#parent
+            .querySelector('#buttons-error');
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+                break;
+        }
+    }
+
     handleUpdateResponse = (status) => {
         const error = this.#parent
             .querySelector('#buttons-error');
         const saveButton = this.#parent.querySelector('.profile__buttons__save-button');
-
-
         switch (status) {
             case 200:
                 saveButton.textContent = "Успешно сохранено";

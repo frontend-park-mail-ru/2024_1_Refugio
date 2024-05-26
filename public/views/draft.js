@@ -1,7 +1,6 @@
 import Sent from '../pages/sent/sent.js';
 import BaseView from './base.js';
 import emailStore from '../stores/emailStore.js';
-
 import folderStore from '../stores/folderStore.js';
 
 /**

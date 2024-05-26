@@ -22,8 +22,15 @@ export default class Gender_Select {
      * рендерит компонент в DOM
      */
     render() {
-        const elements = {
-            gender: this.#config.user?.gender === 'Female' ? false : true,
+        let elements;
+        if (this.#config?.vkUser) {
+            elements = {
+                gender: this.#config?.vkUser?.gender === 'Female' ? false : true,
+            }
+        } else {
+            elements = {
+                gender: this.#config?.user?.gender === 'Female' ? false : true,
+            }
         }
         return template(elements);
     }

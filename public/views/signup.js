@@ -1,13 +1,17 @@
 import Signup from '../pages/signup/signup.js';
+import Vk__Signup from '../pages/vk-signup/vk-signup.js';
 import BaseView from './base.js';
 
-const config = {
-};
 /**
  * Класс для рендера страницы списка писем
  * @class
  */
 class SignupView extends BaseView {
+
+    #config = {
+        vkUser: undefined,
+        authtoken: undefined,
+    }
 
     /**
          * Конструктор класса
@@ -20,9 +24,17 @@ class SignupView extends BaseView {
     /**
      * Функция рендера страницы
      */
-    renderPage() {
+    renderPage(data = undefined) {
+        this.#config.vkUser = data?.body?.body?.VKUser;
+        this.#config.authtoken = data?.authtoken;
+        let page;
+        if (data?.body?.body?.VKUser) {
+            page = new Vk__Signup(this.root, this.#config);
+
+        } else {
+            page = new Signup(this.root, this.#config);
+        }
         document.title = 'Создание ящика';
-        const page = new Signup(this.root, config);
         this.components.push(page);
         this.render();
         this.addListeners();

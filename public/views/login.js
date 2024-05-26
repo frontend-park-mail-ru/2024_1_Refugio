@@ -2,14 +2,17 @@ import Login from '../pages/login/login.js';
 
 import BaseView from './base.js';
 
-const config = {
-};
 
 /**
  * Класс для рендера страницы логина
  * @class
  */
 class LoginView extends BaseView {
+
+    #config = {
+        error: undefined
+    }
+
     /**
          * Конструктор класса
          * @constructor
@@ -21,9 +24,10 @@ class LoginView extends BaseView {
     /**
      * Функция рендера страницы
      */
-    renderPage() {
+    renderPage(error = undefined) {
+        this.#config.error = error;
         document.title = 'Вход';
-        const page = new Login(this.root, config);
+        const page = new Login(this.root, this.#config);
         this.components.push(page);
         this.render();
         this.addListeners();

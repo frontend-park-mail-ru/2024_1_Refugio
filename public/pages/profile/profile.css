@@ -244,7 +244,8 @@
 
 .profile__avatar-load-wrapper__avatar-set-button:hover,
 .profile__buttons__reset-button:hover,
-.profile__buttons__cancel-button:hover {
+.profile__buttons__cancel-button:hover,
+.profile__buttons__delete-account-button:hover {
     background-color: var(--main-button-secondary);
 }
 
@@ -254,9 +255,9 @@
 
     display: grid;
     grid-template-areas:
-        'save reset cancel'
-        'error error error';
-    grid-template-columns: auto auto 1fr;
+        'save reset cancel delete'
+        'error error error error';
+    grid-template-columns: auto auto auto 1fr;
     justify-items: start;
     grid-column-gap: 8px;
 
@@ -304,8 +305,15 @@
     transition: background-color 0.1s ease;
 }
 
+.profile__buttons__delete-account-button {
+    grid-area: delete;
+    transition: background-color 0.1s ease;
+    position: relative;
+}
+
 .profile__buttons__reset-button,
-.profile__buttons__cancel-button {
+.profile__buttons__cancel-button,
+.profile__buttons__delete-account-button {
     display: flex;
     align-items: center;
 
@@ -340,12 +348,88 @@
 
 .profile__buttons__save-button:active,
 .profile__buttons__reset-button:active,
-.profile__buttons__cancel-button:active {
+.profile__buttons__cancel-button:active,
+.profile__buttons__delete-account-button:active {
     transform: scale(0.99);
 }
 
 .profile__avatar-load-wrapper__avatar-load-input {
     display: none;
+}
+
+.profile__buttons__delete-account-button__dropdown__wrapper {
+    display: grid;
+    z-index: 1;
+
+    width: 300px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: default;
+    visibility: hidden;
+}
+
+.profile__buttons__delete-account-button__dropdown {
+    display: grid;
+    grid-template-areas:
+        'question question'
+        'yes no';
+    justify-items: stretch;
+
+    margin-top: 10px;
+    padding: 8px 8px 4px;
+    background: var(--input-background);
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+}
+
+.profile__buttons__delete-account-button__dropdown__label {
+    grid-area: question;
+    padding: 5px 8px 5px 8px;
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+
+    text-align: center;
+}
+
+.profile__buttons__delete-account-button__dropdown__yes {
+    grid-area: yes;
+    padding: 5px 8px 5px 8px;
+    margin: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    transition: background-color 0.1s ease;
+    text-align: center;
+}
+
+.profile__buttons__delete-account-button__dropdown__no {
+    grid-area: no;
+    padding: 5px 8px 5px 8px;
+    margin: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 20px;
+    transition: background-color 0.1s ease;
+    text-align: center;
+
+}
+
+.profile__buttons__delete-account-button__dropdown__yes:hover,
+.profile__buttons__delete-account-button__dropdown__no:hover {
+    background-color: var(--secondary-button-onhover-selected);
 }
 
 @media (max-width: 1000px) {
@@ -449,11 +533,11 @@
 
         display: grid;
         grid-template-areas:
-            '. save save .'
-            '. reset cancel .'
-            'error error error error';
+            '. save save save .'
+            '. reset cancel delete .'
+            'error error error error error';
         grid-template-rows: repeat(3, auto);
-        grid-template-columns: 1fr auto auto 1fr;
+        grid-template-columns: 1fr auto auto auto 1fr;
         grid-row-gap: 4px;
         grid-column-gap: 8px;
     }
@@ -464,7 +548,7 @@
 
         font-size: 14px;
 
-        
+
         justify-content: center;
         justify-self: stretch;
         margin: 0;
@@ -472,7 +556,8 @@
     }
 
     .profile__buttons__reset-button,
-    .profile__buttons__cancel-button {
+    .profile__buttons__cancel-button,
+    .profile__buttons__delete-account-button {
         display: flex;
         align-items: center;
 
@@ -481,7 +566,7 @@
         font-size: 14px;
     }
 
-    .birthday__input-block  {
+    .birthday__input-block {
         justify-content: start;
         gap: 8px;
     }
@@ -490,6 +575,7 @@
     .birthday__input__month,
     .birthday__input__year {
         width: fit-content;
+
         p {
             padding-left: 8px;
         }
@@ -529,11 +615,11 @@
     .dropdown__wrapper__day {
         min-width: 64px;
     }
-    
+
     .dropdown__wrapper__month {
         min-width: 112px;
     }
-    
+
     .dropdown__wrapper__year {
         min-width: 81px;
     }
@@ -543,9 +629,12 @@
     }
 }
 
+
+
+
 @media (max-width: 500px) {
     .profile-content {
         width: calc(100%-4px);
         margin: 0 4px;
-    } 
+    }
 }

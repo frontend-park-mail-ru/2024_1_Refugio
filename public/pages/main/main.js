@@ -5,6 +5,7 @@ import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
 import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './main.hbs'
+
 import emailStore from '../../stores/emailStore.js';
 
 

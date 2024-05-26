@@ -147,13 +147,18 @@
     cursor: pointer;
 }
 
+#move-to {
+    position: relative;
+}
+
 
 .main__header__dropdown__wrapper {
     display: grid;
+    z-index: 10;
+
     position: absolute;
     top: 32px;
-    left: 60px;
-    z-index: 1;
+    /* left: 60px; */
     cursor: default;
     visibility: hidden;
 }
@@ -173,6 +178,7 @@
 }
 
 .main__folder {
+    width: 100%;
     padding: 5px 8px 5px 8px;
     border-radius: 8px;
     cursor: pointer;
@@ -182,6 +188,10 @@
     letter-spacing: 0;
     line-height: 20px;
     transition: background-color 0.1s ease;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .main__folder:hover {

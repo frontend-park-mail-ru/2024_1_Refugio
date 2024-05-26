@@ -1,12 +1,9 @@
-import Birthday_Select from "../birthday-select/birthday-select.js";
-import template from './signup-box.hbs'
-import Gender_Select from "../gender-select/gender-select.js";
-
+import template from './list-attachment.hbs'
 /**
  * Класс обертки компонента
  * @class
  */
-export default class Signup_box {
+export default class List_attachment {
     #parent;
     #config;
 
@@ -26,11 +23,22 @@ export default class Signup_box {
      * рендерит компонент в DOM
      */
     render() {
-        const signup_box = {
-            birthday_select: new Birthday_Select(null, this.#config).render(),
-            gender_select: new Gender_Select(null, this.#config).render(),
-
+        const attachment = {
+            id: this.#config.id,
+            name : this.#config.name,
+            size : this.#config.size,
+            
         };
-        return template(signup_box);
+        return template(attachment);
+    }
+
+
+    addListeners() {
+    }
+
+    /**
+     * Удаляет листенеры
+     */
+    removeListeners() {
     }
 }

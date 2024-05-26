@@ -1,12 +1,13 @@
-import Birthday_Select from "../birthday-select/birthday-select.js";
-import template from './signup-box.hbs'
+import template from './vk-signup-box.hbs'
 import Gender_Select from "../gender-select/gender-select.js";
+import Birthday_Select from "../birthday-select/birthday-select.js";
+
 
 /**
  * Класс обертки компонента
  * @class
  */
-export default class Signup_box {
+export default class Vk_Signup_box {
     #parent;
     #config;
 
@@ -26,11 +27,15 @@ export default class Signup_box {
      * рендерит компонент в DOM
      */
     render() {
-        const signup_box = {
+        const elements = {
+            first_name: this.#config.vkUser.firstname,
+            last_name: this.#config.vkUser.surname,
             birthday_select: new Birthday_Select(null, this.#config).render(),
             gender_select: new Gender_Select(null, this.#config).render(),
+            
+            // 127.0.0.1:8081/auth-vk/auth?code=855ab871bba885204e
 
         };
-        return template(signup_box);
+        return template(elements);
     }
 }
