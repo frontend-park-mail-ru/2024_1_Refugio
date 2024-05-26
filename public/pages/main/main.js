@@ -425,15 +425,7 @@ export default class Main {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+    
 
     /**
      * Функция перемещения письма в папку
@@ -459,18 +451,14 @@ export default class Main {
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 
-        // this.#parent
-        //     .querySelector('.main__collapse-rollup-button')
-        //     .addEventListener('click', this.handleShowSurvey);
+        
 
 
         this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         })
 
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
+    
 
 
         this.#parent

@@ -366,15 +366,7 @@ export default class Letter {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+   
 
     downloadURI = async (url, filename) => {
         const response = await fetch(url);
@@ -447,9 +439,7 @@ export default class Letter {
             ?.querySelector('.letter__attachments__download-all-button')
             ?.addEventListener('click', this.downloadAllAttachments);
 
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
+        
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 

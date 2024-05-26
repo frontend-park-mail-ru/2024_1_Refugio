@@ -352,24 +352,14 @@ export default class Sent {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+    
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
 
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
+        
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 

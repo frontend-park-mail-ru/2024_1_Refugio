@@ -28,6 +28,7 @@ export default class Header {
             avatar: this.#config.avatar,
             userLetter: this.#config.username.charAt(0),
             login: this.#config.login,
+            title: document.title,
         };
         return template(header);
     }
@@ -35,8 +36,17 @@ export default class Header {
 
     handleLogoButton = async (e) => {
         e.preventDefault();
-        console.log('logo');
         dispathcher.do(actionRedirect('/main', true));
+    }
+
+    handleRollUpMenu = (e) => {
+        e.preventDefault();
+        const menu = document.querySelector('.menu');
+        if (menu.classList.contains('appear')) {
+            menu.classList.remove('appear');
+        } else {
+            menu.classList.add('appear');
+        }
     }
 
 
@@ -45,12 +55,18 @@ export default class Header {
         this.#parent
             .querySelector('.header__logo')
             .addEventListener('click', this.handleLogoButton);
+        this.#parent
+            .querySelector('.header__rollup-button')
+            .addEventListener('click', this.handleRollUpMenu);
     }
 
     removeListeners() {
         this.#parent
             .querySelector('.header__logo')
             .removeEventListener('click', this.handleLogoButton);
+        this.#parent
+            .querySelector('.header__rollup-button')
+            .removeEventListener('click', this.handleRollUpMenu);
     }
 }
 
