@@ -34,5 +34,7 @@ jobs:
            username: ${{ secrets.USER }}
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            script: |
+             cd ../..
+             cd var/www/html/2024_1_Refugio/
              sudo npm ci
              sudo npm run build:prod
