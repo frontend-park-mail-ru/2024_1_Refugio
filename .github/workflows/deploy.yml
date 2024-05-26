@@ -1,9 +1,6 @@
 name: CI/CD
 
 on:
-  push:
-    branches:
-      - '*'
   pull_request:
     branches:
       - main
@@ -14,7 +11,7 @@ on:
 jobs:
   deploy:
     name: Frontend deploy
-    if: github.event_name == 'push'
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     steps:
        - name: Setup Node.js environment
