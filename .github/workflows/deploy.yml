@@ -40,5 +40,13 @@ jobs:
            script: |
              cd ../..
              cd var/www/html/2024_1_Refugio/
+             sudo apt update
+             sudo apt install curl
+             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+             export NVM_DIR="$HOME/.nvm"
+             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+             nvm install 20.11.1
+             nvm use 20.11.1
+             npm install -g npm@10.2.4
              npm ci
              npm run build:prod
