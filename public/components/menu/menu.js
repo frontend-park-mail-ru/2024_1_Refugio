@@ -26,11 +26,21 @@ export default class Menu {
      * рендерит компонент в DOM
      */
     render() {
+        const titleIncoming = (document.title === 'Входящие' ? document.title : undefined);
+        const titleSent = (document.title === 'Отправленные' ? document.title : undefined);
+        const titleSpam = (document.title === 'Спам' ? document.title : undefined);
+        const titleDrafts = (document.title === 'Черновики' ? document.title : undefined);
+        let folderFlag = false;
+        if (!titleIncoming && !titleSent && !titleSpam && !titleDrafts) {
+            folderFlag = true;
+        }
         this.#config.result = [];
         this.#config.folders.forEach((folder) => {
             this.#config.result.unshift(new Folder(this.#parent, {
                 name: folder.name,
                 id: folder.id,
+                currentFolder: this.#config.currentFolder,
+                folderFlag: folderFlag,
             }));
         });
         const renderResult = [];
@@ -38,9 +48,12 @@ export default class Menu {
             renderResult.unshift(folder.render());
         })
         const elements = {
+            folderFlag: false,
             incoming_count: this.#config.incoming_count,
-            titleIncoming: (document.title === 'Входящие' ? document.title : undefined),
-            titleSent: (document.title === 'Отправленные' ? document.title : undefined),
+            titleIncoming: titleIncoming,
+            titleSent: titleSent,
+            titleSpam: titleSpam,
+            titleDrafts: titleDrafts,
             folders: renderResult,
         };
         return template(elements);
@@ -144,8 +157,6 @@ export default class Menu {
             .addEventListener('click', this.handleCreateFolder);
         mediator.on('folderDropdown', this.handleFolderDropdown);
         mediator.on('createFolder', this.handleFolderCreateResponse);
-        mediator.on('updateFolder', this.handleFolderUpdateResponse);
-        mediator.on('deleteFolder', this.handleFolderDeleteResponse);
     }
 
     removeListeners() {
@@ -175,73 +186,26 @@ export default class Menu {
             .removeEventListener('click', this.handleCreateFolder);
         mediator.off('folderDropdown', this.handleFolderDropdown);
         mediator.off('createFolder', this.handleFolderCreateResponse);
-        mediator.off('updateFolder', this.handleFolderUpdateResponse);
-        mediator.off('deleteFolder', this.handleFolderDeleteResponse);
     }
 
-    handleFolderCreateResponse = (status) => {
+    handleFolderCreateResponse = ({ status, folders }) => {
         let errorSign = this.#parent
             .querySelector('#new-folder-error');
         errorSign.style.display = 'none';
         switch (status) {
             case 200:
-                if (!window.location.search) {
-                    dispathcher.do(actionRedirect(window.location.pathname + window.location.search, false));
-                } else if (window.location.pathname === '/folder') {
-                    dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false, true));
-                } else {
-                    dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
-                }
-                break;
-            default:
-                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
-                errorSign.style.display = 'block';
-                break;
-        }
-    }
-
-    handleFolderUpdateResponse = ({ status, id }) => {
-        let errorSign = this.#parent
-            .querySelector(`#f-error-${id}`);
-        errorSign.style.display = 'none';
-        switch (status) {
-            case 200:
-                if (!window.location.search) {
-                    dispathcher.do(actionRedirect(window.location.pathname + window.location.search, false));
-                } else {
-                    if (window.location.pathname === '/letter') {
-                        dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
-                    } else if (window.location.pathname === '/folder') {
-                        dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false, true));
-                    }
-                }
-                break;
-            default:
-                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
-                errorSign.style.display = 'block';
-                break;
-        }
-    }
-
-    handleFolderDeleteResponse = ({ status, id }) => {
-        let errorSign = this.#parent
-            .querySelector(`#f-error-${id}`);
-        errorSign.style.display = 'none';
-        switch (status) {
-            case 200:
-                if (!window.location.search) {
-                    dispathcher.do(actionRedirect(window.location.pathname + window.location.search, false));
-                } else {
-                    if (window.location.pathname === '/letter') {
-                        dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false));
-                    } else if (window.location.pathname === '/folder') {
-                        if (window.location.search.slice(4) === String(id)) {
-                            dispathcher.do(actionRedirect('/main', false));
-                        } else {
-                            dispathcher.do(actionRedirectToLetter(window.location.search.slice(4), false, true));
-                        }
-                    }
-                }
+                const smth = this.#parent.querySelector('.menu__new-folder-button')
+                this.#config.folders.forEach((oldFolder) => {
+                    folders = folders.filter((folder) => Number(folder.id) !== Number(oldFolder.id));
+                });
+                const newFolder = new Folder(this.#parent, {
+                    name: folders[0].name,
+                    id: folders[0].id,
+                });
+                this.#config.result.push(newFolder);
+                smth.insertAdjacentHTML('beforebegin', newFolder.render());
+                newFolder.addListeners();
+                this.handleFolderDropdown();
                 break;
             default:
                 errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';

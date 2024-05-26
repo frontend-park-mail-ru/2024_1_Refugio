@@ -28,6 +28,8 @@ export default class Folder {
         const folder = {
             name: this.#config.name,
             id: this.#config.id,
+            curFolder: Number(this.#config.currentFolder)===Number(this.#config.id),
+            folderFlag: this.#config.folderFlag,
         };
         return template(folder);
     }
@@ -91,6 +93,8 @@ export default class Folder {
         this.#parent.querySelector(`#f-delete-${this.#config.id}`).addEventListener('click', this.handleDelete);
         this.#parent.querySelector(`#f-folder-${this.#config.id}`).addEventListener('click', this.handleFolder);
         this.#parent.querySelector(`#f-wrapper-${this.#config.id}`).addEventListener('click', this.handleWrapper);
+        mediator.on('updateFolder', this.handleFolderUpdateResponse);
+        mediator.on('deleteFolder', this.handleFolderDeleteResponse);
     }
 
     /**
@@ -103,5 +107,47 @@ export default class Folder {
         this.#parent.querySelector(`#f-delete-${this.#config.id}`).removeEventListener('click', this.handleDelete);
         this.#parent.querySelector(`#f-folder-${this.#config.id}`).removeEventListener('click', this.handleFolder);
         this.#parent.querySelector(`#f-wrapper-${this.#config.id}`).removeEventListener('click', this.handleWrapper);
+        mediator.off('updateFolder', this.handleFolderUpdateResponse);
+        mediator.off('deleteFolder', this.handleFolderDeleteResponse);
+    }
+
+    handleFolderDeleteResponse = ({ status, id }) => {
+        let errorSign = this.#parent
+            .querySelector(`#f-error-${id}`);
+        errorSign.style.display = 'none';
+        switch (status) {
+            case 200:
+                if (Number(this.#config.id) === Number(id)) {
+                    const node = this.#parent.querySelector(`#f-folder-${id}`);
+                    this.removeListeners();
+                    node.parentNode.removeChild(node);
+                }
+                break;
+            default:
+                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
+                errorSign.style.display = 'block';
+                break;
+        }
+    }
+
+    handleFolderUpdateResponse = ({ status, id, name }) => {
+        let errorSign = this.#parent
+            .querySelector(`#f-error-${id}`);
+        errorSign.style.display = 'none';
+        switch (status) {
+            case 200:
+                if (Number(this.#config.id) === Number(id)) {
+                    const node = this.#parent.querySelector(`#f-name-${id}`);
+                    node.textContent = name;
+                    this.#parent.querySelector(`#f-name-${this.#config.id}`).style.display = 'block';
+                    this.#parent.querySelector(`#f-options-${this.#config.id}`).style.display = 'block';
+                    this.#parent.querySelector(`#f-wrapper-${this.#config.id}`).style.display = 'none';
+                }
+                break;
+            default:
+                errorSign.textContent = 'Проблема на нашей стороне, уже исправляем';
+                errorSign.style.display = 'block';
+                break;
+        }
     }
 }
