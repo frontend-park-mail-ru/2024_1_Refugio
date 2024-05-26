@@ -3,7 +3,7 @@ import MainView from "../views/main.js";
 import SignupView from "../views/signup.js";
 import userStore from "../stores/userStore.js";
 import ProfileView from "../views/profile.js";
-import writeLetter from "../views/write-letter.js";
+import WriteLetterView from "../views/write-letter.js";
 import LetterView from "../views/letter.js";
 import SentView from "../views/sent.js";
 import FolderView from "../views/folder.js";
@@ -12,6 +12,7 @@ import SpamView from "../views/spam.js";
 import VkSignupHelperView from "../views/vk-signup-helper.js";
 import VkLoginHelperView from "../views/vk-login-helper.js";
 import dispathcher from "./dispathcher.js";
+
 
 /**
  * Класс роутера
@@ -39,7 +40,7 @@ class Router {
 
         this.#authViews.set('/main', MainView);
         this.#authViews.set('/profile', ProfileView);
-        this.#authViews.set('/write_letter', writeLetter);
+        this.#authViews.set('/write_letter', WriteLetterView);
         this.#authViews.set('/sent', SentView);
         this.#authViews.set('/drafts', DraftView);
         this.#authViews.set('/spam', SpamView);
@@ -111,12 +112,8 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
-        // console.log(window.location.pathname, path);
 
         if (!this.isLoading) {
-            // if (window.location.pathname === '/write_letter') {
-            // }
-
             this.isLoading = true;
             this.#currentView?.clear();
             this.#currentView = this.#views.get(path) || this.#authViews.get(path);
@@ -124,60 +121,62 @@ class Router {
             this.#currentView.renderPage(data);
         }
 
+    }
 
-        // if (this.#currentView) {
-        //     this.#currentView.addEventListener('DOMContentLoaded', () => {
-        //         console.log(this.#currentView);
-        //         this.#currentView?.clear();
-        //         this.#currentView = this.#views.get(path) || this.#authViews.get(path);
-        //         this.navigate({ path, state, pushState });
-        //         this.#currentView.renderPage(data);
-        //     })
-        // } else {
-        //     console.log(this.#currentView);
-        //     this.#currentView?.clear();
-        //     this.#currentView = this.#views.get(path) || this.#authViews.get(path);
-        //     this.navigate({ path, state, pushState });
-        //     this.#currentView.renderPage(data);
-        // }
+    openWriteLetter({ id, pushState }) {
+        if (!this.isLoading) {
+            this.isLoading = true;
+            this.#currentView?.clear();
+
+
+            this.#currentView = new VkSignupHelperView();
+            this.navigate({ path: `/auth-vk/auth?code=${id}`, state: '', pushState });
+            this.#currentView.renderPage();
+
+            
+        }
     }
 
     /**
      * Функция перехода на адрес письма
      */
     openLetter({ id, pushState, folder }) {
-        if (this.#currentView) {
-            this.#currentView.clear();
+        if (!this.isLoading) {
+            this.isLoading = true;
+            this.#currentView?.clear();
+            if (!folder) {
+                this.#currentView = new LetterView(id);
+                this.navigate({ path: `/letter?id=${id}`, state: '', pushState });
+            } else {
+                this.#currentView = new FolderView(id);
+                this.navigate({ path: `/folder?id=${id}`, state: '', pushState });
+            }
+            this.#currentView.renderPage();
         }
-        if (!folder) {
-            this.#currentView = new LetterView(id);
-            this.navigate({ path: `/letter?id=${id}`, state: '', pushState });
-        } else {
-            this.#currentView = new FolderView(id);
-            this.navigate({ path: `/folder?id=${id}`, state: '', pushState });
-        }
-        this.#currentView.renderPage();
+
     }
 
     /**
      * Функция старта приложения
      */
     openVkAuth({ id, pushState }) {
-        if (this.#currentView) {
-            this.#currentView.clear();
+        if (!this.isLoading) {
+            this.isLoading = true;
+            this.#currentView?.clear();
+            this.#currentView = new VkSignupHelperView();
+            this.navigate({ path: `/auth-vk/auth?code=${id}`, state: '', pushState });
+            this.#currentView.renderPage();
         }
-        this.#currentView = new VkSignupHelperView();
-        this.navigate({ path: `/auth-vk/auth?code=${id}`, state: '', pushState });
-        this.#currentView.renderPage();
     }
 
     openVkLogin({ id, pushState }) {
-        if (this.#currentView) {
-            this.#currentView.clear();
-        }
-        this.#currentView = new VkLoginHelperView();
-        this.navigate({ path: `/auth-vk/loginVK?code=${id}`, state: '', pushState });
-        this.#currentView.renderPage();
+        if (!this.isLoading) {
+            this.isLoading = true;
+            this.#currentView?.clear();
+            this.#currentView = new VkLoginHelperView();
+            this.navigate({ path: `/auth-vk/loginVK?code=${id}`, state: '', pushState });
+            this.#currentView.renderPage();
+        }  
     }
 
     async start() {

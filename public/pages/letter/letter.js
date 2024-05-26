@@ -383,7 +383,7 @@ export default class Letter {
         e.preventDefault();
         const attachment = this.#config.files.find(item => item.id == id);
         const url = attachment.fileId;
-        const fileName = attachment.id;
+        const fileName = attachment.fileName;
         await this.downloadURI(url, fileName);
     }
 

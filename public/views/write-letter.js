@@ -19,8 +19,14 @@ class WriteLetterView extends BaseView {
          * Конструктор класса
          * @constructor
          */
-    constructor() {
+    constructor(letterNumber = undefined) {
         super();
+        this.#config.letterNumber = letterNumber;
+    }
+
+    updateListeners = () => {
+        this.removeListeners();
+        this.addListeners();
     }
 
     /**
@@ -46,6 +52,8 @@ class WriteLetterView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
+        this.#config.files = await this.getAttachments(this.#config.letterNumber);
+
         const page = new Write__Letter(this.root, this.#config);
         this.components.push(page);
         this.render();

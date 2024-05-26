@@ -451,15 +451,9 @@ export default class Main {
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 
-        
-
-
         this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         })
-
-    
-
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {

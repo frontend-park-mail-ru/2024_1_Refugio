@@ -23,6 +23,11 @@ export const actionRedirectToLetter = (id, pushState, folder) => ({
     value: { id: id, pushState: pushState, folder: folder },
 })
 
+export const actionRedirectToWriteLetter = (id, pushState) => ({
+    type: 'openWriteLetter',
+    value: { id: id, pushState: pushState },
+})
+
 export const actionGetUser = () => ({
     type: 'getUser',
     value: {},
