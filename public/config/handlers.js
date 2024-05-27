@@ -9,6 +9,8 @@ const handlers = [
     { type: 'navigate', method: router.navigate.bind(router) },
     { type: 'open', method: router.open.bind(router) },
     { type: 'openLetter', method: router.openLetter.bind(router) },
+    { type: 'openWriteLetter', method: router.openWriteLetter.bind(router) },
+
     { type: 'login', method: userStore.login.bind(userStore) },
     { type: 'signup', method: userStore.signup.bind(userStore) },
     { type: 'start', method: router.start.bind(router) },

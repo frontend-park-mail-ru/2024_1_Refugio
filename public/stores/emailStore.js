@@ -76,8 +76,10 @@ class emaillStore {
         );
         const status = await response.status;
         const data = await response.json();
-        const id = data.body.email.id;
-        mediator.emit('send', { id, status });
+        if (status === 200) {
+            const id = data.body.email.id;
+        }
+        mediator.emit('send', { id: 400, status });
     }
 
     /**
@@ -97,7 +99,7 @@ class emaillStore {
 
         if (spam) {
             mediator.emit('updateSpam', status);
-        } else{
+        } else {
             mediator.emit('updateEmail', status);
         }
     }

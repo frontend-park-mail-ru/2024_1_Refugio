@@ -23,9 +23,9 @@ export const actionRedirectToLetter = (id, pushState, folder) => ({
     value: { id: id, pushState: pushState, folder: folder },
 })
 
-export const actionRedirectToWriteLetter = (id, pushState) => ({
+export const actionRedirectToWriteLetter = (pushState, data = undefined) => ({
     type: 'openWriteLetter',
-    value: { id: id, pushState: pushState },
+    value: { pushState: pushState, data: data },
 })
 
 export const actionGetUser = () => ({
@@ -65,7 +65,7 @@ export const actionSend = (value) => ({
 
 export const actionUpdateEmail = (id, value, spam) => ({
     type: 'updateEmail',
-    value: {id: id, value: value, spam: spam},
+    value: { id: id, value: value, spam: spam },
 
 })
 
@@ -171,7 +171,7 @@ export const actionVkLogin = (code) => ({
 
 export const actionVkAuthSignup = (newUser, authtoken) => ({
     type: 'vkSignup',
-    value: {newUser: newUser, authtoken: authtoken},
+    value: { newUser: newUser, authtoken: authtoken },
 })
 
 export const actionAttachFile = (file) => ({

@@ -9,6 +9,8 @@ import template from './write-letter.hbs'
 import router from '../../modules/router.js';
 import WriteLetterView from '../../views/write-letter.js'
 import debounce from '../../modules/debounce.js';
+import List_attachments from '../../components/list-attachments/list-attachments.js'
+import throttle from '../../modules/throttle.js'
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -32,12 +34,35 @@ export default class Write__Letter {
     constructor(parent, config) {
         this.#config = config;
         this.#parent = parent;
+
     }
 
     registerHelper(text) {
         let lines = text.split('\n');
         lines = lines.map(line => '\t' + line);
         return lines.join('\n');
+    }
+
+    #calculateFilesNumber = (number) => {
+        let numberLabel = '';
+        if ((number % 10 === 1) && (number % 100 !== 11)) {
+            numberLabel = `${number} файл`;
+        } else {
+            if ((number % 10 === 2 || number % 10 === 3 || number % 10 === 4) && (number % 100 !== 12) && (number % 100 !== 13) && (number % 100 !== 14)) {
+                numberLabel = `${number} файла`;
+            } else {
+                numberLabel = `${number} файлов`;
+            }
+        }
+        return numberLabel;
+    }
+
+    #calculateTotalSize = (files) => {
+        let result = 0;
+        files.forEach((file) => {
+            result += Number(file.fileSize) / 1048576;
+        });
+        return String(result).substring(0, 4);
     }
 
 
@@ -61,7 +86,14 @@ export default class Write__Letter {
             replySender: this.#config.values?.replySender,
             header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
+
         };
+
+        if (this.#config.files) {
+            elements.list_attachments = new List_attachments(null, this.#config.files).render(),
+                elements.files_number = this.#calculateFilesNumber(this.#config.files.length),
+                elements.total_size = this.#calculateTotalSize(this.#config.files)
+        }
         console.log(this.#config);
         console.log(this.#config.values?.changeDraft);
         if (this.#config.values?.text && !this.#config.values?.changeDraft) {
@@ -385,6 +417,12 @@ export default class Write__Letter {
                 dropdown: document.querySelector('.write-letter__attachments__dropdown__wrapper'),
             }
         }
+        if (document.querySelector('.from-letter__attachments__view-button')) {
+            elements['files'] = {
+                button: document.querySelector('.from-letter__attachments__view-button'),
+                dropdown: document.querySelector('.from-letter__attachments__dropdown__wrapper'),
+            }
+        }
 
         const hideAllDropdowns = () => {
             Object.values(elements).forEach(value => {
@@ -452,35 +490,71 @@ export default class Write__Letter {
 
     attachments = [];
     currentFile;
+    addAttachmentIsRunning = false;
 
-    addAttachment = async (e) => {
-        e.preventDefault();
+    addAttachment = async () => {
+        if (this.addAttachmentIsRunning) {
+            return
+        }
+        this.addAttachmentIsRunning = true;
 
         const oldError = this.#parent
             .querySelector('.write-letter__attachments__error');
         oldError.classList.remove('show');
 
         const input = this.#parent.querySelector('.write-letter__attachments__attach-input');
+        let isCancelled = false;
+
         const handleFileProcessing = async () => {
+            if (isCancelled) {
+                return;
+            }
+            input.removeEventListener('change', handleFileProcessing);
             const file = input.files[0];
             this.currentFile = file;
+
             input.removeEventListener('change', handleFileProcessing);
+            document
+                .querySelector('.write-letter__attachments__attach-button')
+                .removeEventListener('click', this.addAttachmentThrottled);
+
 
             const error = this.#parent
                 .querySelector('.write-letter__attachments__error');
             if (file.size > 20 * 1024 * 1024) {
                 error.textContent = 'Файл превышает максимальный размер 20 МБ';
                 error.classList.add('show');
+                this.addAttachmentIsRunning = false
                 return;
             }
 
+
+            document.querySelector('.write-letter__attachments__attach-button').textContent = 'Загрузка файла';
+
+
             const formData = new FormData();
-            formData.append('file', this.#parent.querySelector('.write-letter__attachments__attach-input').files[0]);
+            formData.append('file', input.files[0]);
             dispathcher.do(actionAttachFile(formData))
         };
+        input.removeEventListener('change', handleFileProcessing);
+        input.value = '';
         input.addEventListener('change', handleFileProcessing);
+        const cancelListener = () => {
+            isCancelled = true;
+            input.removeEventListener('change', handleFileProcessing);
+            this.addAttachmentIsRunning = false;
+        };
+        input.addEventListener('cancel', cancelListener);
         input.click();
     }
+
+    addAttachmentThrottled = throttle(this.addAttachment, 1000);
+
+
+
+
+
+
 
     renderAttachment = (id) => {
         console.log(this.attachments);
@@ -655,14 +729,49 @@ export default class Write__Letter {
     handleTypingDraftDebounced = debounce(this.handleTypingDraft, 1000);
 
 
+    downloadURI = async (url, filename) => {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+
+
+    downloadAttachment = async (e, id) => {
+        e.preventDefault();
+        const attachment = this.#config.files.find(item => item.id == id);
+        const url = attachment.fileId;
+        const fileName = attachment.fileName;
+        await this.downloadURI(url, fileName);
+    }
+
+    downloadAllAttachments = async (e) => {
+        for (let attachment of this.#config.files) {
+            this.downloadAttachment(e, attachment.id);
+        }
+    }
+
+
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
 
         this.#parent
+            .querySelectorAll('.list-attachment').forEach((file) => {
+                file.querySelector('.list-attachment__delete-button').
+                    addEventListener('click', (e) => this.downloadAttachment(e, file.dataset.id));
+            })
+        this.#parent
+            ?.querySelector('.from-letter__attachments__download-all-button')
+            ?.addEventListener('click', this.downloadAllAttachments);
+
+        this.#parent
             .querySelector('.write-letter__attachments__attach-button')
-            .addEventListener('click', this.addAttachment);
+            .addEventListener('click', this.addAttachmentThrottled);
         this.#parent
             .querySelector('.write-letter__attachments__delete-all-button')
             .addEventListener('click', this.deleteAllAttachments)
@@ -831,6 +940,12 @@ export default class Write__Letter {
     }
 
     attachFileResponse = ({ status, id }) => {
+        document
+            .querySelector('.write-letter__attachments__attach-button')
+            .addEventListener('click', this.addAttachmentThrottled);
+        this.addAttachmentIsRunning = false
+
+        document.querySelector('.write-letter__attachments__attach-button').textContent = 'Прикрепить файл';
         const error = this.#parent
             .querySelector('.write-letter__attachments__error');
         switch (status) {

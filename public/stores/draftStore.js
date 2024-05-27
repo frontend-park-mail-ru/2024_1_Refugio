@@ -66,15 +66,16 @@ class draftStore {
         );
         const status = await response.status;
         const data = await response.json();
-        const responseId = data.body.email.id;
         if (status === 200) {
+        const responseId = data.body.email.id;
+
             const response = await ajax(
                 'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
             );
             const status = await response.status;
             mediator.emit('send', { responseId, status });
         } else {
-            mediator.emit('send', { responseId, status });
+            mediator.emit('send', { responseId: 400, status });
         }
     }
 

@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
+import { actionRedirectToWriteLetter, actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';
@@ -211,7 +211,7 @@ export default class Letter {
             .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
             .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirect('/write_letter', true, { resend: true, topic: topic, sender: sender, date: date, text: text }));
+        dispathcher.do(actionRedirectToWriteLetter(true, { id: this.#config.email.id, resend: true, topic: topic, sender: sender, date: date, text: text }));
     };
 
     /**
@@ -227,7 +227,7 @@ export default class Letter {
             .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
             .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirect('/write_letter', true, { changeDraft: true, topic: topic, sender: sender, date: date, text: text, id: this.#config.email.id }));
+        dispathcher.do(actionRedirectToWriteLetter(true, { id: this.#config.email.id, changeDraft: true, topic: topic, sender: sender, date: date, text: text }));
     };
 
     /**
@@ -243,7 +243,7 @@ export default class Letter {
             .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
             .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text, replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
+        dispathcher.do(actionRedirectToWriteLetter(true, { id:this.#config.email.id, topic: topic, sender: sender, date: date, text: text, replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
     /**
@@ -366,7 +366,7 @@ export default class Letter {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-   
+
 
     downloadURI = async (url, filename) => {
         const response = await fetch(url);
@@ -394,41 +394,11 @@ export default class Letter {
     }
 
 
-    notifyMe = () => {
-        console.log("notify");
-        if (!("Notification" in window)) {
-            // Check if the browser supports notifications
-            alert("This browser does not support desktop notification");
-        } else if (Notification.permission === "granted") {
-            // Check whether notification permissions have already been granted;
-            // if so, create a notification
-            const notification = new Notification("Hi there!");
-            // …
-        } else if (Notification.permission !== "denied") {
-            // We need to ask the user for permission
-            Notification.requestPermission().then((permission) => {
-                // If the user accepts, let's create a notification
-                if (permission === "granted") {
-                    const notification = new Notification("Hi there!");
-                    // …
-                }
-            });
-        } else {
-            console.log('huitea');
-        }
-
-        // At last, if the user has denied notifications, and you
-        // want to be respectful there is no need to bother them anymore.
-    }
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
-        this.#parent
-            .querySelector('.letter__info__from')
-            .addEventListener('click', this.notifyMe);
 
         this.#parent
             .querySelectorAll('.list-attachment').forEach((file) => {
@@ -439,7 +409,7 @@ export default class Letter {
             ?.querySelector('.letter__attachments__download-all-button')
             ?.addEventListener('click', this.downloadAllAttachments);
 
-        
+
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 

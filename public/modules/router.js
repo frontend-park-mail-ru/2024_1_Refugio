@@ -123,15 +123,14 @@ class Router {
 
     }
 
-    openWriteLetter({ id, pushState }) {
+    openWriteLetter({pushState, data }) {
         if (!this.isLoading) {
             this.isLoading = true;
             this.#currentView?.clear();
 
-
-            this.#currentView = new VkSignupHelperView();
-            this.navigate({ path: `/auth-vk/auth?code=${id}`, state: '', pushState });
-            this.#currentView.renderPage();
+            this.#currentView = WriteLetterView;
+            this.navigate({ path: `/write-letter`, state: '', pushState });
+            this.#currentView.renderPage(data);
 
             
         }
