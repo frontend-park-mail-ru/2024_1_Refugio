@@ -3,7 +3,7 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail } from '../../actions/userActions.js';
 import template from './sent.hbs'
 
 
@@ -32,9 +32,11 @@ export default class Sent {
     render() {
         this.#config.content.sent = true;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
+
         const elements = {
-            header: new Header(null, this.#config.header).render(),
             menu: this.#config.menu.component.render(),
+            header: this.#config.header.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
@@ -42,12 +44,18 @@ export default class Sent {
 
     selectedListLetters = []
 
+    /**
+     * Функция, регулирующая отображение ошибки
+     */
     hideError = () => {
         const oldError = this.#parent
             .querySelector('.letter__error');
         oldError.classList.remove('appear');
     };
 
+    /**
+     * Функция, регулирующая отображения всех всплывающих окон на странице
+     */
     handleDropdowns(e) {
         const target = e.target;
 
@@ -91,11 +99,17 @@ export default class Sent {
         await dispathcher.do(actionLogout());
     };
 
+    /**
+     * Функция перехода на страницу профиля
+     */
     handleProfile = (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/profile', true));
     };
 
+    /**
+     * Функция перехода на страницу письма
+     */
     handleLetter = async (e, id) => {
         e.preventDefault();
         const letters = this.#config.content.list_letters;
@@ -108,6 +122,9 @@ export default class Sent {
         dispathcher.do(actionRedirectToLetter(id, true));
     };
 
+    /**
+     * Функция отображения хедера
+     */
     handleHeader() {
         const unselectedButtons = {
             select_all: document.querySelector('#select-all'),
@@ -140,6 +157,9 @@ export default class Sent {
         }
     }
 
+    /**
+     * Функция выделения одного письма
+     */
     handleCheckbox = (e, id) => {
         e.preventDefault();
         e.stopPropagation();
@@ -165,6 +185,9 @@ export default class Sent {
         this.handleHeader();
     }
 
+    /**
+     * Функция отметки одного письма прочитанным/непрочитанным
+     */
     handleStatus = async (e, id) => {
         e.preventDefault();
         e.stopPropagation();
@@ -189,6 +212,9 @@ export default class Sent {
         dispathcher.do(actionUpdateEmail(id, value));
     }
 
+    /**
+     * Функция выделения всех писем
+     */
     handleSelectAll = (e) => {
         e.preventDefault();
 
@@ -206,6 +232,9 @@ export default class Sent {
         this.handleHeader();
     }
 
+    /**
+     * Функция отмены выделения
+     */
     handleDeselect = (e) => {
         e.preventDefault();
 
@@ -222,123 +251,20 @@ export default class Sent {
         this.handleHeader();
     }
 
-    // handleMarkAllAsRead = (e) => {
-    //     this.hideError();
-    //     e.preventDefault();
-
-    //     const letters = this.#config.content.list_letters;
-    //     if (letters.length === 0) {
-    //         return;
-    //     }
-    //     letters.forEach(item => {
-    //         if (item.readStatus === false) {
-    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
-    //             const statusChild = letter.querySelector('.list-letter__status img');
-    //             const img = document.createElement('img');
-    //             img.alt = '';
-    //             img.src = '/icons/read-on-offer__256.svg';
-    //             img.classList.add('list-letter__status-offer');
-    //             statusChild.parentNode.replaceChild(img, statusChild);
-
-
-    //             item.readStatus = true;
-    //             item.dateOfDispatch = undefined;
-
-    //             dispathcher.do(actionUpdateEmail(item.id, item));
-    //         }
-    //     })
-    // }
-
-    handleDelete = (e) => {
-        this.hideError();
-        e.preventDefault();
-        this.selectedListLetters.forEach(item => {
-            const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
-            letter[0].remove();
-            dispathcher.do(actionDeleteEmail(item.dataset.id));
-            this.selectedListLetters = this.selectedListLetters.filter(el => el !== item);
-        });
-        this.handleDeselect(e);
-    }
-
-    handleStat = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/stat', true));
-    };
-
-    // handleMarkAsRead = (e) => {
-    //     this.hideError();
-    //     e.preventDefault();
-    //     const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
-    //     const letters = this.#config.content.list_letters;
-    //     letters.forEach(item => {
-
-    //         if (item.readStatus === false && selectedIds.includes(String(item.id))) {
-
-    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
-    //             const statusChild = letter.querySelector('.list-letter__status img');
-    //             const img = document.createElement('img');
-    //             img.alt = '';
-    //             img.src = '/icons/read-on-offer__256.svg';
-    //             img.classList.add('list-letter__status-offer');
-    //             statusChild.parentNode.replaceChild(img, statusChild);
-
-
-    //             item.readStatus = true
-    //             item.dateOfDispatch = undefined;
-
-    //             dispathcher.do(actionUpdateEmail(item.id, item));
-    //         }
-    //     })
-    //     this.handleDeselect(e);
-    // }
-
-    // handleMarkAsUnread = (e) => {
-    //     this.hideError();
-    //     e.preventDefault();
-    //     const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
-
-    //     const letters = this.#config.content.list_letters;
-    //     letters.forEach(item => {
-    //         if (item.readStatus === true && selectedIds.includes(String(item.id))) {
-    //             const letter = document.querySelector(`[data-id="${item.id}"]`);
-    //             const statusChild = letter.querySelector('.list-letter__status img');
-    //             const img = document.createElement('img');
-    //             img.alt = '';
-    //             img.src = '/icons/read-on__256.svg';
-    //             statusChild.parentNode.replaceChild(img, statusChild);
-
-    //             item.readStatus = false;
-    //             item.dateOfDispatch = undefined;
-
-    //             dispathcher.do(actionUpdateEmail(item.id, item));
-    //         }
-    //     })
-    //     this.handleDeselect(e);
-    // }
-
     /**
-     * Добавляет листенеры на компоненты
+     * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+    
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
 
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
+        
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -438,6 +364,9 @@ export default class Sent {
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 
+    /**
+     * Функция обработки ответа на запрос выхода из аккаунта
+     */
     handleExitResponse = (status) => {
         switch (status) {
             case 200:
@@ -448,24 +377,30 @@ export default class Sent {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос обновления письма
+     */
     handleUpdateEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос удаления письма
+     */
     handleDeleteEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;

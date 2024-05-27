@@ -1,5 +1,8 @@
 <div class="header">
     <img src="/icons/menu-roll-up.svg" class="header__rollup-button">
+    <div class="header__mobile__log">
+        {{title}}
+    </div>
     <div class="header__logo">
         MAILHUB
     </div>
@@ -11,6 +14,8 @@
     {{/if}}
 
     <div class="header__dropdown">
+        <div class="header__dropdown__login-label">{{login}}
+        </div>
         <div class="header__dropdown__profile-button">Личные данные
         </div>
         <div class="header__dropdown__stat-button remove">Статистика

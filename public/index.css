@@ -5,10 +5,55 @@
 @import 'pages/write-letter/write-letter.css';
 @import 'pages/sent/sent.css';
 @import 'pages/main/main.css';
-@import 'pages/survey/survey.css';
-@import 'pages/stat/stat.css';
+@import 'pages/vk-signup/vk-signup.css';
+@import 'components/list-attachment/list-attachment.css';
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap'); */
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 100;
+    font-style: normal;
+    src: url('../static/fonts/Roboto-Thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 300;
+    font-style: normal;
+    src: url('../static/fonts/Roboto-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-style: normal;
+    src: url('../static/fonts/Roboto-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 500;
+    font-style: normal;
+    src: url('../static/fonts/Roboto-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-style: normal;
+    src: url('../static/fonts/Roboto-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-weight: 900;
+    font-style: normal;
+    src: url('../static/fonts/Roboto-Black.ttf') format('truetype');
+}
+
 
 .roboto-thin {
     font-family: "Roboto", sans-serif;
@@ -58,6 +103,7 @@
     --text: #ededed;
     --main-button-hover: #ededed;
     --main-button: white;
+    --vk: #0077ff;
 
     --negative: #ff4747;
     --error-input-placeholder: #522e2e;

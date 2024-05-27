@@ -28,7 +28,7 @@ export default class Main {
     #renderConfig(letters) {
         const result = [];
         letters.forEach((letter) => {
-            result.unshift(new List_letter(null, {
+            result.push(new List_letter(null, {
                 sent: this.#config.sent,
                 status: letter.readStatus,
                 avatar: letter.photoId,

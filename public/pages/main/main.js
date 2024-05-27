@@ -3,9 +3,11 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail } from '../../actions/userActions.js';
+import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './main.hbs'
+
 import emailStore from '../../stores/emailStore.js';
+import userStore from '../../stores/userStore.js';
 
 
 /**
@@ -33,24 +35,53 @@ export default class Main {
     render() {
         this.#config.content.sent = false;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
         const elements = {
-            header: new Header(this.#parent, this.#config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
-            contains_letters: this.#config.content.list_letters.length !== 0,
+            spam: this.#config.spam,
+            contains_letters: this.#config.content.list_letters?.length !== 0,
             folders: this.#config.menu.folders,
+            folder_id: this.#config.folderNumber,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
+        if (emailStore.incoming_count > emailStore.old_incoming_count) {
+            emailStore.old_incoming_count = emailStore.incoming_count;
+            this.notification(emailStore.incoming_count)
+        }
+
+        
+    }
+
+    notification = (text) => {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+                }
+            });
+        }
     }
 
     selectedListLetters = []
 
+    /**
+     * Функция, регулирующая отображение ошибки
+     */
     hideError = () => {
         const oldError = this.#parent
             .querySelector('.letter__error');
         oldError.classList.remove('appear');
     };
 
+    /**
+     * Функция, регулирующая отображения всех всплывающих окон на странице
+     */
     handleDropdowns(e) {
         const target = e.target;
 
@@ -98,11 +129,17 @@ export default class Main {
         await dispathcher.do(actionLogout());
     };
 
+    /**
+     * Функция перехода на страницу профиля
+     */
     handleProfile = (e) => {
         e.preventDefault();
         dispathcher.do(actionRedirect('/profile', true));
     };
 
+    /**
+     * Функция перехода на страницу письма
+     */
     handleLetter = async (e, id) => {
         e.preventDefault();
         const letters = this.#config.content.list_letters;
@@ -120,6 +157,9 @@ export default class Main {
         dispathcher.do(actionRedirect('/stat', true));
     };
 
+    /**
+     * Функция отображения хедера
+     */
     handleHeader() {
         const unselectedButtons = {
             select_all: document.querySelector('#select-all'),
@@ -133,6 +173,9 @@ export default class Main {
             mark_as_read: document.querySelector('#mark-as-read'),
             mark_as_unread: document.querySelector('#mark-as-unread'),
         };
+        if (this.#config.folderNumber) {
+            selectedButtons.move_from = document.querySelector('#move-from');
+        }
 
         if (this.selectedListLetters.length > 0) {
             Object.values(selectedButtons).forEach(button => {
@@ -152,6 +195,9 @@ export default class Main {
         }
     }
 
+    /**
+     * Функция выделения одного письма
+     */
     handleCheckbox = (e, id) => {
         e.preventDefault();
         e.stopPropagation();
@@ -177,6 +223,9 @@ export default class Main {
         this.handleHeader();
     }
 
+    /**
+     * Функция отметки одного письма прочитанным/непрочитанным
+     */
     handleStatus = async (e, id) => {
         e.preventDefault();
         e.stopPropagation();
@@ -201,6 +250,9 @@ export default class Main {
         dispathcher.do(actionUpdateEmail(id, value));
     }
 
+    /**
+     * Функция выделения всех писем
+     */
     handleSelectAll = (e) => {
         e.preventDefault();
 
@@ -218,6 +270,9 @@ export default class Main {
         this.handleHeader();
     }
 
+    /**
+     * Функция отмены выделения
+     */
     handleDeselect = (e) => {
         e.preventDefault();
 
@@ -234,6 +289,9 @@ export default class Main {
         this.handleHeader();
     }
 
+    /**
+     * Функция отметки всех писем непрочитанными
+     */
     handleMarkAllAsRead = (e) => {
         this.hideError();
         e.preventDefault();
@@ -261,6 +319,9 @@ export default class Main {
         })
     }
 
+    /**
+     * Функция удаления письма
+     */
     handleDelete = (e) => {
         this.hideError();
         e.preventDefault();
@@ -274,6 +335,26 @@ export default class Main {
         this.handleHeader();
     }
 
+    /**
+     * Функция удаления письма из папки
+     */
+    handleDeleteFolder = (e) => {
+        this.hideError();
+        e.preventDefault();
+        this.selectedListLetters.forEach(item => {
+            const value = {
+                emailId: Number(item.dataset.id),
+                folderId: Number(this.#config.folderNumber),
+            }
+            dispathcher.do(actionDeleteLetterFromFolder(value));
+        });
+        this.handleDeselect(e);
+        this.handleHeader();
+    }
+
+    /**
+     * Функция отметки выделенных писем прочитанными
+     */
     handleMarkAsRead = (e) => {
         this.hideError();
         e.preventDefault();
@@ -301,6 +382,27 @@ export default class Main {
         this.handleDeselect(e);
     }
 
+    /**
+     * Функция отметки выделенных писем спамом
+     */
+    handleSpam = (e) => {
+        this.hideError();
+        e.preventDefault();
+        const selectedIds = this.selectedListLetters.map(letter => letter.dataset.id);
+        const letters = this.#config.content.list_letters;
+        letters.forEach(item => {
+            if (selectedIds.includes(String(item.id))) {
+                item.spamStatus = !item.spamStatus;
+                dispathcher.do(actionUpdateEmail(item.id, item, true));
+            }
+        })
+        this.handleDeselect(e);
+        this.handleHeader();
+    }
+
+    /**
+     * Функция отметки выделенных писем непрочитанными
+     */
     handleMarkAsUnread = (e) => {
         this.hideError();
         e.preventDefault();
@@ -325,6 +427,9 @@ export default class Main {
         this.handleDeselect(e);
     }
 
+    /**
+     * Функция отображения окна опросника
+     */
     handleShowSurvey = async (e) => {
         e.preventDefault();
 
@@ -334,26 +439,22 @@ export default class Main {
         iframe.height = '300';
         iframe.width = '400';
 
-        var insertAfterElement = document.querySelector('.main__control-buttons');
+        let insertAfterElement = document.querySelector('.main__control-buttons');
         insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
     }
 
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+    /**
+     * Функция всплывания окна меню для мобильной версии
+     */
+    
 
+    /**
+     * Функция перемещения письма в папку
+     */
     handleSaveFolder = (e, id) => {
         this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
-            const letter = document.querySelectorAll(`[data-id="${item.dataset.id}"]`);
-
             const value = {
                 emailId: Number(item.dataset.id),
                 folderId: Number(id),
@@ -369,19 +470,11 @@ export default class Main {
      */
     addListeners() {
         this.#config.menu.component.addListeners();
-        // this.#parent
-        //     .querySelector('.main__collapse-rollup-button')
-        //     .addEventListener('click', this.handleShowSurvey);
-
+        this.#config.header.component.addListeners();
 
         this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         })
-
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
-
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
@@ -403,9 +496,17 @@ export default class Main {
         this.#parent
             .querySelector('#delete')
             .addEventListener('click', this.handleDelete);
+        if (this.#config.folderNumber) {
+            this.#parent
+                .querySelector('#move-from')
+                .addEventListener('click', this.handleDeleteFolder);
+        }
         this.#parent
             .querySelector('#mark-as-read')
             .addEventListener('click', this.handleMarkAsRead);
+        this.#parent
+            .querySelector('#spam')
+            .addEventListener('click', this.handleSpam);
         this.#parent
             .querySelector('#mark-as-unread')
             .addEventListener('click', this.handleMarkAsUnread);
@@ -428,6 +529,7 @@ export default class Main {
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('logout', this.handleExitResponse)
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
+        mediator.on('updateSpam', this.handleSpamResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
         mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
 
@@ -462,9 +564,17 @@ export default class Main {
         this.#parent
             .querySelector('#delete')
             .removeEventListener('click', this.handleDelete);
+        if (this.#config.folderNumber) {
+            this.#parent
+                .querySelector('#move-from')
+                .removeEventListener('click', this.handleDeleteFolder);
+        }
         this.#parent
             .querySelector('#mark-as-read')
             .removeEventListener('click', this.handleMarkAsRead);
+        this.#parent
+            .querySelector('#spam')
+            .removeEventListener('click', this.handleSpam);
         this.#parent
             .querySelector('#mark-as-unread')
             .removeEventListener('click', this.handleMarkAsUnread);
@@ -487,11 +597,15 @@ export default class Main {
         this.#parent.removeEventListener('click', this.handleDropdowns);
         mediator.off('logout', this.handleExitResponse)
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
+        mediator.off('updateSpam', this.handleSpamResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
 
     }
 
+    /**
+     * Функция обработки ответа на запрос выхода из аккаунта
+     */
     handleExitResponse = (status) => {
         switch (status) {
             case 200:
@@ -502,10 +616,14 @@ export default class Main {
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос обновления письма
+     */
     handleUpdateEmailResponse = (status) => {
+        const counter = this.#parent.querySelector('.menu__default-folder__counter');
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
-                const counter = this.#parent.querySelector('.menu__default-folder__counter');
                 if (emailStore.incoming_count > 0) {
                     counter.textContent = emailStore.incoming_count;
                 } else {
@@ -513,25 +631,50 @@ export default class Main {
                 }
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос удаления письма
+     */
     handleDeleteEmailResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
         switch (status) {
             case 200:
                 break;
             default:
-                const error = this.#parent.querySelector('.letter__error');
                 error.textContent = 'Проблема на нашей стороне, уже исправляем';
                 error.classList.add('appear');
                 break;
         }
     }
 
+    /**
+     * Функция обработки ответа на запрос добавления письма в спам
+     */
+    handleSpamResponse = (status) => {
+        const error = this.#parent.querySelector('.letter__error');
+        switch (status) {
+            case 200:
+                if (this.#config.spam) {
+                    dispathcher.do(actionRedirect('/main', true));
+                } else {
+                    dispathcher.do(actionRedirect('/main', false));
+                }
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
+                break;
+        }
+    }
+
+    /**
+     * Функция обработки ответа на запрос добавления письма в папку
+     */
     handleAddEmailToFolderResponse = ({ status, id }) => {
         switch (status) {
             case 200:

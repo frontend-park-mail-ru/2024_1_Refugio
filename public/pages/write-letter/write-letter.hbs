@@ -1,7 +1,8 @@
 <div class="write-letter-root">
     {{{header}}}
     {{{menu}}}
-    <div class="write-letter-content">
+    <div {{#if list_attachments}} class="write-letter-content_with-attachments" {{else}} class="write-letter-content"
+        {{/if}}>
         <div class="write-letter__to">
             <div class="write-letter__to__label">Кому</div>
             {{#if replyId}}
@@ -19,10 +20,12 @@
         <div class="write-letter__subject">
             <span class="write-letter__subject__label">Тема</span>
             {{#if replyId}}
-            <input type="text" class="write-letter__subject__input" value="{{topic}}" placeholder="О чём хотите написать?">
+            <input type="text" class="write-letter__subject__input" value="{{topic}}"
+                placeholder="О чём хотите написать?">
             {{else}}
             {{#if changeDraft}}
-            <input type="text" class="write-letter__subject__input" value="{{topic}}" placeholder="О чём хотите написать?">
+            <input type="text" class="write-letter__subject__input" value="{{topic}}"
+                placeholder="О чём хотите написать?">
             {{else}}
             <input type="text" class="write-letter__subject__input" placeholder="О чём хотите написать?">
             {{/if}}
@@ -30,86 +33,26 @@
             <div class="write-letter__subject__error">Ошибка</div>
         </div>
 
-        {{!--
-        ИСПРАВИТЬ ПОТОМ CSS <div class="write-letter__attachments">
+
+        <div class="write-letter__attachments">
+            <input type="file" value="Выберите файл" class="write-letter__attachments__attach-input">
             <div class="write-letter__attachments__attach-button">Прикрепить файл</div>
             <div class="write-letter__attachments__view-button">
-                <span class="write-letter__attachments__view-button__label">5 файлов</span>
-                <span class="write-letter__attachments__view-button__counter">255 КБ</span>
+                <span class="write-letter__attachments__view-button__label"></span>
+                <span class="write-letter__attachments__view-button__counter"></span>
             </div>
             <div class="write-letter__attachments__delete-all-button">Удалить все</div>
             <div class="write-letter__attachments__error">Ошибка</div>
             <div class="write-letter__attachments__dropdown__wrapper">
                 <div class="write-letter__attachments__dropdown">
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">файл1</div>
-                        <div class="write-letter__attachments__dropdown__file__size">999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-                    <div class="write-letter__attachments__dropdown__file">
-                        <div class="write-letter__attachments__dropdown__file__name">Очень длинное название которое не
-                            влезит в строку</div>
-                        <div class="write-letter__attachments__dropdown__file__size">99999999 КБ</div>
-                        <div class="write-letter__attachments__dropdown__file__delete-button">Удалить</div>
-                    </div>
-
                 </div>
             </div>
-        </div> --}}
+        </div>
+
+
+
+
+
         {{#if replySender}}
         <textarea class="write-letter__text" placeholder="Текст письма"
             maxlength="4096">&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;Ответ на&#13;&#10;------Исходное письмо------&#13;&#10;{{date}} {{sender}}&#13;&#10;{{topic}}&#13;&#10;&#13;&#10;{{text}}&#13;&#10;------Исходное письмо------&#13;&#10;</textarea>
@@ -125,6 +68,23 @@
         {{/if}}
         {{/if}}
         {{/if}}
+
+        {{#if list_attachments}}
+        <div class="from-letter__attachments">
+            <div class="from-letter__attachments__view-button">
+                <span class="from-letter__attachments__view-button__label">{{files_number}}</span>
+                <span class="from-letter__attachments__view-button__counter">{{total_size}} МБ</span>
+            </div>
+            <div class="from-letter__attachments__download-all-button">Скачать все</div>
+            <div class="from-letter__attachments__error">Ошибка</div>
+            <div class="from-letter__attachments__dropdown__wrapper">
+                <div class="from-letter__attachments__dropdown">
+                    {{{list_attachments}}}
+                </div>
+            </div>
+        </div>
+        {{/if}}
+
 
         <div class="write-letter__buttons">
             <div class="write-letter__buttons__send-button">

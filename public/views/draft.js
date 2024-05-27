@@ -1,7 +1,6 @@
-import Main from '../pages/main/main.js';
+import Sent from '../pages/sent/sent.js';
 import BaseView from './base.js';
 import emailStore from '../stores/emailStore.js';
-import Survey from '../pages/survey/survey.js';
 import folderStore from '../stores/folderStore.js';
 
 /**
@@ -47,6 +46,7 @@ class DraftView extends BaseView {
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
         this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.login = this.#config.user.login;
         this.#config.header.avatar = this.#config.user.avatar;
         this.#config.content.list_letters = await this.getDraftsInfo();
         if (emailStore.incoming_count > 0) {
@@ -54,7 +54,7 @@ class DraftView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
-        const page = new Main(this.root, this.#config);
+        const page = new Sent(this.root, this.#config);
         this.components.push(page);
         //this.components.push(survey);
         this.render();

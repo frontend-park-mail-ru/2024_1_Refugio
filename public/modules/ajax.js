@@ -6,7 +6,7 @@
  * @param {string} contentType contentType header
  * @returns {Promise} response for request
  */
-export default async function ajax(method, url, body = null, contentType, csrf) {
+export default async function ajax(method, url, body = null, contentType, csrf, authtoken = undefined) {
     let request;
     if (method !== 'HEAD' && method !== 'GET') {
         if (contentType) {
@@ -16,6 +16,7 @@ export default async function ajax(method, url, body = null, contentType, csrf) 
                 headers: {
                     'Content-type': contentType,
                     'X-CSRF-Token': csrf,
+                    'AuthToken': authtoken,
                 },
                 credentials: 'include',
             });

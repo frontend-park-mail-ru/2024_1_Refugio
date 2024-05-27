@@ -14,12 +14,32 @@
     align-content: start;
 
     display: grid;
-    grid-template-rows: repeat(2, auto) 1fr auto;
+    grid-template-rows: repeat(3, auto) 1fr auto;
     overflow: auto;
+
+    /* width: 752px; */
+
 
     margin: 0 16px 2px 0;
     background-color: var(--box-background);
     border-radius: 8px;
+}
+
+.write-letter-content_with-attachments {
+    grid-area: content;
+    align-content: start;
+
+    display: grid;
+    grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
+    overflow: auto;
+
+    width: 752px;
+
+
+    margin: 0 16px 2px 0;
+    background-color: var(--box-background);
+    border-radius: 8px;
+
 }
 
 .write-letter__to,
@@ -101,10 +121,16 @@
     padding: 8px 0 8px 68px;
 }
 
+.write-letter__attachments__attach-input {
+    display: none;
+}
+
 .write-letter__attachments__attach-button {
     display: grid;
     align-items: center;
+    justify-self: center;
 
+    width: 150px;
     margin-right: 8px;
     padding: 4px 16px;
     height: 30px;
@@ -126,6 +152,7 @@
     grid-template-columns: repeat(2, auto);
     align-items: center;
 
+    display: none;
     margin-right: 8px;
     padding: 4px 16px;
     height: 30px;
@@ -155,7 +182,7 @@
 }
 
 .write-letter__attachments__delete-all-button {
-    display: grid;
+    display: none;
     align-items: center;
 
     padding: 4px 8px;
@@ -177,7 +204,9 @@
 .write-letter__attachments__view-button:hover,
 .write-letter__attachments__delete-all-button:hover,
 .write-letter__buttons__save-draft-button:hover,
-.write-letter__buttons__cancel-button:hover {
+.write-letter__buttons__cancel-button:hover,
+.from-letter__attachments__view-button:hover,
+.from-letter__attachments__download-all-button:hover {
     background-color: var(--main-button-secondary);
 }
 
@@ -205,11 +234,13 @@
 }
 
 .write-letter__attachments__dropdown__wrapper {
-    display: none;
+    display: grid;
     position: absolute;
     top: 32px;
     left: 68px;
     z-index: 1;
+
+    visibility: hidden;
 }
 
 .write-letter__attachments__dropdown {
@@ -428,10 +459,125 @@
 }
 
 
+.from-letter__attachments {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-column-gap: 8px;
+    justify-content: start;
+
+    padding: 8px 0 8px 68px;
+    background-color: var(--box-background);
+}
+
+.from-letter__attachments__view-button {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    align-items: center;
+
+    padding: 4px 16px;
+    height: 30px;
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+.from-letter__attachments__view-button__label {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+
+.from-letter__attachments__view-button__counter {
+    padding: 2px 0 0 8px;
+
+    color: var(--input-label-counter-icon);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+}
+
+.from-letter__attachments__download-all-button {
+    display: grid;
+    align-items: center;
+
+    padding: 4px 8px;
+    height: 30px;
+
+    border-radius: 8px;
+
+    color: var(--input-placeholder);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    cursor: pointer;
+}
+
+.from-letter__attachments__error {
+    display: grid;
+    align-items: center;
+
+    color: var(--negative);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 18px;
+
+    visibility: hidden;
+    overflow-wrap: anywhere;
+}
+
+
+.from-letter__attachments__dropdown__wrapper {
+    display: grid;
+
+    position: absolute;
+    bottom: 40px;
+    left: 68px;
+    z-index: 1;
+    visibility: hidden;
+}
+
+.from-letter__attachments__dropdown {
+    display: grid;
+    grid-template-rows: repeat(fit-content, auto);
+    align-content: start;
+    overflow: auto;
+
+    margin-top: 10px;
+    max-height: 340px;
+    width: 310px;
+    background: var(--input-background);
+    border-radius: 8px;
+    box-shadow: 0px 3px 5px -1px var(--box-background);
+}
+
+.from-letter__attachments__dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+
+.from-letter__attachments__dropdown::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.from-letter__attachments__dropdown::-webkit-scrollbar-thumb {
+    background-color: var(--input-label-counter-icon);
+    border-radius: 12px;
+}
+
+
+
 @media (max-width: 700px) {
 
     .write-letter-content {
-        margin: 0 4px 2px 0;
+        width: calc(100% - 4px);
+        margin-bottom: 2px;
     }
 
     .write-letter__buttons {

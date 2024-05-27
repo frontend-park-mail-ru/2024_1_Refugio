@@ -14,6 +14,7 @@ export default class LetterView extends BaseView {
             avatar: '',
         },
         letterNumber: undefined,
+        files: {}
     }
 
     /**
@@ -39,17 +40,19 @@ export default class LetterView extends BaseView {
         document.title = this.#config.email.topic;
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
+        this.#config.menu.letter_folders = await this.getLetterFoldersInfo(this.#config.letterNumber);
         this.#config.header.username = this.#config.user.firstname;
+        this.#config.header.login = this.#config.user.login;
         this.#config.header.avatar = this.#config.user.avatar;
         if (emailStore.incoming_count > 0) {
             this.#config.menu.incoming_count = emailStore.incoming_count;
         } else {
             this.#config.menu.incoming_count = undefined;
         }
+        this.#config.files = await this.getAttachments(this.#config.letterNumber);
         const page = new Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
         this.addListeners();
     }
-
 }

@@ -1,9 +1,11 @@
 import dispathcher from "../modules/dispathcher.js";
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
-import statStore from "../stores/statStore.js";
-import { actionGetSpam, actionGetDrafts, actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming, actionGetFolderEmails } from "../actions/userActions.js";
+import { actionGetSpam, actionGetEmail, actionGetFolders, actionGetUser, actionGetSent, actionGetIncoming, actionGetFolderEmails, actionGetLetterFolders, actionGetAttachments } from "../actions/userActions.js";
+import draftStore from "../stores/draftStore.js";
+import { actionGetDrafts } from "../actions/draftActions.js";
 import folderStore from "../stores/folderStore.js";
+import router from "../modules/router.js";
 /**
  * Класс для рендера абстрактной страницы
  * @class
@@ -25,8 +27,10 @@ export default class BaseView {
      */
     render() {
         this.components.forEach((component) => component.render());
+        router.isLoading = false;
     }
 
+   
     /**
      * Функция добавления необходимых листенеров всем элементам страницы
      */
@@ -60,42 +64,82 @@ export default class BaseView {
         return userStore.body;
     }
 
+    /**
+     * Запрашивает у сервера список папок письма
+     * @param {Number} id id письма
+     * @returns {Array<object>} список папок
+     */
+    async getLetterFoldersInfo(id) {
+        await dispathcher.do(actionGetLetterFolders(id));
+        return folderStore.letter_folders;
+    }
+
+    /**
+     * Запрашивает у сервера статистику приложения
+     * @returns {Array<object>} список писем
+     */
     async getStatInfo() {
         await dispathcher.do(actionGetStatistic());
         return statStore.stat;
     }
 
     /**
-     * Запрашивает у сервера список писем пользователся
-     * @returns {Array<object>} список писем
+     * Запрашивает у сервера письмо пользователя
+     * @param {Number} id id письма
+     * @returns {object} письмо
      */
     async getEmailInfo(id) {
         await dispathcher.do(actionGetEmail(id));
         return emailStore.email;
     }
 
+    /**
+     * Запрашивает у сервера список отправленных писем пользователя
+     * @returns {Array<object>} список писем
+     */
     async getSentInfo() {
         await dispathcher.do(actionGetSent());
         return emailStore.sent;
     }
 
+    /**
+     * Запрашивает у сервера список входящих писем пользователя
+     * @returns {Array<object>} список писем
+     */
     async getEmailsInfo() {
         await dispathcher.do(actionGetIncoming());
         return emailStore.incoming;
     }
 
+    /**
+     * Запрашивает у сервера список черновиков пользователя
+     * @returns {Array<object>} список писем
+     */
     async getDraftsInfo() {
         await dispathcher.do(actionGetDrafts());
-        return emailStore.drafts;
+        return draftStore.drafts;
     }
 
+    /**
+     * Запрашивает у сервера список спама пользователя
+     * @returns {Array<object>} список писем
+     */
     async getSpamInfo() {
         await dispathcher.do(actionGetSpam());
         return emailStore.spam;
     }
 
+    /**
+     * Запрашивает у сервера список папок пользователя
+     * @returns {Array<object>} список папок
+     */
     async getFolderInfo(id) {
         await dispathcher.do(actionGetFolderEmails(id));
         return folderStore.emails;
+    }
+
+    async getAttachments(id) {
+        await dispathcher.do(actionGetAttachments(id));
+        return emailStore.files;
     }
 }

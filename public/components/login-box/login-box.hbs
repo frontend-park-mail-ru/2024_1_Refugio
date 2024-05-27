@@ -1,25 +1,40 @@
 <div class="login-box">
     <div class="login-box__authorization-method-switch">
-        <div class="login-box__authorization-method-switch__method login-box__authorization-method-switch__method_active">Вход в аккаунт</div>
-        <div class="login-box__authorization-method-switch__method login-box__authorization-method-switch__method_passive">Создание ящика
+        <div
+            class="login-box__authorization-method-switch__method login-box__authorization-method-switch__method_active">
+            Вход в аккаунт</div>
+        <div
+            class="login-box__authorization-method-switch__method login-box__authorization-method-switch__method_passive">
+            Создание ящика
         </div>
     </div>
 
     <div class="login-box__email-input-wrapper">
         <label>Имя ящика</label>
         <input type="text" class="login-box__email-input-wrapper__email-input" placeholder="ivanovii">
-        <input type="text" class="login-box__email-input-wrapper__email-domain-input" value="@mailhub.su" tabindex="-1" readonly>
+        {{!-- <select class="login-box__email-input-wrapper__email-domain-input" id="cars">
+            <option value="mailhub">@mailhub.su</option>
+            <option value="google">@google.com</option>
+        </select> --}}
+        <input type="text" class="login-box__email-input-wrapper__email-domain-input" value="@mailhub.su"
+            tabindex="-1" readonly>
         <div id="email-error" class="login-box__error">Ошибка</div>
     </div>
 
     <div class="login-box__password-input-wrapper">
         <label>Пароль</label>
-        <input type="password" class="login-box__password-input-wrapper__input" placeholder="●●●●●●●●">
+        <input type="password" class="login-box__password-input-wrapper__input login-box__password-input-wrapper__input-password" placeholder="●●●●●●●●">
+        <img class="eye eye_opened remove" src="/icons/eye_opened.svg">
         <div id="password-error" class="login-box__error">Ошибка</div>
     </div>
 
     <div class="login-box__login-button-wrapper">
         <div class="login-box__login-button-wrapper__button">Войти</div>
+        <div class="login-box__login-button-wrapper__vk-button">VK ID</div>
+        {{#if error}}
+        <div id="login-error" class="login-box__error show">{{error}}</div>
+        {{else}}
         <div id="login-error" class="login-box__error">Ошибка</div>
+        {{/if}}
     </div>
 </div>
