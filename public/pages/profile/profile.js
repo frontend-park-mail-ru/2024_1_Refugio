@@ -37,6 +37,8 @@ export default class Profile {
     render() {
         const config = this.#config;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
+
         const elements = {
             userLetter: this.#config.header.username.charAt(0),
             firstname: this.#config.user.firstname,
@@ -45,7 +47,7 @@ export default class Profile {
             avatar: this.#config.user.avatar,
             description: this.#config.user.description,
             phoneNumber: this.#config.user.phonenumber,
-            header: new Header(null, config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
             birthday_select: new Birthday_Select(null, config).render(),
             gender_select: new Gender_Select(null, config).render(),
@@ -518,16 +520,7 @@ export default class Profile {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
-
+   
     handleDeleteConfirm = async (e) => {
         e.preventDefault();
         console.log(this.#config.user.id);
@@ -626,10 +619,10 @@ export default class Profile {
         this.#parent
             .querySelector('.profile__buttons__delete-account-button__dropdown__yes')
             .addEventListener('click', this.handleDeleteConfirm);
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
+        
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         this.#parent
             .querySelector('.header__dropdown__logout-button')
             .addEventListener('click', this.handleExit);

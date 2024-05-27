@@ -55,7 +55,4 @@ export default class LetterView extends BaseView {
         this.render();
         this.addListeners();
     }
-
-
-
 }

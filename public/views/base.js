@@ -30,6 +30,7 @@ export default class BaseView {
         router.isLoading = false;
     }
 
+   
     /**
      * Функция добавления необходимых листенеров всем элементам страницы
      */

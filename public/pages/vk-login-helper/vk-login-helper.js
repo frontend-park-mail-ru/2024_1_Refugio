@@ -1,5 +1,5 @@
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo, actionVkLogin } from '../../actions/userActions.js';
+import { actionGetAuthUrlSignUpVK, actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo, actionVkLogin } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import router from '../../modules/router.js';
 
@@ -46,7 +46,6 @@ export default class Vk__Login__Helper {
     addListeners() {
         mediator.on('vkLogin', this.handleVkLoginResponse);
         mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse)
-        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
     }
 
     /**
@@ -54,18 +53,18 @@ export default class Vk__Login__Helper {
      */
     removeListeners() {
         mediator.off('vkLogin', this.handleVkLoginResponse);
+        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
 
-
-
-        // mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
 
     handleVkLoginResponse = (data) => {
+        console.log(data);
         switch (data.status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             case 401:
+                console.log(data.status);
                 dispathcher.do(actionGetAuthUrlSignUpVK());
                 break;
             default:
