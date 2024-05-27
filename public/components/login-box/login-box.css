@@ -134,6 +134,11 @@
     transition: background-color 0.1s ease;
 }
 
+.login-box__password-input-wrapper__input::placeholder {
+    transform: translateY(-20%);
+}
+
+
 .login-box__password-input-wrapper__input-password {
     font-size: 25px;
     letter-spacing: 1px;
