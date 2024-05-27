@@ -935,7 +935,6 @@ export default class Write__Letter {
     }
 
     handleSendResponse = ({ responseId, status }) => {
-        console.log(responseId);
         const error = this.#parent
             .querySelector('.write-letter__buttons__error');
         switch (status) {
@@ -985,7 +984,6 @@ export default class Write__Letter {
     }
 
     handleBindAttachmentToLetterResponse = (status) => {
-        console.log(this.#sendStatus)
         const error = this.#parent
             .querySelector('.write-letter__buttons__error');
         switch (status) {
@@ -1007,7 +1005,6 @@ export default class Write__Letter {
         const id = data.body.email.id;
         switch (status) {
             case 200:
-                console.log(this.#config);
                 if (this.#config.values === undefined || this.#config.values?.changeDraft === undefined) {
                     console.log('need to edit listeners');
                     this.#config.values = {

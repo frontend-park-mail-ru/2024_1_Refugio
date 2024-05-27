@@ -1,9 +1,9 @@
 .write-letter-root {
     display: grid;
     grid-template-areas:
-        'header header header'
-        'menu content .';
-    grid-template-columns: 1fr auto 1fr;
+        'header header'
+        'menu content';
+    grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
 
     height: 100%;
@@ -17,7 +17,7 @@
     grid-template-rows: repeat(3, auto) 1fr auto;
     overflow: auto;
 
-    width: 752px;
+    /* width: 752px; */
 
 
     margin: 0 16px 2px 0;
