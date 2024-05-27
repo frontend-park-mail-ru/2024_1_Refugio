@@ -78,8 +78,10 @@ class emaillStore {
         const data = await response.json();
         if (status === 200) {
             const id = data.body.email.id;
+            mediator.emit('send', { id: 400, status });
+        } else {
+            mediator.emit('send', { id: 400, status });
         }
-        mediator.emit('send', { id: 400, status });
     }
 
     /**

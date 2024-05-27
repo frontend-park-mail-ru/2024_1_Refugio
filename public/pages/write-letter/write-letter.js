@@ -402,6 +402,7 @@ export default class Write__Letter {
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
         dispathcher.do(actionSendDraft(this.#config.values?.id, newLetter));
+        this.#sendStatus = true;
     };
 
     handleDropdowns(e) {
@@ -557,7 +558,6 @@ export default class Write__Letter {
 
 
     renderAttachment = (id) => {
-        console.log(this.attachments);
         const file = this.currentFile;
         this.attachments.push({ file, id });
         const viewButton = this.#parent.querySelector('.write-letter__attachments__view-button');
@@ -597,6 +597,11 @@ export default class Write__Letter {
         } else {
             const prevTotalSize = attachmentsTotalSize.textContent.substring(0, (attachmentsTotalSize.textContent).length - 3);
             attachmentsTotalSize.textContent = String(Number(prevTotalSize) + fileSize).substring(0, 4) + ' МБ';
+        }
+        if (this.#config.values?.changeDraft) {
+            this.handleTypingDraftUpdateDebounced();
+        } else {
+            this.handleTypingDraftDebounced();
         }
     }
 
@@ -648,9 +653,20 @@ export default class Write__Letter {
             const newTotalSize = (Number(prevTotalSize) - fileSize >= 0) ? (Number(prevTotalSize) - fileSize) : 0;
             attachmentsTotalSize.textContent = String(newTotalSize).substring(0, 4) + ' МБ';
         }
+
+        if (this.#config.values?.changeDraft) {
+            this.handleTypingDraftUpdateDebounced();
+        } else {
+            this.handleTypingDraftDebounced();
+        }
     }
 
     bindAttachmnetsToLetter = async (id) => {
+        if (this.#config.files) {
+            for (let attachment of this.#config?.files) {
+                this.attachments.push(attachment);
+            }
+        }
         for (let attachment of this.attachments) {
             const attachmentId = attachment.id;
             dispathcher.do(actionBindAttachmnetsToLetter(id, attachmentId));
@@ -922,13 +938,14 @@ export default class Write__Letter {
         }
     }
 
-    handleSendResponse = ({ id, status }) => {
+    handleSendResponse = ({ responseId, status }) => {
+        console.log(responseId);
         const error = this.#parent
             .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
                 if (this.attachments.length !== 0) {
-                    this.bindAttachmnetsToLetter(id);
+                    this.bindAttachmnetsToLetter(responseId);
                 } else {
                     dispathcher.do(actionRedirect('/main', true));
                 }
@@ -972,6 +989,7 @@ export default class Write__Letter {
     }
 
     handleBindAttachmentToLetterResponse = (status) => {
+        console.log(this.#sendStatus);
         const error = this.#parent
             .querySelector('.write-letter__buttons__error');
         switch (status) {
