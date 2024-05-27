@@ -945,7 +945,7 @@ export default class Write__Letter {
             .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
-                if (this.attachments.length !== 0) {
+                if (this.attachments.length !== 0 || this.#config?.files) {
                     this.bindAttachmnetsToLetter(responseId);
                 } else {
                     dispathcher.do(actionRedirect('/main', true));
