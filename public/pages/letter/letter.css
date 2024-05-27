@@ -283,14 +283,13 @@
 
 #to-folder {
     position: relative;
+    z-index: 10;
 }
 
 .letter__header__dropdown__wrapper {
-    z-index: 10;
     display: grid;
     position: absolute;
     top: 32px;
-    /* left: 60px; */
     cursor: default;
     visibility: hidden;
 }

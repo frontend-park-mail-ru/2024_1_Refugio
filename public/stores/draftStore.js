@@ -48,6 +48,15 @@ class draftStore {
         mediator.emit('addDraft', { id, status });
     }
 
+    async typingCreate(newDraft) {
+        const response = await ajax(
+            'POST', 'https://mailhub.su/api/v1/email/adddraft', JSON.stringify(newDraft), 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+        const data = await response.json();
+        mediator.emit('typingAddDraft', { data, status });
+    }
+
     /**
      * Функция формирования запроса отправки черновика на сервере
      */
@@ -57,15 +66,18 @@ class draftStore {
         );
         const status = await response.status;
         const data = await response.json();
-        const responseId = data.body.email.id;
         if (status === 200) {
+            const responseId = data.body.email.id;
+
             const response = await ajax(
                 'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
             );
             const status = await response.status;
+            console.log(responseId);
+
             mediator.emit('send', { responseId, status });
         } else {
-            mediator.emit('send', { responseId, status });
+            mediator.emit('send', { responseId: 400, status });
         }
     }
 
@@ -87,6 +99,23 @@ class draftStore {
             mediator.emit('send', { responseId, status });
         } else {
             mediator.emit('send', { responseId, status });
+        }
+    }
+
+    async typingUpdate({ id, value }) {
+        const response = await ajax(
+            'POST', 'https://mailhub.su/api/v1/email/adddraft', JSON.stringify(value), 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+        const data = await response.json();
+        if (status === 200) {
+            const response = await ajax(
+                'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
+            );
+            const status = await response.status;
+            mediator.emit('typingSend', { data, status });
+        } else {
+            mediator.emit('typingSend', { data, status });
         }
     }
 }

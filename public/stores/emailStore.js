@@ -8,6 +8,7 @@ import mediator from "../modules/mediator.js";
  */
 class emaillStore {
     incoming
+    old_incoming_count
     incoming_count
     sent
 
@@ -35,6 +36,7 @@ class emaillStore {
         );
         const data = await response.json();
         this.incoming = data.body.emails;
+        this.old_incoming_count = this.incoming_count;
         this.incoming_count = 0;
         this.incoming.forEach((letter) => {
             if (!letter.readStatus) {
@@ -74,8 +76,12 @@ class emaillStore {
         );
         const status = await response.status;
         const data = await response.json();
-        const id = data.body.email.id;
-        mediator.emit('send', { id, status });
+        if (status === 200) {
+            const id = data.body.email.id;
+            mediator.emit('send', { id: 400, status });
+        } else {
+            mediator.emit('send', { id: 400, status });
+        }
     }
 
     /**
@@ -91,9 +97,11 @@ class emaillStore {
         } else {
             this.incoming_count += 1;
         }
+        this.old_incoming_count = this.incoming_count;
+
         if (spam) {
             mediator.emit('updateSpam', status);
-        } else{
+        } else {
             mediator.emit('updateEmail', status);
         }
     }

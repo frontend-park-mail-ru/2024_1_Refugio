@@ -7,6 +7,7 @@ import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectTo
 import template from './main.hbs'
 
 import emailStore from '../../stores/emailStore.js';
+import userStore from '../../stores/userStore.js';
 
 
 /**
@@ -34,8 +35,9 @@ export default class Main {
     render() {
         this.#config.content.sent = false;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
         const elements = {
-            header: new Header(this.#parent, this.#config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
             spam: this.#config.spam,
@@ -44,6 +46,26 @@ export default class Main {
             folder_id: this.#config.folderNumber,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
+        if (emailStore.incoming_count > emailStore.old_incoming_count) {
+            emailStore.old_incoming_count = emailStore.incoming_count;
+            this.notification(emailStore.incoming_count)
+        }
+
+        
+    }
+
+    notification = (text) => {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+                }
+            });
+        }
     }
 
     selectedListLetters = []
@@ -424,15 +446,7 @@ export default class Main {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+    
 
     /**
      * Функция перемещения письма в папку
@@ -456,19 +470,11 @@ export default class Main {
      */
     addListeners() {
         this.#config.menu.component.addListeners();
-        // this.#parent
-        //     .querySelector('.main__collapse-rollup-button')
-        //     .addEventListener('click', this.handleShowSurvey);
-
+        this.#config.header.component.addListeners();
 
         this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         })
-
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
-
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {

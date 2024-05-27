@@ -14,6 +14,10 @@
     display: none;
 }
 
+.header__mobile__log {
+    display: none;
+}
+
 .header__logo {
     /* margin-right: 12px; */
     min-width: 220px;
@@ -170,12 +174,24 @@
         width: 32px;
     }
 
-    .header__logo {
+    .header__mobile__log {
+        display: block;
+
+        min-width: 220px;
+
+        color: var(--main-button);
+
+        text-align: center;
+        transition: background-color 0.1s ease;
+
         margin: 0 4px;
-        font-size: 30px;
-        font-weight: 900;
-        letter-spacing: 7px;
-        line-height: 54px;
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 28px;
         cursor: default;
+    }
+
+    .header__logo {
+        display: none;
     }
 }
