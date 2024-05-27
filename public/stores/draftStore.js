@@ -54,6 +54,7 @@ class draftStore {
         );
         const status = await response.status;
         const data = await response.json();
+        console.log(data);
         mediator.emit('typingAddDraft', { data, status });
     }
 

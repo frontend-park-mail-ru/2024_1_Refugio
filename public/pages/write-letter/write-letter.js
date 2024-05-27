@@ -94,8 +94,6 @@ export default class Write__Letter {
                 elements.files_number = this.#calculateFilesNumber(this.#config.files.length),
                 elements.total_size = this.#calculateTotalSize(this.#config.files)
         }
-        console.log(this.#config);
-        console.log(this.#config.values?.changeDraft);
         if (this.#config.values?.text && !this.#config.values?.changeDraft) {
             elements.text = this.registerHelper(this.#config.values?.text);
         }
@@ -158,8 +156,8 @@ export default class Write__Letter {
         if (this.#config.values?.replyId) {
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
-        console.log('here');
         dispathcher.do(actionAddDraft(newLetter));
+        this.#sendStatus = true;
     };
 
 
@@ -260,7 +258,6 @@ export default class Write__Letter {
             senderEmail: this.#config.user.login,
         };
         if (this.#config.values?.replyId) {
-            console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
 
@@ -295,10 +292,10 @@ export default class Write__Letter {
             draftStatus: true,
         };
         if (this.#config.values?.replyId) {
-            console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
         dispathcher.do(actionUpdateDraft(this.#config.values?.id, newLetter));
+        this.#sendStatus = true;
     };
 
 
@@ -399,7 +396,6 @@ export default class Write__Letter {
             senderEmail: this.#config.user.login,
         };
         if (this.#config.values?.replyId) {
-            console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
         dispathcher.do(actionSendDraft(this.#config.values?.id, newLetter));
@@ -701,7 +697,6 @@ export default class Write__Letter {
             draftStatus: true,
         };
         if (this.#config.values?.replyId) {
-            console.log(this.#config.values.replyId);
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
         dispathcher.do(actionTypingUpdateDraft(this.#config.values?.id, newLetter));
@@ -990,14 +985,13 @@ export default class Write__Letter {
     }
 
     handleBindAttachmentToLetterResponse = (status) => {
-        console.log(this.#sendStatus);
+        console.log(this.#sendStatus)
         const error = this.#parent
             .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
                 if (this.#sendStatus === true) {
                     dispathcher.do(actionRedirect('/main', true));
-
                     this.#sendStatus = undefined;
                 }
                 break;
@@ -1013,7 +1007,8 @@ export default class Write__Letter {
         const id = data.body.email.id;
         switch (status) {
             case 200:
-                if (this.#config.values === undefined) {
+                console.log(this.#config);
+                if (this.#config.values === undefined || this.#config.values?.changeDraft === undefined) {
                     console.log('need to edit listeners');
                     this.#config.values = {
                         changeDraft: true,
