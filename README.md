@@ -18,5 +18,5 @@ Frontend проекта "Почта" команды Refugio
 * [Miro](https://miro.com/app/board/uXjVNq0P_Ys=/)
 
 # Наш проект
-* http://mailhub.su:8080/swagger/index.html
-* http://mailhub.su:8081
+* https://mailhub.su/swagger/index.html
+* https://mailhub.su
