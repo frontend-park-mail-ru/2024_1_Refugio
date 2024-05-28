@@ -23,22 +23,14 @@ export default class Birthday_Select {
      * рендерит компонент в DOM
      */
     render() {
-        let elements;
-        if (this.#config?.vkUser?.birthday) {
-            if (this.#config.vkUser.birthday === '0001-01-01T00:00:00Z') {
-                this.#config.vkUser.birthday = '2000-01-01T00:00:00Z';
-            }
-            elements = {
-                birthday_day: ((this.#config?.vkUser?.birthday.substr(8, 1) === '0') ? this.#config?.vkUser?.birthday.substr(9, 1) : this.#config?.vkUser?.birthday.substr(8, 2)) || 1,
-                birthday_month: this.parseMonths(Number(this.#config?.vkUser?.birthday.substr(5, 2) || 1)),
-                birthday_year: this.#config?.vkUser?.birthday.substr(0, 4) || 2024,
-            }
-        } else {
-            elements = {
-                birthday_day: ((this.#config?.user?.birthday.substr(8, 1) === '0') ? this.#config?.user?.birthday.substr(9, 1) : this.#config?.user?.birthday.substr(8, 2)) || 1,
-                birthday_month: this.parseMonths(Number(this.#config?.user?.birthday.substr(5, 2) || 1)),
-                birthday_year: this.#config?.user?.birthday.substr(0, 4) || 2024,
-            }
+        console.log(this.#config);
+        if (this.#config?.user?.birthday === '0001-01-01T00:00:00Z') {
+            this.#config.user.birthday = '2000-01-01T00:00:00Z';
+        }
+        const elements = {
+            birthday_day: ((this.#config?.user?.birthday.substr(8, 1) === '0') ? this.#config?.user?.birthday.substr(9, 1) : this.#config?.user?.birthday.substr(8, 2)) || 1,
+            birthday_month: this.parseMonths(Number(this.#config?.user?.birthday.substr(5, 2) || 1)),
+            birthday_year: this.#config?.user?.birthday.substr(0, 4) || 2024,
         }
         return template(elements);
     }
