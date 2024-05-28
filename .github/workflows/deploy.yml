@@ -43,4 +43,4 @@ jobs:
              nvm use 20.11.1
              npm install -g npm@10.2.4
              npm ci
-             sudo npm run build:prod
+             npm run build:prod
