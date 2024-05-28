@@ -3,9 +3,9 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionRedirectToWriteLetter, actionGetEmail } from '../../actions/userActions.js';
 import template from './sent.hbs'
-
+import emailStore from '../../stores/emailStore.js';
 
 /**
  * Класс обертки страницы
@@ -115,11 +115,16 @@ export default class Sent {
         const letters = this.#config.content.list_letters;
         const value = letters.find(item => String(item.id) === id);
         value.dateOfDispatch = undefined;
-        if (value.readStatus === false) {
-            value.readStatus = true;
-            dispathcher.do(actionUpdateEmail(id, value));
+        if (window.location.pathname === '/drafts') {
+            console.log(value);
+            dispathcher.do(actionRedirectToWriteLetter(true, { id: id, changeDraft: true, topic: value.topic, replySender: value.recipientEmail, sender: value.recipientEmail, date: (new Date(value.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }), text: value.text, replyId: value.replyToEmailId }));
+        } else {
+            if (value.readStatus === false) {
+                value.readStatus = true;
+                dispathcher.do(actionUpdateEmail(id, value));
+            }
+            dispathcher.do(actionRedirectToLetter(id, true));
         }
-        dispathcher.do(actionRedirectToLetter(id, true));
     };
 
     /**
@@ -254,14 +259,14 @@ export default class Sent {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    
+
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
 
-        
+
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 

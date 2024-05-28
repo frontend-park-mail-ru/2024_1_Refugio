@@ -25,23 +25,6 @@
     border-radius: 8px;
 }
 
-.write-letter-content_with-attachments {
-    grid-area: content;
-    align-content: start;
-
-    display: grid;
-    grid-template-rows: repeat(3, auto) 1fr repeat(2, auto);
-    overflow: auto;
-
-    width: 752px;
-
-
-    margin: 0 16px 2px 0;
-    background-color: var(--box-background);
-    border-radius: 8px;
-
-}
-
 .write-letter__to,
 .write-letter__subject {
     display: grid;

@@ -1,5 +1,4 @@
 export default function throttle(func, ms) {
-  console.log(func);
   let isThrottled = false,
     savedArgs,
     savedThis;
@@ -16,7 +15,7 @@ export default function throttle(func, ms) {
 
     isThrottled = true;
 
-    setTimeout(function() {
+    setTimeout(function () {
       isThrottled = false; // (3)
       if (savedArgs) {
         wrapper.apply(savedThis, savedArgs);

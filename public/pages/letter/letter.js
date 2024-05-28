@@ -432,9 +432,6 @@ export default class Letter {
             .querySelector('#delete')
             .addEventListener('click', this.handleDelete);
         this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
-        this.#parent
             .querySelector('#mark-as-read')
             .addEventListener('click', this.handleMarkAsRead);
         this.#parent

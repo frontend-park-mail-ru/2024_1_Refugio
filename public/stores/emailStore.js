@@ -77,8 +77,9 @@ class emaillStore {
         const status = await response.status;
         const data = await response.json();
         if (status === 200) {
-            const id = data.body.email.id;
-            mediator.emit('send', { id: 400, status });
+            const responseId = data.body.email.id;
+
+            mediator.emit('send', { id: responseId, status });
         } else {
             mediator.emit('send', { id: 400, status });
         }
@@ -93,7 +94,7 @@ class emaillStore {
         );
         const status = await response.status;
         if (value.readStatus) {
-            this.incoming_count -= 1;
+            this.incoming_count = Math.max(0, this.incoming_count - 1);
         } else {
             this.incoming_count += 1;
         }

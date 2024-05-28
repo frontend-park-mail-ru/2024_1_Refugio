@@ -51,18 +51,18 @@ export default class Main {
             this.notification(emailStore.incoming_count)
         }
 
-        
+
     }
 
     notification = (text) => {
         if (!("Notification" in window)) {
             alert("This browser does not support desktop notification");
         } else if (Notification.permission === "granted") {
-            const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+            const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
         } else if (Notification.permission !== "denied") {
             Notification.requestPermission().then((permission) => {
                 if (permission === "granted") {
-                    const notification = new Notification(`Новое письмо. У Вас ${text} непрочитанных писем`);
+                    const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
                 }
             });
         }
@@ -323,6 +323,7 @@ export default class Main {
      * Функция удаления письма
      */
     handleDelete = (e) => {
+        console.log('delete');
         this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
@@ -446,7 +447,7 @@ export default class Main {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    
+
 
     /**
      * Функция перемещения письма в папку

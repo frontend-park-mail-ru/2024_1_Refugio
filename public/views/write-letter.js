@@ -32,7 +32,6 @@ class WriteLetterView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage(data = undefined) {
-        console.log(data);
         if (data) {
             this.#config.values = data;
         } else {
@@ -52,8 +51,9 @@ class WriteLetterView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
-        this.#config.files = await this.getAttachments(data?.id);
-
+        if (data) {
+            this.#config.files = await this.getAttachments(data.id);
+        }
         const page = new Write__Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
