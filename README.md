@@ -11,6 +11,9 @@ Frontend проекта "Почта" команды Refugio
 * [Глеб Макаренко](https://github.com/Glibusss) - _frontend_
 * [Анастасия Львовская](https://github.com/nlfop) - _Go_
 
+# Deploy
+* [Mailhub](https://mailhub.su/)
+
 # Backend
 * [Backend](https://github.com/go-park-mail-ru/2024_1_Refugio)
 
@@ -19,4 +22,3 @@ Frontend проекта "Почта" команды Refugio
 
 # Наш проект
 * http://89.208.223.140:8080/swagger/index.html
-* http://89.208.223.140:8081
