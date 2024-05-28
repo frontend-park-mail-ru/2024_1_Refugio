@@ -22,7 +22,7 @@ jobs:
            username: ${{ secrets.USER }}
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            script: | 
-             cd ../..
+             sudo bash cd ../..
              cd var/www/html/2024_1_Refugio/
              sudo git pull
        - name: npm restart
@@ -32,7 +32,7 @@ jobs:
            username: ${{ secrets.USER }}
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            script: |
-             cd ../..
+             sudo bash cd ../..
              cd var/www/html/2024_1_Refugio/
              sudo apt update
              sudo apt install curl
