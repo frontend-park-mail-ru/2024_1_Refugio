@@ -22,6 +22,7 @@ jobs:
            username: ${{ secrets.USER }}
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            script: | 
+             sudo bash 
              cd ../..
              cd var/www/html/2024_1_Refugio/
              sudo git pull
@@ -32,11 +33,12 @@ jobs:
            username: ${{ secrets.USER }}
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            script: |
+             sudo bash 
              cd ../..
              cd var/www/html/2024_1_Refugio/
              sudo apt update
              sudo apt install curl
-             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+             curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | sudo bash
              export NVM_DIR="$HOME/.nvm"
              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
              nvm install 20.11.1
