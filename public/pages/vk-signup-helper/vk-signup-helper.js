@@ -34,12 +34,6 @@ export default class Vk__Signup__Helper {
     handleAjax = async () => {
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get("code");
-        dispathcher.do(actionVkLogin(code));
-    }
-
-    handleAjax1 = async () => {
-        const searchParams = new URLSearchParams(window.location.search);
-        const code = searchParams.get("code");
         dispathcher.do(actionGetVkAuthInfo(code));
     }
 
@@ -47,7 +41,6 @@ export default class Vk__Signup__Helper {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-        mediator.on('vkLogin', this.handleVkLoginResponse);
         mediator.on('getVkAuthInfo', this.handleVkAuthInfoResponse)
     }
 
@@ -56,18 +49,6 @@ export default class Vk__Signup__Helper {
      */
     removeListeners() {
         mediator.off('getVkAuthInfo', this.handleVkAuthInfoResponse)
-        mediator.off('vkLogin', this.handleVkLoginResponse);
-    }
-
-    handleVkLoginResponse = (data) => {
-        console.log(data);
-        switch (data.status) {
-            case 200:
-                dispathcher.do(actionRedirect('/main', true));
-                break;
-            default:
-                this.handleAjax1();
-        }
     }
 
     handleVkAuthInfoResponse = (data) => {
