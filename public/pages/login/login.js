@@ -1,7 +1,7 @@
 import Login_Box from '../../components/login-box/login-box.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogin, actionRedirect, actionGetAuthUrlLoginVK } from '../../actions/userActions.js';
+import { actionLogin, actionRedirect, actionGetAuthUrlLoginVK, actionGetAuthUrlSignUpVK } from '../../actions/userActions.js';
 import template from './login.hbs'
 
 const MAX_INPUT_LENGTH = 64;
@@ -143,7 +143,7 @@ export default class Login {
 
     handleVkLogin = async (e) => {
         e.preventDefault();
-        dispathcher.do(actionGetAuthUrlLoginVK());
+        dispathcher.do(actionGetAuthUrlSignUpVK());
     }
 
     switchEye = (e) => {
