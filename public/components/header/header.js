@@ -1,6 +1,7 @@
 import { actionRedirect } from '../../actions/userActions.js'
 import dispathcher from '../../modules/dispathcher.js';
 import template from './header.hbs'
+import mediator from '../../modules/mediator.js';
 /**
  * Класс обертки компонента
  * @class
@@ -49,6 +50,16 @@ export default class Header {
         }
     }
 
+    handleProfile = (e) => {
+        e.preventDefault();
+        dispathcher.do(actionRedirect('/profile', true));
+    };
+
+    handleExit = async (e) => {
+        e.preventDefault();
+        await dispathcher.do(actionLogout());
+    };
+
 
 
     addListeners() {
@@ -58,6 +69,13 @@ export default class Header {
         this.#parent
             .querySelector('.header__rollup-button')
             .addEventListener('click', this.handleRollUpMenu);
+        this.#parent
+            .querySelector('.header__dropdown__logout-button')
+            .addEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.header__dropdown__profile-button')
+            .addEventListener('click', this.handleProfile);
+        mediator.on('logout', this.handleExitResponse)
     }
 
     removeListeners() {
@@ -67,6 +85,23 @@ export default class Header {
         this.#parent
             .querySelector('.header__rollup-button')
             .removeEventListener('click', this.handleRollUpMenu);
+        this.#parent
+            .querySelector('.header__dropdown__logout-button')
+            .removeEventListener('click', this.handleExit);
+        this.#parent
+            .querySelector('.header__dropdown__profile-button')
+            .removeEventListener('click', this.handleProfile);
+        mediator.off('logout', this.handleExitResponse)
+    }
+
+    handleExitResponse = (status) => {
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/login', true));
+                break;
+            default:
+                break;
+        }
     }
 }
 
