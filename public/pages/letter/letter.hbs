@@ -5,7 +5,6 @@
         <div class="letter__header">
             <img id="back" src="/icons/arrow-previous.svg" alt=""
                 class="letter__header__button letter__header__back-button">
-            <div id="changeDraft" class="letter__header__button">Редактировать</div>
             <div id="delete" class="letter__header__button">Удалить</div>
 
 
@@ -39,8 +38,11 @@
 
 
             <div id="to-spam" class="letter__header__button">Спам</div>
-            <div id="mark-as-read" class="letter__header__button">Пометить прочитанным</div>
-            <div id="mark-as-unread" class="letter__header__button">Помететить непрочитанным</div>
+            <div id="mark-as-read" {{#if status}} class="letter__header__button remove" {{else}}
+                class="letter__header__button" {{/if}}>Пометить прочитанным</div>
+            <div id="mark-as-unread" {{#if status}} class="letter__header__button" {{else}}
+                class="letter__header__button remove" {{/if}}>Помететить
+                непрочитанным</div>
             <div id="reply" class="letter__header__button">Ответить</div>
             <div id="resend" class="letter__header__button">Переслать</div>
         </div>

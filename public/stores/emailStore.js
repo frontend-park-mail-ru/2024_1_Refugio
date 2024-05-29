@@ -38,11 +38,13 @@ class emaillStore {
         this.incoming = data.body.emails;
         this.old_incoming_count = this.incoming_count;
         this.incoming_count = 0;
-        this.incoming.forEach((letter) => {
-            if (!letter.readStatus) {
-                this.incoming_count += 1;
-            }
-        });
+        if (this.incoming) {
+            this.incoming.forEach((letter) => {
+                if (!letter.readStatus) {
+                    this.incoming_count += 1;
+                }
+            });
+        }
     }
 
     /**

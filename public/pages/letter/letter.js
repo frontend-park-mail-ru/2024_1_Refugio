@@ -62,7 +62,7 @@ export default class Letter {
         this.#config.header.component = new Header(this.#parent, this.#config.header);
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
-            status: this.#config.email.readStatus,
+            status: true,
             avatar: this.#config.email.photoId,
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
@@ -90,19 +90,6 @@ export default class Letter {
             elements.folders = elements.folders.filter((folder) => folder.id !== delete_folder.id);
         })
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
-        if (elements.draft) {
-            this.#parent.querySelectorAll('.letter__header__button').forEach((element) => {
-                element.style.display = 'none'
-            });
-            this.#parent.querySelector('#changeDraft').style.display = 'grid';
-        } else {
-            this.#parent.querySelectorAll('.letter__header__button').forEach((element) => {
-                element.style.display = 'grid'
-            });
-            this.#parent.querySelector('#changeDraft').style.display = 'none';
-        }
-        this.#parent.querySelector('#back').style.display = 'grid';
-        this.#parent.querySelector('#delete').style.display = 'grid';
         const btn = this.#parent.querySelector('#to-spam');
         if (this.#config.email.spamStatus === true) {
             btn.style.backgroundColor = '#393939';
@@ -217,18 +204,7 @@ export default class Letter {
     /**
      * Функция редактирования черновика
      */
-    handleChangeDraft = (e) => {
-        e.preventDefault();
-        const topic = this.#parent
-            .querySelector('.letter__subject').textContent.trim();
-        const sender = this.#parent
-            .querySelector('.letter__info__from').textContent.trim();
-        const date = this.#parent
-            .querySelector('.letter__info__date').textContent.trim();
-        const text = this.#parent
-            .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirectToWriteLetter(true, { id: this.#config.email.id, changeDraft: true, topic: topic, sender: sender, date: date, text: text }));
-    };
+   
 
     /**
      * Функция ответа на письмо
@@ -277,6 +253,8 @@ export default class Letter {
         if (value.readStatus === false) {
             value.readStatus = true;
             icon.src = '/icons/read-on-offer__256.svg';
+            document.querySelector('#mark-as-read').classList.add('remove');
+            document.querySelector('#mark-as-unread').classList.remove('remove');
             dispathcher.do(actionUpdateEmail(id, value));
         }
     }
@@ -308,9 +286,13 @@ export default class Letter {
         const id = this.#config.email.id;
         const value = this.#config.email;
         const icon = document.querySelector('.letter__info__icon');
+
         if (value.readStatus === true) {
             value.readStatus = false;
             icon.src = '/icons/read-on__256.svg';
+            document.querySelector('#mark-as-read').classList.remove('remove');
+            document.querySelector('#mark-as-unread').classList.add('remove');
+
             dispathcher.do(actionUpdateEmail(id, value));
         }
     }
@@ -446,9 +428,6 @@ export default class Letter {
         this.#parent
             .querySelector('#reply')
             .addEventListener('click', this.handleReply);
-        this.#parent
-            .querySelector('#changeDraft')
-            .addEventListener('click', this.handleChangeDraft);
         this.#parent.
             querySelector('.letter__header__back-button')
             .addEventListener('click', this.handleBack);
@@ -498,9 +477,6 @@ export default class Letter {
         this.#parent
             .querySelector('#reply')
             .removeEventListener('click', this.handleReply);
-        this.#parent
-            .querySelector('#changeDraft')
-            .removeEventListener('click', this.handleChangeDraft);
         this.#parent.
             querySelector('.letter__header__back-button')
             .removeEventListener('click', this.handleBack);

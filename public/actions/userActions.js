@@ -63,7 +63,7 @@ export const actionSend = (value) => ({
     value: value,
 })
 
-export const actionUpdateEmail = (id, value, spam) => ({
+export const actionUpdateEmail = (id, value, spam=undefined) => ({
     type: 'updateEmail',
     value: { id: id, value: value, spam: spam },
 

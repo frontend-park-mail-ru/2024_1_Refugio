@@ -281,8 +281,7 @@
     border-radius: 12px;
 }
 
-#to-folder,
-#from-folder {
+#to-folder {
     position: relative;
     z-index: 10;
 }
