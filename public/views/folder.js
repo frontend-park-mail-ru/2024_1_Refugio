@@ -61,6 +61,7 @@ export default class FolderView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
+        console.log((folderStore?.emails === undefined) && (this.#config.folderNumber));
         const page = new Main(this.root, this.#config);
         this.components.push(page);
         //this.components.push(survey);

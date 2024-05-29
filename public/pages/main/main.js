@@ -8,6 +8,7 @@ import template from './main.hbs'
 
 import emailStore from '../../stores/emailStore.js';
 import userStore from '../../stores/userStore.js';
+import folderStore from '../../stores/folderStore.js';
 
 
 /**
@@ -75,7 +76,7 @@ export default class Main {
 
         setTimeout(() => {
             notification.classList.remove('opaque')
-          }, 3000);
+        }, 3000);
     }
 
     selectedListLetters = []
