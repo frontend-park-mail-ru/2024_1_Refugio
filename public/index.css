@@ -157,6 +157,10 @@ label {
     visibility: visible;
 }
 
+.opaque {
+    opacity: 1;
+}
+
 .appear {
     display: grid;
 }

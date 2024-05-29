@@ -55,17 +55,27 @@ export default class Main {
     }
 
     notification = (text) => {
-        if (!("Notification" in window)) {
-            alert("This browser does not support desktop notification");
-        } else if (Notification.permission === "granted") {
-            const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
-        } else if (Notification.permission !== "denied") {
-            Notification.requestPermission().then((permission) => {
-                if (permission === "granted") {
-                    const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
-                }
-            });
-        }
+        // if (!("Notification" in window)) {
+        //     alert("This browser does not support desktop notification");
+        // } else if (Notification.permission === "granted") {
+        //     const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
+        // } else if (Notification.permission !== "denied") {
+        //     Notification.requestPermission().then((permission) => {
+        //         if (permission === "granted") {
+        //             const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
+        //         }
+        //     });
+        // }
+        console.log('yeah');
+        const notification = document.querySelector('.main__notification');
+        document.querySelector('.main__notification__new-letter').textContent = 'Новое письмо';
+        document.querySelector('.main__notification__counter').textContent = `Непрочитанных писем: ${text}`;
+
+        notification.classList.add('opaque')
+
+        setTimeout(() => {
+            notification.classList.remove('opaque')
+          }, 3000);
     }
 
     selectedListLetters = []
