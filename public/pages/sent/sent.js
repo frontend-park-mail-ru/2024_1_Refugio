@@ -92,22 +92,6 @@ export default class Sent {
     }
 
     /**
-     * Функция выхода из ящика
-     */
-    handleExit = async (e) => {
-        e.preventDefault();
-        await dispathcher.do(actionLogout());
-    };
-
-    /**
-     * Функция перехода на страницу профиля
-     */
-    handleProfile = (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/profile', true));
-    };
-
-    /**
      * Функция перехода на страницу письма
      */
     handleLetter = async (e, id) => {
@@ -133,15 +117,10 @@ export default class Sent {
     handleHeader() {
         const unselectedButtons = {
             select_all: document.querySelector('#select-all'),
-            // mark_all_as_read: document.querySelector('#mark-all-as-read'),
         };
         const selectedButtons = {
             deselect: document.querySelector('#deselect'),
             delete: document.querySelector('#delete'),
-            // move_to: document.querySelector('#move-to'),
-            // spam: document.querySelector('#spam'),
-            // mark_as_read: document.querySelector('#mark-as-read'),
-            // mark_as_unread: document.querySelector('#mark-as-unread'),
         };
 
         if (this.selectedListLetters.length > 0) {
@@ -265,8 +244,6 @@ export default class Sent {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
-
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 
@@ -284,36 +261,11 @@ export default class Sent {
         this.#parent
             .querySelector('#deselect')
             .addEventListener('click', this.handleDeselect);
-        // this.#parent
-        //     .querySelector('#mark-all-as-read')
-        //     .addEventListener('click', this.handleMarkAllAsRead);
-        this.#parent
-            .querySelector('#delete')
-            .addEventListener('click', this.handleDelete);
-        // this.#parent
-        //     .querySelector('#mark-as-read')
-        //     .addEventListener('click', this.handleMarkAsRead);
-        // this.#parent
-        //     .querySelector('#mark-as-unread')
-        //     .addEventListener('click', this.handleMarkAsUnread);
-
-
-
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .addEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
     }
 
@@ -334,52 +286,14 @@ export default class Sent {
             .querySelector('#select-all')
             .removeEventListener('click', this.handleSelectAll);
         this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .removeEventListener('click', this.handleStat);
-        this.#parent
             .querySelector('#deselect')
             .removeEventListener('click', this.handleDeselect);
-        // this.#parent
-        //     .querySelector('#mark-all-as-read')
-        //     .addEventListener('click', this.handleMarkAllAsRead);
-        this.#parent
-            .querySelector('#delete')
-            .removeEventListener('click', this.handleDelete);
-        // this.#parent
-        //     .querySelector('#mark-as-read')
-        //     .addEventListener('click', this.handleMarkAsRead);
-        // this.#parent
-        //     .querySelector('#mark-as-unread')
-        //     .addEventListener('click', this.handleMarkAsUnread);
-
-
-
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .removeEventListener('click', this.handleProfile);
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse)
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
-    }
-
-    /**
-     * Функция обработки ответа на запрос выхода из аккаунта
-     */
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
-                break;
-        }
     }
 
     /**

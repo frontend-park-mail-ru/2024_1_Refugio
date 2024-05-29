@@ -117,20 +117,7 @@ export default class Write__Letter {
     handleSaveForm = async (e) => {
         e.preventDefault();
 
-    };
-
-    /**
-     * Функция вызова logout действия
-     */
-    handleExit = async (e) => {
-        e.preventDefault();
-        await dispathcher.do(actionLogout());
-    };
-
-    handleProfile = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/profile', true));
-    };
+    }
 
 
     handleDraft = async (e) => {
@@ -666,19 +653,10 @@ export default class Write__Letter {
     }
 
     bindAttachmnetsToLetter = async (id) => {
-
-        // if (this.#config.files) {
-        //     for (let attachment of this.#config.files) {
-        //         this.attachments.push(attachment);
-        //     }
-        //     this.#config.files = [];
-        // }
         for (let attachment of this.attachments) {
             const attachmentId = attachment.id;
-            console.log('BINDING');
             dispathcher.do(actionBindAttachmnetsToLetter(id, attachmentId));
         }
-        // dispathcher.do(actionRedirect('/main'));
     }
 
     downloadURI = async (url, filename) => {
@@ -737,12 +715,6 @@ export default class Write__Letter {
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
         this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .addEventListener('click', this.handleProfile);
-        this.#parent
             .querySelector('.write-letter__buttons__cancel-button')
             .addEventListener('click', this.handleBack);
         if (this.#config.values?.changeDraft) {
@@ -762,7 +734,6 @@ export default class Write__Letter {
         }
 
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
         mediator.on('send', this.handleSendResponse)
         mediator.on('addDraft', this.handleSendResponse)
         mediator.on('attachFile', this.attachFileResponse);
@@ -788,12 +759,6 @@ export default class Write__Letter {
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
         this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .removeEventListener('click', this.handleProfile);
-        this.#parent
             .querySelector('.write-letter__buttons__cancel-button')
             .removeEventListener('click', this.handleBack);
         this.#parent
@@ -810,7 +775,6 @@ export default class Write__Letter {
             .removeEventListener('click', this.handleDraft);
 
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse)
         mediator.off('send', this.handleSendResponse)
         mediator.off('addDraft', this.handleSendResponse)
         mediator.off('attachFile', this.attachFileResponse);
@@ -819,15 +783,6 @@ export default class Write__Letter {
 
 
 
-    }
-
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
-        }
     }
 
     handleSendResponse = ({ id, status }) => {

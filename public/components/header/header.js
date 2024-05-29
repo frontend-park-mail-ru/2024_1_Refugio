@@ -1,4 +1,4 @@
-import { actionRedirect } from '../../actions/userActions.js'
+import { actionRedirect, actionLogout } from '../../actions/userActions.js'
 import dispathcher from '../../modules/dispathcher.js';
 import template from './header.hbs'
 import mediator from '../../modules/mediator.js';

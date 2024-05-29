@@ -67,7 +67,6 @@ export default class Main {
         //         }
         //     });
         // }
-        console.log('yeah');
         const notification = document.querySelector('.main__notification');
         document.querySelector('.main__notification__new-letter').textContent = 'Новое письмо';
         document.querySelector('.main__notification__counter').textContent = `Непрочитанных писем: ${text}`;
@@ -132,21 +131,6 @@ export default class Main {
         }
     }
 
-    /**
-     * Функция выхода из ящика
-     */
-    handleExit = async (e) => {
-        e.preventDefault();
-        await dispathcher.do(actionLogout());
-    };
-
-    /**
-     * Функция перехода на страницу профиля
-     */
-    handleProfile = (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/profile', true));
-    };
 
     /**
      * Функция перехода на страницу письма
@@ -161,12 +145,7 @@ export default class Main {
             dispathcher.do(actionUpdateEmail(id, value));
         }
         dispathcher.do(actionRedirectToLetter(id, true));
-    };
-
-    handleStat = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/stat', true));
-    };
+    }
 
     /**
      * Функция отображения хедера
@@ -439,26 +418,6 @@ export default class Main {
         this.handleDeselect(e);
     }
 
-    /**
-     * Функция отображения окна опросника
-     */
-    handleShowSurvey = async (e) => {
-        e.preventDefault();
-
-        const iframe = document.createElement('iframe');
-
-        iframe.src = 'https://mailhub.su/survey';
-        iframe.height = '300';
-        iframe.width = '400';
-
-        let insertAfterElement = document.querySelector('.main__control-buttons');
-        insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
-    }
-
-    /**
-     * Функция всплывания окна меню для мобильной версии
-     */
-
 
     /**
      * Функция перемещения письма в папку
@@ -529,17 +488,8 @@ export default class Main {
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .addEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
+
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
         mediator.on('updateSpam', this.handleSpamResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
@@ -597,35 +547,13 @@ export default class Main {
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .removeEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .removeEventListener('click', this.handleStat);
+
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse)
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('updateSpam', this.handleSpamResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
 
-    }
-
-    /**
-     * Функция обработки ответа на запрос выхода из аккаунта
-     */
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
-                break;
-        }
     }
 
     /**

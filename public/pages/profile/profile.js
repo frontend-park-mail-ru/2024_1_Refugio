@@ -407,22 +407,6 @@ export default class Profile {
         }
     }
 
-    /**
-     * Функция выхода из аккаунта
-     */
-    handleExit = async (e) => {
-        e.preventDefault();
-        await dispathcher.do(actionLogout());
-    };
-
-    /**
-     * Функция перехода на страницу статистики
-     */
-    handleStat = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/stat', true));
-    };
-
     reader = new FileReader();
 
     /**
@@ -628,10 +612,6 @@ export default class Profile {
 
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
-
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.profile__buttons__save-button')
             .addEventListener('click', this.handleSaveForm);
@@ -642,26 +622,18 @@ export default class Profile {
             .querySelector('.profile__buttons__reset-button')
             .addEventListener('click', this.handleReset);
         this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
             .querySelector('.cl-switch input')
             .addEventListener('change', this.handleCheckbox);
         this.#parent
             .querySelector('.profile__avatar-load-wrapper__avatar-set-button')
             .addEventListener('click', this.handleAvatarUpload);
         this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
-        this.#parent
             .querySelector('.profile__avatar-load-container')
             .addEventListener('click', this.handleAvatarUpload);
 
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse);
         mediator.on('updateUser', this.handleUpdateResponse);
         mediator.on('avatarUpload', this.handleAvatarResponse);
-        mediator.on('logout', this.handleExitResponse);
         mediator.on('deleteAccount', this.handleDeleteAccountResponse);
 
 
@@ -673,12 +645,6 @@ export default class Profile {
     removeListeners() {
         this.#config.menu.component.removeListeners();
         this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .removeEventListener('click', this.handleStat);
-        this.#parent
             .querySelector('.profile__buttons__save-button')
             .removeEventListener('click', this.handleSaveForm);
         this.#parent
@@ -687,9 +653,6 @@ export default class Profile {
         this.#parent
             .querySelector('.profile__buttons__reset-button')
             .removeEventListener('click', this.handleReset);
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
         this.#parent
             .querySelector('.cl-switch input')
             .removeEventListener('change', this.handleCheckbox);
@@ -701,25 +664,10 @@ export default class Profile {
             .removeEventListener('click', this.handleAvatarUpload);
 
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse);
         mediator.off('updateUser', this.handleUpdateResponse);
         mediator.off('avatarUpload', this.handleAvatarResponse);
-        mediator.off('logout', this.handleExitResponse);
         mediator.off('deleteAccount', this.handleDeleteAccountResponse);
 
-    }
-
-    /**
-     * Функция обработки ответа на запрос выхода из аккаунта
-     */
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
-                break;
-        }
     }
 
     /**
