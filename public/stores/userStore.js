@@ -1,6 +1,7 @@
 import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
 import emailStore from "./emailStore.js";
+import Websocket from "../modules/websocket.js";
 
 /**
  * Класс хранилища для пользователя и авторизации
@@ -10,6 +11,7 @@ class UserStore {
     body
     isAuth
     #csrf
+    websocket
 
     /**
      * Конструктор класса
@@ -78,6 +80,7 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
+            this.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${newUser.login}`);
         }
         this.#csrf = response.headers.get('X-Csrf-Token');
         mediator.emit('login', status);
@@ -184,6 +187,7 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
+            this.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${newUser.login}`);
         }
         this.#csrf = await response.headers.get('X-Csrf-Token');
         mediator.emit('vkSignup', status);
