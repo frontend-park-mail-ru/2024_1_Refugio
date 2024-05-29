@@ -164,6 +164,14 @@ class emaillStore {
         const data = await response.json();
         this.files = data.body.files;
     }
+
+    async sendToForeignDomain(id) {
+        const response = await ajax(
+            'POST', `https://mailhub.su/api/v1/email/${id}}/file/${EDIT_THIS}`, null, 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('sendToForeignDomain', status);
+    }
 }
 
 export default new emaillStore();

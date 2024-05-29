@@ -50,6 +50,8 @@ const handlers = [
     { type: 'getAttachments', method: emailStore.getAttachments.bind(emailStore) },
     { type: 'vkLogin', method: userStore.vkLogin.bind(userStore) },
     { type: 'deleteAccount', method: userStore.deleteAccount.bind(userStore) },
+    { type: 'sendToForeignDomain', method: emailStore.sendToForeignDomain.bind(emailStore) },
+
 ];
 
 export default handlers;

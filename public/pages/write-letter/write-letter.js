@@ -1,7 +1,7 @@
 import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionBindAttachmnetsToLetter, actionRedirect, actionSend, actionAttachFile, actionDeleteAttachment } from '../../actions/userActions.js';
+import { actionLogout, actionBindAttachmnetsToLetter, actionRedirect, actionSend, actionAttachFile, actionDeleteAttachment, actionSendToForeignDomain } from '../../actions/userActions.js';
 import { actionAddDraft, actionSendDraft, actionUpdateDraft } from '../../actions/draftActions.js';
 
 import mediator from '../../modules/mediator.js';
@@ -739,8 +739,7 @@ export default class Write__Letter {
         mediator.on('attachFile', this.attachFileResponse);
         mediator.on('deleteAttachment', this.handleDeleteAttachmentResponse);
         mediator.on('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
-
-
+        mediator.on('sendToForeignDomain', this.handleSendToForeignDomain);
 
     }
 
@@ -780,6 +779,7 @@ export default class Write__Letter {
         mediator.off('attachFile', this.attachFileResponse);
         mediator.off('deleteAttachment', this.handleDeleteAttachmentResponse);
         mediator.off('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
+        mediator.off('sendToForeignDomain', this.handleSendToForeignDomain);
 
 
 
@@ -854,7 +854,13 @@ export default class Write__Letter {
             .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
-                dispathcher.do(actionRedirect('/main', true));
+                // const toInput = document.querySelector('.write-letter__to__input');
+                // const to = toInput.value.trim();
+                // if (to.indexOf('@mailhub.su') === -1) {
+                //     dispathcher.do(actionSendToForeignDomain(id));
+                // } else {
+                    dispathcher.do(actionRedirect('/main', true));
+                // }
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
@@ -877,4 +883,31 @@ export default class Write__Letter {
         }
     }
 
+    handleSendToForeignDomain = (status) => {
+        const error = this.#parent
+            .querySelector('.write-letter__buttons__error');
+        switch (status) {
+            case 200:
+                dispathcher.do(actionRedirect('/main', true));
+                break;
+            default:
+                error.textContent = 'Проблема на нашей стороне. Уже исправляем';
+                error.classList.add('show');
+                if (this.#config.values?.changeDraft) {
+                    this.#parent
+                        .querySelector('.write-letter__buttons__send-button')
+                        .addEventListener('click', this.handleSendUpdate);
+                    this.#parent
+                        .querySelector('.write-letter__buttons__save-draft-button')
+                        .addEventListener('click', this.handleDraftUpdate);
+                } else {
+                    this.#parent
+                        .querySelector('.write-letter__buttons__send-button')
+                        .addEventListener('click', this.handleSend);
+                    this.#parent
+                        .querySelector('.write-letter__buttons__save-draft-button')
+                        .addEventListener('click', this.handleDraft);
+                }
+        }
+    }
 }

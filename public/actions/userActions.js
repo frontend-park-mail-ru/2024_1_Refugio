@@ -194,3 +194,8 @@ export const actionGetAttachments = (id) => ({
     value: id,
 })
 
+export const actionSendToForeignDomain = (id) => ({
+    type: 'sendToForeignDomain',
+    value: id,
+})
+
