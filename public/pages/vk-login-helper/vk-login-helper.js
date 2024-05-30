@@ -37,7 +37,6 @@ export default class Vk__Login__Helper {
         console.log(code);
         console.log('login helper');
         dispathcher.do(actionVkLogin(code));
-
     }
 
     notification = () => {

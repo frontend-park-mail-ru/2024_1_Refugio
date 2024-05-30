@@ -57,7 +57,7 @@ export default class Vk__Signup__Helper {
                 dispathcher.do(actionRedirect('/signup', true, data))
                 break;
             default:
-                alert('беда');
+                dispathcher.do(actionRedirect('/signup', true, "Проблема на нашей стороне, уже исправляем"));
                 break;
         }
     }

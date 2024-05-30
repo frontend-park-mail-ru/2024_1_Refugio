@@ -159,7 +159,6 @@ class UserStore {
         const response = await ajax(
             'GET', `https://mailhub.su/api/v1/testAuth/auth-vk/getAuthUrlLoginVK`, null, 'application/json', this.#csrf
         );
-
         const status = await response.status;
         const data = await response.json();
         const link = data.body.AuthURL;

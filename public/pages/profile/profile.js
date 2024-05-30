@@ -70,12 +70,6 @@ export default class Profile {
         const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent;
         const genderInput = document.querySelector('.cl-switch input')
         const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
-        console.log(bioInput);
-        const trimmedBioValue = bioInput.value.trim();
-        bioInput.value = trimmedBioValue;
-
-        console.log(bioInput);
-
         const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
         // const passwordInput = document.querySelector('.profile__password-input-wrapper__input');
         // const passwordConfirmInput = document.querySelector('.profile__password-confirm-input-wrapper__input');
