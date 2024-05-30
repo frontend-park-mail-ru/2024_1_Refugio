@@ -96,6 +96,7 @@ export default class Sent {
      */
     handleLetter = async (e, id) => {
         e.preventDefault();
+        this.hideError();
         const letters = this.#config.content.list_letters;
         const value = letters.find(item => String(item.id) === id);
         value.dateOfDispatch = undefined;
@@ -147,6 +148,7 @@ export default class Sent {
     handleCheckbox = (e, id) => {
         e.preventDefault();
         e.stopPropagation();
+        this.hideError();
         const letter = document.querySelector(`[data-id="${id}"]`);
         const avatar = letter.querySelector('.list-letter__avatar')
 
@@ -175,6 +177,7 @@ export default class Sent {
     handleStatus = async (e, id) => {
         e.preventDefault();
         e.stopPropagation();
+        this.hideError();
         const letter = document.querySelector(`[data-id="${id}"]`);
         const statusChild = letter.querySelector('.list-letter__status img');
         const statusImg = letter.querySelector('.list-letter__status-offer');
@@ -201,7 +204,7 @@ export default class Sent {
      */
     handleSelectAll = (e) => {
         e.preventDefault();
-
+        this.hideError();
         document.querySelectorAll('.list-letter').forEach(letter => {
             const avatar = letter.querySelector('.list-letter__avatar')
             letter.classList.add('selected-list-letter');
@@ -221,7 +224,7 @@ export default class Sent {
      */
     handleDeselect = (e) => {
         e.preventDefault();
-
+        this.hideError();
         document.querySelectorAll('.list-letter').forEach(letter => {
             if (letter.classList.contains('selected-list-letter')) {
                 const avatar = letter.querySelector('.list-letter__avatar')

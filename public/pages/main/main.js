@@ -616,11 +616,15 @@ export default class Main {
      * Функция обработки ответа на запрос добавления письма в папку
      */
     handleAddEmailToFolderResponse = ({ status, id }) => {
+        const error = this.#parent.querySelector('.letter__error');
+
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirectToLetter(id, true, true));
                 break;
             default:
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
                 break;
         }
     }
