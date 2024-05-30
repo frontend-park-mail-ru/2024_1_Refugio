@@ -1,6 +1,7 @@
 import userStore from "./userStore.js";
 import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
+import Websocket from "../modules/websocket.js";
 
 /**
  * Класс хранилища для писем
@@ -31,6 +32,9 @@ class emaillStore {
      * Функция формирования запроса получения списка входящих с сервера
      */
     async getIncoming() {
+        if (userStore?.isAuth && !userStore?.websocket) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
+        }
         const response = await ajax(
             'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
         );
@@ -73,6 +77,9 @@ class emaillStore {
      * Функция формирования запроса отправки письма на сервере
      */
     async send(newEmail) {
+        if (userStore?.isAuth && !userStore?.websocket) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
+        }
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
         );
