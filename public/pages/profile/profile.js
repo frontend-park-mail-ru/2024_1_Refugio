@@ -465,6 +465,7 @@ export default class Profile {
         e.preventDefault();
         if (router.canGoBack() > 1) {
             window.history.back();
+            router.historyNum -= 1;
         }
         document
             .querySelector('.profile__buttons__cancel-button')

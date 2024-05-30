@@ -455,6 +455,7 @@ export default class Write__Letter {
         e.preventDefault();
         if (router.canGoBack() > 1) {
             window.history.back();
+            router.historyNum -= 1;
         }
         document
             .querySelector('.write-letter__buttons__cancel-button')
@@ -854,13 +855,13 @@ export default class Write__Letter {
             .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
-                // const toInput = document.querySelector('.write-letter__to__input');
-                // const to = toInput.value.trim();
-                // if (to.indexOf('@mailhub.su') === -1) {
-                //     dispathcher.do(actionSendToForeignDomain(id));
-                // } else {
+                const toInput = document.querySelector('.write-letter__to__input');
+                const to = toInput.value.trim();
+                if (to.indexOf('@mailhub.su') === -1) {
+                    dispathcher.do(actionSendToForeignDomain(id));
+                } else {
                     dispathcher.do(actionRedirect('/main', true));
-                // }
+                }
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';

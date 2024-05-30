@@ -24,7 +24,7 @@ class Router {
     #authViews
     #currentView
     #redirectView
-    #historyNum
+    historyNum
     isLoading = false
 
     /**
@@ -50,14 +50,14 @@ class Router {
 
 
 
-        this.#historyNum = 0;
+        this.historyNum = 0;
     }
 
     /**
      * Функция записи путей в историю браузера
      */
     navigate({ path, state = '', pushState }) {
-        this.#historyNum += 1;
+        this.historyNum += 1;
         if (pushState) {
             window.history.pushState(state, '', `${path}`)
         } else {
@@ -69,7 +69,7 @@ class Router {
      * Функция проверки прдыдущей записи в истории
      */
     canGoBack() {
-        return this.#historyNum;
+        return this.historyNum;
     }
 
     /**
@@ -95,6 +95,9 @@ class Router {
             return '/login';
 
         }
+        if (userStore?.websocket === undefined) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+        }
         if (href === '' || href === '/' || href === '/login' || href === '/signup' || authCodeRegex.test(href)) {
             return '/main';
         } else {
@@ -112,7 +115,9 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
-
+        if (userStore.isAuth && userStore?.websocket === undefined) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+        }
         if (!this.isLoading) {
             this.isLoading = true;
             this.#currentView?.clear();
@@ -123,7 +128,10 @@ class Router {
 
     }
 
-    openWriteLetter({pushState, data }) {
+    openWriteLetter({ pushState, data }) {
+        if (userStore.isAuth && userStore?.websocket === undefined) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+        }
         if (!this.isLoading) {
             this.isLoading = true;
             this.#currentView?.clear();
@@ -131,8 +139,6 @@ class Router {
             this.#currentView = WriteLetterView;
             this.navigate({ path: `/write-letter`, state: '', pushState });
             this.#currentView.renderPage(data);
-
-            
         }
     }
 
@@ -140,6 +146,9 @@ class Router {
      * Функция перехода на адрес письма
      */
     openLetter({ id, pushState, folder }) {
+        if (userStore.isAuth && userStore?.websocket === undefined) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+        }
         if (!this.isLoading) {
             this.isLoading = true;
             this.#currentView?.clear();
@@ -175,7 +184,7 @@ class Router {
             this.#currentView = new VkLoginHelperView();
             this.navigate({ path: `/auth-vk/loginVK?code=${id}`, state: '', pushState });
             this.#currentView.renderPage();
-        }  
+        }
     }
 
     async start() {

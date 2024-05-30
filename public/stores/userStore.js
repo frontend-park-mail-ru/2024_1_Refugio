@@ -13,6 +13,7 @@ class UserStore {
     #csrf
     websocket
 
+
     /**
      * Конструктор класса
      * @constructor
@@ -80,7 +81,7 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
-            this.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${newUser.login}`);
+            // this.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${newUser.login}`);
         }
         this.#csrf = response.headers.get('X-Csrf-Token');
         mediator.emit('login', status);
@@ -186,7 +187,6 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
-            this.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${newUser.login}`);
         }
         this.#csrf = await response.headers.get('X-Csrf-Token');
         mediator.emit('vkSignup', status);

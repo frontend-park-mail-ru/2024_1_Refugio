@@ -287,10 +287,13 @@ export default class Letter {
      */
     handleBack = async (e) => {
         e.preventDefault();
-        this.removeListeners();
         if (router.canGoBack() > 1) {
             window.history.back();
+            router.historyNum -= 1;
         }
+        document
+                .querySelector('.letter__header__back-button')
+                .removeEventListener('click', this.handleBack);
     }
 
     // handleFolder = (e) => {

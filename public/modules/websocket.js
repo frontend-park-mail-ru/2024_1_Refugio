@@ -23,7 +23,22 @@ export default class Websocket {
     }
 
     #onmessage = (event) => {
+
+
+
         console.log('message', event.data);
+        // const letter = List_letter(null, {
+        //     sent: this.#config.sent,
+        //     status: letter.readStatus,
+        //     avatar: letter.photoId,
+        //     from: letter.senderEmail,
+        //     to: letter.recipientEmail,
+        //     subject: letter.topic,
+        //     text: letter.text,
+        //     date: letter.dateOfDispatch,
+        //     id: letter.id,
+        // })
+
     }
 
     #onerror = (error) => {
