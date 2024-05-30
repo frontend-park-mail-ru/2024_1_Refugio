@@ -93,7 +93,7 @@ class Router {
 
         }
         if (userStore?.websocket === undefined) {
-            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.user?.login}}`);
         }
         if (href === '' || href === '/' || href === '/login' || href === '/signup' || authCodeRegex.test(href)) {
             return '/main';
@@ -112,8 +112,8 @@ class Router {
      * Функция перехода на другой адрес
      */
     open({ path, state = '', pushState, data }) {
-        if (userStore.isAuth && userStore?.websocket === undefined) {
-            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+        if (userStore?.isAuth && userStore?.websocket === undefined) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.user?.login}}`);
         }
         if (!this.isLoading) {
             this.isLoading = true;
@@ -126,8 +126,8 @@ class Router {
     }
 
     openWriteLetter({ pushState, data }) {
-        if (userStore.isAuth && userStore?.websocket === undefined) {
-            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+        if (userStore?.isAuth && userStore?.websocket === undefined) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.user?.login}}`);
         }
         if (!this.isLoading) {
             this.isLoading = true;
@@ -143,8 +143,8 @@ class Router {
      * Функция перехода на адрес письма
      */
     openLetter({ id, pushState, folder }) {
-        if (userStore.isAuth && userStore?.websocket === undefined) {
-            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${body.user.login}`);
+        if (userStore?.isAuth && userStore?.websocket === undefined) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.user?.login}`);
         }
         if (!this.isLoading) {
             this.isLoading = true;
