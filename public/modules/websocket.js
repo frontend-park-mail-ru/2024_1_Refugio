@@ -51,7 +51,7 @@ export default class Websocket {
 
     send = (data) => {
         this.#ws.send(data);
-        console.log(send);
+        console.log(data);
     }
 
     #addEventListeners() {
