@@ -26,7 +26,9 @@ jobs:
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            script: |
              sudo bash
+             ls
              cd ../..
+             ls
              cd var/www/html/2024_1_Refugio/
              git pull
        - name: npm restart
