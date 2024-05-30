@@ -81,7 +81,7 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
-            // this.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${newUser.login}`);
+            this.body = newUser;
         }
         this.#csrf = response.headers.get('X-Csrf-Token');
         mediator.emit('login', status);
@@ -131,6 +131,9 @@ class UserStore {
             'PUT', 'https://mailhub.su/api/v1/user/update', JSON.stringify(newUser), 'application/json', this.#csrf
         );
         const status = await response.status;
+        if (status < 300) {
+            this.body = newUser;
+        }
         mediator.emit('updateUser', status);
     }
 
@@ -187,6 +190,7 @@ class UserStore {
         const status = await response.status;
         if (status < 300) {
             this.isAuth = true;
+            this.body = newUser;
         }
         this.#csrf = await response.headers.get('X-Csrf-Token');
         mediator.emit('vkSignup', status);
