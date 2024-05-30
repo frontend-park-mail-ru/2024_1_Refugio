@@ -26,10 +26,10 @@ jobs:
            key: ${{ secrets.SSH_PRIVATE_KEY }}
            script: |
              sudo bash
-             ls
              cd ../..
+             cd var/www/html/
              ls
-             cd var/www/html/2024_1_Refugio/
+             cd 2024_1_Refugio/
              git pull
        - name: npm restart
          uses: appleboy/ssh-action@master
