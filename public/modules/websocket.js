@@ -27,17 +27,16 @@ export default class Websocket {
 
 
         console.log('message', event.data);
-        // const letter = List_letter(null, {
-        //     sent: this.#config.sent,
-        //     status: letter.readStatus,
-        //     avatar: letter.photoId,
-        //     from: letter.senderEmail,
-        //     to: letter.recipientEmail,
-        //     subject: letter.topic,
-        //     text: letter.text,
-        //     date: letter.dateOfDispatch,
-        //     id: letter.id,
-        // })
+        const letter = List_letter(null, {
+            status: data.body.email.status,
+            avatar: data.body.email.photoId,
+            from: data.body.email.senderEmail,
+            to: data.body.email.recipientEmail,
+            subject: data.body.email.topic,
+            text: data.body.email.text,
+            date: data.body.email.dateOfDispatch,
+            id: data.body.email.id,
+        })
 
     }
 
