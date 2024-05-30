@@ -30,7 +30,7 @@ jobs:
              cd var/www/html/
              ls
              cd 2024_1_Refugio/
-             git pull
+             sudo git pull
        - name: npm restart
          uses: appleboy/ssh-action@master
          with:
