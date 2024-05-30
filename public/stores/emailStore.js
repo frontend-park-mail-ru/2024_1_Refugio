@@ -77,9 +77,10 @@ class emaillStore {
             'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        const data = await response.json();
+        // const data = await response.json();
         if (status === 200) {
             const responseId = data.body.email.id;
+            newEmail.id = responseId;
             userStore.websocket.send(JSON.stringify(newEmail));
             mediator.emit('send', { id: responseId, status });
         } else {

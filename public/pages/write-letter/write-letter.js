@@ -11,6 +11,7 @@ import WriteLetterView from '../../views/write-letter.js'
 import debounce from '../../modules/debounce.js';
 import List_attachments from '../../components/list-attachments/list-attachments.js'
 import throttle from '../../modules/throttle.js'
+import userStore from '../../stores/userStore.js'
 
 
 const MAX_INPUT_LENGTH = 64;
@@ -796,6 +797,7 @@ export default class Write__Letter {
                 } else {
                     dispathcher.do(actionRedirect('/main', true));
                 }
+
                 break;
             default:
                 error.textContent = 'Проблема на нашей стороне. Уже исправляем';
