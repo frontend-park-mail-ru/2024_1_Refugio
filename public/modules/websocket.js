@@ -50,6 +50,10 @@ export default class Websocket {
         console.log(event.code);
     }
 
+    send = (data) => {
+        this.#ws.send(data);
+    }
+
     #addEventListeners() {
         this.#ws.addEventListener('open', this.#onopen);
         this.#ws.addEventListener('message', this.#onmessage);
