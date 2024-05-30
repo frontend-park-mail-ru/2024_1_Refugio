@@ -251,4 +251,8 @@
         margin: 0 4px 2px;
     }
 
+    .main__notification {
+        right: 16px;
+    }
+
 }

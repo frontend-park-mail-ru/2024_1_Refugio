@@ -354,4 +354,8 @@
         margin: 0 4px 2px;
     }
 
+    .letter__attachments__dropdown {
+        width: 200px;
+    }
+
 }

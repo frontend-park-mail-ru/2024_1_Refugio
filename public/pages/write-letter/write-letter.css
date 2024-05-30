@@ -17,9 +17,6 @@
     grid-template-rows: repeat(3, auto) 1fr auto;
     overflow: auto;
 
-    /* width: 752px; */
-
-
     margin: 0 16px 2px 0;
     background-color: var(--box-background);
     border-radius: 8px;
@@ -621,5 +618,9 @@
 
     .write-letter__buttons__error {
         justify-content: center;
+    }
+
+    .write-letter__attachments__dropdown  {
+        width: 200px;
     }
 }
