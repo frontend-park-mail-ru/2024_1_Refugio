@@ -75,13 +75,18 @@ export default class Profile {
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
         const firstName = firstNameInput.value.trim();
+        firstNameInput.value = firstName;
         const middleName = middleNameInput.value.trim();
+        middleNameInput.value = middleName;
         const lastName = lastNameInput.value.trim();
+        lastNameInput.value = lastName;
         const birthday = new Date(birthdayYear, monthIndex, birthdayDay, 12);
         const birthdayString = birthday.toISOString();
         const gender = genderInput.checked ? 'Female' : 'Male';
         const bio = bioInput.value.trim();
+        bioInput.value = bio;
         let phoneNumber = phoneNumberInput.value.trim();
+        phoneNumberInput.value = phoneNumber;
        
         let oldError = this.#parent
             .querySelector('#first-name-error');

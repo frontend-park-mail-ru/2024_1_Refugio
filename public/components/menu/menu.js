@@ -205,15 +205,19 @@ export default class Menu {
         errorSign.style.display = 'none';
         switch (status) {
             case 200:
-                const smth = this.#parent.querySelector('.menu__new-folder-button')
+                const smth = this.#parent.querySelector('.menu__new-folder-button');
+                console.log(this.#config.folders);
+                console.log(folders);
                 this.#config.folders.forEach((oldFolder) => {
                     folders = folders.filter((folder) => Number(folder.id) !== Number(oldFolder.id));
                 });
+                console.log(folders);
                 const newFolder = new Folder(this.#parent, {
                     name: folders[0].name,
                     id: folders[0].id,
                 });
                 this.#config.result.push(newFolder);
+                this.#config.folders.push({name: folders[0].name, id: folders[0].id});
                 smth.insertAdjacentHTML('beforebegin', newFolder.render());
                 newFolder.addListeners();
                 this.handleFolderDropdown();
