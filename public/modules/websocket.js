@@ -1,4 +1,6 @@
 import List_letter from '../components/list-letter/list-letter.js';
+import dispathcher from './dispathcher.js';
+import {actionWebSocketListLettersUpdate} from '../actions/userActions.js'
 
 export default class Websocket {
     #ws
@@ -25,18 +27,40 @@ export default class Websocket {
     #onmessage = (event) => {
 
 
+        // status: !this.#config.status,
+        // avatar: this.#config.avatar,
+        // from: this.#config.from,
+        // subject: this.#config.subject,
+        // text: this.cleanText(this.#config.text),
+        // date: (new Date(this.#config.date)).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
+        // id: this.#config.id,
+        // userLetter: this.#config.from.charAt(0),
+
+        const config = {
+            status: event.data.readStatus,
+            // avatar: this.#config.avatar,
+            from: event.data.senderEmail,
+            subject: event.data.topic,
+            text: event.data.text,
+            // date:
+            date: (new Date()).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
+            id: event.data.id,
+            userLetter: event.data.senderEmail.charAt(0),
+        }
+
 
         console.log('message', event.data);
-        const letter = List_letter(null, {
-            status: data.body.email.status,
-            avatar: data.body.email.photoId,
-            from: data.body.email.senderEmail,
-            to: data.body.email.recipientEmail,
-            subject: data.body.email.topic,
-            text: data.body.email.text,
-            date: data.body.email.dateOfDispatch,
-            id: data.body.email.id,
-        })
+        dispathcher.do(actionWebSocketListLettersUpdate(List_letter(null, {
+            config
+            // status: event.data.readStatus,
+            // // avatar: data.body.email.photoId,
+            // from: event.data.senderEmail,
+            // to: event.data.recipientEmail,
+            // subject: event.data.topic,
+            // text: event.data.text,
+            // // date: data.body.email.dateOfDispatch,
+            // id: event.data.id,
+        }).render()));
 
     }
 

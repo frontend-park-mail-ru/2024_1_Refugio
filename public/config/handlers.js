@@ -52,6 +52,9 @@ const handlers = [
     { type: 'deleteAccount', method: userStore.deleteAccount.bind(userStore) },
     { type: 'sendToForeignDomain', method: emailStore.sendToForeignDomain.bind(emailStore) },
 
+    { type: 'webSocketListLettersUpdate', method: emailStore.webSocketListLettersUpdate.bind(emailStore) },
+
+
 ];
 
 export default handlers;

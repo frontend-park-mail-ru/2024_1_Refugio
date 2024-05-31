@@ -199,3 +199,9 @@ export const actionSendToForeignDomain = (id) => ({
     value: id,
 })
 
+export const actionWebSocketListLettersUpdate = (value) => ({
+    type: 'webSocketListLettersUpdate',
+    value: value,
+})
+
+

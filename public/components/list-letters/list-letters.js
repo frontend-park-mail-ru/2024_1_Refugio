@@ -38,7 +38,7 @@ export default class Main {
                 text: letter.text,
                 date: letter.dateOfDispatch,
                 id: letter.id,
-            }).render(),);
+            }).render());
         });
         return result;
     }

@@ -494,6 +494,7 @@ export default class Main {
         mediator.on('updateSpam', this.handleSpamResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
         mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
+        mediator.on('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
 
     }
 
@@ -553,6 +554,8 @@ export default class Main {
         mediator.off('updateSpam', this.handleSpamResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
+        mediator.off('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
+
 
     }
 
@@ -627,5 +630,9 @@ export default class Main {
                 error.classList.add('appear');
                 break;
         }
+    }
+
+    handleWebSocketListLettersUpdate = (value) => {
+        document.querySelector('.list-letters').insertAdjacentHTML('afterbegin', value);
     }
 }
