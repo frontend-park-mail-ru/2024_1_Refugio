@@ -148,7 +148,7 @@ export default class Sent {
         e.preventDefault();
         e.stopPropagation();
         this.hideError();
-        const letter = document.querySelector(`[data-id="${id}"]`);
+        const letter = document.querySelector(`#list-letter-${id}`);
         const avatar = letter.querySelector('.list-letter__avatar')
 
         if (letter.classList.contains('selected-list-letter')) {
@@ -177,7 +177,7 @@ export default class Sent {
         e.preventDefault();
         e.stopPropagation();
         this.hideError();
-        const letter = document.querySelector(`[data-id="${id}"]`);
+        const letter = document.querySelector(`#list-letter-${id}`);
         const statusChild = letter.querySelector('.list-letter__status img');
         const statusImg = letter.querySelector('.list-letter__status-offer');
         const img = document.createElement('img');
