@@ -873,7 +873,7 @@ export default class Write__Letter {
         switch (status) {
             case 200:
                 this.#filesNumber--;
-                if (this.#filesNumber === 0) {
+                if (this.#filesNumber <= 0) {
                     const toInput = document.querySelector('.write-letter__to__input');
                     const to = toInput.value.trim();
                     if (to.indexOf('@mailhub.su') === -1 && !this.#saveDraft) {
