@@ -2,6 +2,7 @@ import Letter from '../pages/letter/letter.js';
 import BaseView from './base.js';
 import folderStore from '../stores/folderStore.js';
 import emailStore from '../stores/emailStore.js';
+import Page404 from '../pages/404/404.js'
 
 /**
  * Класс для рендера страницы логина
@@ -30,14 +31,8 @@ export default class LetterView extends BaseView {
      * Функция рендера страницы
      */
     async renderPage() {
+        let page;
         this.#config.email = await this.getEmailInfo(this.#config.letterNumber);
-        if (this.#config.email.replyToEmailId) {
-            this.#config.replyEmail = await this.getEmailInfo(this.#config.email.replyToEmailId);
-        }
-        if (emailStore.incoming_count > 0) {
-            this.#config.menu.incoming_count = emailStore.incoming_count;
-        }
-        document.title = this.#config.email.topic;
         this.#config.user = await this.getUserInfo();
         this.#config.menu.folders = folderStore.folders;
         this.#config.menu.letter_folders = await this.getLetterFoldersInfo(this.#config.letterNumber);
@@ -49,8 +44,22 @@ export default class LetterView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
+        if (this.#config.email === undefined) {
+            page = new Page404(this.root, this.#config);
+            this.components.push(page);
+            this.render();
+            this.addListeners();
+            return;
+        }
+        document.title = this.#config.email.topic;
+        if (this.#config.email.replyToEmailId) {
+            this.#config.replyEmail = await this.getEmailInfo(this.#config.email.replyToEmailId);
+        }
+        if (emailStore.incoming_count > 0) {
+            this.#config.menu.incoming_count = emailStore.incoming_count;
+        }
         this.#config.files = await this.getAttachments(this.#config.letterNumber);
-        const page = new Letter(this.root, this.#config);
+        page = new Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
         this.addListeners();

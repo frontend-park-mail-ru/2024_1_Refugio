@@ -495,7 +495,7 @@ export default class Main {
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
         mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
         mediator.on('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
-
+        mediator.on('deletingFolder', this.handleDeletingFolder);
     }
 
     /**
@@ -555,8 +555,7 @@ export default class Main {
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
         mediator.off('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
-
-
+        mediator.off('deletingFolder', this.handleDeletingFolder);
     }
 
     /**
@@ -634,5 +633,17 @@ export default class Main {
 
     handleWebSocketListLettersUpdate = (value) => {
         document.querySelector('.list-letters').insertAdjacentHTML('afterbegin', value);
+    }
+
+    handleDeletingFolder = (id) => {
+        const list_node = this.#parent.querySelector(`#list-folder-${id}`);
+        list_node.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        const parent = list_node.parentNode;
+        parent.removeChild(list_node);
+        console.log(list_node);
+        console.log(parent);
+        if (parent.children.length === 0) {
+            parent.textContent = "Папок нет!";
+        }
     }
 }
