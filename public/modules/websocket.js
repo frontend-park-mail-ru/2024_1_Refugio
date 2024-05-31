@@ -50,7 +50,7 @@ export default class Websocket {
 
 
         console.log('message', event.data);
-        dispathcher.do(actionWebSocketListLettersUpdate(List_letter(null, {
+        dispathcher.do(actionWebSocketListLettersUpdate(new List_letter(null, {
             config
             // status: event.data.readStatus,
             // // avatar: data.body.email.photoId,
