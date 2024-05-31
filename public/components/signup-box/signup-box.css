@@ -258,6 +258,13 @@
     font-weight: 400;
     line-height: 20px;
     transition: background-color 0.1s ease;
+
+    
+}
+
+.signup-box__password-input-wrapper__input::placeholder,
+.signup-box__password-confirm-input-wrapper__input::placeholder {
+    transform: translateY(-20%);
 }
 
 .signup-box__password-input-wrapper__input-password {

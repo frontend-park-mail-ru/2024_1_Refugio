@@ -1,9 +1,9 @@
 .letter-root {
     display: grid;
     grid-template-areas:
-        'header header header'
-        'menu content .';
-    grid-template-columns: 1fr auto 1fr;
+        'header header'
+        'menu content ';
+    grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr;
 
     height: 100%;
@@ -19,7 +19,7 @@
 
     margin: 0 16px 2px 0;
     border-radius: 8px;
-    width: 752px;
+    /* width: 752px; */
 }
 
 .letter__error {
@@ -281,16 +281,16 @@
     border-radius: 12px;
 }
 
-#to-folder {
+#to-folder,
+#from-folder {
     position: relative;
+    z-index: 10;
 }
 
 .letter__header__dropdown__wrapper {
-    z-index: 10;
     display: grid;
     position: absolute;
     top: 32px;
-    /* left: 60px; */
     cursor: default;
     visibility: hidden;
 }
@@ -352,6 +352,10 @@
 
     .letter-content {
         margin: 0 4px 2px;
+    }
+
+    .letter__attachments__dropdown {
+        width: 200px;
     }
 
 }

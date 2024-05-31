@@ -1,5 +1,5 @@
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo, actionVkLogin } from '../../actions/userActions.js';
+import { actionGetAuthUrlSignUpVK, actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo, actionVkLogin } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import router from '../../modules/router.js';
 
@@ -37,7 +37,20 @@ export default class Vk__Login__Helper {
         console.log(code);
         console.log('login helper');
         dispathcher.do(actionVkLogin(code));
+    }
 
+    notification = () => {
+        if (!("Notification" in window)) {
+            alert("This browser does not support desktop notification");
+        } else if (Notification.permission === "granted") {
+            const notification = new Notification(`Сначала пройдите регистрацию через VK ID`);
+        } else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+                if (permission === "granted") {
+                    const notification = new Notification(`Сначала пройдите регистрацию через VK ID`);
+                }
+            });
+        }
     }
 
     /**
@@ -46,7 +59,6 @@ export default class Vk__Login__Helper {
     addListeners() {
         mediator.on('vkLogin', this.handleVkLoginResponse);
         mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse)
-        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
     }
 
     /**
@@ -54,18 +66,18 @@ export default class Vk__Login__Helper {
      */
     removeListeners() {
         mediator.off('vkLogin', this.handleVkLoginResponse);
+        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
 
-
-
-        // mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
 
     handleVkLoginResponse = (data) => {
+        console.log(data);
         switch (data.status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             case 401:
+                this.notification()
                 dispathcher.do(actionGetAuthUrlSignUpVK());
                 break;
             default:

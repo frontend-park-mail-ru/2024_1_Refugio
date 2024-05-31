@@ -627,8 +627,8 @@ export default class Signup {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));
                 break;
-            case 401:
-                errorSign.textContent = 'Такого пользователя не существует или неверно указан пароль';
+            case 400:
+                errorSign.textContent = 'Это имя ящика уже занято';
                 errorSign.classList.add('show');
                 break;
             default:

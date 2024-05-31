@@ -5,54 +5,44 @@
         <div class="letter__header">
             <img id="back" src="/icons/arrow-previous.svg" alt=""
                 class="letter__header__button letter__header__back-button">
-            <div id="changeDraft" class="letter__header__button">Редактировать</div>
             <div id="delete" class="letter__header__button">Удалить</div>
 
 
-            <div id="to-folder" class="letter__header__button">В папку</div>
-
-            <div class="letter__header__dropdown__wrapper" id="save-wrapper">
-                <div class="letter__header__dropdown">
-                    {{#if folders}}
-                    {{#each folders}}
-                    <p data-id="{{this.id}}" class="letter__folder letter__folder-save">{{this.name}}</p>
-                    {{/each}}
-                    {{else}}
-                    Нет папок!
-                    {{/if}}
+            <div id="to-folder" class="letter__header__button">В папку
+                <div class="letter__header__dropdown__wrapper" id="save-wrapper">
+                    <div class="letter__header__dropdown">
+                        {{#if folders}}
+                        {{#each folders}}
+                        <p data-id="{{this.id}}" class="letter__folder letter__folder-save">{{this.name}}</p>
+                        {{/each}}
+                        {{else}}
+                        Нет папок!
+                        {{/if}}
+                    </div>
                 </div>
             </div>
 
-            <div id="from-folder" class="letter__header__button">Убрать из папки</div>
-
-            <div class="letter__header__dropdown__wrapper" id="delete-wrapper">
-                <div class="letter__header__dropdown">
-                    {{#if delete_folders}}
-                    {{#each delete_folders}}
-                    <p data-id="{{this.id}}" class="letter__folder letter__folder-delete">{{this.name}}</p>
-                    {{/each}}
-                    {{else}}
-                    Нет папок!
-                    {{/if}}
+            <div id="from-folder" class="letter__header__button">Убрать из папки
+                <div class="letter__header__dropdown__wrapper" id="delete-wrapper">
+                    <div class="letter__header__dropdown">
+                        {{#if delete_folders}}
+                        {{#each delete_folders}}
+                        <p data-id="{{this.id}}" class="letter__folder letter__folder-delete">{{this.name}}</p>
+                        {{/each}}
+                        {{else}}
+                        Нет папок!
+                        {{/if}}
+                    </div>
                 </div>
             </div>
 
 
-
-            {{!-- <div class="dropdown__wrapper__month">
-                <div class="dropdown__month">
-                    {{#if folders}}
-                    {{#each folders}}
-                    <p data-id="{{this.id}}" class="letter__folder">{{this.name}}</p>
-                    {{/each}}
-                    {{else}}
-                    Нет папок!
-                    {{/if}}
-                </div>
-            </div> --}}
             <div id="to-spam" class="letter__header__button">Спам</div>
-            <div id="mark-as-read" class="letter__header__button">Пометить прочитанным</div>
-            <div id="mark-as-unread" class="letter__header__button">Помететить непрочитанным</div>
+            <div id="mark-as-read" {{#if status}} class="letter__header__button remove" {{else}}
+                class="letter__header__button" {{/if}}>Пометить прочитанным</div>
+            <div id="mark-as-unread" {{#if status}} class="letter__header__button" {{else}}
+                class="letter__header__button remove" {{/if}}>Помететить
+                непрочитанным</div>
             <div id="reply" class="letter__header__button">Ответить</div>
             <div id="resend" class="letter__header__button">Переслать</div>
         </div>
@@ -61,7 +51,7 @@
 
 
         <span class="letter__subject">
-            {{subject}}
+            {{{subject}}}
         </span>
         <div class="letter__info">
             {{#if status}}
@@ -89,17 +79,10 @@
             <div class="letter__attachments__dropdown__wrapper">
                 <div class="letter__attachments__dropdown">
                     {{{list_attachments}}}
-                    {{!-- <div class="letter__attachments__dropdown__file">
-                        <div class="letter__attachments__dropdown__file__name">файл1</div>
-                        <div class="letter__attachments__dropdown__file__size">999 КБ</div>
-                        <div class="letter__attachments__dropdown__file__delete-button">Скачать</div>
-                    </div> --}}
-
-
                 </div>
             </div>
         </div>
         {{/if}}
-        <div class="letter__text">{{text}}</div>
+        <div class="letter__text">{{{text}}}</div>
     </div>
 </div>

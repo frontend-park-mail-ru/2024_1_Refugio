@@ -59,6 +59,10 @@
         <div class="signup-box__signup-button-wrapper__button">Создать</div>
         <div class="signup-box__signup-button-wrapper__vk-button">VK ID</div>
 
+        {{#if error}}
+        <div id="signup-error" class="signup-box__error show">{{error}}</div>
+        {{else}}
         <div id="signup-error" class="signup-box__error">Ошибка</div>
+        {{/if}}
     </div>
 </div>

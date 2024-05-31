@@ -1,4 +1,5 @@
 import Main from '../pages/main/main.js';
+import Page404 from '../pages/404/404.js'
 import BaseView from './base.js';
 import emailStore from '../stores/emailStore.js';
 import folderStore from '../stores/folderStore.js';
@@ -61,7 +62,13 @@ export default class FolderView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
-        const page = new Main(this.root, this.#config);
+        let page;
+        if ((folderStore?.emails === undefined) && (this.#config.folderNumber)) {
+            page = new Page404(this.root, this.#config);
+
+        } else {
+            page = new Main(this.root, this.#config);
+        }
         this.components.push(page);
         //this.components.push(survey);
         this.render();

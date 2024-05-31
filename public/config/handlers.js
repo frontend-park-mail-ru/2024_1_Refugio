@@ -9,6 +9,8 @@ const handlers = [
     { type: 'navigate', method: router.navigate.bind(router) },
     { type: 'open', method: router.open.bind(router) },
     { type: 'openLetter', method: router.openLetter.bind(router) },
+    { type: 'openWriteLetter', method: router.openWriteLetter.bind(router) },
+
     { type: 'login', method: userStore.login.bind(userStore) },
     { type: 'signup', method: userStore.signup.bind(userStore) },
     { type: 'start', method: router.start.bind(router) },
@@ -32,8 +34,10 @@ const handlers = [
     { type: 'deleteLetterFromFolder', method: folderStore.deleteLetter.bind(folderStore) },
     { type: 'getDrafts', method: draftStore.getDrafts.bind(draftStore) },
     { type: 'addDraft', method: draftStore.create.bind(draftStore) },
+
     { type: 'sendDraft', method: draftStore.send.bind(draftStore) },
     { type: 'updateDraft', method: draftStore.update.bind(draftStore) },
+
     { type: 'getSpam', method: emailStore.getSpam.bind(emailStore) },
     { type: 'getAuthUrlSignUpVK', method: userStore.getAuthUrlSignUpVK.bind(userStore) },
     { type: 'getAuthUrlLoginVK', method: userStore.getAuthUrlLoginVK.bind(userStore) },
@@ -46,6 +50,11 @@ const handlers = [
     { type: 'getAttachments', method: emailStore.getAttachments.bind(emailStore) },
     { type: 'vkLogin', method: userStore.vkLogin.bind(userStore) },
     { type: 'deleteAccount', method: userStore.deleteAccount.bind(userStore) },
+    { type: 'sendToForeignDomain', method: emailStore.sendToForeignDomain.bind(emailStore) },
+
+    { type: 'webSocketListLettersUpdate', method: emailStore.webSocketListLettersUpdate.bind(emailStore) },
+
+
 ];
 
 export default handlers;

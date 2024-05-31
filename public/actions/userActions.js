@@ -23,6 +23,11 @@ export const actionRedirectToLetter = (id, pushState, folder) => ({
     value: { id: id, pushState: pushState, folder: folder },
 })
 
+export const actionRedirectToWriteLetter = (pushState, data = undefined) => ({
+    type: 'openWriteLetter',
+    value: { pushState: pushState, data: data },
+})
+
 export const actionGetUser = () => ({
     type: 'getUser',
     value: {},
@@ -58,9 +63,9 @@ export const actionSend = (value) => ({
     value: value,
 })
 
-export const actionUpdateEmail = (id, value, spam) => ({
+export const actionUpdateEmail = (id, value, spam=undefined) => ({
     type: 'updateEmail',
-    value: {id: id, value: value, spam: spam},
+    value: { id: id, value: value, spam: spam },
 
 })
 
@@ -166,7 +171,7 @@ export const actionVkLogin = (code) => ({
 
 export const actionVkAuthSignup = (newUser, authtoken) => ({
     type: 'vkSignup',
-    value: {newUser: newUser, authtoken: authtoken},
+    value: { newUser: newUser, authtoken: authtoken },
 })
 
 export const actionAttachFile = (file) => ({
@@ -188,4 +193,15 @@ export const actionGetAttachments = (id) => ({
     type: 'getAttachments',
     value: id,
 })
+
+export const actionSendToForeignDomain = (id) => ({
+    type: 'sendToForeignDomain',
+    value: id,
+})
+
+export const actionWebSocketListLettersUpdate = (value) => ({
+    type: 'webSocketListLettersUpdate',
+    value: value,
+})
+
 

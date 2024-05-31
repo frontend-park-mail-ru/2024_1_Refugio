@@ -7,6 +7,7 @@
 @import 'pages/main/main.css';
 @import 'pages/vk-signup/vk-signup.css';
 @import 'components/list-attachment/list-attachment.css';
+@import 'pages/404/404.css';
 
 
 
@@ -114,6 +115,7 @@
     padding: 0;
     border: none;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 body {
@@ -155,6 +157,10 @@ label {
 
 .show {
     visibility: visible;
+}
+
+.opaque {
+    opacity: 1;
 }
 
 .appear {

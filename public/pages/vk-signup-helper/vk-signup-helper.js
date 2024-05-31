@@ -1,5 +1,5 @@
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionSend, actionGetVkAuthInfo, actionVkLogin } from '../../actions/userActions.js';
 import mediator from '../../modules/mediator.js';
 import router from '../../modules/router.js';
 
@@ -33,21 +33,15 @@ export default class Vk__Signup__Helper {
 
     handleAjax = async () => {
         const searchParams = new URLSearchParams(window.location.search);
-
         const code = searchParams.get("code");
         dispathcher.do(actionGetVkAuthInfo(code));
-
-        // dispathcher.do(actionGetVkAuthInfo('855ab871bba885204e'));
     }
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
         mediator.on('getVkAuthInfo', this.handleVkAuthInfoResponse)
-
-        // mediator.on('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
 
     /**
@@ -55,10 +49,6 @@ export default class Vk__Signup__Helper {
      */
     removeListeners() {
         mediator.off('getVkAuthInfo', this.handleVkAuthInfoResponse)
-
-
-
-        // mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse);
     }
 
     handleVkAuthInfoResponse = (data) => {
@@ -67,7 +57,7 @@ export default class Vk__Signup__Helper {
                 dispathcher.do(actionRedirect('/signup', true, data))
                 break;
             default:
-                alert('беда');
+                dispathcher.do(actionRedirect('/signup', true, "Проблема на нашей стороне, уже исправляем"));
                 break;
         }
     }

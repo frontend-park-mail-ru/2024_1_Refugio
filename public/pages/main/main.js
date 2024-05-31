@@ -7,6 +7,8 @@ import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectTo
 import template from './main.hbs'
 
 import emailStore from '../../stores/emailStore.js';
+import userStore from '../../stores/userStore.js';
+import folderStore from '../../stores/folderStore.js';
 
 
 /**
@@ -34,8 +36,9 @@ export default class Main {
     render() {
         this.#config.content.sent = false;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
         const elements = {
-            header: new Header(this.#parent, this.#config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
             spam: this.#config.spam,
@@ -44,6 +47,35 @@ export default class Main {
             folder_id: this.#config.folderNumber,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
+        if (emailStore.incoming_count > emailStore.old_incoming_count) {
+            emailStore.old_incoming_count = emailStore.incoming_count;
+            this.notification(emailStore.incoming_count)
+        }
+
+
+    }
+
+    notification = (text) => {
+        // if (!("Notification" in window)) {
+        //     alert("This browser does not support desktop notification");
+        // } else if (Notification.permission === "granted") {
+        //     const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
+        // } else if (Notification.permission !== "denied") {
+        //     Notification.requestPermission().then((permission) => {
+        //         if (permission === "granted") {
+        //             const notification = new Notification(`Новое письмо. Непрочитанных писем: ${text}`);
+        //         }
+        //     });
+        // }
+        const notification = document.querySelector('.main__notification');
+        document.querySelector('.main__notification__new-letter').textContent = 'Новое письмо';
+        document.querySelector('.main__notification__counter').textContent = `Непрочитанных писем: ${text}`;
+
+        notification.classList.add('opaque')
+
+        setTimeout(() => {
+            notification.classList.remove('opaque')
+        }, 3000);
     }
 
     selectedListLetters = []
@@ -99,21 +131,6 @@ export default class Main {
         }
     }
 
-    /**
-     * Функция выхода из ящика
-     */
-    handleExit = async (e) => {
-        e.preventDefault();
-        await dispathcher.do(actionLogout());
-    };
-
-    /**
-     * Функция перехода на страницу профиля
-     */
-    handleProfile = (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/profile', true));
-    };
 
     /**
      * Функция перехода на страницу письма
@@ -128,12 +145,7 @@ export default class Main {
             dispathcher.do(actionUpdateEmail(id, value));
         }
         dispathcher.do(actionRedirectToLetter(id, true));
-    };
-
-    handleStat = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/stat', true));
-    };
+    }
 
     /**
      * Функция отображения хедера
@@ -301,6 +313,7 @@ export default class Main {
      * Функция удаления письма
      */
     handleDelete = (e) => {
+        console.log('delete');
         this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
@@ -405,34 +418,6 @@ export default class Main {
         this.handleDeselect(e);
     }
 
-    /**
-     * Функция отображения окна опросника
-     */
-    handleShowSurvey = async (e) => {
-        e.preventDefault();
-
-        const iframe = document.createElement('iframe');
-
-        iframe.src = 'https://mailhub.su/survey';
-        iframe.height = '300';
-        iframe.width = '400';
-
-        let insertAfterElement = document.querySelector('.main__control-buttons');
-        insertAfterElement.parentNode.insertBefore(iframe, insertAfterElement.nextSibling);
-    }
-
-    /**
-     * Функция всплывания окна меню для мобильной версии
-     */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
 
     /**
      * Функция перемещения письма в папку
@@ -456,19 +441,11 @@ export default class Main {
      */
     addListeners() {
         this.#config.menu.component.addListeners();
-        // this.#parent
-        //     .querySelector('.main__collapse-rollup-button')
-        //     .addEventListener('click', this.handleShowSurvey);
-
+        this.#config.header.component.addListeners();
 
         this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         })
-
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
-
 
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
@@ -511,21 +488,13 @@ export default class Main {
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .addEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
+
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
         mediator.on('updateSpam', this.handleSpamResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
         mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
+        mediator.on('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
 
     }
 
@@ -579,35 +548,15 @@ export default class Main {
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .removeEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .removeEventListener('click', this.handleStat);
+
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse)
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('updateSpam', this.handleSpamResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
+        mediator.off('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
 
-    }
 
-    /**
-     * Функция обработки ответа на запрос выхода из аккаунта
-     */
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
-                break;
-        }
     }
 
     /**
@@ -670,12 +619,20 @@ export default class Main {
      * Функция обработки ответа на запрос добавления письма в папку
      */
     handleAddEmailToFolderResponse = ({ status, id }) => {
+        const error = this.#parent.querySelector('.letter__error');
+
         switch (status) {
             case 200:
                 dispathcher.do(actionRedirectToLetter(id, true, true));
                 break;
             default:
+                error.textContent = 'Проблема на нашей стороне, уже исправляем';
+                error.classList.add('appear');
                 break;
         }
+    }
+
+    handleWebSocketListLettersUpdate = (value) => {
+        document.querySelector('.list-letters').insertAdjacentHTML('afterbegin', value);
     }
 }

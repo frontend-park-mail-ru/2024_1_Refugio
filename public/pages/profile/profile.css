@@ -142,6 +142,12 @@
     transition: background-color 0.1s ease;
 }
 
+.profile__password-input-wrapper__input::placeholder,
+.profile__password-confirm-input-wrapper__input::placeholder {
+    transform: translateY(-20%);
+}
+
+
 .profile__first-name-input-wrapper__input::placeholder,
 .profile__middle-name-input-wrapper__input::placeholder,
 .profile__last-name-input-wrapper__input::placeholder,

@@ -98,7 +98,7 @@
     grid-area: email-input;
 
     padding: 12px 2px 12px 12px;
-    width: 200px;
+    width: 220px;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 }
@@ -107,7 +107,7 @@
     grid-area: domain-input;
 
     padding: 12px 12px 12px 0;
-    width: 128px;
+    width: 108px;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 
@@ -133,6 +133,11 @@
 
     transition: background-color 0.1s ease;
 }
+
+.login-box__password-input-wrapper__input::placeholder {
+    transform: translateY(-20%);
+}
+
 
 .login-box__password-input-wrapper__input-password {
     font-size: 25px;

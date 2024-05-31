@@ -3,3 +3,4 @@
 .idea/
 *.precompiled.js
 /build
+.DS_Store

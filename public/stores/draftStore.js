@@ -47,7 +47,6 @@ class draftStore {
         const id = data.body.email.id;
         mediator.emit('addDraft', { id, status });
     }
-
     /**
      * Функция формирования запроса отправки черновика на сервере
      */
@@ -57,15 +56,18 @@ class draftStore {
         );
         const status = await response.status;
         const data = await response.json();
-        const responseId = data.body.email.id;
         if (status === 200) {
+            const responseId = data.body.email.id;
+
             const response = await ajax(
                 'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
             );
             const status = await response.status;
-            mediator.emit('send', { responseId, status });
+            console.log(responseId);
+
+            mediator.emit('send', { id: responseId, status });
         } else {
-            mediator.emit('send', { responseId, status });
+            mediator.emit('send', { id: 400, status });
         }
     }
 
@@ -84,9 +86,9 @@ class draftStore {
                 'DELETE', `https://mailhub.su/api/v1/email/delete/${id}`, null, 'application/json', userStore.getCsrf()
             );
             const status = await response.status;
-            mediator.emit('send', { responseId, status });
+            mediator.emit('send', { id: responseId, status });
         } else {
-            mediator.emit('send', { responseId, status });
+            mediator.emit('send', { id: responseId, status });
         }
     }
 }

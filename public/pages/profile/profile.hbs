@@ -41,7 +41,7 @@
                     {{/if}}
                     <img src="/icons/add_outline_28.svg" class="profile__avatar-load-wrapper__avatar-set-icon">
                 </div>
-                <input type="file" value="Выберите фото" class="profile__avatar-load-wrapper__avatar-load-input">
+                <input type="file" value="Выберите фото" class="profile__avatar-load-wrapper__avatar-load-input" accept="image/*">
                 <div class="profile__avatar-load-wrapper__avatar-set-button">Установить фото</div>
                 <div id="load-avatar-error" class="profile__buttons__error">Ошибка</div>
 
@@ -55,7 +55,7 @@
             </div>
             <div class="profile__phone-input-wrapper">
                 <label>Номер телефона</label>
-                <input type="text" class="profile__phone-input-wrapper__input" value="{{phoneNumber}}"
+                <input  type="tel" class="profile__phone-input-wrapper__input" pattern="[\++\-\-\(\(\)\)\.\s\d]+" value="{{phoneNumber}}"
                     placeholder="88005553535">
                 <div id="phone-error" class="profile__buttons__error">Ошибка</div>
             </div>

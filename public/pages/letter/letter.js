@@ -2,7 +2,7 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
+import { actionRedirectToWriteLetter, actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';
@@ -51,7 +51,7 @@ export default class Letter {
         files.forEach((file) => {
             result += Number(file.fileSize) / 1048576;
         });
-        return String(result).substring(0,4);
+        return String(result).substring(0, 4);
     }
 
     /**
@@ -59,21 +59,21 @@ export default class Letter {
      */
     render() {
         const config = this.#config;
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         const elements = {
-            status: this.#config.email.readStatus,
+            status: true,
             avatar: this.#config.email.photoId,
             from: this.#config.email.senderEmail,
             subject: this.#config.email.topic,
             text: this.#config.email.text,
             date: (new Date(this.#config.email.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }),
 
-            draft: this.#config.email.draftStatus,
             id: this.#config.email.id,
             replyId: this.#config.email.replyToEmailId,
             replyTopic: this.#config.replyEmail?.topic,
             userLetter: this.#config.email.senderEmail.charAt(0),
-            header: new Header(null, config.header).render(),
+            header: this.#config.header.component.render(),
             menu: this.#config.menu.component.render(),
             folders: this.#config.menu.folders,
             list_attachments: new List_attachments(null, this.#config.files).render(),
@@ -89,19 +89,6 @@ export default class Letter {
             elements.folders = elements.folders.filter((folder) => folder.id !== delete_folder.id);
         })
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
-        if (elements.draft) {
-            this.#parent.querySelectorAll('.letter__header__button').forEach((element) => {
-                element.style.display = 'none'
-            });
-            this.#parent.querySelector('#changeDraft').style.display = 'grid';
-        } else {
-            this.#parent.querySelectorAll('.letter__header__button').forEach((element) => {
-                element.style.display = 'grid'
-            });
-            this.#parent.querySelector('#changeDraft').style.display = 'none';
-        }
-        this.#parent.querySelector('#back').style.display = 'grid';
-        this.#parent.querySelector('#delete').style.display = 'grid';
         const btn = this.#parent.querySelector('#to-spam');
         if (this.#config.email.spamStatus === true) {
             btn.style.backgroundColor = '#393939';
@@ -117,14 +104,6 @@ export default class Letter {
         const oldError = this.#parent
             .querySelector('.letter__error');
         oldError.classList.remove('appear');
-    };
-
-    /**
-     * Фунция перехода на страницу статистики
-     */
-    handleStat = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/stat', true));
     };
 
     /**
@@ -182,22 +161,6 @@ export default class Letter {
     }
 
     /**
-     * Функция выхода из аккаунта
-     */
-    handleExit = async (e) => {
-        e.preventDefault();
-        await dispathcher.do(actionLogout());
-    };
-
-    /**
-     * Функция перехода на страницу профиля
-     */
-    handleProfile = async (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/profile', true));
-    };
-
-    /**
      * Функция перессылки письма
      */
     handleResend = (e) => {
@@ -210,24 +173,13 @@ export default class Letter {
             .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
             .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirect('/write_letter', true, { resend: true, topic: topic, sender: sender, date: date, text: text }));
+        dispathcher.do(actionRedirectToWriteLetter(true, { id: this.#config.email.id, resend: true, topic: topic, sender: sender, date: date, text: text }));
     };
 
     /**
      * Функция редактирования черновика
      */
-    handleChangeDraft = (e) => {
-        e.preventDefault();
-        const topic = this.#parent
-            .querySelector('.letter__subject').textContent.trim();
-        const sender = this.#parent
-            .querySelector('.letter__info__from').textContent.trim();
-        const date = this.#parent
-            .querySelector('.letter__info__date').textContent.trim();
-        const text = this.#parent
-            .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirect('/write_letter', true, { changeDraft: true, topic: topic, sender: sender, date: date, text: text, id: this.#config.email.id }));
-    };
+
 
     /**
      * Функция ответа на письмо
@@ -242,7 +194,7 @@ export default class Letter {
             .querySelector('.letter__info__date').textContent.trim();
         const text = this.#parent
             .querySelector('.letter__text').textContent.trim();
-        dispathcher.do(actionRedirect('/write_letter', true, { topic: topic, sender: sender, date: date, text: text, replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
+        dispathcher.do(actionRedirectToWriteLetter(true, { id: this.#config.email.id, topic: topic, sender: sender, date: date, text: text, replyId: this.#config.email.id, replySender: this.#config.email.senderEmail }));
     };
 
     /**
@@ -276,6 +228,8 @@ export default class Letter {
         if (value.readStatus === false) {
             value.readStatus = true;
             icon.src = '/icons/read-on-offer__256.svg';
+            document.querySelector('#mark-as-read').classList.add('remove');
+            document.querySelector('#mark-as-unread').classList.remove('remove');
             dispathcher.do(actionUpdateEmail(id, value));
         }
     }
@@ -307,9 +261,13 @@ export default class Letter {
         const id = this.#config.email.id;
         const value = this.#config.email;
         const icon = document.querySelector('.letter__info__icon');
+
         if (value.readStatus === true) {
             value.readStatus = false;
             icon.src = '/icons/read-on__256.svg';
+            document.querySelector('#mark-as-read').classList.remove('remove');
+            document.querySelector('#mark-as-unread').classList.add('remove');
+
             dispathcher.do(actionUpdateEmail(id, value));
         }
     }
@@ -329,10 +287,13 @@ export default class Letter {
      */
     handleBack = async (e) => {
         e.preventDefault();
-        this.removeListeners();
         if (router.canGoBack() > 1) {
             window.history.back();
+            router.historyNum -= 1;
         }
+        document
+                .querySelector('.letter__header__back-button')
+                .removeEventListener('click', this.handleBack);
     }
 
     // handleFolder = (e) => {
@@ -365,15 +326,7 @@ export default class Letter {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+
 
     downloadURI = async (url, filename) => {
         const response = await fetch(url);
@@ -390,7 +343,7 @@ export default class Letter {
         e.preventDefault();
         const attachment = this.#config.files.find(item => item.id == id);
         const url = attachment.fileId;
-        const fileName = attachment.id;
+        const fileName = attachment.fileName;
         await this.downloadURI(url, fileName);
     }
 
@@ -401,41 +354,11 @@ export default class Letter {
     }
 
 
-    notifyMe = () => {
-        console.log("notify");
-        if (!("Notification" in window)) {
-            // Check if the browser supports notifications
-            alert("This browser does not support desktop notification");
-        } else if (Notification.permission === "granted") {
-            // Check whether notification permissions have already been granted;
-            // if so, create a notification
-            const notification = new Notification("Hi there!");
-            // …
-        } else if (Notification.permission !== "denied") {
-            // We need to ask the user for permission
-            Notification.requestPermission().then((permission) => {
-                // If the user accepts, let's create a notification
-                if (permission === "granted") {
-                    const notification = new Notification("Hi there!");
-                    // …
-                }
-            });
-        } else {
-            console.log('huitea');
-        }
-
-        // At last, if the user has denied notifications, and you
-        // want to be respectful there is no need to bother them anymore.
-    }
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
-        this.#parent
-            .querySelector('.letter__info__from')
-            .addEventListener('click', this.notifyMe);
 
         this.#parent
             .querySelectorAll('.list-attachment').forEach((file) => {
@@ -446,10 +369,10 @@ export default class Letter {
             ?.querySelector('.letter__attachments__download-all-button')
             ?.addEventListener('click', this.downloadAllAttachments);
 
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
+
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         this.#parent.querySelectorAll('.letter__folder-save').forEach((folder) => {
             folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         });
@@ -460,17 +383,8 @@ export default class Letter {
             .querySelector('.letter__info__icon')
             .addEventListener('click', this.handleStatus);
         this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .addEventListener('click', this.handleProfile);
-        this.#parent
             .querySelector('#delete')
             .addEventListener('click', this.handleDelete);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
         this.#parent
             .querySelector('#mark-as-read')
             .addEventListener('click', this.handleMarkAsRead);
@@ -486,9 +400,6 @@ export default class Letter {
         this.#parent
             .querySelector('#reply')
             .addEventListener('click', this.handleReply);
-        this.#parent
-            .querySelector('#changeDraft')
-            .addEventListener('click', this.handleChangeDraft);
         this.#parent.
             querySelector('.letter__header__back-button')
             .addEventListener('click', this.handleBack);
@@ -496,7 +407,6 @@ export default class Letter {
         //     querySelector('#to-folder')
         //     .addEventListener('click', this.handleFolder);
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse);
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
         mediator.on('updateSpam', this.handleDeleteEmailResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
@@ -512,12 +422,6 @@ export default class Letter {
             .querySelector('.letter__info__icon')
             .removeEventListener('click', this.handleStatus);
         this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .removeEventListener('click', this.handleProfile);
-        this.#parent
             .querySelector('#delete')
             .removeEventListener('click', this.handleDelete);
         this.#parent
@@ -527,9 +431,6 @@ export default class Letter {
             .querySelector('#to-spam')
             .removeEventListener('click', this.handleSpam);
         this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .removeEventListener('click', this.handleStat);
-        this.#parent
             .querySelector('#mark-as-unread')
             .removeEventListener('click', this.handleMarkAsUnread);
         this.#parent
@@ -538,9 +439,6 @@ export default class Letter {
         this.#parent
             .querySelector('#reply')
             .removeEventListener('click', this.handleReply);
-        this.#parent
-            .querySelector('#changeDraft')
-            .removeEventListener('click', this.handleChangeDraft);
         this.#parent.
             querySelector('.letter__header__back-button')
             .removeEventListener('click', this.handleBack);
@@ -548,25 +446,12 @@ export default class Letter {
         //     querySelector('#to-folder')
         //     .removeEventListener('click', this.handleFolder);
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse);
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('updateSpam', this.handleDeleteEmailResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
     }
 
-    /**
-     * Функция обработки ответа на запрос выхода из аккаунта
-     */
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
-                break;
-        }
-    }
 
     /**
      * Функция обработки ответа на запрос изменения письма

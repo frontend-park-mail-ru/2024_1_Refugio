@@ -32,6 +32,7 @@ class SignupView extends BaseView {
             page = new Vk__Signup(this.root, this.#config);
 
         } else {
+            this.#config.error = data;
             page = new Signup(this.root, this.#config);
         }
         document.title = 'Создание ящика';

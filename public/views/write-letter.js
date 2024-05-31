@@ -23,6 +23,11 @@ class WriteLetterView extends BaseView {
         super();
     }
 
+    updateListeners = () => {
+        this.removeListeners();
+        this.addListeners();
+    }
+
     /**
      * Функция рендера страницы
      */
@@ -46,6 +51,9 @@ class WriteLetterView extends BaseView {
         } else {
             this.#config.menu.incoming_count = undefined;
         }
+        if (data) {
+            this.#config.files = await this.getAttachments(data.id);
+        }
         const page = new Write__Letter(this.root, this.#config);
         this.components.push(page);
         this.render();
@@ -53,5 +61,4 @@ class WriteLetterView extends BaseView {
     }
 
 }
-
 export default new WriteLetterView();

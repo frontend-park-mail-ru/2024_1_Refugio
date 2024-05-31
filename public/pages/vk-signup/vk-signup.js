@@ -255,7 +255,7 @@ export default class Vk__Signup {
         }
 
         const newUser = {
-            // birthday: "string",
+            birthday: birthdayString,
             firstname: firstName,
             gender: gender,
             login: email + "@mailhub.su",

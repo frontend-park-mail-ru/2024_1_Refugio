@@ -47,21 +47,45 @@
                 </div>
             </div>
         </div>
-        {{#if replySender}}
+
+
+
+
+
+        {{#if replyAndNotChangeDraft}}
+
         <textarea class="write-letter__text" placeholder="Текст письма"
             maxlength="4096">&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;Ответ на&#13;&#10;------Исходное письмо------&#13;&#10;{{date}} {{sender}}&#13;&#10;{{topic}}&#13;&#10;&#13;&#10;{{text}}&#13;&#10;------Исходное письмо------&#13;&#10;</textarea>
         {{else}}
-        {{#if resend}}
+        {{#if resendAndNotChangeDraft}}
+
         <textarea class="write-letter__text" placeholder="Текст письма"
             maxlength="4096">&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;------Пересылаемое письмо------&#13;&#10;{{date}} {{sender}}&#13;&#10;{{topic}}&#13;&#10;&#13;&#10;{{text}}&#13;&#10;------Пересылаемое письмо------&#13;&#10;</textarea>
         {{else}}
-        {{#if changeDraft}}
+            {{#if changeDraft}}
         <textarea class="write-letter__text" placeholder="Текст письма" maxlength="4096">{{text}}</textarea>
-        {{else}}
+            {{else}}
         <textarea class="write-letter__text" placeholder="Текст письма" maxlength="4096"></textarea>
         {{/if}}
         {{/if}}
         {{/if}}
+
+        {{!-- {{#if list_attachments}}
+        <div class="from-letter__attachments">
+            <div class="from-letter__attachments__view-button">
+                <span class="from-letter__attachments__view-button__label">{{files_number}}</span>
+                <span class="from-letter__attachments__view-button__counter">{{total_size}} МБ</span>
+            </div>
+            <div class="from-letter__attachments__download-all-button">Скачать все</div>
+            <div class="from-letter__attachments__error">Ошибка</div>
+            <div class="from-letter__attachments__dropdown__wrapper">
+                <div class="from-letter__attachments__dropdown">
+                    {{{list_attachments}}}
+                </div>
+            </div>
+        </div>
+        {{/if}} --}}
+
 
         <div class="write-letter__buttons">
             <div class="write-letter__buttons__send-button">

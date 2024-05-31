@@ -29,7 +29,7 @@ export default class Signup_box {
         const signup_box = {
             birthday_select: new Birthday_Select(null, this.#config).render(),
             gender_select: new Gender_Select(null, this.#config).render(),
-
+            error: this.#config.error,
         };
         return template(signup_box);
     }
