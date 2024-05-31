@@ -26,8 +26,7 @@ export default class Websocket {
 
     #onmessage = (event) => {
 
-        emailStore.incoming_count = Math.max(0, emailStore.incoming_count - 1);
-        emailStore.old_incoming_count = emailStore.incoming_count;
+        
 
         const data = JSON.parse(event.data);
         console.log(data);

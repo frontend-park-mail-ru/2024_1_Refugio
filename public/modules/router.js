@@ -12,7 +12,6 @@ import SpamView from "../views/spam.js";
 import VkSignupHelperView from "../views/vk-signup-helper.js";
 import VkLoginHelperView from "../views/vk-login-helper.js";
 import dispathcher from "./dispathcher.js";
-import Websocket from "./websocket.js";
 
 
 /**
