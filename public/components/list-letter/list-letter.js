@@ -19,9 +19,7 @@ export default class List_letter {
     }
 
     cleanText = (text) => {
-        let cleanedText = text.replaceAll("--", "").replaceAll("Исходное письмо", "").replaceAll("Ответ на", "").replaceAll("Пересылаемое письмо" ,"");
-
-
+        let cleanedText = text?.replaceAll("--", "")?.replaceAll("Исходное письмо", "")?.replaceAll("Ответ на", "")?.replaceAll("Пересылаемое письмо" ,"");
         return cleanedText;
     }
 

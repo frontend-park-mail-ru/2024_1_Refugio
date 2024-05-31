@@ -1,6 +1,6 @@
 import List_letter from '../components/list-letter/list-letter.js';
 import dispathcher from './dispathcher.js';
-import {actionWebSocketListLettersUpdate} from '../actions/userActions.js'
+import { actionWebSocketListLettersUpdate } from '../actions/userActions.js'
 
 export default class Websocket {
     #ws
@@ -37,31 +37,34 @@ export default class Websocket {
         // userLetter: this.#config.from.charAt(0),
 
         console.log(event.data);
-        const config = {
-            status: event.data.readStatus,
-            // avatar: this.#config.avatar,
-            from: event.data.senderEmail,
-            subject: event.data.topic,
-            text: event.data.text,
-            // date:
-            date: (new Date()).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
-            id: event.data.id,
-            // userLetter: event.data.senderEmail?.charAt(0),
-        }
+        // const config = {
+        //     status: event.data.readStatus,
+        //     // avatar: this.#config.avatar,
+        //     from: event.data.senderEmail,
+        //     subject: event.data.topic,
+        //     text: event.data.text,
+        //     // date:
+        //     date: (new Date()).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
+        //     id: event.data.id,
+        //     // userLetter: event.data.senderEmail?.charAt(0),
+        // }
 
 
         console.log('message', event.data);
-        dispathcher.do(actionWebSocketListLettersUpdate(new List_letter(null, {
-            config
-            // status: event.data.readStatus,
-            // // avatar: data.body.email.photoId,
-            // from: event.data.senderEmail,
-            // to: event.data.recipientEmail,
-            // subject: event.data.topic,
-            // text: event.data.text,
-            // // date: data.body.email.dateOfDispatch,
-            // id: event.data.id,
-        }).render()));
+        dispathcher.do(actionWebSocketListLettersUpdate(new List_letter(null,
+            {
+                status: event.data.readStatus,
+                // avatar: this.#config.avatar,
+                from: event.data.senderEmail,
+                to: event.data.recipientEmail,
+                subject: event.data.topic,
+                text: event.data.text,
+                // date:
+                date: (new Date()).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
+                id: event.data.id,
+                // userLetter: event.data.senderEmail?.charAt(0),
+            }
+        ).render()));
 
     }
 
