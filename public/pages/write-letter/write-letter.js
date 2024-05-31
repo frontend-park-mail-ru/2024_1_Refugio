@@ -24,6 +24,7 @@ const MAX_INPUT_LENGTH = 64;
 export default class Write__Letter {
     #parent;
     #config;
+    #filesNumber;
 
     /**
      * Конструктор класса
@@ -34,7 +35,7 @@ export default class Write__Letter {
     constructor(parent, config) {
         this.#config = config;
         this.#parent = parent;
-
+        this.#filesNumber = 0;
     }
 
     registerHelper(text) {
@@ -832,6 +833,7 @@ export default class Write__Letter {
         switch (status) {
             case 200:
                 this.renderAttachment(id);
+                this.#filesNumber++;
                 break;
             default:
                 error.textContent = 'Ошибка загрузки файла';
@@ -845,6 +847,7 @@ export default class Write__Letter {
         switch (status) {
             case 200:
                 this.renderDeleteAttachment(id);
+                this.#filesNumber--;
                 break;
             default:
                 error.textContent = 'Ошибка удаления файла';
@@ -852,17 +855,20 @@ export default class Write__Letter {
         }
     }
 
-    handleBindAttachmentToLetterResponse = (status) => {
+    handleBindAttachmentToLetterResponse = ({ status, id }) => {
         const error = this.#parent
             .querySelector('.write-letter__buttons__error');
         switch (status) {
             case 200:
-                const toInput = document.querySelector('.write-letter__to__input');
-                const to = toInput.value.trim();
-                if (to.indexOf('@mailhub.su') === -1) {
-                    dispathcher.do(actionSendToForeignDomain(id));
-                } else {
-                    dispathcher.do(actionRedirect('/main', true));
+                this.#filesNumber--;
+                if (this.#filesNumber === 0) {
+                    const toInput = document.querySelector('.write-letter__to__input');
+                    const to = toInput.value.trim();
+                    if (to.indexOf('@mailhub.su') === -1) {
+                        dispathcher.do(actionSendToForeignDomain(id));
+                    } else {
+                        dispathcher.do(actionRedirect('/main', true));
+                    }
                 }
                 break;
             default:

@@ -1,4 +1,4 @@
-
+import List_letter from '../components/list-letter/list-letter.js';
 
 export default class Websocket {
     #ws

@@ -32,9 +32,9 @@ class emaillStore {
      * Функция формирования запроса получения списка входящих с сервера
      */
     async getIncoming() {
-        if (userStore?.isAuth && !userStore?.websocket) {
-            userStore.websocket = new Websocket(`wss://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
-        }
+        // if (userStore?.isAuth && !userStore?.websocket) {
+        //     userStore.websocket = new Websocket(`wss://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
+        // }
         const response = await ajax(
             'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
         );
@@ -77,9 +77,9 @@ class emaillStore {
      * Функция формирования запроса отправки письма на сервере
      */
     async send(newEmail) {
-        if (userStore?.isAuth && !userStore?.websocket) {
-            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
-        }
+        // if (userStore?.isAuth && !userStore?.websocket) {
+        //     userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
+        // }
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
         );
@@ -88,7 +88,7 @@ class emaillStore {
         if (status === 200) {
             const responseId = data.body.email.id;
             newEmail.id = responseId;
-            userStore.websocket.send(JSON.stringify(newEmail));
+            // userStore.websocket.send(JSON.stringify(newEmail));
             mediator.emit('send', { id: responseId, status });
         } else {
             mediator.emit('send', { id: 400, status });
@@ -162,7 +162,7 @@ class emaillStore {
             'POST', `https://mailhub.su/api/v1/email/${letterId}/file/${attachmentId}`, null, undefined, userStore.getCsrf()
         );
         const status = await response.status;
-        mediator.emit('bindAttachmentToLetter', status);
+        mediator.emit('bindAttachmentToLetter', { status, id: letterId });
     }
 
     async getAttachments(id) {
