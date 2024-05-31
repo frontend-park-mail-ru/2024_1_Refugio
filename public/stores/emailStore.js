@@ -1,7 +1,6 @@
 import userStore from "./userStore.js";
 import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
-import Websocket from "../modules/websocket.js";
 
 /**
  * Класс хранилища для писем
@@ -32,9 +31,6 @@ class emaillStore {
      * Функция формирования запроса получения списка входящих с сервера
      */
     async getIncoming() {
-        if (userStore?.isAuth && !userStore?.websocket) {
-            userStore.websocket = new Websocket(`wss://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
-        }
         const response = await ajax(
             'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
         );
@@ -77,9 +73,6 @@ class emaillStore {
      * Функция формирования запроса отправки письма на сервере
      */
     async send(newEmail) {
-        if (userStore?.isAuth && !userStore?.websocket) {
-            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
-        }
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
         );
@@ -87,7 +80,6 @@ class emaillStore {
         const data = await response.json();
         if (status === 200) {
             const responseId = data.body.email.id;
-            userStore.websocket.send(JSON.stringify(data));
             mediator.emit('send', { id: responseId, status });
         } else {
             mediator.emit('send', { id: 400, status });
@@ -105,7 +97,7 @@ class emaillStore {
         if (value.readStatus) {
             this.incoming_count = Math.max(0, this.incoming_count - 1);
         } else {
-            // this.incoming_count += 1;
+            this.incoming_count += 1;
         }
         this.old_incoming_count = this.incoming_count;
 
@@ -180,9 +172,6 @@ class emaillStore {
         mediator.emit('sendToForeignDomain', status);
     }
 
-    webSocketListLettersUpdate(value) {
-        mediator.emit('webSocketListLettersUpdate', value);
-    }
 }
 
 export default new emaillStore();

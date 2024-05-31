@@ -1,7 +1,6 @@
 import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
 import emailStore from "./emailStore.js";
-import Websocket from "../modules/websocket.js";
 
 /**
  * Класс хранилища для пользователя и авторизации

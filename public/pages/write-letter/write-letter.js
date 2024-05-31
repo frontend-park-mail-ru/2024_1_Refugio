@@ -690,7 +690,6 @@ export default class Write__Letter {
     handleToError = (e) => {
         e.preventDefault();
         const toInput = document.querySelector('.write-letter__to__input');
-        console.log(toInput);
         let oldError = this.#parent
             .querySelector('.write-letter__to__error');
         oldError.classList.remove('appear');
