@@ -796,7 +796,13 @@ export default class Write__Letter {
                 if (this.attachments.length) {
                     this.bindAttachmnetsToLetter(id);
                 } else {
-                    dispathcher.do(actionRedirect('/main', true));
+                    const toInput = document.querySelector('.write-letter__to__input');
+                    const to = toInput.value.trim();
+                    if (to.indexOf('@mailhub.su') === -1) {
+                        dispathcher.do(actionSendToForeignDomain(id));
+                    } else {
+                        dispathcher.do(actionRedirect('/main', true));
+                    }
                 }
 
                 break;
