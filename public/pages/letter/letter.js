@@ -90,9 +90,9 @@ export default class Letter {
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
         const btn = this.#parent.querySelector('#to-spam');
         if (this.#config.email.spamStatus === true) {
-            btn.style.backgroundColor = '#393939';
+            btn.textContent = "Из спама";
         } else {
-            btn.style.backgroundColor = '#191919';
+            btn.textContent = "Спам";
         }
     }
 
@@ -241,12 +241,6 @@ export default class Letter {
         e.preventDefault();
         const id = this.#config.email.id;
         const value = this.#config.email;
-        const btn = this.#parent.querySelector('#to-spam');
-        if (Boolean(value.spamStatus) === false) {
-            btn.style.backgroundColor = '#393939';
-        } else {
-            btn.style.backgroundColor = '#191919';
-        }
         value.spamStatus = !value.spamStatus;
         dispathcher.do(actionUpdateEmail(id, value, true));
     }
