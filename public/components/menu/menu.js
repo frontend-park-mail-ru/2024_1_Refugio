@@ -87,6 +87,7 @@ export default class Menu {
     handleNewFolder = (e) => {
         e.preventDefault();
         mediator.emit('folderDropdown');
+        this.#parent.querySelector('#new-folder-input').value = "";
         this.#parent.querySelector('.menu__new-folder-button').style.display = 'none';
         this.#parent.querySelector('#new-wrapper').style.display = 'block';
     }
@@ -115,7 +116,7 @@ export default class Menu {
             nameInput.classList.add('input-background-error');
             return;
         }
-        
+
         const folder = {
             name: name,
         }
@@ -165,6 +166,7 @@ export default class Menu {
             .addEventListener('click', this.handleCreateFolder);
         mediator.on('folderDropdown', this.handleFolderDropdown);
         mediator.on('createFolder', this.handleFolderCreateResponse);
+        mediator.on('deletingFolder', this.doNothing);
     }
 
     removeListeners() {
@@ -194,6 +196,7 @@ export default class Menu {
             .removeEventListener('click', this.handleCreateFolder);
         mediator.off('folderDropdown', this.handleFolderDropdown);
         mediator.off('createFolder', this.handleFolderCreateResponse);
+        mediator.off('deletingFolder', this.doNothing);
     }
 
     handleFolderCreateResponse = ({ status, folders }) => {
@@ -220,5 +223,9 @@ export default class Menu {
                 errorSign.style.display = 'block';
                 break;
         }
+    }
+
+    doNothing = (id) => {
+        this.#config.result = this.#config.result.filter((folder) => !folder.cmpId(id));
     }
 }

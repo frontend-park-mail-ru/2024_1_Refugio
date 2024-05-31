@@ -411,6 +411,7 @@ export default class Letter {
         mediator.on('updateSpam', this.handleDeleteEmailResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
         mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
+        mediator.on('deletingFolder', this.handleDeletingFolder);
     }
 
     /**
@@ -418,6 +419,12 @@ export default class Letter {
      */
     removeListeners() {
         this.#config.menu.component.removeListeners();
+        this.#parent.querySelectorAll('.letter__folder-save').forEach((folder) => {
+            folder.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        });
+        this.#parent.querySelectorAll('.letter__folder-delete').forEach((folder) => {
+            folder.removeEventListener('click', (e) => this.handleDeleteFolder(e, folder.dataset.id));
+        });
         this.#parent
             .querySelector('.letter__info__icon')
             .removeEventListener('click', this.handleStatus);
@@ -450,6 +457,7 @@ export default class Letter {
         mediator.off('updateSpam', this.handleDeleteEmailResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
+        mediator.off('deletingFolder', this.handleDeletingFolder);
     }
 
 
@@ -494,6 +502,21 @@ export default class Letter {
                 break;
             default:
                 break;
+        }
+    }
+
+    handleDeletingFolder = (id) => {
+        const list_node = this.#parent.querySelector(`#list-folder-${id}`);
+        if (list_node.classList.contains("letter__folder-save")){
+            list_node.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+        }
+        if (list_node.classList.contains("letter__folder-delete")){
+            list_node.removeEventListener('click', (e) => this.handleDeleteFolder(e, folder.dataset.id));
+        }
+        const parent = list_node.parentNode;
+        parent.removeChild(list_node);
+        if (parent.children.length === 0) {
+            parent.textContent = "Папок нет!";
         }
     }
 }

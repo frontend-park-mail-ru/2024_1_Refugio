@@ -119,6 +119,10 @@ export default class Folder {
         mediator.off('deleteFolder', this.handleFolderDeleteResponse);
     }
 
+    cmpId = (id) => {
+        return Number(id) === Number(this.#config.id);
+    }
+
     handleFolderDeleteResponse = ({ status, id }) => {
         let errorSign = this.#parent
             .querySelector(`#f-error-${id}`);
@@ -129,6 +133,7 @@ export default class Folder {
                     const node = this.#parent.querySelector(`#f-folder-${id}`);
                     this.removeListeners();
                     node.parentNode.removeChild(node);
+                    mediator.emit("deletingFolder", id);             
                 }
                 break;
             default:

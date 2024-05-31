@@ -34,7 +34,6 @@ export default class Page404 {
      * Рендер компонента в DOM
      */
     render() {
-        this.#config.content.sent = false;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
         this.#config.header.component = new Header(this.#parent, this.#config.header);
         const elements = {
