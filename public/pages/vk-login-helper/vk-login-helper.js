@@ -77,7 +77,9 @@ export default class Vk__Login__Helper {
                 dispathcher.do(actionRedirect('/main', true));
                 break;
             case 401:
-                this.notification()
+                if (window.matchMedia("(min-width: 700px)").matches) {
+                    this.notification()
+                }
                 dispathcher.do(actionGetAuthUrlSignUpVK());
                 break;
             default:

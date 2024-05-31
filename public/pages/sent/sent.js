@@ -121,7 +121,7 @@ export default class Sent {
         };
         const selectedButtons = {
             deselect: document.querySelector('#deselect'),
-            delete: document.querySelector('#delete'),
+            // delete: document.querySelector('#delete'),
         };
 
         if (this.selectedListLetters.length > 0) {
@@ -269,7 +269,7 @@ export default class Sent {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('deleteEmail', this.handleDeleteEmailResponse);
+        // mediator.on('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     /**
@@ -296,7 +296,7 @@ export default class Sent {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('deleteEmail', this.handleDeleteEmailResponse);
+        // mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     /**
@@ -317,15 +317,15 @@ export default class Sent {
     /**
      * Функция обработки ответа на запрос удаления письма
      */
-    handleDeleteEmailResponse = (status) => {
-        const error = this.#parent.querySelector('.letter__error');
-        switch (status) {
-            case 200:
-                break;
-            default:
-                error.textContent = 'Проблема на нашей стороне, уже исправляем';
-                error.classList.add('appear');
-                break;
-        }
-    }
+    // handleDeleteEmailResponse = (status) => {
+    //     const error = this.#parent.querySelector('.letter__error');
+    //     switch (status) {
+    //         case 200:
+    //             break;
+    //         default:
+    //             error.textContent = 'Проблема на нашей стороне, уже исправляем';
+    //             error.classList.add('appear');
+    //             break;
+    //     }
+    // }
 }
