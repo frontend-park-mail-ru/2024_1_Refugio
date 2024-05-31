@@ -33,7 +33,7 @@ class emaillStore {
      */
     async getIncoming() {
         if (userStore?.isAuth && !userStore?.websocket) {
-            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
+            userStore.websocket = new Websocket(`wss://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
         }
         const response = await ajax(
             'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
