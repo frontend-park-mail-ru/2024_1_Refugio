@@ -25,7 +25,7 @@
                     <div class="main__header__dropdown">
                         {{#if folders}}
                         {{#each folders}}
-                        <p data-id="{{this.id}}" class="main__folder">{{this.name}}</p>
+                        <p data-id="{{this.id}}" id="list-folder-{{this.id}}" class="main__folder">{{this.name}}</p>
                         {{/each}}
                         {{else}}
                         Нет папок!
@@ -48,8 +48,17 @@
             </div>
             <div id="mark-as-unread" class="main__header__button ">Пометить непрочитанными
             </div>
-
-
+            <div class="main__header__dropdown__wrapper">
+                <div class="main__header__dropdown">
+                    {{#if folders}}
+                    {{#each folders}}
+                    <span data-id="{{this.id}}" class="main__folder">{{this.name}}</span>
+                    {{/each}}
+                    {{else}}
+                    Нет папок!
+                    {{/if}}
+                </div>
+            </div>
 
         </div>
         <div class="letter__error">Ошибка</div>
