@@ -71,9 +71,7 @@ export default class Profile {
         const genderInput = document.querySelector('.cl-switch input')
         const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
         const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
-        // const passwordInput = document.querySelector('.profile__password-input-wrapper__input');
-        // const passwordConfirmInput = document.querySelector('.profile__password-confirm-input-wrapper__input');
-
+       
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
         const firstName = firstNameInput.value.trim();
@@ -84,9 +82,7 @@ export default class Profile {
         const gender = genderInput.checked ? 'Female' : 'Male';
         const bio = bioInput.value.trim();
         let phoneNumber = phoneNumberInput.value.trim();
-        // const password = passwordInput.value;
-        // const passwordConfirm = passwordConfirmInput.value;
-
+       
         let oldError = this.#parent
             .querySelector('#first-name-error');
         oldError.classList.remove('show');
@@ -120,18 +116,6 @@ export default class Profile {
         oldError = this.#parent
             .querySelector('#load-avatar-error');
         oldError.classList.remove('show');
-
-        // oldError = this.#parent
-        //     .querySelector('#password-error');
-        // oldError.classList.remove('show');
-        // oldError = passwordInput;
-        // oldError.classList.remove('input-background-error');
-
-        // oldError = this.#parent
-        //     .querySelector('#password-confirm-error');
-        // oldError.classList.remove('show');
-        // oldError = passwordConfirmInput;
-        // oldError.classList.remove('input-background-error');
 
         oldError = this.#parent
             .querySelector('#buttons-error');
@@ -233,48 +217,7 @@ export default class Profile {
             }
         }
 
-        // const passwordError = this.#parent
-        //     .querySelector('#password-error');
-        // if (password.length > 4 * MAX_INPUT_LENGTH) {
-        //     passwordError.textContent = "Слишком длинный пароль";
-        //     passwordError.classList.add('show');
-        //     passwordInput.classList.add('input-background-error');
-        //     isValidForm = false;
-        // } else {
-        //     if (password && password.length < 8) {
-        //         passwordError.textContent = "Минимальная длина 8 символов";
-        //         passwordError.classList.add('show');
-        //         passwordInput.classList.add('input-background-error');
-        //         isValidForm = false;
-        //     } else {
-        //         const passwordRegex = /^[a-zA-Z0-9`~`!@#$%^&*()-=_+,.;'\[\]<>?:"{}|\\\/]+$/;
-        //         if (password && !passwordRegex.test(password)) {
-        //             passwordError.textContent = "Недопустимые символы";
-        //             passwordError.classList.add('show');
-        //             passwordInput.classList.add('input-background-error');
-        //             isValidForm = false;
-        //         }
-        //     }
-        // }
-
-        // const passwordConfirmError = this.#parent
-        //     .querySelector('#password-confirm-error');
-
-        // if (password && !passwordConfirm) {
-        //     passwordConfirmError.textContent = 'Введите пароль ещё раз';
-        //     passwordConfirmError.classList.add('show');
-        //     passwordConfirmInput.classList.add('input-background-error');
-        //     isValidForm = false;
-        // } else {
-        //     if (password && password !== passwordConfirm) {
-        //         passwordConfirmError.textContent = 'Пароли не совпадают';
-        //         passwordConfirmError.classList.add('show');
-        //         passwordConfirmInput.classList.add('input-background-error');
-        //         isValidForm = false;
-        //     }
-
-        // }
-
+        
         const dateError = this.#parent
             .querySelector('#buttons-error');
         if (birthday > new Date()) {
@@ -481,25 +424,14 @@ export default class Profile {
         const middleNameInput = document.querySelector('.profile__middle-name-input-wrapper__input');
         const lastNameInput = document.querySelector('.profile__last-name-input-wrapper__input');
 
-
-        // const birthdayDay = document.querySelector('.birthday__input__day__value-img p').textContent = '1';
-        // const birthdayMonth = document.querySelector('.birthday__input__month__value-img p').textContent = 'Январь';
-        // const birthdayYear = document.querySelector('.birthday__input__year__value-img p').textContent = '2024';
-        // const genderInput = document.querySelector('.cl-switch input')
-
         const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
         const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
-        // const passwordInput = document.querySelector('.profile__password-input-wrapper__input');
-        // const passwordConfirmInput = document.querySelector('.profile__password-confirm-input-wrapper__input');
-
+        
         firstNameInput.value = '';
         middleNameInput.value = '';
         lastNameInput.value = '';
         bioInput.value = '';
         phoneNumberInput.value = '';
-        // passwordInput.value = '';
-        // passwordConfirmInput.value = '';
-
     }
 
     /**
