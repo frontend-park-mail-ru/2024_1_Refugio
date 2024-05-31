@@ -28,7 +28,7 @@ export default class Folder {
         const folder = {
             name: this.#config.name,
             id: this.#config.id,
-            curFolder: Number(this.#config.currentFolder)===Number(this.#config.id),
+            curFolder: Number(this.#config.currentFolder) === Number(this.#config.id),
             folderFlag: this.#config.folderFlag,
         };
         return template(folder);
@@ -56,6 +56,14 @@ export default class Folder {
             nameInput.classList.add('input-background-error');
             return;
         }
+
+        if (name.length > 32) {
+            nameError.textContent = 'Слишком длинное название';
+            nameError.style.display = 'block';
+            nameInput.classList.add('input-background-error');
+            return;
+        }
+
         const folder = {
             name: name,
         }

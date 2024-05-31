@@ -108,6 +108,14 @@ export default class Menu {
             nameInput.classList.add('input-background-error');
             return;
         }
+
+        if (name.length > 32) {
+            nameError.textContent = 'Слишком длинное название';
+            nameError.style.display = 'block';
+            nameInput.classList.add('input-background-error');
+            return;
+        }
+        
         const folder = {
             name: name,
         }

@@ -32,25 +32,37 @@
     <div class="signup-box__email-input-wrapper">
         <label>Имя ящика</label>
         <input type="text" class="signup-box__email-input-wrapper__email-input" placeholder="ivanovii">
-        <input type="text" class="signup-box__email-input-wrapper__email-domain-input" value="@mailhub.su" tabindex="-1" readonly>
+        <input type="text" class="signup-box__email-input-wrapper__email-domain-input" value="@mailhub.su" tabindex="-1"
+            readonly>
         <div id="email-error" class="signup-box__error">Ошибка</div>
     </div>
 
     <div class="signup-box__password-input-wrapper">
         <label>Пароль</label>
-        <input type="password" class="signup-box__password-input-wrapper__input" placeholder="●●●●●●●●">
+        <input type="password"
+            class="signup-box__password-input-wrapper__input signup-box__password-input-wrapper__input-password"
+            placeholder="●●●●●●●●">
+        <img class="eye1 eye_opened remove" src="/icons/eye_opened.svg">
         <div id="password-error" class="signup-box__error">Ошибка</div>
     </div>
 
     <div class="signup-box__password-confirm-input-wrapper">
         <label>Пароль ещё раз</label>
-        <input type="password" class="signup-box__password-confirm-input-wrapper__input"
+        <input type="password"
+            class="signup-box__password-confirm-input-wrapper__input signup-box__password-input-wrapper__input-password"
             placeholder="●●●●●●●●">
+        <img class="eye2 eye_opened remove" src="/icons/eye_opened.svg">
         <div id="password-confirm-error" class="signup-box__error">Ошибка</div>
     </div>
 
     <div class="signup-box__signup-button-wrapper">
         <div class="signup-box__signup-button-wrapper__button">Создать</div>
+        <div class="signup-box__signup-button-wrapper__vk-button">VK ID</div>
+
+        {{#if error}}
+        <div id="signup-error" class="signup-box__error show">{{error}}</div>
+        {{else}}
         <div id="signup-error" class="signup-box__error">Ошибка</div>
+        {{/if}}
     </div>
 </div>

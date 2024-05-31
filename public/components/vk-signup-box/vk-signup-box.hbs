@@ -1,0 +1,47 @@
+<div class="vk-signup-box">
+
+    <div class="vk-signup-box__authorization-method-switch">
+        <div
+            class="vk-signup-box__authorization-method-switch__method vk-signup-box__authorization-method-switch__method_passive">
+            Вход в аккаунт
+        </div>
+        <div
+            class="vk-signup-box__authorization-method-switch__method vk-signup-box__authorization-method-switch__method_active">
+            Создание ящика
+        </div>
+    </div>
+
+    <div class="vk-signup-box__first-name-input-wrapper">
+        <label>Имя</label>
+        <input type="text" class="vk-signup-box__first-name-input-wrapper__input" placeholder="Иван"
+            value="{{first_name}}">
+        <div id="first-name-error" class="vk-signup-box__error">Ошибка</div>
+    </div>
+
+    <div class="vk-signup-box__last-name-input-wrapper">
+        <label>Фамилия</label>
+        <input type="text" class="vk-signup-box__last-name-input-wrapper__input" placeholder="Иванов"
+            value="{{last_name}}">
+        <div id="last-name-error" class="vk-signup-box__error">Ошибка</div>
+    </div>
+
+
+
+    {{{birthday_select}}}
+    {{{gender_select}}}
+
+
+    <div class="vk-signup-box__email-input-wrapper">
+        <label>Имя ящика</label>
+        <input type="text" class="vk-signup-box__email-input-wrapper__email-input" placeholder="ivanovii">
+        <input type="text" class="vk-signup-box__email-input-wrapper__email-domain-input" value="@mailhub.su"
+            tabindex="-1" readonly>
+        <div id="email-error" class="vk-signup-box__error">Ошибка</div>
+    </div>
+
+    <div class="vk-signup-box__signup-button-wrapper">
+        <div class="vk-signup-box__signup-button-wrapper__vk-button">Создать через VK ID</div>
+
+        <div id="vk-signup-error" class="vk-signup-box__error">Ошибка</div>
+    </div>
+</div>

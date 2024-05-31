@@ -1,11 +1,11 @@
 import dispathcher from "../modules/dispathcher.js";
 import userStore from "../stores/userStore.js";
 import emailStore from "../stores/emailStore.js";
+import { actionGetSpam, actionGetEmail, actionGetFolders, actionGetUser, actionGetSent, actionGetIncoming, actionGetFolderEmails, actionGetLetterFolders, actionGetAttachments } from "../actions/userActions.js";
 import draftStore from "../stores/draftStore.js";
-import statStore from "../stores/statStore.js";
-import { actionGetSpam, actionGetEmail, actionGetFolders, actionGetUser, actionGetStatistic, actionGetSent, actionGetIncoming, actionGetFolderEmails, actionGetLetterFolders } from "../actions/userActions.js";
 import { actionGetDrafts } from "../actions/draftActions.js";
 import folderStore from "../stores/folderStore.js";
+import router from "../modules/router.js";
 /**
  * Класс для рендера абстрактной страницы
  * @class
@@ -27,8 +27,10 @@ export default class BaseView {
      */
     render() {
         this.components.forEach((component) => component.render());
+        router.isLoading = false;
     }
 
+   
     /**
      * Функция добавления необходимых листенеров всем элементам страницы
      */
@@ -134,5 +136,10 @@ export default class BaseView {
     async getFolderInfo(id) {
         await dispathcher.do(actionGetFolderEmails(id));
         return folderStore.emails;
+    }
+
+    async getAttachments(id) {
+        await dispathcher.do(actionGetAttachments(id));
+        return emailStore.files;
     }
 }

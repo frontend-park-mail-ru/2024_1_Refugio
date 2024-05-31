@@ -2,6 +2,7 @@
     {{{header}}}
     {{{menu}}}
     <div class="main-content">
+        
         <div class="main__header">
             <div id="select-all" class="main__header__button_has-icon appear">
                 <img src="/icons/read_off.svg" alt="">
@@ -20,6 +21,17 @@
             <div id="delete" class="main__header__button">Удалить
             </div>
             <div id="move-to" class="main__header__button">В папку
+                <div class="main__header__dropdown__wrapper">
+                    <div class="main__header__dropdown">
+                        {{#if folders}}
+                        {{#each folders}}
+                        <p data-id="{{this.id}}" class="main__folder">{{this.name}}</p>
+                        {{/each}}
+                        {{else}}
+                        Нет папок!
+                        {{/if}}
+                    </div>
+                </div>
             </div>
             {{#if folder_id}}
             <div id="move-from" class="main__header__button">Убрать из папки
@@ -37,6 +49,7 @@
             <div id="mark-as-unread" class="main__header__button ">Пометить непрочитанными
             </div>
 
+<<<<<<< HEAD
             <div class="main__header__dropdown__wrapper">
                 <div class="main__header__dropdown">
                     {{#if folders}}
@@ -48,6 +61,9 @@
                     {{/if}}
                 </div>
             </div>
+=======
+
+>>>>>>> b728370ef4de27118c8efdbbc1fb5e4eba3aec08
 
         </div>
         <div class="letter__error">Ошибка</div>
@@ -57,4 +73,8 @@
         <img src="/icons/roll-up.svg" class="main__collapse-rollup-button">
         <img src="/icons/close.svg" class="main__close-button">
     </div>-->
+    <div class="main__notification">
+        <div class="main__notification__new-letter"></div>
+        <div class="main__notification__counter"></div>
+    </div>
 </div>

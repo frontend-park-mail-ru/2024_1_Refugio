@@ -19,9 +19,7 @@ export default class List_letter {
     }
 
     cleanText = (text) => {
-        let cleanedText = text.replaceAll("--", "").replaceAll("Исходное письмо", "").replaceAll("Ответ на", "").replaceAll("Пересылаемое письмо" ,"");
-
-
+        let cleanedText = text?.replaceAll("--", "")?.replaceAll("Исходное письмо", "")?.replaceAll("Ответ на", "")?.replaceAll("Пересылаемое письмо" ,"");
         return cleanedText;
     }
 
@@ -30,19 +28,18 @@ export default class List_letter {
      */
     render() {
         const letter = {
-            status: !this.#config.status,
-            avatar: this.#config.avatar,
-            from: this.#config.from,
-            subject: this.#config.subject,
-            text: this.cleanText(this.#config.text),
-            date: (new Date(this.#config.date)).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
-            // sent: this.#config.sent,
-            id: this.#config.id,
-            userLetter: this.#config.from.charAt(0),
+            status: !this.#config?.status,
+            avatar: this.#config?.avatar,
+            from: this.#config?.from,
+            subject: this.#config?.subject,
+            text: this.cleanText(this.#config?.text),
+            date: (new Date(this.#config?.date)).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
+            id: this.#config?.id,
+            userLetter: this.#config?.from?.charAt(0),
         };
-        if (this.#config.sent) {
-            letter.from = this.#config.to;
-            letter.userLetter = this.#config.to.charAt(0);
+        if (this.#config?.sent) {
+            letter.from = this.#config?.to;
+            letter.userLetter = this.#config?.to?.charAt(0);
         }
         return template(letter);
     }

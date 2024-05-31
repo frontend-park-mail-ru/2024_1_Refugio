@@ -1,6 +1,7 @@
 import userStore from "./userStore.js";
 import ajax from "../modules/ajax.js";
 import mediator from "../modules/mediator.js";
+import Websocket from "../modules/websocket.js";
 
 /**
  * Класс хранилища для писем
@@ -8,6 +9,7 @@ import mediator from "../modules/mediator.js";
  */
 class emaillStore {
     incoming
+    old_incoming_count
     incoming_count
     sent
 
@@ -30,17 +32,23 @@ class emaillStore {
      * Функция формирования запроса получения списка входящих с сервера
      */
     async getIncoming() {
+        if (userStore?.isAuth && !userStore?.websocket) {
+            userStore.websocket = new Websocket(`wss://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
+        }
         const response = await ajax(
             'GET', 'https://mailhub.su/api/v1/emails/incoming', null, 'application/json', userStore.getCsrf()
         );
         const data = await response.json();
         this.incoming = data.body.emails;
+        this.old_incoming_count = this.incoming_count;
         this.incoming_count = 0;
-        this.incoming.forEach((letter) => {
-            if (!letter.readStatus) {
-                this.incoming_count += 1;
-            }
-        });
+        if (this.incoming) {
+            this.incoming.forEach((letter) => {
+                if (!letter.readStatus) {
+                    this.incoming_count += 1;
+                }
+            });
+        }
     }
 
     /**
@@ -69,11 +77,22 @@ class emaillStore {
      * Функция формирования запроса отправки письма на сервере
      */
     async send(newEmail) {
+        if (userStore?.isAuth && !userStore?.websocket) {
+            userStore.websocket = new Websocket(`https://mailhub.su/api/v1/auth/web/websocket_connection/${userStore?.body?.login}`);
+        }
         const response = await ajax(
             'POST', 'https://mailhub.su/api/v1/email/send', JSON.stringify(newEmail), 'application/json', userStore.getCsrf()
         );
         const status = await response.status;
-        mediator.emit('send', status);
+        const data = await response.json();
+        if (status === 200) {
+            const responseId = data.body.email.id;
+            newEmail.id = responseId;
+            userStore.websocket.send(JSON.stringify(newEmail));
+            mediator.emit('send', { id: responseId, status });
+        } else {
+            mediator.emit('send', { id: 400, status });
+        }
     }
 
     /**
@@ -85,13 +104,15 @@ class emaillStore {
         );
         const status = await response.status;
         if (value.readStatus) {
-            this.incoming_count -= 1;
+            this.incoming_count = Math.max(0, this.incoming_count - 1);
         } else {
             this.incoming_count += 1;
         }
+        this.old_incoming_count = this.incoming_count;
+
         if (spam) {
             mediator.emit('updateSpam', status);
-        } else{
+        } else {
             mediator.emit('updateEmail', status);
         }
     }
@@ -116,6 +137,52 @@ class emaillStore {
         );
         const data = await response.json();
         this.spam = data.body.emails;
+    }
+
+    async attachFile(file) {
+        const response = await ajax(
+            'POST', 'https://mailhub.su/api/v1/email/addfile', file.file, undefined, userStore.getCsrf()
+        );
+        const status = await response.status;
+        const data = await response.json();
+        const id = data.body.FileId;
+        mediator.emit('attachFile', { status, id });
+    }
+
+    async deleteAttachment(id) {
+        const response = await ajax(
+            'DELETE', `https://mailhub.su/api/v1/email/delete/file/${id}`, null, 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('deleteAttachment', { status, id });
+    }
+
+    async bindAttachmentToLetter({ letterId, attachmentId }) {
+        const response = await ajax(
+            'POST', `https://mailhub.su/api/v1/email/${letterId}/file/${attachmentId}`, null, undefined, userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('bindAttachmentToLetter', { status, id: letterId });
+    }
+
+    async getAttachments(id) {
+        const response = await ajax(
+            'GET', `https://mailhub.su/api/v1/email/${id}/get/files/`, null, 'application/json', userStore.getCsrf()
+        );
+        const data = await response.json();
+        this.files = data.body.files;
+    }
+
+    async sendToForeignDomain(id) {
+        const response = await ajax(
+            'POST', `https://mailhub.su/api/v1/email/sendToOtherDomain/${id}`, null, 'application/json', userStore.getCsrf()
+        );
+        const status = await response.status;
+        mediator.emit('sendToForeignDomain', status);
+    }
+
+    webSocketListLettersUpdate(value) {
+        mediator.emit('webSocketListLettersUpdate', value);
     }
 }
 

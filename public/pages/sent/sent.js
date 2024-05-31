@@ -3,9 +3,9 @@ import Menu from '../../components/menu/menu.js';
 import List_letters from '../../components/list-letters/list-letters.js';
 import mediator from '../../modules/mediator.js';
 import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail } from '../../actions/userActions.js';
+import { actionLogout, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionRedirectToWriteLetter, actionGetEmail } from '../../actions/userActions.js';
 import template from './sent.hbs'
-
+import emailStore from '../../stores/emailStore.js';
 
 /**
  * Класс обертки страницы
@@ -32,9 +32,11 @@ export default class Sent {
     render() {
         this.#config.content.sent = true;
         this.#config.menu.component = new Menu(this.#parent, this.#config.menu);
+        this.#config.header.component = new Header(this.#parent, this.#config.header);
+
         const elements = {
-            header: new Header(null, this.#config.header).render(),
             menu: this.#config.menu.component.render(),
+            header: this.#config.header.component.render(),
             list_letters: new List_letters(null, this.#config.content).render(),
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
@@ -90,34 +92,24 @@ export default class Sent {
     }
 
     /**
-     * Функция выхода из ящика
-     */
-    handleExit = async (e) => {
-        e.preventDefault();
-        await dispathcher.do(actionLogout());
-    };
-
-    /**
-     * Функция перехода на страницу профиля
-     */
-    handleProfile = (e) => {
-        e.preventDefault();
-        dispathcher.do(actionRedirect('/profile', true));
-    };
-
-    /**
      * Функция перехода на страницу письма
      */
     handleLetter = async (e, id) => {
         e.preventDefault();
+        this.hideError();
         const letters = this.#config.content.list_letters;
         const value = letters.find(item => String(item.id) === id);
         value.dateOfDispatch = undefined;
-        if (value.readStatus === false) {
-            value.readStatus = true;
-            dispathcher.do(actionUpdateEmail(id, value));
+        if (window.location.pathname === '/drafts') {
+            console.log(value);
+            dispathcher.do(actionRedirectToWriteLetter(true, { id: id, changeDraft: true, topic: value.topic, replySender: value.recipientEmail, sender: value.recipientEmail, date: (new Date(value.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }), text: value.text, replyId: value.replyToEmailId }));
+        } else {
+            if (value.readStatus === false) {
+                value.readStatus = true;
+                dispathcher.do(actionUpdateEmail(id, value));
+            }
+            dispathcher.do(actionRedirectToLetter(id, true));
         }
-        dispathcher.do(actionRedirectToLetter(id, true));
     };
 
     /**
@@ -126,15 +118,10 @@ export default class Sent {
     handleHeader() {
         const unselectedButtons = {
             select_all: document.querySelector('#select-all'),
-            // mark_all_as_read: document.querySelector('#mark-all-as-read'),
         };
         const selectedButtons = {
             deselect: document.querySelector('#deselect'),
             delete: document.querySelector('#delete'),
-            // move_to: document.querySelector('#move-to'),
-            // spam: document.querySelector('#spam'),
-            // mark_as_read: document.querySelector('#mark-as-read'),
-            // mark_as_unread: document.querySelector('#mark-as-unread'),
         };
 
         if (this.selectedListLetters.length > 0) {
@@ -161,6 +148,7 @@ export default class Sent {
     handleCheckbox = (e, id) => {
         e.preventDefault();
         e.stopPropagation();
+        this.hideError();
         const letter = document.querySelector(`[data-id="${id}"]`);
         const avatar = letter.querySelector('.list-letter__avatar')
 
@@ -189,6 +177,7 @@ export default class Sent {
     handleStatus = async (e, id) => {
         e.preventDefault();
         e.stopPropagation();
+        this.hideError();
         const letter = document.querySelector(`[data-id="${id}"]`);
         const statusChild = letter.querySelector('.list-letter__status img');
         const statusImg = letter.querySelector('.list-letter__status-offer');
@@ -215,7 +204,7 @@ export default class Sent {
      */
     handleSelectAll = (e) => {
         e.preventDefault();
-
+        this.hideError();
         document.querySelectorAll('.list-letter').forEach(letter => {
             const avatar = letter.querySelector('.list-letter__avatar')
             letter.classList.add('selected-list-letter');
@@ -235,7 +224,7 @@ export default class Sent {
      */
     handleDeselect = (e) => {
         e.preventDefault();
-
+        this.hideError();
         document.querySelectorAll('.list-letter').forEach(letter => {
             if (letter.classList.contains('selected-list-letter')) {
                 const avatar = letter.querySelector('.list-letter__avatar')
@@ -252,25 +241,15 @@ export default class Sent {
     /**
      * Функция всплывания окна меню для мобильной версии
      */
-    handleRollUpMenu = (e) => {
-        e.preventDefault();
-        const menu = document.querySelector('.menu');
-        if (menu.classList.contains('appear')) {
-            menu.classList.remove('appear');
-        } else {
-            menu.classList.add('appear');
-        }
-    }
+
 
     /**
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
-        this.#parent
-            .querySelector('.header__rollup-button')
-            .addEventListener('click', this.handleRollUpMenu);
         this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').addEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -285,36 +264,11 @@ export default class Sent {
         this.#parent
             .querySelector('#deselect')
             .addEventListener('click', this.handleDeselect);
-        // this.#parent
-        //     .querySelector('#mark-all-as-read')
-        //     .addEventListener('click', this.handleMarkAllAsRead);
-        this.#parent
-            .querySelector('#delete')
-            .addEventListener('click', this.handleDelete);
-        // this.#parent
-        //     .querySelector('#mark-as-read')
-        //     .addEventListener('click', this.handleMarkAsRead);
-        // this.#parent
-        //     .querySelector('#mark-as-unread')
-        //     .addEventListener('click', this.handleMarkAsUnread);
-
-
-
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .addEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .addEventListener('click', this.handleProfile);
-        this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .addEventListener('click', this.handleStat);
         this.#parent.addEventListener('click', this.handleDropdowns);
-        mediator.on('logout', this.handleExitResponse)
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
     }
 
@@ -335,52 +289,14 @@ export default class Sent {
             .querySelector('#select-all')
             .removeEventListener('click', this.handleSelectAll);
         this.#parent
-            .querySelector('.header__dropdown__stat-button')
-            .removeEventListener('click', this.handleStat);
-        this.#parent
             .querySelector('#deselect')
             .removeEventListener('click', this.handleDeselect);
-        // this.#parent
-        //     .querySelector('#mark-all-as-read')
-        //     .addEventListener('click', this.handleMarkAllAsRead);
-        this.#parent
-            .querySelector('#delete')
-            .removeEventListener('click', this.handleDelete);
-        // this.#parent
-        //     .querySelector('#mark-as-read')
-        //     .addEventListener('click', this.handleMarkAsRead);
-        // this.#parent
-        //     .querySelector('#mark-as-unread')
-        //     .addEventListener('click', this.handleMarkAsUnread);
-
-
-
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
-        this.#parent
-            .querySelector('.header__dropdown__logout-button')
-            .removeEventListener('click', this.handleExit);
-        this.#parent
-            .querySelector('.header__dropdown__profile-button')
-            .removeEventListener('click', this.handleProfile);
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('logout', this.handleExitResponse)
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
-    }
-
-    /**
-     * Функция обработки ответа на запрос выхода из аккаунта
-     */
-    handleExitResponse = (status) => {
-        switch (status) {
-            case 200:
-                dispathcher.do(actionRedirect('/login', true));
-                break;
-            default:
-                break;
-        }
     }
 
     /**

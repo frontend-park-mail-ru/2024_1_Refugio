@@ -16,7 +16,7 @@
     background-color: var(--main-button-secondary);
 }
 
-.list-letter:hover .list-letter__status-offer{
+.list-letter:hover .list-letter__status-offer {
     opacity: 1;
 }
 
@@ -76,7 +76,7 @@
     margin: 8px;
 }
 
-.list-letter:hover .list-letter__avatar__checkbox  {
+.list-letter:hover .list-letter__avatar__checkbox {
     opacity: 1;
 }
 
@@ -94,4 +94,11 @@
 
 .list-letter__text_gray {
     color: var(--input-placeholder);
+}
+
+@media (max-width: 500px) {
+    .list-letter {
+        padding: 28px 8px;
+        align-content: center;
+    }
 }

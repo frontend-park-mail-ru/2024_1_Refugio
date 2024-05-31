@@ -23,8 +23,9 @@ export default class Login_box {
      */
     render() {
 
-        const login_box = {
+        const elements = {
+            error: this.#config.error,
         };
-        return template(login_box);
+        return template(elements);
     }
 }

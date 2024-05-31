@@ -1,0 +1,66 @@
+@import '../../components/vk-signup-box/vk-signup-box.css';
+
+.vk-signup-root {
+    display: grid;
+    place-items: center;
+    height: 100%;
+}
+
+.vk-signup-wrapper {
+    display: grid;
+    grid-template-areas:
+        'logo signup-box .';
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+}
+
+.vk-signup-logo {
+    grid-area: logo;
+
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+
+    font-size: 60px;
+    font-weight: 900;
+    letter-spacing: 15px;
+    line-height: 68px;
+    text-align: center;
+
+    cursor: default;
+}
+
+@media (max-width: 600px) {
+    .vk-signup-wrapper {
+        grid-template-areas:
+            'logo'
+            'signup-box'
+            '.';
+        grid-template-rows: 1fr auto 1fr;
+        grid-template-columns: auto;
+    }
+
+    .vk-signup-logo {
+        writing-mode: unset;
+        transform: none;
+    }
+}
+
+@media (max-width: 500px), ((max-width: 600px) and (max-height: 780px)) {
+    .vk-signup-wrapper {
+        grid-template-areas:
+            'logo'
+            'signup-box'
+            '.';
+        grid-template-rows: 1fr auto 1fr;
+        grid-template-columns: auto;
+    }
+
+    .vk-signup-logo {
+        writing-mode: unset;
+        transform: none;
+
+        font-size: 50px;
+        letter-spacing: 12px;
+        line-height: 52px;
+    }
+}
