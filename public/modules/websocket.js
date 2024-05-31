@@ -36,6 +36,7 @@ export default class Websocket {
         // id: this.#config.id,
         // userLetter: this.#config.from.charAt(0),
 
+        console.log(event.data);
         const config = {
             status: event.data.readStatus,
             // avatar: this.#config.avatar,
@@ -45,7 +46,7 @@ export default class Websocket {
             // date:
             date: (new Date()).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
             id: event.data.id,
-            userLetter: event.data.senderEmail.charAt(0),
+            // userLetter: event.data.senderEmail?.charAt(0),
         }
 
 
