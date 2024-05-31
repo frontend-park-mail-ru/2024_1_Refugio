@@ -352,7 +352,6 @@ export default class Letter {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
         this.#parent
             .querySelectorAll('.list-attachment').forEach((file) => {
                 file.querySelector('.list-attachment__delete-button').
@@ -411,47 +410,47 @@ export default class Letter {
         this.#parent
             .querySelectorAll('.list-attachment').forEach((file) => {
                 file.querySelector('.list-attachment__delete-button').
-                    removeEventListener('click', (e) => this.downloadAttachment(e, file.dataset.id));
+                    addEventListener('click', (e) => this.downloadAttachment(e, file.dataset.id));
             })
         this.#parent
             ?.querySelector('.letter__attachments__download-all-button')
-            ?.removeEventListener('click', this.downloadAllAttachments);
+            ?.addEventListener('click', this.downloadAllAttachments);
 
 
         this.#config.menu.component.addListeners();
         this.#config.header.component.addListeners();
 
         this.#parent.querySelectorAll('.letter__folder-save').forEach((folder) => {
-            folder.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
+            folder.addEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         });
         this.#parent.querySelectorAll('.letter__folder-delete').forEach((folder) => {
-            folder.removeEventListener('click', (e) => this.handleDeleteFolder(e, folder.dataset.id));
+            folder.addEventListener('click', (e) => this.handleDeleteFolder(e, folder.dataset.id));
         });
         this.#parent
             .querySelector('.letter__info__icon')
-            .removeEventListener('click', this.handleStatus);
+            .addEventListener('click', this.handleStatus);
         this.#parent
             .querySelector('#delete')
-            .removeEventListener('click', this.handleDelete);
+            .addEventListener('click', this.handleDelete);
         this.#parent
             .querySelector('#mark-as-read')
-            .removeEventListener('click', this.handleMarkAsRead);
+            .addEventListener('click', this.handleMarkAsRead);
         this.#parent
             .querySelector('#mark-as-unread')
-            .removeEventListener('click', this.handleMarkAsUnread);
+            .addEventListener('click', this.handleMarkAsUnread);
         this.#parent
             .querySelector('#to-spam')
-            .removeEventListener('click', this.handleSpam);
+            .addEventListener('click', this.handleSpam);
         this.#parent
             .querySelector('#resend')
-            .removeEventListener('click', this.handleResend);
+            .addEventListener('click', this.handleResend);
         this.#parent
             .querySelector('#reply')
-            .removeEventListener('click', this.handleReply);
+            .addEventListener('click', this.handleReply);
         this.#parent.
             querySelector('.letter__header__back-button')
-            .removeEventListener('click', this.handleBack);
-        this.#parent.removeEventListener('click', this.handleDropdowns);
+            .addEventListener('click', this.handleBack);
+        this.#parent.addEventListener('click', this.handleDropdowns);
 
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('updateSpam', this.handleDeleteEmailResponse);

@@ -25,6 +25,7 @@ export default class Write__Letter {
     #parent;
     #config;
     #filesNumber;
+    #saveDraft
 
     /**
      * Конструктор класса
@@ -154,6 +155,7 @@ export default class Write__Letter {
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
         dispathcher.do(actionAddDraft(newLetter));
+        this.#saveDraft = true;
     };
 
 
@@ -298,6 +300,7 @@ export default class Write__Letter {
             newLetter.replyToEmailId = this.#config.values.replyId;
         }
         dispathcher.do(actionUpdateDraft(this.#config.values?.id, newLetter));
+        this.#saveDraft = true;
     };
 
 
@@ -797,7 +800,7 @@ export default class Write__Letter {
                 } else {
                     const toInput = document.querySelector('.write-letter__to__input');
                     const to = toInput.value.trim();
-                    if (to.indexOf('@mailhub.su') === -1) {
+                    if (to.indexOf('@mailhub.su') === -1 && !this.#saveDraft) {
                         dispathcher.do(actionSendToForeignDomain(id));
                     } else {
                         dispathcher.do(actionRedirect('/main', true));
@@ -869,7 +872,7 @@ export default class Write__Letter {
                 if (this.#filesNumber === 0) {
                     const toInput = document.querySelector('.write-letter__to__input');
                     const to = toInput.value.trim();
-                    if (to.indexOf('@mailhub.su') === -1) {
+                    if (to.indexOf('@mailhub.su') === -1 && !this.#saveDraft) {
                         dispathcher.do(actionSendToForeignDomain(id));
                     } else {
                         dispathcher.do(actionRedirect('/main', true));
