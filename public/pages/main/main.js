@@ -636,7 +636,7 @@ export default class Main {
         document.querySelector('.list-letters').insertAdjacentHTML('afterbegin', value);
         this.#parent
         .querySelectorAll('.list-letter').forEach((letter) => {
-            letter.remove('click', (e) => this.handleLetter(e, letter.dataset.id));
+            letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
         });
         this.#parent
         .querySelectorAll('.list-letter').forEach((letter) => {
