@@ -752,42 +752,46 @@ export default class Write__Letter {
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#parent.
+        querySelector('.write-letter__to__input')
+        .removeEventListener('click', this.handleToError);
 
-        this.#parent
-            .querySelector('.write-letter__attachments__attach-button')
-            .removeEventListener('click', this.addAttachment);
-        this.#parent
-            .querySelector('.write-letter__attachments__delete-all-button')
-            .removeEventListener('click', this.deleteAllAttachments)
 
-        this.#config.menu.component.addListeners();
-        this.#config.header.component.addListeners();
-        this.#parent
-            .querySelector('.write-letter__buttons__cancel-button')
-            .removeEventListener('click', this.handleBack);
+    this.#parent
+        .querySelector('.write-letter__attachments__attach-button')
+        .removeEventListener('click', this.addAttachmentThrottled);
+    this.#parent
+        .querySelector('.write-letter__attachments__delete-all-button')
+        .removeEventListener('click', this.deleteAllAttachments)
+
+    this.#config.menu.component.removeListeners();
+    this.#config.header.component.removeListeners();
+    this.#parent
+        .querySelector('.write-letter__buttons__cancel-button')
+        .removeEventListener('click', this.handleBack);
+    if (this.#config.values?.changeDraft) {
         this.#parent
             .querySelector('.write-letter__buttons__send-button')
             .removeEventListener('click', this.handleSendUpdate);
         this.#parent
             .querySelector('.write-letter__buttons__save-draft-button')
             .removeEventListener('click', this.handleDraftUpdate);
+    } else {
         this.#parent
             .querySelector('.write-letter__buttons__send-button')
             .removeEventListener('click', this.handleSend);
         this.#parent
             .querySelector('.write-letter__buttons__save-draft-button')
             .removeEventListener('click', this.handleDraft);
+    }
 
-        this.#parent.removeEventListener('click', this.handleDropdowns);
-        mediator.off('send', this.handleSendResponse)
-        mediator.off('addDraft', this.handleSendResponse)
-        mediator.off('attachFile', this.attachFileResponse);
-        mediator.off('deleteAttachment', this.handleDeleteAttachmentResponse);
-        mediator.off('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
-        mediator.off('sendToForeignDomain', this.handleSendToForeignDomain);
-
-
-
+    this.#parent.removeEventListener('click', this.handleDropdowns);
+    mediator.off('send', this.handleSendResponse)
+    mediator.off('addDraft', this.handleSendResponse)
+    mediator.off('attachFile', this.attachFileResponse);
+    mediator.off('deleteAttachment', this.handleDeleteAttachmentResponse);
+    mediator.off('bindAttachmentToLetter', this.handleBindAttachmentToLetterResponse);
+    mediator.off('sendToForeignDomain', this.handleSendToForeignDomain);
     }
 
     handleSendResponse = ({ id, status }) => {

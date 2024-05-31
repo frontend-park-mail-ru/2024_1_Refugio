@@ -230,8 +230,6 @@ export default class Login {
         this.#parent.
             querySelector('.login-box__password-input-wrapper__input')
             .addEventListener('input', this.handleEye);
-
-
         this.#parent.
             querySelector('.login-box__login-button-wrapper__vk-button')
             .addEventListener('click', this.handleVkLogin);
@@ -245,8 +243,6 @@ export default class Login {
             .addEventListener('click', this.renderSignup);
         mediator.on('login', this.handleLoginResponse);
         mediator.on('getAuthUrlLoginVK', this.handleVkLoginResponse)
-
-
     }
 
     /**
@@ -286,8 +282,7 @@ export default class Login {
             .querySelector('.login-box__authorization-method-switch__method_passive')
             .removeEventListener('click', this.renderSignup);
         mediator.off('login', this.handleLoginResponse);
-        mediator.off('getAuthUrlLoginVK', this.handleVkLoginResponse)
-
+        mediator.off('getAuthUrlLoginVK', this.handleVkLoginResponse);
     }
 
     /**

@@ -101,7 +101,6 @@ export default class Sent {
         const value = letters.find(item => String(item.id) === id);
         value.dateOfDispatch = undefined;
         if (window.location.pathname === '/drafts') {
-            console.log(value);
             dispathcher.do(actionRedirectToWriteLetter(true, { id: id, changeDraft: true, topic: value.topic, replySender: value.recipientEmail, sender: value.recipientEmail, date: (new Date(value.dateOfDispatch)).toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }), text: value.text, replyId: value.replyToEmailId }));
         } else {
             if (value.readStatus === false) {
@@ -238,10 +237,6 @@ export default class Sent {
         this.handleHeader();
     }
 
-    /**
-     * Функция всплывания окна меню для мобильной версии
-     */
-
 
     /**
      * Добавляет листенеры на компоненты
@@ -269,7 +264,6 @@ export default class Sent {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
         this.#parent.addEventListener('click', this.handleDropdowns);
-        // mediator.on('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     /**
@@ -277,6 +271,8 @@ export default class Sent {
      */
     removeListeners() {
         this.#config.menu.component.removeListeners();
+        this.#config.header.component.removeListeners();
+
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').removeEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -296,36 +292,9 @@ export default class Sent {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
             });
         this.#parent.removeEventListener('click', this.handleDropdowns);
-        // mediator.off('deleteEmail', this.handleDeleteEmailResponse);
     }
 
     /**
      * Функция обработки ответа на запрос обновления письма
      */
-    handleUpdateEmailResponse = (status) => {
-        const error = this.#parent.querySelector('.letter__error');
-        switch (status) {
-            case 200:
-                break;
-            default:
-                error.textContent = 'Проблема на нашей стороне, уже исправляем';
-                error.classList.add('appear');
-                break;
-        }
-    }
-
-    /**
-     * Функция обработки ответа на запрос удаления письма
-     */
-    // handleDeleteEmailResponse = (status) => {
-    //     const error = this.#parent.querySelector('.letter__error');
-    //     switch (status) {
-    //         case 200:
-    //             break;
-    //         default:
-    //             error.textContent = 'Проблема на нашей стороне, уже исправляем';
-    //             error.classList.add('appear');
-    //             break;
-    //     }
-    // }
 }

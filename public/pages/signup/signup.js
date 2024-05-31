@@ -260,9 +260,7 @@ export default class Signup {
      * Функция рендера страницы авторизации
      */
     renderLogin = async (e) => {
-
         e.preventDefault();
-
         dispathcher.do(actionRedirect('/login', true));
     };
 
@@ -565,24 +563,67 @@ export default class Signup {
      * Удаляет листенеры
      */
     removeListeners() {
-        this.#parent
-            .querySelector('.signup-box__signup-button-wrapper__button')
-            .removeEventListener('click', this.handleSignup);
+        this.#parent.
+        querySelector('.signup-box__first-name-input-wrapper__input')
+        .removeEventListener('click', this.handleFirstNameError);
+    this.#parent.
+        querySelector('.signup-box__last-name-input-wrapper__input')
+        .removeEventListener('click', this.handleLastNameError);
 
-        this.#parent
-            .querySelector('.signup-box__authorization-method-switch__method_passive')
-            .removeEventListener('click', this.renderLogin);
-        this.#parent
-            .querySelector('.cl-switch input')
-            .removeEventListener('change', this.handleCheckbox);
+    this.#parent.
+        querySelector('.signup-box__email-input-wrapper__email-input')
+        .removeEventListener('click', this.handleLoginError);
 
-        this.#parent
-        document.removeEventListener('click', this.handleDropdowns);
-        document
-            .removeEventListener('keydown', this.handleEnterKey);
-        mediator.off('signup', this.handleSignupResponse);
-        mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
-        mediator.off('login', this.handleLoginResponse);
+    this.#parent.
+        querySelector('.signup-box__email-input-wrapper__email-domain-input')
+        .removeEventListener('click', this.handleLoginError);
+
+    this.#parent.
+        querySelector('.signup-box__password-input-wrapper__input')
+        .removeEventListener('click', this.handlePasswordError);
+
+
+    this.#parent.
+        querySelector('.signup-box__password-confirm-input-wrapper__input')
+        .removeEventListener('click', this.handlePasswordConfirmError);
+
+    this.#parent.
+        querySelector('.eye1')
+        .removeEventListener('click', this.switchEye1);
+
+    this.#parent.
+        querySelector('.signup-box__password-input-wrapper__input')
+        .removeEventListener('input', this.handleEye1);
+
+    this.#parent.
+        querySelector('.eye2')
+        .removeEventListener('click', this.switchEye2);
+
+    this.#parent.
+        querySelector('.signup-box__password-confirm-input-wrapper__input')
+        .removeEventListener('input', this.handleEye2);
+
+    this.#parent.
+        querySelector('.signup-box__signup-button-wrapper__vk-button')
+        .removeEventListener('click', this.handleVkSignup);
+    this.#parent
+        .querySelector('.signup-box__signup-button-wrapper__button')
+        .removeEventListener('click', this.handleSignup);
+
+    this.#parent
+        .querySelector('.signup-box__authorization-method-switch__method_passive')
+        .removeEventListener('click', this.renderLogin);
+    this.#parent
+        .querySelector('.cl-switch input')
+        .removeEventListener('change', this.handleCheckbox);
+
+    document.removeEventListener('click', this.handleDropdowns);
+    document
+        .removeEventListener('keydown', this.handleEnterKey);
+    mediator.off('signup', this.handleSignupResponse);
+    mediator.off('getAuthUrlSignUpVK', this.handleVkSignupResponse)
+    mediator.off('login', this.handleLoginResponse);
+
 
     }
 

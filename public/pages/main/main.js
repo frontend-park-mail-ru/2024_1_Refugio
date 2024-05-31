@@ -313,7 +313,6 @@ export default class Main {
      * Функция удаления письма
      */
     handleDelete = (e) => {
-        console.log('delete');
         this.hideError();
         e.preventDefault();
         this.selectedListLetters.forEach(item => {
@@ -481,9 +480,6 @@ export default class Main {
         this.#parent
             .querySelector('#mark-as-unread')
             .addEventListener('click', this.handleMarkAsUnread);
-
-
-
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
@@ -494,7 +490,6 @@ export default class Main {
         mediator.on('updateSpam', this.handleSpamResponse);
         mediator.on('deleteEmail', this.handleDeleteEmailResponse);
         mediator.on('addLetterToFolder', this.handleAddEmailToFolderResponse);
-        mediator.on('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
         mediator.on('deletingFolder', this.handleDeletingFolder);
     }
 
@@ -503,10 +498,12 @@ export default class Main {
      */
     removeListeners() {
         this.#config.menu.component.removeListeners();
+        this.#config.header.component.removeListeners();
 
         this.#parent.querySelectorAll('.main__folder').forEach((folder) => {
             folder.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         })
+
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.querySelector('.list-letter__avatar-wrapper').removeEventListener('click', (e) => this.handleCheckbox(e, letter.dataset.id));
@@ -541,9 +538,6 @@ export default class Main {
         this.#parent
             .querySelector('#mark-as-unread')
             .removeEventListener('click', this.handleMarkAsUnread);
-
-
-
         this.#parent
             .querySelectorAll('.list-letter').forEach((letter) => {
                 letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
@@ -554,7 +548,6 @@ export default class Main {
         mediator.off('updateSpam', this.handleSpamResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
         mediator.off('addLetterToFolder', this.handleAddEmailToFolderResponse);
-        mediator.off('webSocketListLettersUpdate', this.handleWebSocketListLettersUpdate);
         mediator.off('deletingFolder', this.handleDeletingFolder);
     }
 
@@ -636,8 +629,7 @@ export default class Main {
         list_node.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         const parent = list_node.parentNode;
         parent.removeChild(list_node);
-        console.log(list_node);
-        console.log(parent);
+
         if (parent.children.length === 0) {
             parent.textContent = "Папок нет!";
         }

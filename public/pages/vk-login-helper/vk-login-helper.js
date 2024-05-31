@@ -34,8 +34,6 @@ export default class Vk__Login__Helper {
     handleAjax = async () => {
         const searchParams = new URLSearchParams(window.location.search);
         const code = searchParams.get("code");
-        console.log(code);
-        console.log('login helper');
         dispathcher.do(actionVkLogin(code));
     }
 
@@ -71,7 +69,6 @@ export default class Vk__Login__Helper {
     }
 
     handleVkLoginResponse = (data) => {
-        console.log(data);
         switch (data.status) {
             case 200:
                 dispathcher.do(actionRedirect('/main', true));

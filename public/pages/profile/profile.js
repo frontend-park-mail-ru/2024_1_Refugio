@@ -71,7 +71,7 @@ export default class Profile {
         const genderInput = document.querySelector('.cl-switch input')
         const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
         const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
-       
+
         const monthIndex = ['Январь', 'Февраль', "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"].indexOf(birthdayMonth);
 
         const firstName = firstNameInput.value.trim();
@@ -87,7 +87,7 @@ export default class Profile {
         bioInput.value = bio;
         let phoneNumber = phoneNumberInput.value.trim();
         phoneNumberInput.value = phoneNumber;
-       
+
         let oldError = this.#parent
             .querySelector('#first-name-error');
         oldError.classList.remove('show');
@@ -222,7 +222,7 @@ export default class Profile {
             }
         }
 
-        
+
         const dateError = this.#parent
             .querySelector('#buttons-error');
         if (birthday > new Date()) {
@@ -396,7 +396,6 @@ export default class Profile {
         if (this.reader.result !== null) {
             const img1 = this.#parent.querySelector('.profile__avatar-load-wrapper__avatar');
             const img2 = this.#parent.querySelector('.header__avatar');
-            console.log(img1.tagName);
             if (img1.tagName === 'IMG') {
                 img1.src = this.reader.result;
                 img2.src = this.reader.result;
@@ -431,7 +430,7 @@ export default class Profile {
 
         const bioInput = document.querySelector('.profile__bio-input-wrapper__input');
         const phoneNumberInput = document.querySelector('.profile__phone-input-wrapper__input');
-        
+
         firstNameInput.value = '';
         middleNameInput.value = '';
         lastNameInput.value = '';
@@ -445,7 +444,6 @@ export default class Profile {
 
     handleDeleteConfirm = async (e) => {
         e.preventDefault();
-        console.log(this.#config.user.id);
         dispathcher.do(actionDeleteAccount(this.#config.user.id));
     }
 
@@ -533,11 +531,6 @@ export default class Profile {
         this.#parent.
             querySelector('.profile__phone-input-wrapper__input')
             .addEventListener('click', this.handlePhoneError);
-
-
-
-
-
         this.#parent
             .querySelector('.profile__buttons__delete-account-button__dropdown__yes')
             .addEventListener('click', this.handleDeleteConfirm);
@@ -567,15 +560,33 @@ export default class Profile {
         mediator.on('updateUser', this.handleUpdateResponse);
         mediator.on('avatarUpload', this.handleAvatarResponse);
         mediator.on('deleteAccount', this.handleDeleteAccountResponse);
-
-
     }
 
     /**
      * Удаляет листенеры
      */
     removeListeners() {
+        this.#parent.
+            querySelector('.profile__first-name-input-wrapper__input')
+            .removeEventListener('click', this.handleFirstNameError);
+        this.#parent.
+            querySelector('.profile__last-name-input-wrapper__input')
+            .removeEventListener('click', this.handleLastNameError);
+        this.#parent.
+            querySelector('.profile__middle-name-input-wrapper__input')
+            .removeEventListener('click', this.handleMiddleNameError);
+        this.#parent.
+            querySelector('.profile__bio-input-wrapper__input')
+            .removeEventListener('click', this.handleBioError);
+        this.#parent.
+            querySelector('.profile__phone-input-wrapper__input')
+            .removeEventListener('click', this.handlePhoneError);
+        this.#parent
+            .querySelector('.profile__buttons__delete-account-button__dropdown__yes')
+            .removeEventListener('click', this.handleDeleteConfirm);
+
         this.#config.menu.component.removeListeners();
+        this.#config.header.component.removeListeners();
         this.#parent
             .querySelector('.profile__buttons__save-button')
             .removeEventListener('click', this.handleSaveForm);
@@ -599,7 +610,6 @@ export default class Profile {
         mediator.off('updateUser', this.handleUpdateResponse);
         mediator.off('avatarUpload', this.handleAvatarResponse);
         mediator.off('deleteAccount', this.handleDeleteAccountResponse);
-
     }
 
     /**

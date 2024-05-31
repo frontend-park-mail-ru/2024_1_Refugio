@@ -319,6 +319,12 @@ export default class Vk__Signup {
             .querySelector('.vk-signup-box__authorization-method-switch__method_passive')
             .removeEventListener('click', this.renderLogin);
 
+        this.#parent
+            .querySelector('.cl-switch input')
+            .removeEventListener('change', this.handleCheckbox);
+
+        document.removeEventListener('click', this.handleDropdowns);
+
 
         document
             .removeEventListener('keydown', this.handleEnterKey);
