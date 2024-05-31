@@ -29,26 +29,18 @@ export default class Websocket {
         emailStore.incoming_count = Math.max(0, emailStore.incoming_count - 1);
         emailStore.old_incoming_count = emailStore.incoming_count;
 
-
-        console.log(event.data);
-      
-        console.log('message', event.data);
-
-
         const data = JSON.parse(event.data);
         console.log(data);
         dispathcher.do(actionWebSocketListLettersUpdate(new List_letter(null,
             {
                 status: data.readStatus,
-                // avatar: this.#config.avatar,
+                avatar: data.photoId,
                 from: data.senderEmail,
                 to: data.recipientEmail,
-                subject: event.data.topic,
+                subject: data.topic,
                 text: data.text,
-                // date:
-                date: (new Date()).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
+                date: (new Date(data.dateOfDispatch)).toLocaleDateString('ru-RU', { timeZone: 'UTC' }),
                 id: data.id,
-                // userLetter: event.data.senderEmail?.charAt(0),
             }
         ).render()));
 
@@ -74,9 +66,5 @@ export default class Websocket {
         this.#ws.addEventListener('error', this.#onerror);
         this.#ws.addEventListener('close', this.#onclose);
     }
-
-
-
-
 }
 

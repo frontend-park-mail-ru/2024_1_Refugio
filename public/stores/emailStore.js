@@ -87,8 +87,7 @@ class emaillStore {
         const data = await response.json();
         if (status === 200) {
             const responseId = data.body.email.id;
-            newEmail.id = responseId;
-            userStore.websocket.send(JSON.stringify(newEmail));
+            userStore.websocket.send(JSON.stringify(data));
             mediator.emit('send', { id: responseId, status });
         } else {
             mediator.emit('send', { id: 400, status });
