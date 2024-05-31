@@ -97,7 +97,7 @@ class emaillStore {
         if (value.readStatus) {
             this.incoming_count = Math.max(0, this.incoming_count - 1);
         } else {
-            this.incoming_count += 1;
+            // this.incoming_count += 1;
         }
         this.old_incoming_count = this.incoming_count;
 

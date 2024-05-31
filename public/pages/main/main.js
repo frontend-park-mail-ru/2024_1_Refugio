@@ -47,10 +47,10 @@ export default class Main {
             folder_id: this.#config.folderNumber,
         };
         this.#parent.insertAdjacentHTML('beforeend', template(elements));
-        if (emailStore.incoming_count > emailStore.old_incoming_count) {
-            emailStore.old_incoming_count = emailStore.incoming_count;
-            this.notification(emailStore.incoming_count)
-        }
+        // if (emailStore.incoming_count > emailStore.old_incoming_count) {
+        //     emailStore.old_incoming_count = emailStore.incoming_count;
+        //     this.notification(emailStore.incoming_count)
+        // }
 
 
     }
@@ -633,6 +633,18 @@ export default class Main {
 
     handleWebSocketListLettersUpdate = (value) => {
         document.querySelector('.list-letters').insertAdjacentHTML('afterbegin', value);
+        this.#parent
+        .querySelectorAll('.list-letter').forEach((letter) => {
+            letter.removeEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
+        });
+        this.#parent
+        .querySelectorAll('.list-letter').forEach((letter) => {
+            letter.addEventListener('click', (e) => this.handleLetter(e, letter.dataset.id));
+        });
+        if (emailStore.incoming_count > emailStore.old_incoming_count) {
+            emailStore.old_incoming_count = emailStore.incoming_count;
+            this.notification(emailStore.incoming_count)
+        }
     }
 
     handleDeletingFolder = (id) => {
