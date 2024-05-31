@@ -530,16 +530,16 @@ export default class Write__Letter {
 
             const error = this.#parent
                 .querySelector('.write-letter__attachments__error');
-            // if (file.size > 20 * 1024 * 1024) {
-            //     error.textContent = 'Файл превышает максимальный размер 20 МБ';
-            //     error.classList.add('show');
-            //     this.addAttachmentIsRunning = false
-            //     document
-            //         .querySelector('.write-letter__attachments__attach-button')
-            //         .addEventListener('click', this.addAttachmentThrottled);
-            //     this.addAttachmentIsRunning = false
-            //     return;
-            // }
+            if (file.size > 20 * 1024 * 1024) {
+                error.textContent = 'Файл превышает максимальный размер 20 МБ';
+                error.classList.add('show');
+                this.addAttachmentIsRunning = false
+                document
+                    .querySelector('.write-letter__attachments__attach-button')
+                    .addEventListener('click', this.addAttachmentThrottled);
+                this.addAttachmentIsRunning = false
+                return;
+            }
 
 
             document.querySelector('.write-letter__attachments__attach-button').textContent = 'Загрузка файла';
