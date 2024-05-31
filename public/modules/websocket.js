@@ -1,7 +1,5 @@
 import List_letter from '../components/list-letter/list-letter.js';
 import dispathcher from './dispathcher.js';
-import { actionWebSocketListLettersUpdate } from '../actions/userActions.js'
-import emailStore from '../stores/emailStore.js';
 
 export default class Websocket {
     #ws

@@ -2,11 +2,10 @@ import Menu from '../../components/menu/menu.js';
 import Header from '../../components/header/header.js';
 import dispathcher from '../../modules/dispathcher.js';
 import mediator from '../../modules/mediator.js';
-import { actionRedirectToWriteLetter, actionLogout, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
+import { actionRedirectToWriteLetter, actionRedirect, actionUpdateEmail, actionDeleteEmail, actionAddLetterToFolder, actionRedirectToLetter, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './letter.hbs'
 import router from '../../modules/router.js';
 import userStore from '../../stores/userStore.js';
-import List_attachment from '../../components/list-attachment/list-attachment.js';
 import List_attachments from '../../components/list-attachments/list-attachments.js';
 
 
@@ -292,8 +291,8 @@ export default class Letter {
             router.historyNum -= 1;
         }
         document
-                .querySelector('.letter__header__back-button')
-                .removeEventListener('click', this.handleBack);
+            .querySelector('.letter__header__back-button')
+            .removeEventListener('click', this.handleBack);
     }
 
     // handleFolder = (e) => {
@@ -403,9 +402,6 @@ export default class Letter {
         this.#parent.
             querySelector('.letter__header__back-button')
             .addEventListener('click', this.handleBack);
-        // this.#parent.
-        //     querySelector('#to-folder')
-        //     .addEventListener('click', this.handleFolder);
         this.#parent.addEventListener('click', this.handleDropdowns);
         mediator.on('updateEmail', this.handleUpdateEmailResponse);
         mediator.on('updateSpam', this.handleDeleteEmailResponse);
@@ -418,7 +414,19 @@ export default class Letter {
      * Удаляет листенеры
      */
     removeListeners() {
-        this.#config.menu.component.removeListeners();
+        this.#parent
+            .querySelectorAll('.list-attachment').forEach((file) => {
+                file.querySelector('.list-attachment__delete-button').
+                    removeEventListener('click', (e) => this.downloadAttachment(e, file.dataset.id));
+            })
+        this.#parent
+            ?.querySelector('.letter__attachments__download-all-button')
+            ?.removeEventListener('click', this.downloadAllAttachments);
+
+
+        this.#config.menu.component.addListeners();
+        this.#config.header.component.addListeners();
+
         this.#parent.querySelectorAll('.letter__folder-save').forEach((folder) => {
             folder.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         });
@@ -435,11 +443,11 @@ export default class Letter {
             .querySelector('#mark-as-read')
             .removeEventListener('click', this.handleMarkAsRead);
         this.#parent
-            .querySelector('#to-spam')
-            .removeEventListener('click', this.handleSpam);
-        this.#parent
             .querySelector('#mark-as-unread')
             .removeEventListener('click', this.handleMarkAsUnread);
+        this.#parent
+            .querySelector('#to-spam')
+            .removeEventListener('click', this.handleSpam);
         this.#parent
             .querySelector('#resend')
             .removeEventListener('click', this.handleResend);
@@ -449,10 +457,8 @@ export default class Letter {
         this.#parent.
             querySelector('.letter__header__back-button')
             .removeEventListener('click', this.handleBack);
-        // this.#parent.
-        //     querySelector('#to-folder')
-        //     .removeEventListener('click', this.handleFolder);
         this.#parent.removeEventListener('click', this.handleDropdowns);
+
         mediator.off('updateEmail', this.handleUpdateEmailResponse);
         mediator.off('updateSpam', this.handleDeleteEmailResponse);
         mediator.off('deleteEmail', this.handleDeleteEmailResponse);
@@ -507,10 +513,10 @@ export default class Letter {
 
     handleDeletingFolder = (id) => {
         const list_node = this.#parent.querySelector(`#list-folder-${id}`);
-        if (list_node.classList.contains("letter__folder-save")){
+        if (list_node.classList.contains("letter__folder-save")) {
             list_node.removeEventListener('click', (e) => this.handleSaveFolder(e, folder.dataset.id));
         }
-        if (list_node.classList.contains("letter__folder-delete")){
+        if (list_node.classList.contains("letter__folder-delete")) {
             list_node.removeEventListener('click', (e) => this.handleDeleteFolder(e, folder.dataset.id));
         }
         const parent = list_node.parentNode;

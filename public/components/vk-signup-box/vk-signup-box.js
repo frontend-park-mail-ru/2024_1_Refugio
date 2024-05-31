@@ -32,8 +32,6 @@ export default class Vk_Signup_box {
             last_name: this.#config.vkUser.surname,
             birthday_select: new Birthday_Select(null, this.#config).render(),
             gender_select: new Gender_Select(null, this.#config).render(),
-            
-            // 127.0.0.1:8081/auth-vk/auth?code=855ab871bba885204e
 
         };
         return template(elements);

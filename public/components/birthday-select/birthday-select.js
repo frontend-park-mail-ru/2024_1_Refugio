@@ -23,10 +23,6 @@ export default class Birthday_Select {
      * рендерит компонент в DOM
      */
     render() {
-        // console.log(this.#config);
-        // if (this.#config?.user?.birthday === '0001-01-01T00:00:00Z') {
-        //     this.#config.user.birthday = '2000-01-01T00:00:00Z';
-        // }
         let elements;
         if (this.#config?.vkUser) {
             elements = {

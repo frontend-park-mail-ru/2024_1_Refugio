@@ -211,7 +211,6 @@ export default class Login {
      * Добавляет листенеры на компоненты
      */
     addListeners() {
-
         this.#parent.
             querySelector('.login-box__email-input-wrapper__email-input')
             .addEventListener('click', this.handleLoginError);
@@ -255,8 +254,29 @@ export default class Login {
     */
     removeListeners() {
         this.#parent.
+            querySelector('.login-box__email-input-wrapper__email-input')
+            .removeEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.login-box__email-input-wrapper__email-domain-input')
+            .removeEventListener('click', this.handleLoginError);
+
+        this.#parent.
+            querySelector('.login-box__password-input-wrapper__input')
+            .removeEventListener('click', this.handlePasswordError);
+
+        this.#parent.
             querySelector('.eye')
-            .removeEventListener('click', this.handleEye);
+            .removeEventListener('click', this.switchEye);
+
+        this.#parent.
+            querySelector('.login-box__password-input-wrapper__input')
+            .removeEventListener('input', this.handleEye);
+
+
+        this.#parent.
+            querySelector('.login-box__login-button-wrapper__vk-button')
+            .removeEventListener('click', this.handleVkLogin);
         this.#parent
             .querySelector('.login-box__login-button-wrapper__button')
             .removeEventListener('click', this.handleLogin);

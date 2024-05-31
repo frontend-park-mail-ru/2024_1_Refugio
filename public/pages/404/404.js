@@ -1,15 +1,6 @@
 import Header from '../../components/header/header.js';
 import Menu from '../../components/menu/menu.js';
-import List_letters from '../../components/list-letters/list-letters.js';
-import mediator from '../../modules/mediator.js';
-import dispathcher from '../../modules/dispathcher.js';
-import { actionLogout, actionAddLetterToFolder, actionRedirect, actionRedirectToLetter, actionUpdateEmail, actionDeleteEmail, actionDeleteLetterFromFolder } from '../../actions/userActions.js';
 import template from './404.hbs'
-
-import emailStore from '../../stores/emailStore.js';
-import userStore from '../../stores/userStore.js';
-import folderStore from '../../stores/folderStore.js';
-
 
 /**
  * Класс обертки страницы

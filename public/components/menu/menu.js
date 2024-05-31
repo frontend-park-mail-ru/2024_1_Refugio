@@ -172,13 +172,16 @@ export default class Menu {
     removeListeners() {
         this.#config.result.forEach((folder) => {
             folder.removeListeners();
-        })
+        });
         this.#parent
             .querySelector('#sent-folder')
             .removeEventListener('click', this.handleSent);
         this.#parent
             .querySelector('#drafts-folder')
             .removeEventListener('click', this.handleDrafts);
+        this.#parent
+            .querySelector('#spam-folder')
+            .removeEventListener('click', this.handleSpam);
         this.#parent
             .querySelector('.menu__write-letter-button')
             .removeEventListener('click', this.handleWriteLetter);
@@ -206,12 +209,9 @@ export default class Menu {
         switch (status) {
             case 200:
                 const smth = this.#parent.querySelector('.menu__new-folder-button');
-                console.log(this.#config.folders);
-                console.log(folders);
                 this.#config.folders.forEach((oldFolder) => {
                     folders = folders.filter((folder) => Number(folder.id) !== Number(oldFolder.id));
                 });
-                console.log(folders);
                 const newFolder = new Folder(this.#parent, {
                     name: folders[0].name,
                     id: folders[0].id,
